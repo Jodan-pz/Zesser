@@ -1,0 +1,306 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CB615EBF1754DF46004C1BA4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB615EBE1754DF46004C1BA4 /* UIKit.framework */; };
+		CB615EC11754DF46004C1BA4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB615EC01754DF46004C1BA4 /* Foundation.framework */; };
+		CB615EC31754DF46004C1BA4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB615EC21754DF46004C1BA4 /* CoreGraphics.framework */; };
+		CB615EC91754DF46004C1BA4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CB615EC71754DF46004C1BA4 /* InfoPlist.strings */; };
+		CB615ECB1754DF46004C1BA4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CB615ECA1754DF46004C1BA4 /* main.m */; };
+		CB615ECF1754DF46004C1BA4 /* JDNAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CB615ECE1754DF46004C1BA4 /* JDNAppDelegate.m */; };
+		CB615ED11754DF46004C1BA4 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = CB615ED01754DF46004C1BA4 /* Default.png */; };
+		CB615ED31754DF46004C1BA4 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB615ED21754DF46004C1BA4 /* Default@2x.png */; };
+		CB615ED51754DF47004C1BA4 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB615ED41754DF46004C1BA4 /* Default-568h@2x.png */; };
+		CB615ED81754DF47004C1BA4 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB615ED61754DF47004C1BA4 /* MainStoryboard.storyboard */; };
+		CB615EDB1754DF47004C1BA4 /* JDNViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB615EDA1754DF47004C1BA4 /* JDNViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		CB615EBB1754DF46004C1BA4 /* Zesser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zesser.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB615EBE1754DF46004C1BA4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		CB615EC01754DF46004C1BA4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		CB615EC21754DF46004C1BA4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		CB615EC61754DF46004C1BA4 /* Zesser-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Zesser-Info.plist"; sourceTree = "<group>"; };
+		CB615EC81754DF46004C1BA4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CB615ECA1754DF46004C1BA4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		CB615ECC1754DF46004C1BA4 /* Zesser-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Zesser-Prefix.pch"; sourceTree = "<group>"; };
+		CB615ECD1754DF46004C1BA4 /* JDNAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JDNAppDelegate.h; sourceTree = "<group>"; };
+		CB615ECE1754DF46004C1BA4 /* JDNAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JDNAppDelegate.m; sourceTree = "<group>"; };
+		CB615ED01754DF46004C1BA4 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		CB615ED21754DF46004C1BA4 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		CB615ED41754DF46004C1BA4 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		CB615ED71754DF47004C1BA4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		CB615ED91754DF47004C1BA4 /* JDNViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JDNViewController.h; sourceTree = "<group>"; };
+		CB615EDA1754DF47004C1BA4 /* JDNViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JDNViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CB615EB81754DF46004C1BA4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB615EBF1754DF46004C1BA4 /* UIKit.framework in Frameworks */,
+				CB615EC11754DF46004C1BA4 /* Foundation.framework in Frameworks */,
+				CB615EC31754DF46004C1BA4 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CB615EB21754DF46004C1BA4 = {
+			isa = PBXGroup;
+			children = (
+				CB615EC41754DF46004C1BA4 /* Zesser */,
+				CB615EBD1754DF46004C1BA4 /* Frameworks */,
+				CB615EBC1754DF46004C1BA4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CB615EBC1754DF46004C1BA4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CB615EBB1754DF46004C1BA4 /* Zesser.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CB615EBD1754DF46004C1BA4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CB615EBE1754DF46004C1BA4 /* UIKit.framework */,
+				CB615EC01754DF46004C1BA4 /* Foundation.framework */,
+				CB615EC21754DF46004C1BA4 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CB615EC41754DF46004C1BA4 /* Zesser */ = {
+			isa = PBXGroup;
+			children = (
+				CB615ECD1754DF46004C1BA4 /* JDNAppDelegate.h */,
+				CB615ECE1754DF46004C1BA4 /* JDNAppDelegate.m */,
+				CB615ED61754DF47004C1BA4 /* MainStoryboard.storyboard */,
+				CB615ED91754DF47004C1BA4 /* JDNViewController.h */,
+				CB615EDA1754DF47004C1BA4 /* JDNViewController.m */,
+				CB615EC51754DF46004C1BA4 /* Supporting Files */,
+			);
+			path = Zesser;
+			sourceTree = "<group>";
+		};
+		CB615EC51754DF46004C1BA4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CB615EC61754DF46004C1BA4 /* Zesser-Info.plist */,
+				CB615EC71754DF46004C1BA4 /* InfoPlist.strings */,
+				CB615ECA1754DF46004C1BA4 /* main.m */,
+				CB615ECC1754DF46004C1BA4 /* Zesser-Prefix.pch */,
+				CB615ED01754DF46004C1BA4 /* Default.png */,
+				CB615ED21754DF46004C1BA4 /* Default@2x.png */,
+				CB615ED41754DF46004C1BA4 /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CB615EBA1754DF46004C1BA4 /* Zesser */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CB615EDE1754DF47004C1BA4 /* Build configuration list for PBXNativeTarget "Zesser" */;
+			buildPhases = (
+				CB615EB71754DF46004C1BA4 /* Sources */,
+				CB615EB81754DF46004C1BA4 /* Frameworks */,
+				CB615EB91754DF46004C1BA4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Zesser;
+			productName = Zesser;
+			productReference = CB615EBB1754DF46004C1BA4 /* Zesser.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CB615EB31754DF46004C1BA4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = JDN;
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "Daniele Giove";
+			};
+			buildConfigurationList = CB615EB61754DF46004C1BA4 /* Build configuration list for PBXProject "Zesser" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = CB615EB21754DF46004C1BA4;
+			productRefGroup = CB615EBC1754DF46004C1BA4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CB615EBA1754DF46004C1BA4 /* Zesser */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CB615EB91754DF46004C1BA4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB615EC91754DF46004C1BA4 /* InfoPlist.strings in Resources */,
+				CB615ED11754DF46004C1BA4 /* Default.png in Resources */,
+				CB615ED31754DF46004C1BA4 /* Default@2x.png in Resources */,
+				CB615ED51754DF47004C1BA4 /* Default-568h@2x.png in Resources */,
+				CB615ED81754DF47004C1BA4 /* MainStoryboard.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CB615EB71754DF46004C1BA4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB615ECB1754DF46004C1BA4 /* main.m in Sources */,
+				CB615ECF1754DF46004C1BA4 /* JDNAppDelegate.m in Sources */,
+				CB615EDB1754DF47004C1BA4 /* JDNViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		CB615EC71754DF46004C1BA4 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CB615EC81754DF46004C1BA4 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		CB615ED61754DF47004C1BA4 /* MainStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CB615ED71754DF47004C1BA4 /* en */,
+			);
+			name = MainStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CB615EDC1754DF47004C1BA4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		CB615EDD1754DF47004C1BA4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CB615EDF1754DF47004C1BA4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Zesser/Zesser-Prefix.pch";
+				INFOPLIST_FILE = "Zesser/Zesser-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		CB615EE01754DF47004C1BA4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Zesser/Zesser-Prefix.pch";
+				INFOPLIST_FILE = "Zesser/Zesser-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CB615EB61754DF46004C1BA4 /* Build configuration list for PBXProject "Zesser" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CB615EDC1754DF47004C1BA4 /* Debug */,
+				CB615EDD1754DF47004C1BA4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CB615EDE1754DF47004C1BA4 /* Build configuration list for PBXNativeTarget "Zesser" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CB615EDF1754DF47004C1BA4 /* Debug */,
+				CB615EE01754DF47004C1BA4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CB615EB31754DF46004C1BA4 /* Project object */;
+}
