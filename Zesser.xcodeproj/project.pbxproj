@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CB12347D175F79EA006F890E /* JDNAMMeteoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB12347C175F79EA006F890E /* JDNAMMeteoTableViewController.m */; };
+		CB123481175F7DB3006F890E /* JDNFetchWeather.m in Sources */ = {isa = PBXBuildFile; fileRef = CB123480175F7DB3006F890E /* JDNFetchWeather.m */; };
+		CB123484175F7DEF006F890E /* JDNDailyData.m in Sources */ = {isa = PBXBuildFile; fileRef = CB123483175F7DEF006F890E /* JDNDailyData.m */; };
 		CB615EBF1754DF46004C1BA4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB615EBE1754DF46004C1BA4 /* UIKit.framework */; };
 		CB615EC11754DF46004C1BA4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB615EC01754DF46004C1BA4 /* Foundation.framework */; };
 		CB615EC31754DF46004C1BA4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB615EC21754DF46004C1BA4 /* CoreGraphics.framework */; };
@@ -17,10 +20,15 @@
 		CB615ED31754DF46004C1BA4 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB615ED21754DF46004C1BA4 /* Default@2x.png */; };
 		CB615ED51754DF47004C1BA4 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB615ED41754DF46004C1BA4 /* Default-568h@2x.png */; };
 		CB615ED81754DF47004C1BA4 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB615ED61754DF47004C1BA4 /* MainStoryboard.storyboard */; };
-		CB615EDB1754DF47004C1BA4 /* JDNViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB615EDA1754DF47004C1BA4 /* JDNViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CB12347B175F79EA006F890E /* JDNAMMeteoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNAMMeteoTableViewController.h; sourceTree = "<group>"; };
+		CB12347C175F79EA006F890E /* JDNAMMeteoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNAMMeteoTableViewController.m; sourceTree = "<group>"; };
+		CB12347F175F7DB3006F890E /* JDNFetchWeather.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNFetchWeather.h; sourceTree = "<group>"; };
+		CB123480175F7DB3006F890E /* JDNFetchWeather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNFetchWeather.m; sourceTree = "<group>"; };
+		CB123482175F7DEF006F890E /* JDNDailyData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNDailyData.h; sourceTree = "<group>"; };
+		CB123483175F7DEF006F890E /* JDNDailyData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNDailyData.m; sourceTree = "<group>"; };
 		CB615EBB1754DF46004C1BA4 /* Zesser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zesser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB615EBE1754DF46004C1BA4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CB615EC01754DF46004C1BA4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -35,8 +43,6 @@
 		CB615ED21754DF46004C1BA4 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		CB615ED41754DF46004C1BA4 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		CB615ED71754DF47004C1BA4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		CB615ED91754DF47004C1BA4 /* JDNViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JDNViewController.h; sourceTree = "<group>"; };
-		CB615EDA1754DF47004C1BA4 /* JDNViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JDNViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +59,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CB12347E175F7B84006F890E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				CB12347B175F79EA006F890E /* JDNAMMeteoTableViewController.h */,
+				CB12347C175F79EA006F890E /* JDNAMMeteoTableViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
 		CB615EB21754DF46004C1BA4 = {
 			isa = PBXGroup;
 			children = (
@@ -83,12 +98,15 @@
 		CB615EC41754DF46004C1BA4 /* Zesser */ = {
 			isa = PBXGroup;
 			children = (
+				CB12347E175F7B84006F890E /* Controllers */,
 				CB615ECD1754DF46004C1BA4 /* JDNAppDelegate.h */,
 				CB615ECE1754DF46004C1BA4 /* JDNAppDelegate.m */,
 				CB615ED61754DF47004C1BA4 /* MainStoryboard.storyboard */,
-				CB615ED91754DF47004C1BA4 /* JDNViewController.h */,
-				CB615EDA1754DF47004C1BA4 /* JDNViewController.m */,
 				CB615EC51754DF46004C1BA4 /* Supporting Files */,
+				CB12347F175F7DB3006F890E /* JDNFetchWeather.h */,
+				CB123480175F7DB3006F890E /* JDNFetchWeather.m */,
+				CB123482175F7DEF006F890E /* JDNDailyData.h */,
+				CB123483175F7DEF006F890E /* JDNDailyData.m */,
 			);
 			path = Zesser;
 			sourceTree = "<group>";
@@ -176,7 +194,9 @@
 			files = (
 				CB615ECB1754DF46004C1BA4 /* main.m in Sources */,
 				CB615ECF1754DF46004C1BA4 /* JDNAppDelegate.m in Sources */,
-				CB615EDB1754DF47004C1BA4 /* JDNViewController.m in Sources */,
+				CB12347D175F79EA006F890E /* JDNAMMeteoTableViewController.m in Sources */,
+				CB123481175F7DB3006F890E /* JDNFetchWeather.m in Sources */,
+				CB123484175F7DEF006F890E /* JDNDailyData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +319,7 @@
 				CB615EE01754DF47004C1BA4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
