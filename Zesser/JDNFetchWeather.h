@@ -11,6 +11,6 @@
 
 @interface JDNFetchWeather : NSObject
 
--(JDNDailyData*) fetchDailyDataForCity: (NSString*)cityName;
+-(void)fetchDailyDataForCity:(NSString *)cityName withCompletion:(GetDataCallBack)callback;
 
 @end

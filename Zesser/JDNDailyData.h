@@ -10,4 +10,8 @@
 
 @interface JDNDailyData : NSObject
 
+@property (strong,nonatomic) NSString *name;
+@property (strong,nonatomic) NSString *temperature;
+@property (strong,nonatomic) NSString *humanDescription;
+
 @end

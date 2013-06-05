@@ -7,24 +7,32 @@
 //
 
 #import "JDNAMMeteoTableViewController.h"
+#import "JDNFetchWeather.h"
+#import "JDNDailyData.h"
 
 @interface JDNAMMeteoTableViewController ()
 
+@property (strong,nonatomic) NSArray *data;
+@property (strong,nonatomic) JDNFetchWeather *weatherFetcher;
 @end
 
 @implementation JDNAMMeteoTableViewController
 
-
-
 -(void)refreshData{
-    [self.tableView reloadData];
-    [self.refreshControl endRefreshing];
+
+    [self.weatherFetcher fetchDailyDataForCity:@"87/MILANO" withCompletion:^(NSArray *data) {
+        self.data = data;
+        [self.tableView reloadData];
+        [self.refreshControl endRefreshing];
+    }];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
+    self.weatherFetcher = [JDNFetchWeather new];
+    
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
@@ -33,6 +41,7 @@
     refreshControl.tintColor = [UIColor lightGrayColor];
     [refreshControl addTarget:self action:@selector(refreshData) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
+    [self refreshData];
 }
 
 #pragma mark - Table view data source
@@ -44,7 +53,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return self.data.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -55,7 +64,8 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
     }
     // Configure the cell...
-    cell.textLabel.text = [NSString stringWithFormat:@"Row Num: %ld" , (long)indexPath.row];
+    JDNDailyData *dailyData = self.data[indexPath.row];
+    cell.textLabel.text =  [NSString stringWithFormat:@"Day: %@" , dailyData.name];
     return cell;
 }
 

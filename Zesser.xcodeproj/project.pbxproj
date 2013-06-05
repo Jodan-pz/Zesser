@@ -20,6 +20,8 @@
 		CB615ED31754DF46004C1BA4 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB615ED21754DF46004C1BA4 /* Default@2x.png */; };
 		CB615ED51754DF47004C1BA4 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB615ED41754DF46004C1BA4 /* Default-568h@2x.png */; };
 		CB615ED81754DF47004C1BA4 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB615ED61754DF47004C1BA4 /* MainStoryboard.storyboard */; };
+		CB9BCC67175F8CE400996188 /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC66175F8CE400996188 /* XPathQuery.m */; };
+		CB9BCC69175F8CF900996188 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CB9BCC68175F8CF900996188 /* libxml2.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +45,10 @@
 		CB615ED21754DF46004C1BA4 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		CB615ED41754DF46004C1BA4 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		CB615ED71754DF47004C1BA4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		CB9BCC5B175F850400996188 /* JDNCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNCommon.h; sourceTree = "<group>"; };
+		CB9BCC65175F8CE400996188 /* XPathQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPathQuery.h; sourceTree = "<group>"; };
+		CB9BCC66175F8CE400996188 /* XPathQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPathQuery.m; sourceTree = "<group>"; };
+		CB9BCC68175F8CF900996188 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB9BCC69175F8CF900996188 /* libxml2.dylib in Frameworks */,
 				CB615EBF1754DF46004C1BA4 /* UIKit.framework in Frameworks */,
 				CB615EC11754DF46004C1BA4 /* Foundation.framework in Frameworks */,
 				CB615EC31754DF46004C1BA4 /* CoreGraphics.framework in Frameworks */,
@@ -68,9 +75,21 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
+		CB123485175F7E50006F890E /* Weather */ = {
+			isa = PBXGroup;
+			children = (
+				CB12347F175F7DB3006F890E /* JDNFetchWeather.h */,
+				CB123480175F7DB3006F890E /* JDNFetchWeather.m */,
+				CB123482175F7DEF006F890E /* JDNDailyData.h */,
+				CB123483175F7DEF006F890E /* JDNDailyData.m */,
+			);
+			name = Weather;
+			sourceTree = "<group>";
+		};
 		CB615EB21754DF46004C1BA4 = {
 			isa = PBXGroup;
 			children = (
+				CB9BCC68175F8CF900996188 /* libxml2.dylib */,
 				CB615EC41754DF46004C1BA4 /* Zesser */,
 				CB615EBD1754DF46004C1BA4 /* Frameworks */,
 				CB615EBC1754DF46004C1BA4 /* Products */,
@@ -98,15 +117,15 @@
 		CB615EC41754DF46004C1BA4 /* Zesser */ = {
 			isa = PBXGroup;
 			children = (
+				CB9BCC65175F8CE400996188 /* XPathQuery.h */,
+				CB9BCC66175F8CE400996188 /* XPathQuery.m */,
+				CB9BCC5B175F850400996188 /* JDNCommon.h */,
+				CB123485175F7E50006F890E /* Weather */,
 				CB12347E175F7B84006F890E /* Controllers */,
 				CB615ECD1754DF46004C1BA4 /* JDNAppDelegate.h */,
 				CB615ECE1754DF46004C1BA4 /* JDNAppDelegate.m */,
 				CB615ED61754DF47004C1BA4 /* MainStoryboard.storyboard */,
 				CB615EC51754DF46004C1BA4 /* Supporting Files */,
-				CB12347F175F7DB3006F890E /* JDNFetchWeather.h */,
-				CB123480175F7DB3006F890E /* JDNFetchWeather.m */,
-				CB123482175F7DEF006F890E /* JDNDailyData.h */,
-				CB123483175F7DEF006F890E /* JDNDailyData.m */,
 			);
 			path = Zesser;
 			sourceTree = "<group>";
@@ -197,6 +216,7 @@
 				CB12347D175F79EA006F890E /* JDNAMMeteoTableViewController.m in Sources */,
 				CB123481175F7DB3006F890E /* JDNFetchWeather.m in Sources */,
 				CB123484175F7DEF006F890E /* JDNDailyData.m in Sources */,
+				CB9BCC67175F8CE400996188 /* XPathQuery.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,6 +303,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Zesser/Zesser-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "Zesser/Zesser-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -294,6 +315,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Zesser/Zesser-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "Zesser/Zesser-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
