@@ -16,14 +16,14 @@
     if (!dailyData) return;
     
     self.hourOfDay.text = dailyData.hourOfDay;
-    [self configureTemperatureLayoutForView:self.temperature
+    [self configureTemperatureLayoutForLabel:self.temperature
                                     byValue:dailyData.temperature.integerValue];
     
-    self.temperature.text = dailyData.temperature;
+    self.temperature.text = [NSString stringWithFormat:@"%@°", dailyData.temperature];
 
-    [self configureTemperatureLayoutForView:self.apparentTemperature
+    [self configureTemperatureLayoutForLabel:self.apparentTemperature
                                     byValue:dailyData.apparentTemperature.integerValue];
-    self.apparentTemperature.text = dailyData.apparentTemperature;
+    self.apparentTemperature.text = [NSString stringWithFormat:@"(%@°)", dailyData.apparentTemperature];
     
     [[JDNSharedImages sharedImages] setImageView:self.windImage withUrl:[NSURL URLWithString:dailyData.windImage]];
     [[JDNSharedImages sharedImages] setImageView:self.forecastImage withUrl:[NSURL URLWithString:dailyData.forecastImage]];
@@ -31,15 +31,15 @@
     self.wind.text = dailyData.wind;
 }
 
--(void)configureTemperatureLayoutForView:(UIView*)aView byValue:(NSInteger)value{
+-(void)configureTemperatureLayoutForLabel:(UILabel*)aView byValue:(NSInteger)value{
     if ( value > 32 ){
-        aView.backgroundColor = [UIColor redColor];
+        aView.textColor = [UIColor orangeColor];
     }else if( value > 22 ){
-        aView.backgroundColor = [UIColor yellowColor];
+        aView.textColor = [UIColor yellowColor];
     }else if ( value <= 0){
-        aView.backgroundColor = [UIColor cyanColor];
+        aView.textColor = [UIColor cyanColor];
     }else{
-        aView.backgroundColor = [UIColor whiteColor];
+        aView.textColor = [UIColor whiteColor];
     }
 }
 
