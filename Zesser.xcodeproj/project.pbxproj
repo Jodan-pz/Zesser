@@ -29,6 +29,8 @@
 		CB9BCC7A1760971200996188 /* safe_image.php.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9BCC791760971200996188 /* safe_image.php.png */; };
 		CB9BCC7D17609FDE00996188 /* JDNWeatherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC7C17609FDE00996188 /* JDNWeatherCell.m */; };
 		CB9BCC801760B39900996188 /* JDNSharedImages.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC7F1760B39900996188 /* JDNSharedImages.m */; };
+		CB9BCC851760CCAD00996188 /* NSArray+LinqExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC821760CCAD00996188 /* NSArray+LinqExtensions.m */; };
+		CB9BCC861760CCAD00996188 /* NSDictionary+LinqExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC841760CCAD00996188 /* NSDictionary+LinqExtensions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +70,10 @@
 		CB9BCC7C17609FDE00996188 /* JDNWeatherCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNWeatherCell.m; sourceTree = "<group>"; };
 		CB9BCC7E1760B39900996188 /* JDNSharedImages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNSharedImages.h; sourceTree = "<group>"; };
 		CB9BCC7F1760B39900996188 /* JDNSharedImages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNSharedImages.m; sourceTree = "<group>"; };
+		CB9BCC811760CCAD00996188 /* NSArray+LinqExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+LinqExtensions.h"; sourceTree = "<group>"; };
+		CB9BCC821760CCAD00996188 /* NSArray+LinqExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+LinqExtensions.m"; sourceTree = "<group>"; };
+		CB9BCC831760CCAD00996188 /* NSDictionary+LinqExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+LinqExtensions.h"; sourceTree = "<group>"; };
+		CB9BCC841760CCAD00996188 /* NSDictionary+LinqExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+LinqExtensions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +120,7 @@
 				CB9BCC791760971200996188 /* safe_image.php.png */,
 				CB9BCC771760964400996188 /* today-s-apps-gone-free-instuner-great-little-war-game-smartscan-express-and-more_7.png */,
 				CB9BCC68175F8CF900996188 /* libxml2.dylib */,
+				CB9BCC871760CCB300996188 /* LinqExtensions */,
 				CB615EC41754DF46004C1BA4 /* Zesser */,
 				CB615EBD1754DF46004C1BA4 /* Frameworks */,
 				CB615EBC1754DF46004C1BA4 /* Products */,
@@ -181,6 +188,17 @@
 				CB9BCC7517608DFE00996188 /* JDNCitiesTableViewController.m */,
 			);
 			name = City;
+			sourceTree = "<group>";
+		};
+		CB9BCC871760CCB300996188 /* LinqExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				CB9BCC811760CCAD00996188 /* NSArray+LinqExtensions.h */,
+				CB9BCC821760CCAD00996188 /* NSArray+LinqExtensions.m */,
+				CB9BCC831760CCAD00996188 /* NSDictionary+LinqExtensions.h */,
+				CB9BCC841760CCAD00996188 /* NSDictionary+LinqExtensions.m */,
+			);
+			name = LinqExtensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,6 +281,8 @@
 				CB9BCC7617608DFE00996188 /* JDNCitiesTableViewController.m in Sources */,
 				CB9BCC7D17609FDE00996188 /* JDNWeatherCell.m in Sources */,
 				CB9BCC801760B39900996188 /* JDNSharedImages.m in Sources */,
+				CB9BCC851760CCAD00996188 /* NSArray+LinqExtensions.m in Sources */,
+				CB9BCC861760CCAD00996188 /* NSDictionary+LinqExtensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,63 +11,86 @@
 #import "JDNDailyData.h"
 #import "JDNCity.h"
 #import "JDNWeatherCell.h"
+#import "NSArray+LinqExtensions.h"
 
 @interface JDNWeatherTableViewController ()
 
-@property (strong,nonatomic) NSArray *data;
-@property (strong,nonatomic) JDNWeatherFetcher *weatherFetcher;
+@property (strong,nonatomic) NSDictionary       *data;
+@property (strong,nonatomic) NSMutableArray     *sections;
+@property (strong,nonatomic) JDNWeatherFetcher  *weatherFetcher;
 @end
 
 @implementation JDNWeatherTableViewController
 
--(void)refreshData{
-    if ( self.city){
+-(void)refreshData:(UIRefreshControl *)refresh {
+    refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Aggiornamento dati..."];
+
+    self.data = nil;
+    [self.tableView reloadData];
+    
+    if ( self.city ){
         self.title = self.city.name;
         [self.weatherFetcher fetchDailyDataForCity:self.city.url withCompletion:^(NSArray *data) {
-            self.data = data;
+            self.data = [data groupBy:^id(JDNDailyData *item) {
+                return item.day;
+            }];
+            
+            self.sections = [NSMutableArray array];
+            for (NSString *section in self.data) {
+                [self.sections addObject:section];
+            }
+            
             [self.tableView reloadData];
-            [self.refreshControl endRefreshing];
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"d MMMM yyyy, HH:mm:ss"];
+            NSString *lastUpdated = [NSString stringWithFormat:@"Aggiornato al %@",
+                                     [formatter stringFromDate:[NSDate date]]];
+            refresh.attributedTitle = [[NSAttributedString alloc] initWithString:lastUpdated];
+            [refresh endRefreshing];
         }];
+    }else{
+        [refresh endRefreshing];
     }
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad{
     [super viewDidLoad];
-
-    self.weatherFetcher = [JDNWeatherFetcher new];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.weatherFetcher = [[JDNWeatherFetcher alloc] init];
     
-    UIRefreshControl *refreshControl = [[UIRefreshControl alloc]
-                                        init];
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Trascina per aggiornare"];
     refreshControl.tintColor = [UIColor lightGrayColor];
-    [refreshControl addTarget:self action:@selector(refreshData) forControlEvents:UIControlEventValueChanged];
+    [refreshControl addTarget:self action:@selector(refreshData:) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
-    [self refreshData];
+    
+    [self.refreshControl beginRefreshing];
+    [self refreshData:refreshControl];
 }
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return self.sections.count;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return self.data.count;
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    return self.sections[section];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    NSArray *data = [self.data valueForKey: self.sections[section]];
+    return data.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *CellIdentifier = @"Cell";
     JDNWeatherCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     if ( cell == nil){
         cell = [[JDNWeatherCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
     }
-    JDNDailyData *dailyData = self.data[indexPath.row];
+    JDNDailyData *dailyData = [self.data valueForKey: self.sections[indexPath.section]][indexPath.row];
     [cell setupCellWithDailyData:dailyData];
     return cell;
 }

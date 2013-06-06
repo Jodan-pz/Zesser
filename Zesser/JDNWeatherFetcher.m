@@ -25,7 +25,7 @@
 
 -(void)fetchDailyDataForCity:(NSString *)cityName withCompletion:(GetDataCallBack)callback{
     self.callback = callback;
-    self.receivedData = [NSMutableData new];
+    self.receivedData = [[NSMutableData alloc] init];
     self.receivedString = @"";
         
     NSURLRequest *request = [[NSURLRequest alloc]

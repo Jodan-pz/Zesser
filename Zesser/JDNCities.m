@@ -43,17 +43,15 @@ static JDNCities *sharedCities_;
    
     if ( !self.cities){
         self.cities = [NSMutableArray array];
-
-        JDNCity *city = [JDNCity new];
+        JDNCity *city = [[JDNCity alloc] init];
         city.name = @"Casa";
         city.url =@"3841/POZZO%20D'ADDA";
         [((NSMutableArray*)self.cities) addObject:city];
 
-        JDNCity *city2 = [JDNCity new];
+        JDNCity *city2 = [[JDNCity alloc] init];
         city2.name = @"Muggia";
         city2.url = @"8250/MUGGIA";
         [((NSMutableArray*)self.cities) addObject:city2];
-        
     }
     
     [self write];
