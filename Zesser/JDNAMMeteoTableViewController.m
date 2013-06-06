@@ -20,7 +20,10 @@
 
 -(void)refreshData{
 
-    [self.weatherFetcher fetchDailyDataForCity:@"87/MILANO" withCompletion:^(NSArray *data) {
+    // pozzo : @"3841/POZZO%20D'ADDA"
+    // milano :@"87/MILANO"
+    
+    [self.weatherFetcher fetchDailyDataForCity:@"3841/POZZO%20D'ADDA" withCompletion:^(NSArray *data) {
         self.data = data;
         [self.tableView reloadData];
         [self.refreshControl endRefreshing];
@@ -65,7 +68,8 @@
     }
     // Configure the cell...
     JDNDailyData *dailyData = self.data[indexPath.row];
-    cell.textLabel.text =  [NSString stringWithFormat:@"Day: %@" , dailyData.name];
+    cell.textLabel.text =  dailyData.shortDescription;
+    NSLog(@"%@", dailyData);
     return cell;
 }
 

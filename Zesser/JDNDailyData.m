@@ -10,7 +10,22 @@
 
 @implementation JDNDailyData
 
+-(NSString *)description
+{
+    return [NSString stringWithFormat:@"Day: %@ at %@ - Temp: %@  - App. Temp: %@ - Forecast: %@ - Wind: %@",
+            self.day,
+            self.hourOfDay,
+            self.temperature,
+            self.apparentTemperature,
+            self.forecast,
+            self.wind];
+}
 
-
+-(NSString *)shortDescription{
+    return [NSString stringWithFormat:@"Day: %@ at %@ - Temp: %@ ",
+            self.day,
+            self.hourOfDay,
+            self.temperature];
+}
 
 @end
