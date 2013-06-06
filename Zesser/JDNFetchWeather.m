@@ -20,15 +20,16 @@
 
 @implementation JDNFetchWeather
 
+#define BASE_URL          @"http://www.meteoam.it/"
+#define DATA_URL BASE_URL @"?q=ta/previsione/%@"
+
 -(void)fetchDailyDataForCity:(NSString *)cityName withCompletion:(GetDataCallBack)callback{
     self.callback = callback;
     self.receivedData = [NSMutableData new];
     self.receivedString = @"";
-    
-    NSString *baseUrl = @"http://www.meteoam.it/?q=ta/previsione/%@";
-    
+        
     NSURLRequest *request = [[NSURLRequest alloc]
- 							 initWithURL: [NSURL URLWithString: [NSString stringWithFormat:baseUrl, cityName]]
+ 							 initWithURL: [NSURL URLWithString: [NSString stringWithFormat:DATA_URL, cityName]]
  							 cachePolicy: NSURLRequestReloadIgnoringLocalCacheData
  							 timeoutInterval: 10
  							 ];
@@ -97,9 +98,9 @@
         data.day = daysAndHours[i];
         data.hourOfDay = daysAndHours[i+1];
         data.forecast = forecastAndWind[i][1];
-        data.forecastImage = forecastAndWind[i][0];
+        data.forecastImage = [BASE_URL stringByAppendingString:forecastAndWind[i][0]];
         data.wind = forecastAndWind[i+1][1];
-        data.windImage = forecastAndWind[i+1][0];
+        data.windImage = [BASE_URL stringByAppendingString: forecastAndWind[i+1][0]];
         [datas addObject:data];
     }
     
