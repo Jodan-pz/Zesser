@@ -25,6 +25,8 @@
 		CB9BCC6F17608B1800996188 /* JDNCities.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC6E17608B1700996188 /* JDNCities.m */; };
 		CB9BCC7217608B4400996188 /* JDNCity.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC7117608B4400996188 /* JDNCity.m */; };
 		CB9BCC7617608DFE00996188 /* JDNCitiesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC7517608DFE00996188 /* JDNCitiesTableViewController.m */; };
+		CB9BCC781760964400996188 /* today-s-apps-gone-free-instuner-great-little-war-game-smartscan-express-and-more_7.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9BCC771760964400996188 /* today-s-apps-gone-free-instuner-great-little-war-game-smartscan-express-and-more_7.png */; };
+		CB9BCC7A1760971200996188 /* safe_image.php.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9BCC791760971200996188 /* safe_image.php.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +60,8 @@
 		CB9BCC7117608B4400996188 /* JDNCity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNCity.m; sourceTree = "<group>"; };
 		CB9BCC7417608DFE00996188 /* JDNCitiesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNCitiesTableViewController.h; sourceTree = "<group>"; };
 		CB9BCC7517608DFE00996188 /* JDNCitiesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNCitiesTableViewController.m; sourceTree = "<group>"; };
+		CB9BCC771760964400996188 /* today-s-apps-gone-free-instuner-great-little-war-game-smartscan-express-and-more_7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "today-s-apps-gone-free-instuner-great-little-war-game-smartscan-express-and-more_7.png"; sourceTree = "<group>"; };
+		CB9BCC791760971200996188 /* safe_image.php.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = safe_image.php.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +103,8 @@
 		CB615EB21754DF46004C1BA4 = {
 			isa = PBXGroup;
 			children = (
+				CB9BCC791760971200996188 /* safe_image.php.png */,
+				CB9BCC771760964400996188 /* today-s-apps-gone-free-instuner-great-little-war-game-smartscan-express-and-more_7.png */,
 				CB9BCC68175F8CF900996188 /* libxml2.dylib */,
 				CB615EC41754DF46004C1BA4 /* Zesser */,
 				CB615EBD1754DF46004C1BA4 /* Frameworks */,
@@ -224,6 +230,8 @@
 				CB615ED31754DF46004C1BA4 /* Default@2x.png in Resources */,
 				CB615ED51754DF47004C1BA4 /* Default-568h@2x.png in Resources */,
 				CB615ED81754DF47004C1BA4 /* MainStoryboard.storyboard in Resources */,
+				CB9BCC781760964400996188 /* today-s-apps-gone-free-instuner-great-little-war-game-smartscan-express-and-more_7.png in Resources */,
+				CB9BCC7A1760971200996188 /* safe_image.php.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

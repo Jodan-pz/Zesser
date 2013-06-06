@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface JDNCity : NSObject
+@interface JDNCity : NSObject<NSCoding>
 
 @property (strong,nonatomic) NSString *name;
 @property (strong,nonatomic) NSString *url;

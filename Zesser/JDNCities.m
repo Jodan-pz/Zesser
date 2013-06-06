@@ -38,7 +38,9 @@ static JDNCities *sharedCities_;
 -(void)load{
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    self.cities = [NSMutableArray arrayWithContentsOfFile:[documentsDirectory stringByAppendingPathComponent:@"cities.plist"]];
+    
+    self.cities = [NSKeyedUnarchiver unarchiveObjectWithFile:[documentsDirectory stringByAppendingPathComponent:@"cities.plist"]];
+   
     if ( !self.cities){
         self.cities = [NSMutableArray array];
         JDNCity *city = [JDNCity new];
@@ -56,7 +58,14 @@ static JDNCities *sharedCities_;
 -(void)write{
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    [self.cities writeToFile:[documentsDirectory stringByAppendingPathComponent:@"cities.plist"] atomically:YES];
+    
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.cities];
+    NSError *err;
+    [data writeToFile:[documentsDirectory stringByAppendingPathComponent:@"cities.plist"]
+              options:NSDataWritingFileProtectionComplete error:&err];
+    if ( err ){
+        NSLog(@"Error saving cities: %@", err.debugDescription);
+    }
 }
 
 @end
