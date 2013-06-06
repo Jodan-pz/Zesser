@@ -15,7 +15,7 @@
 
 @implementation JDNSharedImages
 
-static JDNSharedImages *sharedImages_;
+static JDNSharedImages *sharedImages_;   
 
 + (void)initialize{
     sharedImages_ = [[self alloc] initSingleton];
@@ -26,16 +26,17 @@ static JDNSharedImages *sharedImages_;
 }
 
 - (JDNSharedImages*)initSingleton{
-    {
-        self = [super init];
-        return self;
+    self = [super init];
+    if ( self ){
+        self.images = [NSMutableDictionary dictionary];
     }
+    return self;
 }
 
 -(void)setImageView:(UIImageView *)aView withUrl:(NSURL *)url{
     UIImage *cachedImage = [self.images valueForKey:url.description];
     if (!cachedImage){
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0), ^{
+        dispatch_async( dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT , 0 ) , ^ {
             NSData * data = [[NSData alloc] initWithContentsOfURL: url];
             if ( data == nil )
                 return;
@@ -46,7 +47,7 @@ static JDNSharedImages *sharedImages_;
             });
         });
     }else{
-        if ( aView.image != cachedImage){
+        if ( aView.image != cachedImage ){
             [self updateImageForView:aView andImage:cachedImage];
         }
     }
