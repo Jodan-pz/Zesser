@@ -10,7 +10,7 @@
 
 @class JDNCity;
 
-@interface JDNAMMeteoTableViewController : UITableViewController
+@interface JDNWeatherTableViewController : UITableViewController
 
 @property (strong,nonatomic) JDNCity *city;
 

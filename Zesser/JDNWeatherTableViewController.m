@@ -6,18 +6,19 @@
 //  Copyright (c) 2013 Daniele Giove. All rights reserved.
 //
 
-#import "JDNAMMeteoTableViewController.h"
-#import "JDNFetchWeather.h"
+#import "JDNWeatherTableViewController.h"
+#import "JDNWeatherFetcher.h"
 #import "JDNDailyData.h"
 #import "JDNCity.h"
+#import "JDNWeatherCell.h"
 
-@interface JDNAMMeteoTableViewController ()
+@interface JDNWeatherTableViewController ()
 
 @property (strong,nonatomic) NSArray *data;
-@property (strong,nonatomic) JDNFetchWeather *weatherFetcher;
+@property (strong,nonatomic) JDNWeatherFetcher *weatherFetcher;
 @end
 
-@implementation JDNAMMeteoTableViewController
+@implementation JDNWeatherTableViewController
 
 -(void)refreshData{
     if ( self.city){
@@ -34,7 +35,7 @@
 {
     [super viewDidLoad];
 
-    self.weatherFetcher = [JDNFetchWeather new];
+    self.weatherFetcher = [JDNWeatherFetcher new];
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -62,14 +63,17 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    JDNWeatherCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     if ( cell == nil){
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
+        cell = [[JDNWeatherCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
     }
     // Configure the cell...
     JDNDailyData *dailyData = self.data[indexPath.row];
     cell.textLabel.text =  dailyData.shortDescription;
-    NSLog(@"%@", dailyData);
+    NSData* imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:dailyData.forecastImage]];
+    UIImage *img = [UIImage imageWithData:imageData];
+    cell.accessoryView = [[UIImageView alloc ] initWithImage:img];
+
     return cell;
 }
 

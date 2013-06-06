@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CB12347D175F79EA006F890E /* JDNAMMeteoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB12347C175F79EA006F890E /* JDNAMMeteoTableViewController.m */; };
-		CB123481175F7DB3006F890E /* JDNFetchWeather.m in Sources */ = {isa = PBXBuildFile; fileRef = CB123480175F7DB3006F890E /* JDNFetchWeather.m */; };
+		CB12347D175F79EA006F890E /* JDNWeatherTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB12347C175F79EA006F890E /* JDNWeatherTableViewController.m */; };
+		CB123481175F7DB3006F890E /* JDNWeatherFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = CB123480175F7DB3006F890E /* JDNWeatherFetcher.m */; };
 		CB123484175F7DEF006F890E /* JDNDailyData.m in Sources */ = {isa = PBXBuildFile; fileRef = CB123483175F7DEF006F890E /* JDNDailyData.m */; };
 		CB615EBF1754DF46004C1BA4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB615EBE1754DF46004C1BA4 /* UIKit.framework */; };
 		CB615EC11754DF46004C1BA4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB615EC01754DF46004C1BA4 /* Foundation.framework */; };
@@ -27,13 +27,15 @@
 		CB9BCC7617608DFE00996188 /* JDNCitiesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC7517608DFE00996188 /* JDNCitiesTableViewController.m */; };
 		CB9BCC781760964400996188 /* today-s-apps-gone-free-instuner-great-little-war-game-smartscan-express-and-more_7.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9BCC771760964400996188 /* today-s-apps-gone-free-instuner-great-little-war-game-smartscan-express-and-more_7.png */; };
 		CB9BCC7A1760971200996188 /* safe_image.php.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9BCC791760971200996188 /* safe_image.php.png */; };
+		CB9BCC7D17609FDE00996188 /* JDNWeatherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC7C17609FDE00996188 /* JDNWeatherCell.m */; };
+		CB9BCC801760B39900996188 /* JDNSharedImages.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC7F1760B39900996188 /* JDNSharedImages.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		CB12347B175F79EA006F890E /* JDNAMMeteoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNAMMeteoTableViewController.h; sourceTree = "<group>"; };
-		CB12347C175F79EA006F890E /* JDNAMMeteoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNAMMeteoTableViewController.m; sourceTree = "<group>"; };
-		CB12347F175F7DB3006F890E /* JDNFetchWeather.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNFetchWeather.h; sourceTree = "<group>"; };
-		CB123480175F7DB3006F890E /* JDNFetchWeather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNFetchWeather.m; sourceTree = "<group>"; };
+		CB12347B175F79EA006F890E /* JDNWeatherTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNWeatherTableViewController.h; sourceTree = "<group>"; };
+		CB12347C175F79EA006F890E /* JDNWeatherTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNWeatherTableViewController.m; sourceTree = "<group>"; };
+		CB12347F175F7DB3006F890E /* JDNWeatherFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNWeatherFetcher.h; sourceTree = "<group>"; };
+		CB123480175F7DB3006F890E /* JDNWeatherFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNWeatherFetcher.m; sourceTree = "<group>"; };
 		CB123482175F7DEF006F890E /* JDNDailyData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNDailyData.h; sourceTree = "<group>"; };
 		CB123483175F7DEF006F890E /* JDNDailyData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNDailyData.m; sourceTree = "<group>"; };
 		CB615EBB1754DF46004C1BA4 /* Zesser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zesser.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -62,6 +64,10 @@
 		CB9BCC7517608DFE00996188 /* JDNCitiesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNCitiesTableViewController.m; sourceTree = "<group>"; };
 		CB9BCC771760964400996188 /* today-s-apps-gone-free-instuner-great-little-war-game-smartscan-express-and-more_7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "today-s-apps-gone-free-instuner-great-little-war-game-smartscan-express-and-more_7.png"; sourceTree = "<group>"; };
 		CB9BCC791760971200996188 /* safe_image.php.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = safe_image.php.png; sourceTree = "<group>"; };
+		CB9BCC7B17609FDE00996188 /* JDNWeatherCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNWeatherCell.h; sourceTree = "<group>"; };
+		CB9BCC7C17609FDE00996188 /* JDNWeatherCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNWeatherCell.m; sourceTree = "<group>"; };
+		CB9BCC7E1760B39900996188 /* JDNSharedImages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNSharedImages.h; sourceTree = "<group>"; };
+		CB9BCC7F1760B39900996188 /* JDNSharedImages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNSharedImages.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,8 +88,8 @@
 		CB12347E175F7B84006F890E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				CB12347B175F79EA006F890E /* JDNAMMeteoTableViewController.h */,
-				CB12347C175F79EA006F890E /* JDNAMMeteoTableViewController.m */,
+				CB12347B175F79EA006F890E /* JDNWeatherTableViewController.h */,
+				CB12347C175F79EA006F890E /* JDNWeatherTableViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -91,8 +97,10 @@
 		CB123485175F7E50006F890E /* Weather */ = {
 			isa = PBXGroup;
 			children = (
-				CB12347F175F7DB3006F890E /* JDNFetchWeather.h */,
-				CB123480175F7DB3006F890E /* JDNFetchWeather.m */,
+				CB9BCC7B17609FDE00996188 /* JDNWeatherCell.h */,
+				CB9BCC7C17609FDE00996188 /* JDNWeatherCell.m */,
+				CB12347F175F7DB3006F890E /* JDNWeatherFetcher.h */,
+				CB123480175F7DB3006F890E /* JDNWeatherFetcher.m */,
 				CB123482175F7DEF006F890E /* JDNDailyData.h */,
 				CB123483175F7DEF006F890E /* JDNDailyData.m */,
 				CB9BCC7317608B8200996188 /* City */,
@@ -133,6 +141,8 @@
 		CB615EC41754DF46004C1BA4 /* Zesser */ = {
 			isa = PBXGroup;
 			children = (
+				CB9BCC7E1760B39900996188 /* JDNSharedImages.h */,
+				CB9BCC7F1760B39900996188 /* JDNSharedImages.m */,
 				CB9BCC65175F8CE400996188 /* XPathQuery.h */,
 				CB9BCC66175F8CE400996188 /* XPathQuery.m */,
 				CB9BCC5B175F850400996188 /* JDNCommon.h */,
@@ -244,13 +254,15 @@
 			files = (
 				CB615ECB1754DF46004C1BA4 /* main.m in Sources */,
 				CB615ECF1754DF46004C1BA4 /* JDNAppDelegate.m in Sources */,
-				CB12347D175F79EA006F890E /* JDNAMMeteoTableViewController.m in Sources */,
-				CB123481175F7DB3006F890E /* JDNFetchWeather.m in Sources */,
+				CB12347D175F79EA006F890E /* JDNWeatherTableViewController.m in Sources */,
+				CB123481175F7DB3006F890E /* JDNWeatherFetcher.m in Sources */,
 				CB123484175F7DEF006F890E /* JDNDailyData.m in Sources */,
 				CB9BCC67175F8CE400996188 /* XPathQuery.m in Sources */,
 				CB9BCC6F17608B1800996188 /* JDNCities.m in Sources */,
 				CB9BCC7217608B4400996188 /* JDNCity.m in Sources */,
 				CB9BCC7617608DFE00996188 /* JDNCitiesTableViewController.m in Sources */,
+				CB9BCC7D17609FDE00996188 /* JDNWeatherCell.m in Sources */,
+				CB9BCC801760B39900996188 /* JDNSharedImages.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

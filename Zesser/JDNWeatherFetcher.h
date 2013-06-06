@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 @class JDNDailyData;
 
-@interface JDNFetchWeather : NSObject
+@interface JDNWeatherFetcher : NSObject
 
 -(void)fetchDailyDataForCity:(NSString *)cityName withCompletion:(GetDataCallBack)callback;
 

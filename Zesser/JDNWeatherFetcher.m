@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 Daniele Giove. All rights reserved.
 //
 
-#import "JDNFetchWeather.h"
+#import "JDNWeatherFetcher.h"
 #import "JDNDailyData.h"
 #import "XPathQuery.h"
 
-@interface JDNFetchWeather()<NSURLConnectionDataDelegate>
+@interface JDNWeatherFetcher()<NSURLConnectionDataDelegate>
 
 @property (strong,nonatomic) NSString      *receivedString;
 @property (strong,nonatomic) NSMutableData *receivedData;
@@ -18,7 +18,7 @@
 
 @end
 
-@implementation JDNFetchWeather
+@implementation JDNWeatherFetcher
 
 #define BASE_URL          @"http://www.meteoam.it/"
 #define DATA_URL BASE_URL @"?q=ta/previsione/%@"

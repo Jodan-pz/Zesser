@@ -9,7 +9,7 @@
 #import "JDNCitiesTableViewController.h"
 #import "JDNCities.h"
 #import "JDNCity.h"
-#import "JDNAMMeteoTableViewController.h"
+#import "JDNWeatherTableViewController.h"
 
 @interface JDNCitiesTableViewController ()
 
@@ -116,7 +116,7 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ( [segue.identifier isEqualToString:@"viewWeather"]){
-        JDNAMMeteoTableViewController *weathControler = segue.destinationViewController;
+        JDNWeatherTableViewController *weathControler = segue.destinationViewController;
         NSIndexPath* indexPath=[self.tableView indexPathForCell:sender];
         weathControler.city = [JDNCities sharedCities].cities[indexPath.row];
     }
