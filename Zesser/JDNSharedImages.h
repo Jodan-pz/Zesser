@@ -7,7 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+@class JDNDailyData;
 
 @interface JDNSharedImages : NSObject
+
+-(void)setImageView:(UIImageView*)aView withUrl:(NSURL*)url;
+
++ (JDNSharedImages*)sharedImages;
 
 @end

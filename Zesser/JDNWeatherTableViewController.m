@@ -67,13 +67,8 @@
     if ( cell == nil){
         cell = [[JDNWeatherCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
     }
-    // Configure the cell...
     JDNDailyData *dailyData = self.data[indexPath.row];
-    cell.textLabel.text =  dailyData.shortDescription;
-    NSData* imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:dailyData.forecastImage]];
-    UIImage *img = [UIImage imageWithData:imageData];
-    cell.accessoryView = [[UIImageView alloc ] initWithImage:img];
-
+    [cell setupCellWithDailyData:dailyData];
     return cell;
 }
 

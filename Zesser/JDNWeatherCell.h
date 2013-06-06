@@ -13,9 +13,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *hourOfDay;
 @property (weak, nonatomic) IBOutlet UILabel *temperature;
 @property (weak, nonatomic) IBOutlet UILabel *apparentTemperature;
-@property (weak, nonatomic) IBOutlet UIImageView *wimdImage;
+@property (weak, nonatomic) IBOutlet UIImageView *windImage;
 @property (weak, nonatomic) IBOutlet UIImageView *forecastImage;
-@property (weak, nonatomic) IBOutlet UILabel *summary;
+@property (weak, nonatomic) IBOutlet UILabel *forecast;
+@property (weak, nonatomic) IBOutlet UILabel *wind;
 
 -(void)setupCellWithDailyData:(JDNDailyData*)dailyData;
 
