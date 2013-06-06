@@ -47,6 +47,10 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bxz-0y-aks">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="kVS-Zm-4q8">
+                        <rect key="frame" x="0.0" y="416" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="L8l-KH-tDu" kind="relationship" relationship="rootViewController" id="EmU-Zj-y9d"/>
                     </connections>
@@ -174,29 +178,6 @@
             <point key="canvasLocation" x="-1454" y="-546"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="JDNCitiesTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNCitiesTableViewController.h"/>
-        </class>
-        <class className="JDNWeatherCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNWeatherCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="apparentTemperature" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="forecast" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="forecastImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="hourOfDay" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="temperature" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="wind" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="windImage" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="JDNWeatherTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNWeatherTableViewController.h"/>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

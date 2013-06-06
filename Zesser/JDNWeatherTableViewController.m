@@ -23,8 +23,10 @@
 @implementation JDNWeatherTableViewController
 
 -(void)refreshData:(UIRefreshControl *)refresh {
-    refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Aggiornamento dati..."];
-
+    NSMutableAttributedString *title = [[NSMutableAttributedString alloc]
+                                        initWithString:@"Aggiornamento dati..."
+                                        attributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:0.746 green:0.909 blue:0.936 alpha:1.000] }];
+    refresh.attributedTitle = title;
     self.sections = nil;
     self.data = nil;
     [self.tableView reloadData];
@@ -43,7 +45,11 @@
             [formatter setDateFormat:@"d MMMM yyyy, HH:mm:ss"];
             NSString *lastUpdated = [NSString stringWithFormat:@"Aggiornato al %@",
                                      [formatter stringFromDate:[NSDate date]]];
-            refresh.attributedTitle = [[NSAttributedString alloc] initWithString:lastUpdated];
+            NSMutableAttributedString *title = [[NSMutableAttributedString alloc]
+                                                initWithString:lastUpdated
+                                                attributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:0.746 green:0.909 blue:0.936 alpha:1.000] }];
+
+            refresh.attributedTitle = title;
             [refresh endRefreshing];
         }];
     }else{
@@ -57,8 +63,14 @@
     self.weatherFetcher = [[JDNWeatherFetcher alloc] init];
     
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Trascina per aggiornare"];
-    refreshControl.tintColor = [UIColor lightGrayColor];
+    
+    NSMutableAttributedString *title = [[NSMutableAttributedString alloc]
+                                    initWithString:@"Trascina per aggiornare"
+                                    attributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:0.746 green:0.909 blue:0.936 alpha:1.000] }];
+    
+    refreshControl.attributedTitle = title;
+    
+    refreshControl.tintColor = [UIColor colorWithRed:0.367 green:0.609 blue:0.887 alpha:1.000];
     [refreshControl addTarget:self action:@selector(refreshData:) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
     
