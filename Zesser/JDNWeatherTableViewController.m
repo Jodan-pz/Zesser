@@ -74,6 +74,26 @@
     return self.sections.count;
 }
 
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    NSString *sectionTitle = [self tableView:tableView titleForHeaderInSection:section];
+    if (sectionTitle == nil) {
+        return nil;
+    }
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)];
+    label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    label.backgroundColor = [UIColor colorWithRed:0.081 green:0.259 blue:0.504 alpha:1.000];
+    label.textColor = [UIColor colorWithRed:0.120 green:0.778 blue:0.769 alpha:1.000];
+    label.shadowColor = [UIColor colorWithRed:0.131 green:0.000 blue:0.646 alpha:1.000];
+    label.shadowOffset = CGSizeMake(-1.0, 1.0);
+    label.font = [UIFont systemFontOfSize:18];
+    label.text = sectionTitle;
+    label.textAlignment = NSTextAlignmentCenter;
+    
+    UIView *view = [[UIView alloc] initWithFrame:label.frame];
+    [view addSubview:label];
+    return view;
+}
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     return self.sections[section];
@@ -93,12 +113,6 @@
     JDNDailyData *dailyData = [self.data valueForKey: self.sections[indexPath.section]][indexPath.row];
     [cell setupCellWithDailyData:dailyData];
     return cell;
-}
-
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
 }
 
 @end

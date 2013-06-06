@@ -38,7 +38,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IKf-Pe-29E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1540" y="-464"/>
+            <point key="canvasLocation" x="-1835" y="-546"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="cyc-4h-1mN">
@@ -53,16 +53,17 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aea-ZZ-ubE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2034" y="-452"/>
+            <point key="canvasLocation" x="-2266" y="-546"/>
         </scene>
         <!--Weather Table View Controller-->
         <scene sceneID="123-Wn-uL5">
             <objects>
                 <tableViewController id="ccC-Tc-vuL" customClass="JDNWeatherTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="77" sectionHeaderHeight="22" sectionFooterHeight="22" id="RJP-Fl-E35">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsSelection="NO" rowHeight="77" sectionHeaderHeight="22" sectionFooterHeight="22" id="RJP-Fl-E35">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.20671752582648911" green="0.42630244757076224" blue="0.68295338114754101" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="separatorColor" red="0.6338234157" green="0.75786300689999997" blue="0.8901367188" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="77" id="n6m-6r-Ve2" customClass="JDNWeatherCell">
                                 <rect key="frame" x="0.0" y="22" width="320" height="77"/>
@@ -170,7 +171,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bfh-HO-Uon" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1001" y="-464"/>
+            <point key="canvasLocation" x="-1454" y="-546"/>
         </scene>
     </scenes>
     <classes>
