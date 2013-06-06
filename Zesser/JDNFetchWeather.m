@@ -40,9 +40,6 @@
  								   startImmediately:YES];
  	if(!connection) {
  		NSLog(@"connection failed :(");
- 	} else {
- 		NSLog(@"connection succeeded  :)");
- 		
  	}
 }
 

@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class JDNCity;
+
 @interface JDNAMMeteoTableViewController : UITableViewController
+
+@property (strong,nonatomic) JDNCity *city;
 
 @end

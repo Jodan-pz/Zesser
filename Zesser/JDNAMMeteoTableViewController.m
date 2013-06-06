@@ -9,6 +9,7 @@
 #import "JDNAMMeteoTableViewController.h"
 #import "JDNFetchWeather.h"
 #import "JDNDailyData.h"
+#import "JDNCity.h"
 
 @interface JDNAMMeteoTableViewController ()
 
@@ -19,15 +20,14 @@
 @implementation JDNAMMeteoTableViewController
 
 -(void)refreshData{
-
-    // pozzo : @"3841/POZZO%20D'ADDA"
-    // milano :@"87/MILANO"
-    
-    [self.weatherFetcher fetchDailyDataForCity:@"3841/POZZO%20D'ADDA" withCompletion:^(NSArray *data) {
-        self.data = data;
-        [self.tableView reloadData];
-        [self.refreshControl endRefreshing];
-    }];
+    if ( self.city){
+        self.title = self.city.name;
+        [self.weatherFetcher fetchDailyDataForCity:self.city.url withCompletion:^(NSArray *data) {
+            self.data = data;
+            [self.tableView reloadData];
+            [self.refreshControl endRefreshing];
+        }];
+    }
 }
 
 - (void)viewDidLoad

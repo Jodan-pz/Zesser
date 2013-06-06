@@ -22,6 +22,9 @@
 		CB615ED81754DF47004C1BA4 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB615ED61754DF47004C1BA4 /* MainStoryboard.storyboard */; };
 		CB9BCC67175F8CE400996188 /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC66175F8CE400996188 /* XPathQuery.m */; };
 		CB9BCC69175F8CF900996188 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CB9BCC68175F8CF900996188 /* libxml2.dylib */; };
+		CB9BCC6F17608B1800996188 /* JDNCities.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC6E17608B1700996188 /* JDNCities.m */; };
+		CB9BCC7217608B4400996188 /* JDNCity.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC7117608B4400996188 /* JDNCity.m */; };
+		CB9BCC7617608DFE00996188 /* JDNCitiesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC7517608DFE00996188 /* JDNCitiesTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +52,12 @@
 		CB9BCC65175F8CE400996188 /* XPathQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPathQuery.h; sourceTree = "<group>"; };
 		CB9BCC66175F8CE400996188 /* XPathQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPathQuery.m; sourceTree = "<group>"; };
 		CB9BCC68175F8CF900996188 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		CB9BCC6D17608B1700996188 /* JDNCities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNCities.h; sourceTree = "<group>"; };
+		CB9BCC6E17608B1700996188 /* JDNCities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNCities.m; sourceTree = "<group>"; };
+		CB9BCC7017608B4400996188 /* JDNCity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNCity.h; sourceTree = "<group>"; };
+		CB9BCC7117608B4400996188 /* JDNCity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNCity.m; sourceTree = "<group>"; };
+		CB9BCC7417608DFE00996188 /* JDNCitiesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNCitiesTableViewController.h; sourceTree = "<group>"; };
+		CB9BCC7517608DFE00996188 /* JDNCitiesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNCitiesTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +91,7 @@
 				CB123480175F7DB3006F890E /* JDNFetchWeather.m */,
 				CB123482175F7DEF006F890E /* JDNDailyData.h */,
 				CB123483175F7DEF006F890E /* JDNDailyData.m */,
+				CB9BCC7317608B8200996188 /* City */,
 			);
 			name = Weather;
 			sourceTree = "<group>";
@@ -142,6 +152,19 @@
 				CB615ED41754DF46004C1BA4 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CB9BCC7317608B8200996188 /* City */ = {
+			isa = PBXGroup;
+			children = (
+				CB9BCC6D17608B1700996188 /* JDNCities.h */,
+				CB9BCC6E17608B1700996188 /* JDNCities.m */,
+				CB9BCC7017608B4400996188 /* JDNCity.h */,
+				CB9BCC7117608B4400996188 /* JDNCity.m */,
+				CB9BCC7417608DFE00996188 /* JDNCitiesTableViewController.h */,
+				CB9BCC7517608DFE00996188 /* JDNCitiesTableViewController.m */,
+			);
+			name = City;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,6 +240,9 @@
 				CB123481175F7DB3006F890E /* JDNFetchWeather.m in Sources */,
 				CB123484175F7DEF006F890E /* JDNDailyData.m in Sources */,
 				CB9BCC67175F8CE400996188 /* XPathQuery.m in Sources */,
+				CB9BCC6F17608B1800996188 /* JDNCities.m in Sources */,
+				CB9BCC7217608B4400996188 /* JDNCity.m in Sources */,
+				CB9BCC7617608DFE00996188 /* JDNCitiesTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
