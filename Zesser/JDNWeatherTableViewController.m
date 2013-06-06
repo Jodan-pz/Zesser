@@ -16,7 +16,7 @@
 @interface JDNWeatherTableViewController ()
 
 @property (strong,nonatomic) NSDictionary       *data;
-@property (strong,nonatomic) NSMutableArray     *sections;
+@property (strong,nonatomic) NSArray            *sections;
 @property (strong,nonatomic) JDNWeatherFetcher  *weatherFetcher;
 @end
 
@@ -25,20 +25,18 @@
 -(void)refreshData:(UIRefreshControl *)refresh {
     refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Aggiornamento dati..."];
 
+    self.sections = nil;
     self.data = nil;
     [self.tableView reloadData];
     
     if ( self.city ){
         self.title = self.city.name;
         [self.weatherFetcher fetchDailyDataForCity:self.city.url withCompletion:^(NSArray *data) {
+            self.sections = [NSArray array];
+            self.sections = [[data valueForKey:@"day"] distinct];
             self.data = [data groupBy:^id(JDNDailyData *item) {
                 return item.day;
             }];
-            
-            self.sections = [NSMutableArray array];
-            for (NSString *section in self.data) {
-                [self.sections addObject:section];
-            }
             
             [self.tableView reloadData];
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];

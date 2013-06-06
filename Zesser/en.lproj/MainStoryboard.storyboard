@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
     <scenes>
-        <!--Cities Table View Controller - Cities-->
+        <!--Cities Table View Controller - Zesser-->
         <scene sceneID="9bP-X0-37t">
             <objects>
                 <tableViewController id="L8l-KH-tDu" customClass="JDNCitiesTableViewController" sceneMemberID="viewController">
@@ -34,7 +34,7 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Cities" id="oce-WF-wFE"/>
+                    <navigationItem key="navigationItem" title="Zesser" id="oce-WF-wFE"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IKf-Pe-29E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
