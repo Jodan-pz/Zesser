@@ -23,9 +23,36 @@
 
 @interface JDNCitiesTableViewController ()<JDNNewCityViewDelegate>
 
+@property (strong, nonatomic) UIBarButtonItem   *addCityButton;
+@property (strong, nonatomic) UIRefreshControl  *citiesRefreshControl;
+
 @end
 
 @implementation JDNCitiesTableViewController
+
+-(UIRefreshControl *)citiesRefreshControl{
+    if ( !_citiesRefreshControl){
+        _citiesRefreshControl = [[UIRefreshControl alloc] init];
+        NSMutableAttributedString *title = [[NSMutableAttributedString alloc]
+                                            initWithString:@"Trascina per aggiornare"
+                                            attributes:REFRESH_TITLE_ATTRIBUTES];
+        
+        _citiesRefreshControl.attributedTitle = title;
+        
+        _citiesRefreshControl.tintColor = REFRESH_TINT_COLOR;
+        [_citiesRefreshControl addTarget:self
+                           action:@selector(refreshData:)
+                 forControlEvents:UIControlEventValueChanged];
+    }
+    return _citiesRefreshControl;
+}
+
+-(UIBarButtonItem *)addCityButton{
+    if ( !_addCityButton ){
+        _addCityButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addCity:)];
+    }
+    return _addCityButton;
+}
 
 //Blue gradient background
 + (CAGradientLayer*) blueGradient {
@@ -53,19 +80,8 @@
     bgLayer.frame = self.tableView.bounds;
     [gradientView.layer insertSublayer:bgLayer atIndex:1];
     self.tableView.backgroundView = gradientView;
-
-    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    NSMutableAttributedString *title = [[NSMutableAttributedString alloc]
-                                        initWithString:@"Trascina per aggiornare"
-                                        attributes:REFRESH_TITLE_ATTRIBUTES];
-    
-    refreshControl.attributedTitle = title;
-    
-    refreshControl.tintColor = REFRESH_TINT_COLOR;
-    [refreshControl addTarget:self
-                       action:@selector(refreshData:)
-             forControlEvents:UIControlEventValueChanged];
-    self.refreshControl = refreshControl;
+    self.refreshControl = self.citiesRefreshControl;
+    self.navigationItem.rightBarButtonItem = self.addCityButton;
 }
 
 - (void)didReceiveMemoryWarning
@@ -106,58 +122,48 @@
     }];
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
 
-/*
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
+        JDNCity *city = [JDNCities sharedCities].cities[indexPath.row];
+        [[JDNCities sharedCities] removeCity:city];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
 
-/*
+}
+
+
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    JDNCity *city = [JDNCities sharedCities].cities[fromIndexPath.row];
+    [[JDNCities sharedCities] setOrderForCity:city order:toIndexPath.row];
 }
 
+- (IBAction)editCities:(id)sender {
+    [self toggleEditMode];
+}
+
+
+-(void)toggleEditMode{
+    if(self.tableView.editing) {
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+        [self.tableView setEditing:NO animated:YES];
+        self.refreshControl = self.citiesRefreshControl;
+        self.navigationItem.rightBarButtonItem = self.addCityButton;
+        self.navigationItem.leftBarButtonItem.style =UIBarButtonItemStyleBordered;
+        self.navigationItem.leftBarButtonItem.title = @"Modifica";
+    }
+    else {
+        [self.tableView setEditing:YES animated:YES];
+        self.refreshControl = nil;
+        self.navigationItem.rightBarButtonItem = nil;
+        self.navigationItem.leftBarButtonItem.style =UIBarButtonItemStyleDone;
+        self.navigationItem.leftBarButtonItem.title = @"Fatto";
+    }
+}
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ( [segue.identifier isEqualToString:@"viewWeather"]){

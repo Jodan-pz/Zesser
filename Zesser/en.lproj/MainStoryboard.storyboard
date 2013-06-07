@@ -66,13 +66,20 @@
                         </prototypes>
                     </tableView>
                     <navigationItem key="navigationItem" title="Zesser" id="oce-WF-wFE">
-                        <barButtonItem key="leftBarButtonItem" title="Modifica" id="dIa-g0-E2M"/>
+                        <barButtonItem key="leftBarButtonItem" title="Modifica" id="dIa-g0-E2M">
+                            <connections>
+                                <action selector="editCities:" destination="L8l-KH-tDu" id="jRT-W9-K3d"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="pPw-Mc-xfb">
                             <connections>
                                 <segue destination="MFE-ne-Vn9" kind="modal" identifier="newCity" modalTransitionStyle="coverVertical" id="SwA-3R-2VR"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="addCityButton" destination="pPw-Mc-xfb" id="tIz-IT-jOV"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IKf-Pe-29E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -306,6 +313,9 @@
     <classes>
         <class className="JDNCitiesTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNCitiesTableViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="editCities:"/>
+            </relationships>
         </class>
         <class className="JDNNewCityViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNNewCityViewController.h"/>

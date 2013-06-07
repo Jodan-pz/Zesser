@@ -18,11 +18,23 @@
 
 @implementation JDNCities
 
--(NSArray *)cities{
-    return self.mcities;
+static JDNCities *sharedCities_;
+
+-(void)setOrderForCity:(JDNCity *)city order:(NSInteger)order{
+    JDNCity *editCity = [[ self.mcities where:^BOOL(JDNCity *item) {
+        return [item.name isEqualToString:city.name];
+    } ]firstOrNil];
+    if ( editCity ){
+        editCity.order = order;
+        [self write];
+    }
 }
 
-static JDNCities *sharedCities_;
+-(NSArray *)cities{
+    return [self.mcities sortedArrayUsingComparator:^NSComparisonResult(JDNCity *obj1, JDNCity *obj2) {
+        return [ @(obj1.order) compare: @(obj2.order) ];
+    }];
+}
 
 + (void)initialize{
     sharedCities_ = [[self alloc] initSingleton];
@@ -70,11 +82,13 @@ static JDNCities *sharedCities_;
         JDNCity *city = [[JDNCity alloc] init];
         city.name = @"Casa";
         city.url =@"3841/POZZO%20D'ADDA";
+        city.order = 0;
         [((NSMutableArray*)self.mcities) addObject:city];
         
         JDNCity *city2 = [[JDNCity alloc] init];
         city2.name = @"Muggia";
         city2.url = @"8250/MUGGIA";
+        city.order = 1;
         [((NSMutableArray*)self.mcities) addObject:city2];
     }
     

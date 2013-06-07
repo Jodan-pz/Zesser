@@ -17,6 +17,7 @@
 
 -(void)addCity:(JDNCity*)city;
 -(void)removeCity:(JDNCity*)city;
+-(void)setOrderForCity:(JDNCity*)city order:(NSInteger)order;
 -(void)load;
 -(void)write;
 
