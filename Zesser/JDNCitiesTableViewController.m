@@ -126,7 +126,7 @@
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
     JDNSimpleWeatherCell *cell = (JDNSimpleWeatherCell*) [tableView cellForRowAtIndexPath:indexPath ];
     if ( tableView.editing ){
-        cell.cityName.textAlignment = NSTextAlignmentCenter;
+        cell.cityName.textAlignment = NSTextAlignmentRight;
         cell.forecast.image         = nil;
         cell.temperature.text       = nil;
         return  YES;
