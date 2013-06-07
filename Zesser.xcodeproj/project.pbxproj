@@ -30,6 +30,9 @@
 		CB9BCC801760B39900996188 /* JDNSharedImages.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC7F1760B39900996188 /* JDNSharedImages.m */; };
 		CB9BCC851760CCAD00996188 /* NSArray+LinqExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC821760CCAD00996188 /* NSArray+LinqExtensions.m */; };
 		CB9BCC861760CCAD00996188 /* NSDictionary+LinqExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC841760CCAD00996188 /* NSDictionary+LinqExtensions.m */; };
+		CBD7107B1761CFD400ACA525 /* JDNClientHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD7107A1761CFD400ACA525 /* JDNClientHelper.m */; };
+		CBD7107E1761D2DB00ACA525 /* info_64.png in Resources */ = {isa = PBXBuildFile; fileRef = CBD7107D1761D2DB00ACA525 /* info_64.png */; };
+		CBD710811761DB1100ACA525 /* JDNTestConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD710801761DB1100ACA525 /* JDNTestConnection.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +75,11 @@
 		CB9BCC821760CCAD00996188 /* NSArray+LinqExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+LinqExtensions.m"; sourceTree = "<group>"; };
 		CB9BCC831760CCAD00996188 /* NSDictionary+LinqExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+LinqExtensions.h"; sourceTree = "<group>"; };
 		CB9BCC841760CCAD00996188 /* NSDictionary+LinqExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+LinqExtensions.m"; sourceTree = "<group>"; };
+		CBD710791761CFD400ACA525 /* JDNClientHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNClientHelper.h; sourceTree = "<group>"; };
+		CBD7107A1761CFD400ACA525 /* JDNClientHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNClientHelper.m; sourceTree = "<group>"; };
+		CBD7107D1761D2DB00ACA525 /* info_64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info_64.png; sourceTree = "<group>"; };
+		CBD7107F1761DB1000ACA525 /* JDNTestConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNTestConnection.h; sourceTree = "<group>"; };
+		CBD710801761DB1100ACA525 /* JDNTestConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNTestConnection.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +175,8 @@
 			isa = PBXGroup;
 			children = (
 				CB9BCC5B175F850400996188 /* JDNCommon.h */,
+				CBD710791761CFD400ACA525 /* JDNClientHelper.h */,
+				CBD7107A1761CFD400ACA525 /* JDNClientHelper.m */,
 				CB9BCC7E1760B39900996188 /* JDNSharedImages.h */,
 				CB9BCC7F1760B39900996188 /* JDNSharedImages.m */,
 				CB26ACAF1761C64800070F8C /* Support */,
@@ -175,7 +185,10 @@
 				CB615ECD1754DF46004C1BA4 /* JDNAppDelegate.h */,
 				CB615ECE1754DF46004C1BA4 /* JDNAppDelegate.m */,
 				CB615ED61754DF47004C1BA4 /* MainStoryboard.storyboard */,
+				CBD7107C1761D2CE00ACA525 /* Resources */,
 				CB615EC51754DF46004C1BA4 /* Supporting Files */,
+				CBD7107F1761DB1000ACA525 /* JDNTestConnection.h */,
+				CBD710801761DB1100ACA525 /* JDNTestConnection.m */,
 			);
 			path = Zesser;
 			sourceTree = "<group>";
@@ -214,6 +227,15 @@
 				CB9BCC841760CCAD00996188 /* NSDictionary+LinqExtensions.m */,
 			);
 			name = LinqExtensions;
+			sourceTree = "<group>";
+		};
+		CBD7107C1761D2CE00ACA525 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				CBD7107D1761D2DB00ACA525 /* info_64.png */,
+			);
+			name = Resources;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -274,6 +296,7 @@
 				CB615ED51754DF47004C1BA4 /* Default-568h@2x.png in Resources */,
 				CB615ED81754DF47004C1BA4 /* MainStoryboard.storyboard in Resources */,
 				CB26ACAD1761C57100070F8C /* Zesser.png in Resources */,
+				CBD7107E1761D2DB00ACA525 /* info_64.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,6 +320,8 @@
 				CB9BCC801760B39900996188 /* JDNSharedImages.m in Sources */,
 				CB9BCC851760CCAD00996188 /* NSArray+LinqExtensions.m in Sources */,
 				CB9BCC861760CCAD00996188 /* NSDictionary+LinqExtensions.m in Sources */,
+				CBD7107B1761CFD400ACA525 /* JDNClientHelper.m in Sources */,
+				CBD710811761DB1100ACA525 /* JDNTestConnection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

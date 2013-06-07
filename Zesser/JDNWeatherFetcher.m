@@ -9,12 +9,13 @@
 #import "JDNWeatherFetcher.h"
 #import "JDNDailyData.h"
 #import "XPathQuery.h"
+#import "JDNTestConnection.h"
 
 @interface JDNWeatherFetcher()<NSURLConnectionDataDelegate>
 
-@property (strong,nonatomic) NSString       *receivedString;
-@property (strong,nonatomic) NSMutableData  *receivedData;
-@property (strong,nonatomic) GetDataCallBack callback;
+@property (strong,nonatomic) NSString           *receivedString;
+@property (strong,nonatomic) NSMutableData      *receivedData;
+@property (strong,nonatomic) GetDataCallBack    callback;
 
 @end
 
@@ -22,6 +23,11 @@
 
 #define BASE_URL          @"http://www.meteoam.it/"
 #define DATA_URL BASE_URL @"?q=ta/previsione/%@"
+
+-(void)isAvailable:(BooleanCallBack)callback {
+    JDNTestConnection *testConnection = [[JDNTestConnection alloc] init];
+    [testConnection checkConnectionToUrl:@"http://www.aadsadasxazx.dsa" withCallback:callback];
+}
 
 -(void)fetchDailyDataForCity:(NSString *)cityName withCompletion:(GetDataCallBack)callback{
     self.callback = callback;

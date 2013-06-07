@@ -12,6 +12,6 @@
 
 @property (strong,nonatomic) NSString *name;
 @property (strong,nonatomic) NSString *url;
-@property (nonatomic) NSUInteger order;
+@property (nonatomic)        NSUInteger order;
 
 @end

@@ -8,23 +8,23 @@
 
 #import "JDNCity.h"
 
-#define CACHE_NAME   @"CACHE_NAME"
-#define CACHE_URL    @"CACHE_URL"
-#define CACHE_ORDER  @"CACHE_ORDER"
+#define KEY_NAME   @"KEY_NAME"
+#define KEY_URL    @"KEY_URL"
+#define KEY_ORDER  @"KEY_ORDER"
 
 @implementation JDNCity
 
 -(void)encodeWithCoder:(NSCoder *)aCoder{
-    [aCoder encodeObject:self.name      forKey:CACHE_NAME];
-    [aCoder encodeObject:self.url       forKey:CACHE_URL];
-    [aCoder encodeInt   :self.order     forKey:CACHE_ORDER];
+    [aCoder encodeObject:self.name      forKey:KEY_NAME];
+    [aCoder encodeObject:self.url       forKey:KEY_URL];
+    [aCoder encodeInt   :self.order     forKey:KEY_ORDER];
     
 }
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
-    self.name   = [aDecoder decodeObjectForKey:CACHE_NAME];
-    self.url    = [aDecoder decodeObjectForKey:CACHE_URL];
-    self.order  = [aDecoder decodeIntForKey   :CACHE_ORDER];
+    self.name   = [aDecoder decodeObjectForKey:KEY_NAME];
+    self.url    = [aDecoder decodeObjectForKey:KEY_URL];
+    self.order  = [aDecoder decodeIntForKey   :KEY_ORDER];
     return self;
 }
 

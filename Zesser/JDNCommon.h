@@ -8,4 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+#define JDN_COMMON_IMAGE_INFO [UIImage imageNamed:@"info_64.png"]
+#define JDN_INFO_MSG_TITLE  @"Messaggio"
+#define JDN_WARN_MSG_TITLE  @"Attenzione"
+#define JDN_ERRO_MSG_TITLE  @"Errore"
+#define JDN_QUES_MSG_TITLE  @"Domanda"
+
 typedef void(^GetDataCallBack)(NSArray *data);
+typedef void(^BooleanCallBack)(BOOL result);

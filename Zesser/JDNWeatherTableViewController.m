@@ -30,34 +30,69 @@
 @implementation JDNWeatherTableViewController
 
 -(void)refreshData:(UIRefreshControl *)refresh {
+    self.sections = nil;
+    self.data = nil;
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *cachedData = [documentsDirectory stringByAppendingPathComponent: [self.city.name stringByAppendingString:@"_lres.dat"]];
+    
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc]
                                         initWithString:@"Aggiornamento dati..."
                                         attributes:REFRESH_TITLE_ATTRIBUTES];
     refresh.attributedTitle = title;
-    self.sections = nil;
-    self.data = nil;
     
     if ( self.city ){
-        self.title = self.city.name;
-        [self.weatherFetcher fetchDailyDataForCity:self.city.url withCompletion:^(NSArray *data) {
-            self.sections = [NSArray array];
-            self.sections = [[data valueForKey:@"day"] distinct];
-            self.data = [data groupBy:^id(JDNDailyData *item) {
-                return item.day;
-            }];
-            
-            [self.tableView reloadData];
-            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-            [formatter setDateFormat:@"d MMMM yyyy, HH:mm:ss"];
-            NSString *lastUpdated = [NSString stringWithFormat:@"Aggiornato al %@",
-                                     [formatter stringFromDate:[NSDate date]]];
-            NSMutableAttributedString *title = [[NSMutableAttributedString alloc]
-                                                initWithString:lastUpdated
-                                                attributes:REFRESH_TITLE_ATTRIBUTES];
 
-            refresh.attributedTitle = title;
-            [refresh endRefreshing];
+        self.title = self.city.name;
+
+        [self.weatherFetcher isAvailable:^(BOOL result) {
+            
+            if ( result ){
+                
+                [self.weatherFetcher fetchDailyDataForCity:self.city.url withCompletion:^(NSArray *data) {
+                    [[NSKeyedArchiver archivedDataWithRootObject:data] writeToFile:cachedData atomically:YES];
+                    self.sections = [NSArray array];
+                    self.sections = [[data valueForKey:@"day"] distinct];
+                    self.data = [data groupBy:^id(JDNDailyData *item) {
+                        return item.day;
+                    }];
+                    
+                    [self.tableView reloadData];
+                    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                    [formatter setDateFormat:@"d MMMM yyyy, HH:mm:ss"];
+                    NSString *lastUpdated = [NSString stringWithFormat:@"Aggiornato al %@",
+                                             [formatter stringFromDate:[NSDate date]]];
+                    NSMutableAttributedString *title = [[NSMutableAttributedString alloc]
+                                                        initWithString:lastUpdated
+                                                        attributes:REFRESH_TITLE_ATTRIBUTES];
+                    
+                    refresh.attributedTitle = title;
+                    [refresh endRefreshing];
+                }];
+                
+                
+            }else{
+                if ( [[NSFileManager defaultManager] fileExistsAtPath:cachedData] ){
+                    [JDNClientHelper showBezelMessage:@"Ultimi dati..." viewController:self];
+                    
+                    NSArray *data =  [NSKeyedUnarchiver unarchiveObjectWithFile:cachedData];
+                    self.sections = [NSArray array];
+                    self.sections = [[data valueForKey:@"day"] distinct];
+                    self.data = [data groupBy:^id(JDNDailyData *item) {
+                        return item.day;
+                    }];
+                    [self.tableView reloadData];
+                    
+                }else{
+                    [JDNClientHelper showInfo:@"Impossibile recuperare i dati."];
+                }
+                [refresh endRefreshing];
+                return;
+            }
+           
         }];
+        
     }else{
         [refresh endRefreshing];
     }
@@ -71,8 +106,8 @@
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc]
-                                    initWithString:@"Trascina per aggiornare"
-                                    attributes:REFRESH_TITLE_ATTRIBUTES];
+                                        initWithString:@"Trascina per aggiornare"
+                                        attributes:REFRESH_TITLE_ATTRIBUTES];
     
     refreshControl.attributedTitle = title;
     
@@ -95,7 +130,7 @@
     if (sectionTitle == nil) {
         return nil;
     }
-        
+    
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)];
     label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     label.backgroundColor = SECTION_BACKGROUND_COLOR;

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface JDNDailyData : NSObject
+@interface JDNDailyData : NSObject<NSCoding>
 
 @property (strong,nonatomic)            NSString *forecast;
 @property (strong,nonatomic)            NSString *forecastImage;
