@@ -23,8 +23,7 @@
 
 @implementation JDNCitiesTableViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad{
     [super viewDidLoad];
 
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
@@ -61,7 +60,6 @@
     cell.cityName.text = city.name;
     
     [cell clear];
-    [cell startLoadingData];
     [self updateWeatherDataForCity:city
                             inCell:cell];
 
@@ -70,8 +68,13 @@
 
 -(void)updateWeatherDataForCity: (JDNCity*)city inCell: (JDNSimpleWeatherCell*)cell {
     JDNWeatherFetcher *weatherFetcher =  [[JDNWeatherFetcher alloc] init];
-    [weatherFetcher fetchNowSimpleDailyDataForCity:city.url withCompletion:^(NSArray *data) {
-        [cell setupCellWithDailyData: (JDNDailyData*) data[0]];
+    [weatherFetcher isAvailable:^(BOOL available) {
+        if ( available ){
+            [cell startLoadingData];
+            [weatherFetcher fetchNowSimpleDailyDataForCity:city.url withCompletion:^(NSArray *data) {
+                [cell setupCellWithDailyData: (JDNDailyData*) data[0]];
+            }];
+        }
     }];
 }
 

@@ -15,6 +15,9 @@
 }
 
 -(void)clear{
+    if ( _loading){
+     [_loading stopAnimating];
+    }
     self.forecast.image = nil;
     [self.forecast setNeedsDisplay];
     self.temperature.text = nil;

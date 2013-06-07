@@ -27,7 +27,7 @@
 
 -(void)isAvailable:(BooleanCallBack)callback {
     JDNTestConnection *testConnection = [[JDNTestConnection alloc] init];
-    [testConnection checkConnectionToUrl:@"http://www.aadsadasxazx.dsa" withCallback:callback];
+    [testConnection checkConnectionToUrl:BASE_URL withCallback:callback];
 }
 
 -(void)fetchNowSimpleDailyDataForCity:(NSString *)cityName withCompletion:(GetDataCallBack)callback{
