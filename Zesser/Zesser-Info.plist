@@ -14,8 +14,8 @@
 		<dict>
 			<key>CFBundleIconFiles</key>
 			<array>
-				<string>today-s-apps-gone-free-instuner-great-little-war-game-smartscan-express-and-more_7.png</string>
 				<string>safe_image.php.png</string>
+				<string>Zesser.png</string>
 			</array>
 			<key>UIPrerenderedIcon</key>
 			<true/>

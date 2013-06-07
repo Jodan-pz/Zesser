@@ -10,14 +10,14 @@
 
 @interface JDNDailyData : NSObject
 
-@property (strong,nonatomic) NSString *forecast;
-@property (strong,nonatomic) NSString *forecastImage;
-@property (strong,nonatomic) NSString *wind;
-@property (strong,nonatomic) NSString *windImage;
-@property (strong,nonatomic) NSString *temperature;
-@property (strong,nonatomic) NSString *apparentTemperature;
-@property (strong,nonatomic) NSString *day;
-@property (strong,nonatomic) NSString *hourOfDay;
-@property (strong,readonly,nonatomic) NSString *shortDescription;
+@property (strong,nonatomic)            NSString *forecast;
+@property (strong,nonatomic)            NSString *forecastImage;
+@property (strong,nonatomic)            NSString *wind;
+@property (strong,nonatomic)            NSString *windImage;
+@property (strong,nonatomic)            NSString *temperature;
+@property (strong,nonatomic)            NSString *apparentTemperature;
+@property (strong,nonatomic)            NSString *day;
+@property (strong,nonatomic)            NSString *hourOfDay;
+@property (strong,readonly,nonatomic)   NSString *shortDescription;
 
 @end

@@ -10,6 +10,7 @@
 		CB12347D175F79EA006F890E /* JDNWeatherTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB12347C175F79EA006F890E /* JDNWeatherTableViewController.m */; };
 		CB123481175F7DB3006F890E /* JDNWeatherFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = CB123480175F7DB3006F890E /* JDNWeatherFetcher.m */; };
 		CB123484175F7DEF006F890E /* JDNDailyData.m in Sources */ = {isa = PBXBuildFile; fileRef = CB123483175F7DEF006F890E /* JDNDailyData.m */; };
+		CB26ACAD1761C57100070F8C /* Zesser.png in Resources */ = {isa = PBXBuildFile; fileRef = CB26ACAC1761C57100070F8C /* Zesser.png */; };
 		CB615EBF1754DF46004C1BA4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB615EBE1754DF46004C1BA4 /* UIKit.framework */; };
 		CB615EC11754DF46004C1BA4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB615EC01754DF46004C1BA4 /* Foundation.framework */; };
 		CB615EC31754DF46004C1BA4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB615EC21754DF46004C1BA4 /* CoreGraphics.framework */; };
@@ -25,8 +26,6 @@
 		CB9BCC6F17608B1800996188 /* JDNCities.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC6E17608B1700996188 /* JDNCities.m */; };
 		CB9BCC7217608B4400996188 /* JDNCity.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC7117608B4400996188 /* JDNCity.m */; };
 		CB9BCC7617608DFE00996188 /* JDNCitiesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC7517608DFE00996188 /* JDNCitiesTableViewController.m */; };
-		CB9BCC781760964400996188 /* today-s-apps-gone-free-instuner-great-little-war-game-smartscan-express-and-more_7.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9BCC771760964400996188 /* today-s-apps-gone-free-instuner-great-little-war-game-smartscan-express-and-more_7.png */; };
-		CB9BCC7A1760971200996188 /* safe_image.php.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9BCC791760971200996188 /* safe_image.php.png */; };
 		CB9BCC7D17609FDE00996188 /* JDNWeatherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC7C17609FDE00996188 /* JDNWeatherCell.m */; };
 		CB9BCC801760B39900996188 /* JDNSharedImages.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC7F1760B39900996188 /* JDNSharedImages.m */; };
 		CB9BCC851760CCAD00996188 /* NSArray+LinqExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC821760CCAD00996188 /* NSArray+LinqExtensions.m */; };
@@ -40,6 +39,7 @@
 		CB123480175F7DB3006F890E /* JDNWeatherFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNWeatherFetcher.m; sourceTree = "<group>"; };
 		CB123482175F7DEF006F890E /* JDNDailyData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNDailyData.h; sourceTree = "<group>"; };
 		CB123483175F7DEF006F890E /* JDNDailyData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNDailyData.m; sourceTree = "<group>"; };
+		CB26ACAC1761C57100070F8C /* Zesser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Zesser.png; sourceTree = "<group>"; };
 		CB615EBB1754DF46004C1BA4 /* Zesser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zesser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB615EBE1754DF46004C1BA4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CB615EC01754DF46004C1BA4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -64,8 +64,6 @@
 		CB9BCC7117608B4400996188 /* JDNCity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNCity.m; sourceTree = "<group>"; };
 		CB9BCC7417608DFE00996188 /* JDNCitiesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNCitiesTableViewController.h; sourceTree = "<group>"; };
 		CB9BCC7517608DFE00996188 /* JDNCitiesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNCitiesTableViewController.m; sourceTree = "<group>"; };
-		CB9BCC771760964400996188 /* today-s-apps-gone-free-instuner-great-little-war-game-smartscan-express-and-more_7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "today-s-apps-gone-free-instuner-great-little-war-game-smartscan-express-and-more_7.png"; sourceTree = "<group>"; };
-		CB9BCC791760971200996188 /* safe_image.php.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = safe_image.php.png; sourceTree = "<group>"; };
 		CB9BCC7B17609FDE00996188 /* JDNWeatherCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNWeatherCell.h; sourceTree = "<group>"; };
 		CB9BCC7C17609FDE00996188 /* JDNWeatherCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNWeatherCell.m; sourceTree = "<group>"; };
 		CB9BCC7E1760B39900996188 /* JDNSharedImages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNSharedImages.h; sourceTree = "<group>"; };
@@ -94,6 +92,8 @@
 		CB12347E175F7B84006F890E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				CB9BCC7417608DFE00996188 /* JDNCitiesTableViewController.h */,
+				CB9BCC7517608DFE00996188 /* JDNCitiesTableViewController.m */,
 				CB12347B175F79EA006F890E /* JDNWeatherTableViewController.h */,
 				CB12347C175F79EA006F890E /* JDNWeatherTableViewController.m */,
 			);
@@ -103,24 +103,42 @@
 		CB123485175F7E50006F890E /* Weather */ = {
 			isa = PBXGroup;
 			children = (
+				CB123482175F7DEF006F890E /* JDNDailyData.h */,
+				CB123483175F7DEF006F890E /* JDNDailyData.m */,
 				CB9BCC7B17609FDE00996188 /* JDNWeatherCell.h */,
 				CB9BCC7C17609FDE00996188 /* JDNWeatherCell.m */,
 				CB12347F175F7DB3006F890E /* JDNWeatherFetcher.h */,
 				CB123480175F7DB3006F890E /* JDNWeatherFetcher.m */,
-				CB123482175F7DEF006F890E /* JDNDailyData.h */,
-				CB123483175F7DEF006F890E /* JDNDailyData.m */,
 				CB9BCC7317608B8200996188 /* City */,
 			);
 			name = Weather;
 			sourceTree = "<group>";
 		};
+		CB26ACAE1761C63500070F8C /* XPathQuery */ = {
+			isa = PBXGroup;
+			children = (
+				CB9BCC65175F8CE400996188 /* XPathQuery.h */,
+				CB9BCC66175F8CE400996188 /* XPathQuery.m */,
+			);
+			name = XPathQuery;
+			path = Zesser;
+			sourceTree = "<group>";
+		};
+		CB26ACAF1761C64800070F8C /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				CB26ACAE1761C63500070F8C /* XPathQuery */,
+				CB9BCC871760CCB300996188 /* LinqExtensions */,
+			);
+			name = Support;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		CB615EB21754DF46004C1BA4 = {
 			isa = PBXGroup;
 			children = (
-				CB9BCC791760971200996188 /* safe_image.php.png */,
-				CB9BCC771760964400996188 /* today-s-apps-gone-free-instuner-great-little-war-game-smartscan-express-and-more_7.png */,
+				CB26ACAC1761C57100070F8C /* Zesser.png */,
 				CB9BCC68175F8CF900996188 /* libxml2.dylib */,
-				CB9BCC871760CCB300996188 /* LinqExtensions */,
 				CB615EC41754DF46004C1BA4 /* Zesser */,
 				CB615EBD1754DF46004C1BA4 /* Frameworks */,
 				CB615EBC1754DF46004C1BA4 /* Products */,
@@ -148,11 +166,10 @@
 		CB615EC41754DF46004C1BA4 /* Zesser */ = {
 			isa = PBXGroup;
 			children = (
+				CB9BCC5B175F850400996188 /* JDNCommon.h */,
 				CB9BCC7E1760B39900996188 /* JDNSharedImages.h */,
 				CB9BCC7F1760B39900996188 /* JDNSharedImages.m */,
-				CB9BCC65175F8CE400996188 /* XPathQuery.h */,
-				CB9BCC66175F8CE400996188 /* XPathQuery.m */,
-				CB9BCC5B175F850400996188 /* JDNCommon.h */,
+				CB26ACAF1761C64800070F8C /* Support */,
 				CB123485175F7E50006F890E /* Weather */,
 				CB12347E175F7B84006F890E /* Controllers */,
 				CB615ECD1754DF46004C1BA4 /* JDNAppDelegate.h */,
@@ -180,12 +197,10 @@
 		CB9BCC7317608B8200996188 /* City */ = {
 			isa = PBXGroup;
 			children = (
-				CB9BCC6D17608B1700996188 /* JDNCities.h */,
-				CB9BCC6E17608B1700996188 /* JDNCities.m */,
 				CB9BCC7017608B4400996188 /* JDNCity.h */,
 				CB9BCC7117608B4400996188 /* JDNCity.m */,
-				CB9BCC7417608DFE00996188 /* JDNCitiesTableViewController.h */,
-				CB9BCC7517608DFE00996188 /* JDNCitiesTableViewController.m */,
+				CB9BCC6D17608B1700996188 /* JDNCities.h */,
+				CB9BCC6E17608B1700996188 /* JDNCities.m */,
 			);
 			name = City;
 			sourceTree = "<group>";
@@ -258,8 +273,7 @@
 				CB615ED31754DF46004C1BA4 /* Default@2x.png in Resources */,
 				CB615ED51754DF47004C1BA4 /* Default-568h@2x.png in Resources */,
 				CB615ED81754DF47004C1BA4 /* MainStoryboard.storyboard in Resources */,
-				CB9BCC781760964400996188 /* today-s-apps-gone-free-instuner-great-little-war-game-smartscan-express-and-more_7.png in Resources */,
-				CB9BCC7A1760971200996188 /* safe_image.php.png in Resources */,
+				CB26ACAD1761C57100070F8C /* Zesser.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
