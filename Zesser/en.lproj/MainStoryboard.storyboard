@@ -8,27 +8,58 @@
         <scene sceneID="9bP-X0-37t">
             <objects>
                 <tableViewController id="L8l-KH-tDu" customClass="JDNCitiesTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="2li-gY-9HC">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" rowHeight="89" sectionHeaderHeight="22" sectionFooterHeight="22" id="2li-gY-9HC">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.20000000000000001" green="0.40000000000000002" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="separatorColor" red="0.6338234157" green="0.75786300689999997" blue="0.8901367188" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="NZf-c9-msk" rowHeight="85" style="IBUITableViewCellStyleDefault" id="7CY-mQ-s1J">
-                                <rect key="frame" x="0.0" y="22" width="320" height="85"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="89" id="7CY-mQ-s1J" customClass="JDNSimpleWeatherCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="89"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="300" height="84"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="88"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NZf-c9-msk">
-                                            <fontDescription key="fontDescription" name="HoeflerText-Regular" family="Hoefler Text" pointSize="22"/>
-                                            <color key="textColor" red="0.97647064924240112" green="0.97647064924240112" blue="0.92156869173049927" alpha="1" colorSpace="deviceRGB"/>
-                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C8S-3O-XRZ">
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="143" id="DMe-IU-ePN"/>
+                                                <constraint firstAttribute="height" constant="47" id="kSi-To-lOl"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="22"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zpm-Mg-Obp">
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="46" id="2ML-Di-8Cs"/>
+                                                <constraint firstAttribute="height" constant="32" id="V6a-m0-iac"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TqT-qx-XYo">
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="32" id="R9e-NY-TMp"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <constraints>
+                                    <constraint firstItem="Zpm-Mg-Obp" firstAttribute="top" secondItem="7CY-mQ-s1J" secondAttribute="top" constant="29" id="9WE-av-v7N"/>
+                                    <constraint firstAttribute="trailing" secondItem="TqT-qx-XYo" secondAttribute="trailing" constant="53" id="Dq7-hL-J9K"/>
+                                    <constraint firstItem="TqT-qx-XYo" firstAttribute="bottom" secondItem="Zpm-Mg-Obp" secondAttribute="bottom" type="default" id="Dvf-vI-K0j"/>
+                                    <constraint firstItem="TqT-qx-XYo" firstAttribute="leading" secondItem="Zpm-Mg-Obp" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="HUT-1q-MBB"/>
+                                    <constraint firstItem="C8S-3O-XRZ" firstAttribute="leading" secondItem="7CY-mQ-s1J" secondAttribute="leading" constant="20" type="default" id="KNQ-zk-HbS"/>
+                                    <constraint firstItem="C8S-3O-XRZ" firstAttribute="top" secondItem="7CY-mQ-s1J" secondAttribute="top" constant="20" type="default" id="TzJ-29-h5u"/>
+                                    <constraint firstItem="Zpm-Mg-Obp" firstAttribute="top" secondItem="TqT-qx-XYo" secondAttribute="top" type="default" id="Wt9-Ty-Pew"/>
+                                </constraints>
                                 <connections>
+                                    <outlet property="cityName" destination="C8S-3O-XRZ" id="vEF-9n-Sci"/>
+                                    <outlet property="forecast" destination="TqT-qx-XYo" id="Js9-8o-URu"/>
+                                    <outlet property="temperature" destination="Zpm-Mg-Obp" id="pkC-Vc-QR3"/>
                                     <segue destination="ccC-Tc-vuL" kind="push" identifier="viewWeather" id="pyD-uQ-gCM"/>
                                 </connections>
                             </tableViewCell>
@@ -38,7 +69,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IKf-Pe-29E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1835" y="-546"/>
+            <point key="canvasLocation" x="-2369" y="-583"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="cyc-4h-1mN">
@@ -57,7 +88,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aea-ZZ-ubE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2266" y="-546"/>
+            <point key="canvasLocation" x="-2800" y="-583"/>
         </scene>
         <!--Weather Table View Controller-->
         <scene sceneID="123-Wn-uL5">
@@ -175,7 +206,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bfh-HO-Uon" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1454" y="-546"/>
+            <point key="canvasLocation" x="-1988" y="-583"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

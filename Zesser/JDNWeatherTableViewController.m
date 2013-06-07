@@ -21,9 +21,9 @@
 
 @interface JDNWeatherTableViewController ()
 
-@property (strong,nonatomic) NSDictionary       *data;
-@property (strong,nonatomic) NSArray            *sections;
-@property (strong,nonatomic) JDNWeatherFetcher  *weatherFetcher;
+@property (strong,nonatomic) NSDictionary            *data;
+@property (strong,nonatomic) NSArray                 *sections;
+@property (strong,nonatomic) JDNWeatherFetcher       *weatherFetcher;
 
 @end
 
@@ -46,9 +46,9 @@
 
         self.title = self.city.name;
 
-        [self.weatherFetcher isAvailable:^(BOOL result) {
+        [self.weatherFetcher isAvailable:^(BOOL available) {
             
-            if ( result ){
+            if ( available ){
                 
                 [self.weatherFetcher fetchDailyDataForCity:self.city.url withCompletion:^(NSArray *data) {
                     [[NSKeyedArchiver archivedDataWithRootObject:data] writeToFile:cachedData atomically:YES];

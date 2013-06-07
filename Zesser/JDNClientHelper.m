@@ -11,6 +11,22 @@
 
 @implementation JDNClientHelper
 
++(void)configureTemperatureLayoutForLabel:(UILabel*)aView byValue:(NSInteger)value{
+    if ( value > 38 ){
+        aView.textColor = [UIColor colorWithRed:0.986 green:0.000 blue:0.029 alpha:1.000];
+    }else if ( value > 32 ){
+        aView.textColor = [UIColor orangeColor];
+    }else if ( value > 26 ){
+        aView.textColor = [UIColor yellowColor];
+    }else if( value > 22 ){
+        aView.textColor = [UIColor colorWithRed:0.121 green:0.776 blue:0.484 alpha:1.000];
+    }else if ( value <= 0){
+        aView.textColor = [UIColor cyanColor];
+    }else{
+        aView.textColor = [UIColor whiteColor];
+    }
+}
+
 +(void)showMessage:(NSString*) message withTitle: (NSString*) title {
     UIAlertView *av = [[UIAlertView alloc] initWithTitle:title
                                                  message:message

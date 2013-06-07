@@ -10,6 +10,12 @@
 #import "JDNCities.h"
 #import "JDNCity.h"
 #import "JDNWeatherTableViewController.h"
+#import "JDNWeatherFetcher.h"
+#import "JDNDailyData.h"
+#import "JDNSimpleWeatherCell.h"
+
+#define REFRESH_TITLE_ATTRIBUTES @{NSForegroundColorAttributeName:[UIColor colorWithRed:0.746 green:0.909 blue:0.936 alpha:1.000] }
+#define REFRESH_TINT_COLOR       [UIColor colorWithRed:0.367 green:0.609 blue:0.887 alpha:1.000]
 
 @interface JDNCitiesTableViewController ()
 
@@ -21,11 +27,18 @@
 {
     [super viewDidLoad];
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    NSMutableAttributedString *title = [[NSMutableAttributedString alloc]
+                                        initWithString:@"Trascina per aggiornare"
+                                        attributes:REFRESH_TITLE_ATTRIBUTES];
+    
+    refreshControl.attributedTitle = title;
+    
+    refreshControl.tintColor = REFRESH_TINT_COLOR;
+    [refreshControl addTarget:self
+                       action:@selector(refreshData:)
+             forControlEvents:UIControlEventValueChanged];
+    self.refreshControl = refreshControl;
 }
 
 - (void)didReceiveMemoryWarning
@@ -36,20 +49,30 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return [JDNCities sharedCities].cities.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
     JDNCity *city = [JDNCities sharedCities].cities[indexPath.row];
-    cell.textLabel.text = city.name;
     
+    JDNSimpleWeatherCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    cell.cityName.text = city.name;
+    
+    [cell clear];
+    [cell startLoadingData];
+    [self updateWeatherDataForCity:city
+                            inCell:cell];
+
     return cell;
+}
+
+-(void)updateWeatherDataForCity: (JDNCity*)city inCell: (JDNSimpleWeatherCell*)cell {
+    JDNWeatherFetcher *weatherFetcher =  [[JDNWeatherFetcher alloc] init];
+    [weatherFetcher fetchNowSimpleDailyDataForCity:city.url withCompletion:^(NSArray *data) {
+        [cell setupCellWithDailyData: (JDNDailyData*) data[0]];
+    }];
 }
 
 /*
@@ -111,6 +134,27 @@
         NSIndexPath* indexPath=[self.tableView indexPathForCell:sender];
         weathControler.city = [JDNCities sharedCities].cities[indexPath.row];
     }
+}
+
+
+-(void)refreshData:(UIRefreshControl *)refresh {
+    NSMutableAttributedString *title = [[NSMutableAttributedString alloc]
+                                        initWithString:@"Aggiornamento dati..."
+                                        attributes:REFRESH_TITLE_ATTRIBUTES];
+    refresh.attributedTitle = title;
+    
+    [self.tableView reloadData];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"d MMMM yyyy, HH:mm:ss"];
+    NSString *lastUpdated = [NSString stringWithFormat:@"Aggiornato al %@",
+                             [formatter stringFromDate:[NSDate date]]];
+    NSMutableAttributedString *update = [[NSMutableAttributedString alloc]
+                                        initWithString:lastUpdated
+                                        attributes:REFRESH_TITLE_ATTRIBUTES];
+    
+    refresh.attributedTitle = update;
+    [refresh endRefreshing];
 }
 
 @end

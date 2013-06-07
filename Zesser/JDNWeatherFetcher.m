@@ -16,6 +16,7 @@
 @property (strong,nonatomic) NSString           *receivedString;
 @property (strong,nonatomic) NSMutableData      *receivedData;
 @property (strong,nonatomic) GetDataCallBack    callback;
+@property (nonatomic)        BOOL               fetchNow;
 
 @end
 
@@ -29,7 +30,17 @@
     [testConnection checkConnectionToUrl:@"http://www.aadsadasxazx.dsa" withCallback:callback];
 }
 
+-(void)fetchNowSimpleDailyDataForCity:(NSString *)cityName withCompletion:(GetDataCallBack)callback{
+    self.fetchNow = YES;
+    [self internalfetchDailyDataForCity:cityName withCompletion:callback];
+}
+
 -(void)fetchDailyDataForCity:(NSString *)cityName withCompletion:(GetDataCallBack)callback{
+    self.fetchNow = NO;
+    [self internalfetchDailyDataForCity:cityName withCompletion:callback];
+}
+
+-(void)internalfetchDailyDataForCity:(NSString *)cityName withCompletion:(GetDataCallBack)callback{
     self.callback = callback;
     self.receivedData = [[NSMutableData alloc] init];
     self.receivedString = @"";
@@ -90,27 +101,35 @@
                                                       @"/table/tr/td[@class='previsioniRow']/img" )
                                  valueForKeyPath:@"nodeAttributeArray"] valueForKey:@"nodeContent"];
     
-    NSArray *tempprec = [PerformXMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],
+    NSArray *appTemp = [PerformXMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],
                                               @"/table/tr/td[@class='previsioniRow']/div" )
                          valueForKeyPath:@"nodeContent"];
     
     NSMutableArray *datas = [NSMutableArray arrayWithCapacity:5];
     
-    for (NSUInteger i = 0; i < daysAndHours.count; i+=2) {
+    if ( self.fetchNow ){
         JDNDailyData *data = [[JDNDailyData alloc] init];
-        data.day = daysAndHours[i];
-        data.hourOfDay = daysAndHours[i+1];
-        data.forecast = forecastAndWind[i][1];
-        data.forecastImage = [BASE_URL stringByAppendingString:forecastAndWind[i][0]];
-        data.wind = forecastAndWind[i+1][1];
-        data.windImage = [BASE_URL stringByAppendingString: forecastAndWind[i+1][0]];
+        data.apparentTemperature = appTemp[0];
+        data.forecastImage = [BASE_URL stringByAppendingString:forecastAndWind[0][0]];
         [datas addObject:data];
-    }
-    
-    for (NSUInteger i=0; i < temperatures.count; i++) {
-        JDNDailyData *data = datas[i];
-        data.temperature = temperatures[i];
-        data.apparentTemperature = tempprec[i];
+    }else{
+        
+        for (NSUInteger i = 0; i < daysAndHours.count; i+=2) {
+            JDNDailyData *data = [[JDNDailyData alloc] init];
+            data.day = daysAndHours[i];
+            data.hourOfDay = daysAndHours[i+1];
+            data.forecast = forecastAndWind[i][1];
+            data.forecastImage = [BASE_URL stringByAppendingString:forecastAndWind[i][0]];
+            data.wind = forecastAndWind[i+1][1];
+            data.windImage = [BASE_URL stringByAppendingString: forecastAndWind[i+1][0]];
+            [datas addObject:data];
+        }
+        
+        for (NSUInteger i=0; i < temperatures.count; i++) {
+            JDNDailyData *data = datas[i];
+            data.temperature = temperatures[i];
+            data.apparentTemperature = appTemp[i];
+        }
     }
 
     return datas;

@@ -10,6 +10,7 @@
 
 @interface JDNClientHelper : NSObject
 
++(void)configureTemperatureLayoutForLabel:(UILabel*)aView byValue:(NSInteger)value;
 +(void)showBezelMessage:(NSString*) message viewController:(UIViewController*)viewController;
 
 +(void)showMessage:(NSString*) message withTitle: (NSString*) title;

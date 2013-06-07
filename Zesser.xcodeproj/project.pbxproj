@@ -33,6 +33,7 @@
 		CBD7107B1761CFD400ACA525 /* JDNClientHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD7107A1761CFD400ACA525 /* JDNClientHelper.m */; };
 		CBD7107E1761D2DB00ACA525 /* info_64.png in Resources */ = {isa = PBXBuildFile; fileRef = CBD7107D1761D2DB00ACA525 /* info_64.png */; };
 		CBD710811761DB1100ACA525 /* JDNTestConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD710801761DB1100ACA525 /* JDNTestConnection.m */; };
+		CBD710841761F48400ACA525 /* JDNSimpleWeatherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD710831761F48300ACA525 /* JDNSimpleWeatherCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +81,8 @@
 		CBD7107D1761D2DB00ACA525 /* info_64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info_64.png; sourceTree = "<group>"; };
 		CBD7107F1761DB1000ACA525 /* JDNTestConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNTestConnection.h; sourceTree = "<group>"; };
 		CBD710801761DB1100ACA525 /* JDNTestConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNTestConnection.m; sourceTree = "<group>"; };
+		CBD710821761F48300ACA525 /* JDNSimpleWeatherCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNSimpleWeatherCell.h; sourceTree = "<group>"; };
+		CBD710831761F48300ACA525 /* JDNSimpleWeatherCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNSimpleWeatherCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +114,8 @@
 		CB123485175F7E50006F890E /* Weather */ = {
 			isa = PBXGroup;
 			children = (
+				CBD710821761F48300ACA525 /* JDNSimpleWeatherCell.h */,
+				CBD710831761F48300ACA525 /* JDNSimpleWeatherCell.m */,
 				CB123482175F7DEF006F890E /* JDNDailyData.h */,
 				CB123483175F7DEF006F890E /* JDNDailyData.m */,
 				CB9BCC7B17609FDE00996188 /* JDNWeatherCell.h */,
@@ -322,6 +327,7 @@
 				CB9BCC861760CCAD00996188 /* NSDictionary+LinqExtensions.m in Sources */,
 				CBD7107B1761CFD400ACA525 /* JDNClientHelper.m in Sources */,
 				CBD710811761DB1100ACA525 /* JDNTestConnection.m in Sources */,
+				CBD710841761F48400ACA525 /* JDNSimpleWeatherCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
