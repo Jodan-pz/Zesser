@@ -13,11 +13,18 @@
 #import "JDNWeatherCell.h"
 #import "NSArray+LinqExtensions.h"
 
+#define REFRESH_TITLE_ATTRIBUTES @{NSForegroundColorAttributeName:[UIColor colorWithRed:0.746 green:0.909 blue:0.936 alpha:1.000] }
+#define REFRESH_TINT_COLOR       [UIColor colorWithRed:0.367 green:0.609 blue:0.887 alpha:1.000]
+#define SECTION_BACKGROUND_COLOR [UIColor colorWithRed:0.081 green:0.259 blue:0.504 alpha:1.000]
+#define SECTION_FOREGROUND_COLOR [UIColor colorWithRed:0.120 green:0.778 blue:0.769 alpha:1.000]
+#define SECTION_SHADOW_COLOR     [UIColor colorWithRed:0.131 green:0.000 blue:0.646 alpha:1.000]
+
 @interface JDNWeatherTableViewController ()
 
 @property (strong,nonatomic) NSDictionary       *data;
 @property (strong,nonatomic) NSArray            *sections;
 @property (strong,nonatomic) JDNWeatherFetcher  *weatherFetcher;
+
 @end
 
 @implementation JDNWeatherTableViewController
@@ -25,11 +32,10 @@
 -(void)refreshData:(UIRefreshControl *)refresh {
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc]
                                         initWithString:@"Aggiornamento dati..."
-                                        attributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:0.746 green:0.909 blue:0.936 alpha:1.000] }];
+                                        attributes:REFRESH_TITLE_ATTRIBUTES];
     refresh.attributedTitle = title;
     self.sections = nil;
     self.data = nil;
-    [self.tableView reloadData];
     
     if ( self.city ){
         self.title = self.city.name;
@@ -47,7 +53,7 @@
                                      [formatter stringFromDate:[NSDate date]]];
             NSMutableAttributedString *title = [[NSMutableAttributedString alloc]
                                                 initWithString:lastUpdated
-                                                attributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:0.746 green:0.909 blue:0.936 alpha:1.000] }];
+                                                attributes:REFRESH_TITLE_ATTRIBUTES];
 
             refresh.attributedTitle = title;
             [refresh endRefreshing];
@@ -66,11 +72,11 @@
     
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc]
                                     initWithString:@"Trascina per aggiornare"
-                                    attributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:0.746 green:0.909 blue:0.936 alpha:1.000] }];
+                                    attributes:REFRESH_TITLE_ATTRIBUTES];
     
     refreshControl.attributedTitle = title;
     
-    refreshControl.tintColor = [UIColor colorWithRed:0.367 green:0.609 blue:0.887 alpha:1.000];
+    refreshControl.tintColor = REFRESH_TINT_COLOR;
     [refreshControl addTarget:self action:@selector(refreshData:) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
     
@@ -89,12 +95,12 @@
     if (sectionTitle == nil) {
         return nil;
     }
-    
+        
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)];
     label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-    label.backgroundColor = [UIColor colorWithRed:0.081 green:0.259 blue:0.504 alpha:1.000];
-    label.textColor = [UIColor colorWithRed:0.120 green:0.778 blue:0.769 alpha:1.000];
-    label.shadowColor = [UIColor colorWithRed:0.131 green:0.000 blue:0.646 alpha:1.000];
+    label.backgroundColor = SECTION_BACKGROUND_COLOR;
+    label.textColor = SECTION_FOREGROUND_COLOR;
+    label.shadowColor = SECTION_SHADOW_COLOR;
     label.shadowOffset = CGSizeMake(-1.0, 1.0);
     label.font = [UIFont systemFontOfSize:18];
     label.text = sectionTitle;

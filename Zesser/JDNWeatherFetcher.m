@@ -12,8 +12,8 @@
 
 @interface JDNWeatherFetcher()<NSURLConnectionDataDelegate>
 
-@property (strong,nonatomic) NSString      *receivedString;
-@property (strong,nonatomic) NSMutableData *receivedData;
+@property (strong,nonatomic) NSString       *receivedString;
+@property (strong,nonatomic) NSMutableData  *receivedData;
 @property (strong,nonatomic) GetDataCallBack callback;
 
 @end
