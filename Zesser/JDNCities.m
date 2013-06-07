@@ -20,22 +20,6 @@
 
 static JDNCities *sharedCities_;
 
--(void)setOrderForCity:(JDNCity *)city order:(NSInteger)order{
-    JDNCity *editCity = [[ self.mcities where:^BOOL(JDNCity *item) {
-        return [item.name isEqualToString:city.name];
-    } ]firstOrNil];
-    if ( editCity ){
-        editCity.order = order;
-        [self write];
-    }
-}
-
--(NSArray *)cities{
-    return [self.mcities sortedArrayUsingComparator:^NSComparisonResult(JDNCity *obj1, JDNCity *obj2) {
-        return [ @(obj1.order) compare: @(obj2.order) ];
-    }];
-}
-
 + (void)initialize{
     sharedCities_ = [[self alloc] initSingleton];
 }
@@ -52,10 +36,26 @@ static JDNCities *sharedCities_;
     return self;
 }
 
--(void)addCity:(JDNCity *)city{
+-(void)setOrderForCity:(JDNCity *)city order:(NSInteger)order{
+    JDNCity *editCity = [[ self.mcities where:^BOOL(JDNCity *item) {
+        return [item.name isEqualToString:city.name];
+    } ]firstOrNil];
+    if ( editCity ){
+        editCity.order = order;
+    }
+}
+
+-(NSArray *)cities{
+    return [self.mcities sortedArrayUsingComparator:^NSComparisonResult(JDNCity *obj1, JDNCity *obj2) {
+        return [ @(obj1.order) compare: @(obj2.order) ];
+    }];
+}
+
+-(void)addCity:(JDNCity *)city {
     if (![[ self.mcities where:^BOOL(JDNCity *item) {
         return [item.name isEqualToString:city.name];
     }] firstOrNil]){
+        city.order = ((JDNCity*)[self.cities lastObject]).order + 1;
         [self.mcities addObject:city];
         [self write];
     };
@@ -77,7 +77,7 @@ static JDNCities *sharedCities_;
     
     self.mcities = [NSKeyedUnarchiver unarchiveObjectWithFile:[documentsDirectory stringByAppendingPathComponent:@"cities.plist"]];
     
-    if ( !self.mcities){
+    if ( !self.mcities ) {
         self.mcities = [NSMutableArray array];
         JDNCity *city = [[JDNCity alloc] init];
         city.name = @"Casa";

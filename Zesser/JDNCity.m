@@ -14,6 +14,10 @@
 
 @implementation JDNCity
 
+-(NSString *)description{
+    return [NSString stringWithFormat:@"%@ - %@ - %lu", self.name, self.url, (unsigned long)self.order];
+}
+
 -(void)encodeWithCoder:(NSCoder *)aCoder{
     [aCoder encodeObject:self.name      forKey:KEY_NAME];
     [aCoder encodeObject:self.url       forKey:KEY_URL];

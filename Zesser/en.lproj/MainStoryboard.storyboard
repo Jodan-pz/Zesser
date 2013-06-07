@@ -23,7 +23,7 @@
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C8S-3O-XRZ">
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="143" id="DMe-IU-ePN"/>
+                                                <constraint firstAttribute="width" constant="129" id="Hco-cz-uRd"/>
                                                 <constraint firstAttribute="height" constant="54" id="khX-fc-AYG"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="22"/>
@@ -52,8 +52,8 @@
                                     <constraint firstAttribute="trailing" secondItem="TqT-qx-XYo" secondAttribute="trailing" constant="53" id="Dq7-hL-J9K"/>
                                     <constraint firstItem="TqT-qx-XYo" firstAttribute="bottom" secondItem="Zpm-Mg-Obp" secondAttribute="bottom" type="default" id="Dvf-vI-K0j"/>
                                     <constraint firstItem="TqT-qx-XYo" firstAttribute="leading" secondItem="Zpm-Mg-Obp" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="HUT-1q-MBB"/>
-                                    <constraint firstItem="C8S-3O-XRZ" firstAttribute="leading" secondItem="7CY-mQ-s1J" secondAttribute="leading" constant="20" type="default" id="KNQ-zk-HbS"/>
                                     <constraint firstItem="Zpm-Mg-Obp" firstAttribute="top" secondItem="TqT-qx-XYo" secondAttribute="top" type="default" id="Wt9-Ty-Pew"/>
+                                    <constraint firstItem="C8S-3O-XRZ" firstAttribute="leading" secondItem="7CY-mQ-s1J" secondAttribute="leading" constant="34" id="xAX-WL-5dv"/>
                                     <constraint firstItem="C8S-3O-XRZ" firstAttribute="centerY" secondItem="7CY-mQ-s1J" secondAttribute="centerY" type="default" id="xKE-6n-Y6s"/>
                                 </constraints>
                                 <connections>

@@ -122,10 +122,15 @@
     }];
 }
 
+-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.editing) {
+        return UITableViewCellEditingStyleDelete;
+    }
+    return UITableViewCellEditingStyleNone;
+}
 
 // Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         JDNCity *city = [JDNCities sharedCities].cities[indexPath.row];
         [[JDNCities sharedCities] removeCity:city];
@@ -139,7 +144,10 @@
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
     JDNCity *city = [JDNCities sharedCities].cities[fromIndexPath.row];
+    JDNCity *city2 = [JDNCities sharedCities].cities[toIndexPath.row];
     [[JDNCities sharedCities] setOrderForCity:city order:toIndexPath.row];
+    [[JDNCities sharedCities] setOrderForCity:city2 order:fromIndexPath.row];
+    [[JDNCities sharedCities] write];
 }
 
 - (IBAction)editCities:(id)sender {
