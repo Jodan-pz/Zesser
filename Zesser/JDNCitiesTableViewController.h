@@ -8,10 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-
-
 @interface JDNCitiesTableViewController : UITableViewController
-
-
 
 @end

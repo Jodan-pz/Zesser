@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 Daniele Giove. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
+
 #import "JDNCitiesTableViewController.h"
 #import "JDNCities.h"
 #import "JDNCity.h"
@@ -13,12 +15,13 @@
 #import "JDNWeatherFetcher.h"
 #import "JDNDailyData.h"
 #import "JDNSimpleWeatherCell.h"
-#import <QuartzCore/QuartzCore.h>
+#import "JDNNewCityViewController.h"
+
 
 #define REFRESH_TITLE_ATTRIBUTES @{NSForegroundColorAttributeName:[UIColor colorWithRed:0.746 green:0.909 blue:0.936 alpha:1.000] }
 #define REFRESH_TINT_COLOR       [UIColor colorWithRed:0.367 green:0.609 blue:0.887 alpha:1.000]
 
-@interface JDNCitiesTableViewController ()
+@interface JDNCitiesTableViewController ()<JDNNewCityViewDelegate>
 
 @end
 
@@ -161,9 +164,20 @@
         JDNWeatherTableViewController *weathControler = segue.destinationViewController;
         NSIndexPath* indexPath=[self.tableView indexPathForCell:sender];
         weathControler.city = [JDNCities sharedCities].cities[indexPath.row];
+    } else if ( [segue.identifier isEqualToString:@"newCity"]){
+        JDNNewCityViewController *newCityController = segue.destinationViewController;
+        newCityController.delegate = self;
     }
+               
 }
 
+-(void)didAddedNewCity:(JDNCity *)newCity sender:(JDNNewCityViewController *)sender{
+    [sender dismissViewControllerAnimated:YES completion:^{
+        if ( newCity ){
+            [self refreshData:self.refreshControl];
+        }
+    }];
+}
 
 -(void)refreshData:(UIRefreshControl *)refresh {
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc]

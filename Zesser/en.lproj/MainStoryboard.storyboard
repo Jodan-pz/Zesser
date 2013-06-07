@@ -65,11 +65,105 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Zesser" id="oce-WF-wFE"/>
+                    <navigationItem key="navigationItem" title="Zesser" id="oce-WF-wFE">
+                        <barButtonItem key="leftBarButtonItem" title="Modifica" id="dIa-g0-E2M"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="pPw-Mc-xfb">
+                            <connections>
+                                <segue destination="MFE-ne-Vn9" kind="modal" identifier="newCity" modalTransitionStyle="coverVertical" id="SwA-3R-2VR"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IKf-Pe-29E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2369" y="-583"/>
+        </scene>
+        <!--New City View Controller-->
+        <scene sceneID="vqr-74-Vxr">
+            <objects>
+                <viewController id="MFE-ne-Vn9" customClass="JDNNewCityViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7GZ-BB-9Fh">
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Località" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hoG-K6-8Yi">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="Ew4-t9-Q7d"/>
+                                    <constraint firstAttribute="width" constant="261" id="Tln-no-4d0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Thonburi" family="Thonburi" pointSize="28"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="URL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bNI-aU-0xX">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="8JX-7j-C7x"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Thonburi" family="Thonburi" pointSize="28"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gKK-j6-5ab">
+                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <items>
+                                    <navigationItem title="Nuovo" id="Bhu-Pv-ODa">
+                                        <barButtonItem key="leftBarButtonItem" title="Annulla" id="3SA-Fj-Kjl">
+                                            <connections>
+                                                <action selector="cancelAddCity:" destination="MFE-ne-Vn9" id="BdK-ID-Vrr"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="OK" id="utP-yS-TMf">
+                                            <connections>
+                                                <action selector="addCity:" destination="MFE-ne-Vn9" id="a8x-ml-nTt"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ei2-OO-mqe">
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                                <connections>
+                                    <action selector="cityEditingChanged:" destination="MFE-ne-Vn9" eventType="editingChanged" id="G5F-y8-NxE"/>
+                                    <outlet property="delegate" destination="MFE-ne-Vn9" id="NiP-2T-h7O"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="MGZ-9C-llh">
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="URL" returnKeyType="go" enablesReturnKeyAutomatically="YES"/>
+                                <connections>
+                                    <action selector="urlEditingChanged:" destination="MFE-ne-Vn9" eventType="editingChanged" id="GEB-3c-FHb"/>
+                                    <outlet property="delegate" destination="MFE-ne-Vn9" id="r9u-Cx-G1K"/>
+                                </connections>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="ei2-OO-mqe" firstAttribute="top" secondItem="7GZ-BB-9Fh" secondAttribute="top" constant="90" id="1Ql-zx-hhk"/>
+                            <constraint firstItem="ei2-OO-mqe" firstAttribute="leading" secondItem="bNI-aU-0xX" secondAttribute="leading" type="default" id="2PV-1Y-htK"/>
+                            <constraint firstItem="ei2-OO-mqe" firstAttribute="top" secondItem="hoG-K6-8Yi" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="4gm-Ho-Dsi"/>
+                            <constraint firstItem="ei2-OO-mqe" firstAttribute="trailing" secondItem="bNI-aU-0xX" secondAttribute="trailing" type="default" id="ICk-6w-4on"/>
+                            <constraint firstItem="ei2-OO-mqe" firstAttribute="trailing" secondItem="hoG-K6-8Yi" secondAttribute="trailing" type="default" id="N9v-Ge-JSz"/>
+                            <constraint firstItem="bNI-aU-0xX" firstAttribute="top" secondItem="7GZ-BB-9Fh" secondAttribute="top" constant="142" id="Vwn-qP-rYf"/>
+                            <constraint firstItem="MGZ-9C-llh" firstAttribute="leading" secondItem="bNI-aU-0xX" secondAttribute="leading" type="default" id="W5R-0R-uPi"/>
+                            <constraint firstItem="gKK-j6-5ab" firstAttribute="top" secondItem="7GZ-BB-9Fh" secondAttribute="top" type="default" id="cld-Qa-jL9"/>
+                            <constraint firstItem="gKK-j6-5ab" firstAttribute="trailing" secondItem="7GZ-BB-9Fh" secondAttribute="trailing" type="default" id="gi6-cs-L0A"/>
+                            <constraint firstItem="hoG-K6-8Yi" firstAttribute="leading" secondItem="7GZ-BB-9Fh" secondAttribute="leading" constant="33" id="kRE-Tj-QQB"/>
+                            <constraint firstItem="gKK-j6-5ab" firstAttribute="leading" secondItem="7GZ-BB-9Fh" secondAttribute="leading" type="default" id="qQw-yE-hTX"/>
+                            <constraint firstItem="MGZ-9C-llh" firstAttribute="top" secondItem="bNI-aU-0xX" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="vcH-cS-hqy"/>
+                            <constraint firstItem="MGZ-9C-llh" firstAttribute="trailing" secondItem="bNI-aU-0xX" secondAttribute="trailing" type="default" id="xUy-If-P0u"/>
+                            <constraint firstItem="ei2-OO-mqe" firstAttribute="leading" secondItem="hoG-K6-8Yi" secondAttribute="leading" type="default" id="zqv-9L-qkg"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="city" destination="ei2-OO-mqe" id="eJc-pW-nJq"/>
+                        <outlet property="okButton" destination="utP-yS-TMf" id="HrV-mW-xbN"/>
+                        <outlet property="url" destination="MGZ-9C-llh" id="EiT-vm-EOv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lkS-bn-Sfc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2369" y="134"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="cyc-4h-1mN">
@@ -209,6 +303,49 @@
             <point key="canvasLocation" x="-1988" y="-583"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="JDNCitiesTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNCitiesTableViewController.h"/>
+        </class>
+        <class className="JDNNewCityViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNNewCityViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="addCity:"/>
+                <relationship kind="action" name="cancelAddCity:"/>
+                <relationship kind="action" name="cityEditingChanged:"/>
+                <relationship kind="action" name="urlEditingChanged:"/>
+                <relationship kind="outlet" name="city" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="okButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="url" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="JDNSimpleWeatherCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNSimpleWeatherCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="cityName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="forecast" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="temperature" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="JDNWeatherCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNWeatherCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="apparentTemperature" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="forecast" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="forecastImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="hourOfDay" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="temperature" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="wind" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="windImage" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="JDNWeatherTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNWeatherTableViewController.h"/>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

@@ -8,12 +8,19 @@
 
 #import "JDNCities.h"
 #import "JDNCity.h"
+#import "NSArray+LinqExtensions.h"
 
 @interface JDNCities()
-@property (strong, nonatomic) NSMutableArray *cities;
+
+@property (strong, nonatomic) NSMutableArray *mcities;
+
 @end
 
 @implementation JDNCities
+
+-(NSArray *)cities{
+    return self.mcities;
+}
 
 static JDNCities *sharedCities_;
 
@@ -26,12 +33,29 @@ static JDNCities *sharedCities_;
 }
 
 - (JDNCities*)initSingleton{
-    {
-        self = [super init];
-        if (self) {
-            [self load];
-        }
-        return self;
+    self = [super init];
+    if (self) {
+        [self load];
+    }
+    return self;
+}
+
+-(void)addCity:(JDNCity *)city{
+    if (![[ self.mcities where:^BOOL(JDNCity *item) {
+        return [item.name isEqualToString:city.name];
+    }] firstOrNil]){
+        [self.mcities addObject:city];
+        [self write];
+    };
+}
+
+-(void)removeCity:(JDNCity *)city{
+    JDNCity *cityToRemove = [[ self.mcities where:^BOOL(JDNCity *item) {
+        return [item.name isEqualToString:city.name];
+    }] firstOrNil];
+    if ( cityToRemove ) {
+        [self.mcities removeObject:cityToRemove];
+        [self write];
     }
 }
 
@@ -39,19 +63,19 @@ static JDNCities *sharedCities_;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     
-    self.cities = [NSKeyedUnarchiver unarchiveObjectWithFile:[documentsDirectory stringByAppendingPathComponent:@"cities.plist"]];
-   
-    if ( !self.cities){
-        self.cities = [NSMutableArray array];
+    self.mcities = [NSKeyedUnarchiver unarchiveObjectWithFile:[documentsDirectory stringByAppendingPathComponent:@"cities.plist"]];
+    
+    if ( !self.mcities){
+        self.mcities = [NSMutableArray array];
         JDNCity *city = [[JDNCity alloc] init];
         city.name = @"Casa";
         city.url =@"3841/POZZO%20D'ADDA";
-        [((NSMutableArray*)self.cities) addObject:city];
-
+        [((NSMutableArray*)self.mcities) addObject:city];
+        
         JDNCity *city2 = [[JDNCity alloc] init];
         city2.name = @"Muggia";
         city2.url = @"8250/MUGGIA";
-        [((NSMutableArray*)self.cities) addObject:city2];
+        [((NSMutableArray*)self.mcities) addObject:city2];
     }
     
     [self write];
@@ -61,7 +85,7 @@ static JDNCities *sharedCities_;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.cities];
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.mcities];
     NSError *err;
     [data writeToFile:[documentsDirectory stringByAppendingPathComponent:@"cities.plist"]
               options:NSDataWritingFileProtectionComplete error:&err];

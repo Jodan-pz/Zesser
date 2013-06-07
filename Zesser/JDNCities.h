@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+@class JDNCity;
 
 @interface JDNCities : NSObject
 
@@ -14,6 +15,8 @@
 
 + (JDNCities*)sharedCities;
 
+-(void)addCity:(JDNCity*)city;
+-(void)removeCity:(JDNCity*)city;
 -(void)load;
 -(void)write;
 
