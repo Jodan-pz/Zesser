@@ -122,11 +122,14 @@
     }];
 }
 
--(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.editing) {
-        return UITableViewCellEditingStyleDelete;
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    JDNSimpleWeatherCell *cell = (JDNSimpleWeatherCell*) [tableView cellForRowAtIndexPath:indexPath ];
+    if ( tableView.editing ){
+        cell.forecast.alpha = 0;
+        cell.temperature.alpha = 0;
+        return  YES;
     }
-    return UITableViewCellEditingStyleNone;
+    return NO;
 }
 
 // Override to support editing the table view.
@@ -135,8 +138,11 @@
         JDNCity *city = [JDNCities sharedCities].cities[indexPath.row];
         [[JDNCities sharedCities] removeCity:city];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-
+    }else{
+        JDNSimpleWeatherCell *cell = (JDNSimpleWeatherCell*) [tableView cellForRowAtIndexPath:indexPath ];
+        cell.forecast.alpha = 1;
+        cell.temperature.alpha = 1;
+    }
 }
 
 
