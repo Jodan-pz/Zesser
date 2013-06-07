@@ -13,6 +13,7 @@
 #import "JDNWeatherFetcher.h"
 #import "JDNDailyData.h"
 #import "JDNSimpleWeatherCell.h"
+#import <QuartzCore/QuartzCore.h>
 
 #define REFRESH_TITLE_ATTRIBUTES @{NSForegroundColorAttributeName:[UIColor colorWithRed:0.746 green:0.909 blue:0.936 alpha:1.000] }
 #define REFRESH_TINT_COLOR       [UIColor colorWithRed:0.367 green:0.609 blue:0.887 alpha:1.000]
@@ -23,8 +24,32 @@
 
 @implementation JDNCitiesTableViewController
 
+//Blue gradient background
++ (CAGradientLayer*) blueGradient {
+    
+    UIColor *colorOne = [UIColor colorWithRed:0.081 green:0.342 blue:0.664 alpha:1.000];
+    UIColor *colorTwo = [UIColor colorWithRed:(57/255.0)  green:(79/255.0)  blue:(96/255.0)  alpha:1.0];
+    
+    NSArray *colors = [NSArray arrayWithObjects:(id)colorOne.CGColor, colorTwo.CGColor, nil];
+    NSNumber *stopOne = [NSNumber numberWithFloat:0.0];
+    NSNumber *stopTwo = [NSNumber numberWithFloat:1.0];
+    
+    NSArray *locations = [NSArray arrayWithObjects:stopOne, stopTwo, nil];
+    
+    CAGradientLayer *headerLayer = [CAGradientLayer layer];
+    headerLayer.colors = colors;
+    headerLayer.locations = locations;
+    return headerLayer;
+}
+
 - (void)viewDidLoad{
     [super viewDidLoad];
+    
+    UIView *gradientView = [[UIView alloc] initWithFrame:self.tableView.frame];
+    CAGradientLayer *bgLayer = [JDNCitiesTableViewController blueGradient];
+    bgLayer.frame = self.tableView.bounds;
+    [gradientView.layer insertSublayer:bgLayer atIndex:1];
+    self.tableView.backgroundView = gradientView;
 
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc]

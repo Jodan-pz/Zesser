@@ -34,6 +34,7 @@
 		CBD7107E1761D2DB00ACA525 /* info_64.png in Resources */ = {isa = PBXBuildFile; fileRef = CBD7107D1761D2DB00ACA525 /* info_64.png */; };
 		CBD710811761DB1100ACA525 /* JDNTestConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD710801761DB1100ACA525 /* JDNTestConnection.m */; };
 		CBD710841761F48400ACA525 /* JDNSimpleWeatherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD710831761F48300ACA525 /* JDNSimpleWeatherCell.m */; };
+		CBD71088176214B500ACA525 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBD71087176214B500ACA525 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,6 +84,7 @@
 		CBD710801761DB1100ACA525 /* JDNTestConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNTestConnection.m; sourceTree = "<group>"; };
 		CBD710821761F48300ACA525 /* JDNSimpleWeatherCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNSimpleWeatherCell.h; sourceTree = "<group>"; };
 		CBD710831761F48300ACA525 /* JDNSimpleWeatherCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNSimpleWeatherCell.m; sourceTree = "<group>"; };
+		CBD71087176214B500ACA525 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBD71088176214B500ACA525 /* QuartzCore.framework in Frameworks */,
 				CB9BCC69175F8CF900996188 /* libxml2.dylib in Frameworks */,
 				CB615EBF1754DF46004C1BA4 /* UIKit.framework in Frameworks */,
 				CB615EC11754DF46004C1BA4 /* Foundation.framework in Frameworks */,
@@ -150,6 +153,7 @@
 		CB615EB21754DF46004C1BA4 = {
 			isa = PBXGroup;
 			children = (
+				CBD71087176214B500ACA525 /* QuartzCore.framework */,
 				CB26ACAC1761C57100070F8C /* Zesser.png */,
 				CB9BCC68175F8CF900996188 /* libxml2.dylib */,
 				CB615EC41754DF46004C1BA4 /* Zesser */,
