@@ -23,7 +23,7 @@
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C8S-3O-XRZ">
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="129" id="Hco-cz-uRd"/>
+                                                <constraint firstAttribute="width" constant="143" id="dpP-Rw-a5y"/>
                                                 <constraint firstAttribute="height" constant="54" id="khX-fc-AYG"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="22"/>
@@ -48,12 +48,12 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <constraints>
+                                    <constraint firstItem="C8S-3O-XRZ" firstAttribute="leading" secondItem="7CY-mQ-s1J" secondAttribute="leading" constant="20" type="default" id="6F3-th-cLJ"/>
                                     <constraint firstItem="Zpm-Mg-Obp" firstAttribute="top" secondItem="7CY-mQ-s1J" secondAttribute="top" constant="29" id="9WE-av-v7N"/>
                                     <constraint firstAttribute="trailing" secondItem="TqT-qx-XYo" secondAttribute="trailing" constant="53" id="Dq7-hL-J9K"/>
                                     <constraint firstItem="TqT-qx-XYo" firstAttribute="bottom" secondItem="Zpm-Mg-Obp" secondAttribute="bottom" type="default" id="Dvf-vI-K0j"/>
                                     <constraint firstItem="TqT-qx-XYo" firstAttribute="leading" secondItem="Zpm-Mg-Obp" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="HUT-1q-MBB"/>
                                     <constraint firstItem="Zpm-Mg-Obp" firstAttribute="top" secondItem="TqT-qx-XYo" secondAttribute="top" type="default" id="Wt9-Ty-Pew"/>
-                                    <constraint firstItem="C8S-3O-XRZ" firstAttribute="leading" secondItem="7CY-mQ-s1J" secondAttribute="leading" constant="34" id="xAX-WL-5dv"/>
                                     <constraint firstItem="C8S-3O-XRZ" firstAttribute="centerY" secondItem="7CY-mQ-s1J" secondAttribute="centerY" type="default" id="xKE-6n-Y6s"/>
                                 </constraints>
                                 <connections>
@@ -310,52 +310,6 @@
             <point key="canvasLocation" x="-1988" y="-583"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="JDNCitiesTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNCitiesTableViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="editCities:"/>
-            </relationships>
-        </class>
-        <class className="JDNNewCityViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNNewCityViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="addCity:"/>
-                <relationship kind="action" name="cancelAddCity:"/>
-                <relationship kind="action" name="cityEditingChanged:"/>
-                <relationship kind="action" name="urlEditingChanged:"/>
-                <relationship kind="outlet" name="city" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="okButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="url" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="JDNSimpleWeatherCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNSimpleWeatherCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="cityName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="forecast" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="temperature" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="JDNWeatherCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNWeatherCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="apparentTemperature" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="forecast" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="forecastImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="hourOfDay" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="temperature" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="wind" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="windImage" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="JDNWeatherTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNWeatherTableViewController.h"/>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

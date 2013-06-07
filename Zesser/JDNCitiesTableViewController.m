@@ -101,6 +101,7 @@
     JDNCity *city = [JDNCities sharedCities].cities[indexPath.row];
     
     JDNSimpleWeatherCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    cell.cityName.textAlignment = NSTextAlignmentLeft; // def. alignment (changed when edit is activated)
     cell.cityName.text = city.name;
     
     [cell clear];
@@ -125,8 +126,9 @@
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
     JDNSimpleWeatherCell *cell = (JDNSimpleWeatherCell*) [tableView cellForRowAtIndexPath:indexPath ];
     if ( tableView.editing ){
-        cell.forecast.alpha = 0;
-        cell.temperature.alpha = 0;
+        cell.cityName.textAlignment = NSTextAlignmentCenter;
+        cell.forecast.image         = nil;
+        cell.temperature.text       = nil;
         return  YES;
     }
     return NO;
@@ -138,10 +140,6 @@
         JDNCity *city = [JDNCities sharedCities].cities[indexPath.row];
         [[JDNCities sharedCities] removeCity:city];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }else{
-        JDNSimpleWeatherCell *cell = (JDNSimpleWeatherCell*) [tableView cellForRowAtIndexPath:indexPath ];
-        cell.forecast.alpha = 1;
-        cell.temperature.alpha = 1;
     }
 }
 
@@ -169,6 +167,7 @@
         self.navigationItem.rightBarButtonItem = self.addCityButton;
         self.navigationItem.leftBarButtonItem.style =UIBarButtonItemStyleBordered;
         self.navigationItem.leftBarButtonItem.title = @"Modifica";
+        [self.tableView reloadData];
     }
     else {
         [self.tableView setEditing:YES animated:YES];
