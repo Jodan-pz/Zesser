@@ -7,6 +7,8 @@
 //
 
 #import "JDNCitySearcher.h"
+#import "XPathQuery.h"
+#import "JDNCity.h"
 
 @interface JDNCitySearcher()<NSURLConnectionDataDelegate>
 
@@ -19,7 +21,7 @@
 @implementation JDNCitySearcher
 
 #define BASE_URL          @"http://www.meteoam.it/"
-#define SRCH_URL BASE_URL @"/sites/all/block/ricerca_localita"
+#define SRCH_URL BASE_URL @"/sites/all/block/ricerca_localita/request.php"
 
 /*
 
@@ -39,9 +41,9 @@
  */
 
 -(NSArray*)searchPlaceByText:(NSString*)textToSearch{
-    
     [self internalSearchCitiesLikeText:textToSearch withCompletion:^(NSArray *data) {
         // end
+        NSLog(@"%@", data);
     }];
     return nil;
 }
@@ -90,64 +92,24 @@
 }
 
 - (NSArray*)collectData {
-    
     NSMutableArray *datas = [NSMutableArray array];
-    NSLog(@"received: %@", self.receivedString);
+    NSMutableString *xmlData = [[NSMutableString alloc] initWithString:@"<root id='cities'>"];
     
-    /*
-    NSMutableString *xmlData = [[NSMutableString alloc] initWithString:@"<table id=\""];
+    [xmlData appendString:self.receivedString];
+    [xmlData appendString:@"</root>"];
     
-    NSRange tab = [self.receivedString rangeOfString:@"previsioniOverlTable"];
-    [xmlData appendString:[self.receivedString substringFromIndex:tab.location ]];
+    NSArray *urls = [PerformXMLXPathQuery([xmlData dataUsingEncoding:4],@"/root/a[@class='link-localita']/@href" )
+                     valueForKey:@"nodeContent"];
     
-    NSRange tabEnd = [xmlData rangeOfString:@"</table>"];
-    NSString *finalXml = [xmlData substringToIndex:tabEnd.location + tabEnd.length ];
+    NSArray *names = [PerformXMLXPathQuery( [xmlData dataUsingEncoding:4],@"/root/a/div[@class='localita']" ) valueForKey:@"nodeContent"];
     
-    NSArray *daysAndHours = [[PerformXMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],
-                                                   @"/table/tr/td[@class='previsioniRow']" )
-                              valueForKeyPath:@"nodeContent"] filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSString *evaluatedObject, NSDictionary *bindings) {
-        return evaluatedObject != nil &&  [evaluatedObject class] != [NSNull class] ;
-    }]] ;
-    
-    NSArray *temperatures = [PerformXMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],
-                                                  @"/table/tr/td[@class='previsioniRow']/strong" )
-                             valueForKeyPath:@"nodeContent"];
-    
-    NSArray *forecastAndWind = [[PerformXMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],
-                                                      @"/table/tr/td[@class='previsioniRow']/img" )
-                                 valueForKeyPath:@"nodeAttributeArray"] valueForKey:@"nodeContent"];
-    
-    NSArray *appTemp = [PerformXMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],
-                                             @"/table/tr/td[@class='previsioniRow']/div" )
-                        valueForKeyPath:@"nodeContent"];
-    
-    NSMutableArray *datas = [NSMutableArray arrayWithCapacity:5];
-    
-    if ( self.fetchNow ){
-        JDNDailyData *data = [[JDNDailyData alloc] init];
-        data.apparentTemperature = appTemp[0];
-        data.forecastImage = [BASE_URL stringByAppendingString:forecastAndWind[0][0]];
+    for (NSUInteger i=0; i < urls.count; i++) {
+        JDNCity *data = [[JDNCity alloc] init];
+        data.name = names[i];
+        data.url = urls[i];
         [datas addObject:data];
-    }else{
-        
-        for (NSUInteger i = 0; i < daysAndHours.count; i+=2) {
-            JDNDailyData *data = [[JDNDailyData alloc] init];
-            data.day = daysAndHours[i];
-            data.hourOfDay = daysAndHours[i+1];
-            data.forecast = forecastAndWind[i][1];
-            data.forecastImage = [BASE_URL stringByAppendingString:forecastAndWind[i][0]];
-            data.wind = forecastAndWind[i+1][1];
-            data.windImage = [BASE_URL stringByAppendingString: forecastAndWind[i+1][0]];
-            [datas addObject:data];
-        }
-        
-        for (NSUInteger i=0; i < temperatures.count; i++) {
-            JDNDailyData *data = datas[i];
-            data.temperature = temperatures[i];
-            data.apparentTemperature = appTemp[i];
-        }
     }
-    */
     return datas;
 }
+
 @end
