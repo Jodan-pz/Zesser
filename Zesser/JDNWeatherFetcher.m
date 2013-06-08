@@ -35,15 +35,15 @@
 
 -(void)fetchNowSimpleDailyDataForCity:(NSString *)cityName withCompletion:(ArrayDataCallBack)callback{
     self.fetchNow = YES;
-    [self internalfetchDailyDataForCity:cityName withCompletion:callback];
+    [self internalFetchDailyDataForCity:cityName withCompletion:callback];
 }
 
 -(void)fetchDailyDataForCity:(NSString *)cityName withCompletion:(ArrayDataCallBack)callback{
     self.fetchNow = NO;
-    [self internalfetchDailyDataForCity:cityName withCompletion:callback];
+    [self internalFetchDailyDataForCity:cityName withCompletion:callback];
 }
 
--(void)internalfetchDailyDataForCity:(NSString *)cityName withCompletion:(ArrayDataCallBack)callback{
+-(void)internalFetchDailyDataForCity:(NSString *)cityName withCompletion:(ArrayDataCallBack)callback{
     self.callback = callback;
     self.receivedData = [[NSMutableData alloc] init];
     self.receivedString = @"";
