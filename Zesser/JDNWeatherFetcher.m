@@ -15,7 +15,7 @@
 
 @property (strong,nonatomic) NSString           *receivedString;
 @property (strong,nonatomic) NSMutableData      *receivedData;
-@property (strong,nonatomic) GetDataCallBack    callback;
+@property (strong,nonatomic) ArrayDataCallBack  callback;
 @property (nonatomic)        BOOL               fetchNow;
 
 @end
@@ -27,20 +27,23 @@
 
 -(void)isAvailable:(BooleanCallBack)callback {
     JDNTestConnection *testConnection = [[JDNTestConnection alloc] init];
-    [testConnection checkConnectionToUrl:BASE_URL withCallback:callback];
+    [testConnection checkConnectionToUrl:BASE_URL
+                            withCallback:^(BOOL result) {
+                                callback(result);
+                            }];
 }
 
--(void)fetchNowSimpleDailyDataForCity:(NSString *)cityName withCompletion:(GetDataCallBack)callback{
+-(void)fetchNowSimpleDailyDataForCity:(NSString *)cityName withCompletion:(ArrayDataCallBack)callback{
     self.fetchNow = YES;
     [self internalfetchDailyDataForCity:cityName withCompletion:callback];
 }
 
--(void)fetchDailyDataForCity:(NSString *)cityName withCompletion:(GetDataCallBack)callback{
+-(void)fetchDailyDataForCity:(NSString *)cityName withCompletion:(ArrayDataCallBack)callback{
     self.fetchNow = NO;
     [self internalfetchDailyDataForCity:cityName withCompletion:callback];
 }
 
--(void)internalfetchDailyDataForCity:(NSString *)cityName withCompletion:(GetDataCallBack)callback{
+-(void)internalfetchDailyDataForCity:(NSString *)cityName withCompletion:(ArrayDataCallBack)callback{
     self.callback = callback;
     self.receivedData = [[NSMutableData alloc] init];
     self.receivedString = @"";

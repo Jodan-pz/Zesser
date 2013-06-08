@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		143AAC1117632820002C3D31 /* NSArray+LinqExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 143AAC0F17632820002C3D31 /* NSArray+LinqExtensions.m */; };
 		143AAC1217632820002C3D31 /* NSDictionary+LinqExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 143AAC1017632820002C3D31 /* NSDictionary+LinqExtensions.m */; };
+		143AAC1517632E5D002C3D31 /* JDNCitySearcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 143AAC1417632E5D002C3D31 /* JDNCitySearcher.m */; };
 		CB12347D175F79EA006F890E /* JDNWeatherTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB12347C175F79EA006F890E /* JDNWeatherTableViewController.m */; };
 		CB123481175F7DB3006F890E /* JDNWeatherFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = CB123480175F7DB3006F890E /* JDNWeatherFetcher.m */; };
 		CB123484175F7DEF006F890E /* JDNDailyData.m in Sources */ = {isa = PBXBuildFile; fileRef = CB123483175F7DEF006F890E /* JDNDailyData.m */; };
@@ -43,6 +44,8 @@
 		143AAC0E17632820002C3D31 /* NSDictionary+LinqExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+LinqExtensions.h"; path = "Zesser/NSDictionary+LinqExtensions.h"; sourceTree = "<group>"; };
 		143AAC0F17632820002C3D31 /* NSArray+LinqExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+LinqExtensions.m"; path = "Zesser/NSArray+LinqExtensions.m"; sourceTree = "<group>"; };
 		143AAC1017632820002C3D31 /* NSDictionary+LinqExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+LinqExtensions.m"; path = "Zesser/NSDictionary+LinqExtensions.m"; sourceTree = "<group>"; };
+		143AAC1317632E5D002C3D31 /* JDNCitySearcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNCitySearcher.h; sourceTree = "<group>"; };
+		143AAC1417632E5D002C3D31 /* JDNCitySearcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNCitySearcher.m; sourceTree = "<group>"; };
 		CB12347B175F79EA006F890E /* JDNWeatherTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNWeatherTableViewController.h; sourceTree = "<group>"; };
 		CB12347C175F79EA006F890E /* JDNWeatherTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNWeatherTableViewController.m; sourceTree = "<group>"; };
 		CB12347F175F7DB3006F890E /* JDNWeatherFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNWeatherFetcher.h; sourceTree = "<group>"; };
@@ -195,12 +198,12 @@
 				CBD7107A1761CFD400ACA525 /* JDNClientHelper.m */,
 				CB9BCC7E1760B39900996188 /* JDNSharedImages.h */,
 				CB9BCC7F1760B39900996188 /* JDNSharedImages.m */,
+				CB615ECE1754DF46004C1BA4 /* JDNAppDelegate.m */,
+				CB615ECD1754DF46004C1BA4 /* JDNAppDelegate.h */,
+				CB615ED61754DF47004C1BA4 /* MainStoryboard.storyboard */,
 				CB26ACAF1761C64800070F8C /* Support */,
 				CB123485175F7E50006F890E /* Weather */,
 				CB12347E175F7B84006F890E /* Controllers */,
-				CB615ECD1754DF46004C1BA4 /* JDNAppDelegate.h */,
-				CB615ECE1754DF46004C1BA4 /* JDNAppDelegate.m */,
-				CB615ED61754DF47004C1BA4 /* MainStoryboard.storyboard */,
 				CBD7107C1761D2CE00ACA525 /* Resources */,
 				CB615EC51754DF46004C1BA4 /* Supporting Files */,
 			);
@@ -228,6 +231,8 @@
 				CB9BCC7117608B4400996188 /* JDNCity.m */,
 				CB9BCC6D17608B1700996188 /* JDNCities.h */,
 				CB9BCC6E17608B1700996188 /* JDNCities.m */,
+				143AAC1317632E5D002C3D31 /* JDNCitySearcher.h */,
+				143AAC1417632E5D002C3D31 /* JDNCitySearcher.m */,
 			);
 			name = City;
 			sourceTree = "<group>";
@@ -338,6 +343,7 @@
 				CBD7108E1762192F00ACA525 /* JDNNewCityViewController.m in Sources */,
 				143AAC1117632820002C3D31 /* NSArray+LinqExtensions.m in Sources */,
 				143AAC1217632820002C3D31 /* NSDictionary+LinqExtensions.m in Sources */,
+				143AAC1517632E5D002C3D31 /* JDNCitySearcher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

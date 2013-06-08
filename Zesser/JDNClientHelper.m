@@ -65,7 +65,7 @@
     
     float viewWidth = viewController.view.bounds.size.width;
     float viewHeight = viewController.view.bounds.size.height;
-    float labelWidth = 400;
+    float labelWidth = viewWidth - 20;
     float labelHeight = 200;
     
     float xpos = (viewWidth/2.0f) - (labelWidth/2.0f);

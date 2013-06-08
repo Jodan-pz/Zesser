@@ -25,6 +25,7 @@
 
 @property (strong, nonatomic) UIBarButtonItem   *addCityButton;
 @property (strong, nonatomic) UIRefreshControl  *citiesRefreshControl;
+@property (strong,nonatomic)  NSDate            *lastAvailableCheck;
 
 @end
 
@@ -41,8 +42,8 @@
         
         _citiesRefreshControl.tintColor = REFRESH_TINT_COLOR;
         [_citiesRefreshControl addTarget:self
-                           action:@selector(refreshData:)
-                 forControlEvents:UIControlEventValueChanged];
+                                  action:@selector(refreshData:)
+                        forControlEvents:UIControlEventValueChanged];
     }
     return _citiesRefreshControl;
 }
@@ -57,8 +58,8 @@
 //Blue gradient background
 + (CAGradientLayer*) blueGradient {
     
-    UIColor *colorOne = [UIColor colorWithRed:0.081 green:0.342 blue:0.664 alpha:1.000];
-    UIColor *colorTwo = [UIColor colorWithRed:(57/255.0)  green:(79/255.0)  blue:(96/255.0)  alpha:1.0];
+    UIColor *colorOne = [UIColor colorWithRed:0.075 green:0.000 blue:0.615 alpha:1.000];
+    UIColor *colorTwo = [UIColor colorWithRed:0.703 green:0.000 blue:0.930 alpha:1.000];
     
     NSArray *colors = [NSArray arrayWithObjects:(id)colorOne.CGColor, colorTwo.CGColor, nil];
     NSNumber *stopOne = [NSNumber numberWithFloat:0.0];
@@ -101,26 +102,36 @@
     JDNCity *city = [JDNCities sharedCities].cities[indexPath.row];
     
     JDNSimpleWeatherCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    
     cell.cityName.textAlignment = NSTextAlignmentLeft; // def. alignment (changed when edit is activated)
     cell.cityName.text = city.name;
     
     [cell clear];
     [self updateWeatherDataForCity:city
                             inCell:cell];
-
+    
     return cell;
 }
 
 -(void)updateWeatherDataForCity: (JDNCity*)city inCell: (JDNSimpleWeatherCell*)cell {
     JDNWeatherFetcher *weatherFetcher =  [[JDNWeatherFetcher alloc] init];
-    [weatherFetcher isAvailable:^(BOOL available) {
-        if ( available ){
-            [cell startLoadingData];
-            [weatherFetcher fetchNowSimpleDailyDataForCity:city.url withCompletion:^(NSArray *data) {
-                [cell setupCellWithDailyData: (JDNDailyData*) data[0]];
-            }];
-        }
-    }];
+    if( self.lastAvailableCheck &&
+       (int)[[NSDate date] timeIntervalSinceDate:self.lastAvailableCheck] % 60 < 5 ){
+        [cell startLoadingData];
+        [weatherFetcher fetchNowSimpleDailyDataForCity:city.url withCompletion:^(NSArray *data) {
+            [cell setupCellWithDailyData: (JDNDailyData*) data[0]];
+        }];
+    }else{
+        [weatherFetcher isAvailable:^(BOOL available) {
+            if ( available ){
+                self.lastAvailableCheck = [NSDate date];
+                [cell startLoadingData];
+                [weatherFetcher fetchNowSimpleDailyDataForCity:city.url withCompletion:^(NSArray *data) {
+                    [cell setupCellWithDailyData: (JDNDailyData*) data[0]];
+                }];
+            }
+        }];
+    }
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -149,8 +160,8 @@
 {
     JDNCity *city = [JDNCities sharedCities].cities[fromIndexPath.row];
     JDNCity *city2 = [JDNCities sharedCities].cities[toIndexPath.row];
-    [[JDNCities sharedCities] setOrderForCity:city order:toIndexPath.row];
-    [[JDNCities sharedCities] setOrderForCity:city2 order:fromIndexPath.row];
+    [[JDNCities sharedCities] setOrderForCity:city order:city2.order];
+    [[JDNCities sharedCities] setOrderForCity:city2 order:city.order];
     [[JDNCities sharedCities] write];
 }
 
@@ -187,7 +198,7 @@
         JDNNewCityViewController *newCityController = segue.destinationViewController;
         newCityController.delegate = self;
     }
-               
+    
 }
 
 -(void)didAddedNewCity:(JDNCity *)newCity sender:(JDNNewCityViewController *)sender{
@@ -211,8 +222,8 @@
     NSString *lastUpdated = [NSString stringWithFormat:@"Aggiornato al %@",
                              [formatter stringFromDate:[NSDate date]]];
     NSMutableAttributedString *update = [[NSMutableAttributedString alloc]
-                                        initWithString:lastUpdated
-                                        attributes:REFRESH_TITLE_ATTRIBUTES];
+                                         initWithString:lastUpdated
+                                         attributes:REFRESH_TITLE_ATTRIBUTES];
     
     refresh.attributedTitle = update;
     [refresh endRefreshing];

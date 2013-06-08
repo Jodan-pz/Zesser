@@ -78,6 +78,7 @@
 {
     [super viewDidLoad];
     [self checkIfCanAddNewCity];
+    [self.city becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning

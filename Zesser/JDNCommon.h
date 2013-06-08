@@ -14,5 +14,5 @@
 #define JDN_ERRO_MSG_TITLE  @"Errore"
 #define JDN_QUES_MSG_TITLE  @"Domanda"
 
-typedef void(^GetDataCallBack)(NSArray *data);
+typedef void(^ArrayDataCallBack)(NSArray *data);
 typedef void(^BooleanCallBack)(BOOL result);

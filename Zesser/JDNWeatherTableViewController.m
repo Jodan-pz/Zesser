@@ -74,7 +74,7 @@
                 
             }else{
                 if ( [[NSFileManager defaultManager] fileExistsAtPath:cachedData] ){
-                    [JDNClientHelper showBezelMessage:@"Ultimi dati..." viewController:self];
+                    [JDNClientHelper showBezelMessage:@"Dati non aggiornati" viewController:self];
                     
                     NSArray *data =  [NSKeyedUnarchiver unarchiveObjectWithFile:cachedData];
                     self.sections = [NSArray array];
