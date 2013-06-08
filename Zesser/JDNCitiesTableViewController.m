@@ -73,15 +73,8 @@
     return headerLayer;
 }
 
--(void)test{
-    JDNCitySearcher *c =[JDNCitySearcher new];
-    [c searchPlaceByText:@"tre"];
-}
-
 - (void)viewDidLoad{
     [super viewDidLoad];
-    
-    [self test];
     
     UIView *gradientView = [[UIView alloc] initWithFrame:self.tableView.frame];
     CAGradientLayer *bgLayer = [JDNCitiesTableViewController blueGradient];
