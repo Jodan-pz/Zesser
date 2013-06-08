@@ -16,7 +16,7 @@
 #import "JDNDailyData.h"
 #import "JDNSimpleWeatherCell.h"
 #import "JDNNewCityViewController.h"
-
+#import "JDNCitySearcher.h"
 
 #define REFRESH_TITLE_ATTRIBUTES @{NSForegroundColorAttributeName:[UIColor colorWithRed:0.746 green:0.909 blue:0.936 alpha:1.000] }
 #define REFRESH_TINT_COLOR       [UIColor colorWithRed:0.367 green:0.609 blue:0.887 alpha:1.000]
@@ -73,8 +73,15 @@
     return headerLayer;
 }
 
+-(void)test{
+    JDNCitySearcher *c =[JDNCitySearcher new];
+    [c searchPlaceByText:@"gorg"];
+}
+
 - (void)viewDidLoad{
     [super viewDidLoad];
+    
+    [self test];
     
     UIView *gradientView = [[UIView alloc] initWithFrame:self.tableView.frame];
     CAGradientLayer *bgLayer = [JDNCitiesTableViewController blueGradient];

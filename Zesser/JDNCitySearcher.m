@@ -40,20 +40,32 @@
 
 -(NSArray*)searchPlaceByText:(NSString*)textToSearch{
     
-    
+    [self internalSearchCitiesLikeText:textToSearch withCompletion:^(NSArray *data) {
+        // end
+    }];
     return nil;
 }
 
--(void)internalfetchDailyDataForCity:(NSString *)cityName withCompletion:(ArrayDataCallBack)callback{
+-(void)internalSearchCitiesLikeText:(NSString *)text withCompletion:(ArrayDataCallBack)callback{
     self.callback = callback;
     self.receivedData = [[NSMutableData alloc] init];
     self.receivedString = @"";
     
-    NSURLRequest *request = [[NSURLRequest alloc]
- 							 initWithURL: [NSURL URLWithString: [NSString stringWithFormat:DATA_URL, cityName]]
+    NSData              *postData   = [[@"param=" stringByAppendingString: text ] dataUsingEncoding:NSUTF8StringEncoding];
+    NSString            *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]
+ 							 initWithURL: [NSURL URLWithString: SRCH_URL]
  							 cachePolicy: NSURLRequestReloadIgnoringLocalCacheData
  							 timeoutInterval: 10
  							 ];
+    
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"text"             forHTTPHeaderField:@"Data-Type"];
+    [request setValue:postLength          forHTTPHeaderField:@"Content-Length"];
+ 
+    request.cachePolicy = NSURLRequestReloadIgnoringLocalAndRemoteCacheData;
+    request.HTTPBody = postData;
     
     NSURLConnection *connection = [[NSURLConnection alloc]
  								   initWithRequest:request
@@ -73,11 +85,16 @@
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection{
     self.receivedString = [[NSString alloc] initWithData:self.receivedData
-                                                encoding:NSASCIIStringEncoding];
+                                                encoding:NSUTF8StringEncoding];
     self.callback( [self collectData] );
 }
 
 - (NSArray*)collectData {
+    
+    NSMutableArray *datas = [NSMutableArray array];
+    NSLog(@"received: %@", self.receivedString);
+    
+    /*
     NSMutableString *xmlData = [[NSMutableString alloc] initWithString:@"<table id=\""];
     
     NSRange tab = [self.receivedString rangeOfString:@"previsioniOverlTable"];
@@ -86,11 +103,6 @@
     NSRange tabEnd = [xmlData rangeOfString:@"</table>"];
     NSString *finalXml = [xmlData substringToIndex:tabEnd.location + tabEnd.length ];
     
-    /*NSArray *titles = [PerformXMLXPathQuery([finalXml
-     dataUsingEncoding:NSUTF8StringEncoding],
-     @"/table/tr[1]/td/strong" )
-     valueForKeyPath:@"nodeContent"];
-     */
     NSArray *daysAndHours = [[PerformXMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],
                                                    @"/table/tr/td[@class='previsioniRow']" )
                               valueForKeyPath:@"nodeContent"] filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSString *evaluatedObject, NSDictionary *bindings) {
@@ -135,6 +147,7 @@
             data.apparentTemperature = appTemp[i];
         }
     }
-    
+    */
     return datas;
 }
+@end
