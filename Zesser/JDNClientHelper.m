@@ -11,6 +11,26 @@
 
 @implementation JDNClientHelper
 
++(NSString*)unescapeString:(NSString*)string{
+    NSMutableString *mut = [[NSMutableString alloc] initWithString:string];
+    [JDNClientHelper unescapeMutableString:mut];
+    return mut;
+}
+
++(void)unescapeMutableString:(NSMutableString*)string{
+    [string replaceOccurrencesOfString:@"&amp;"  withString:@"&"  options:NSLiteralSearch range:NSMakeRange(0, [string length])];
+    [string replaceOccurrencesOfString:@"&nbsp;"  withString:@" "  options:NSLiteralSearch range:NSMakeRange(0, [string length])];
+    [string replaceOccurrencesOfString:@"&quot;" withString:@"\"" options:NSLiteralSearch range:NSMakeRange(0, [string length])];
+    [string replaceOccurrencesOfString:@"&deg;" withString:@"" options:NSLiteralSearch range:NSMakeRange(0, [string length])];
+
+	[string replaceOccurrencesOfString:@"&#x27;" withString:@"'"  options:NSLiteralSearch range:NSMakeRange(0, [string length])];
+	[string replaceOccurrencesOfString:@"&#x39;" withString:@"'"  options:NSLiteralSearch range:NSMakeRange(0, [string length])];
+	[string replaceOccurrencesOfString:@"&#x92;" withString:@"'"  options:NSLiteralSearch range:NSMakeRange(0, [string length])];
+	[string replaceOccurrencesOfString:@"&#x96;" withString:@"'"  options:NSLiteralSearch range:NSMakeRange(0, [string length])];
+	[string replaceOccurrencesOfString:@"&gt;"   withString:@">"  options:NSLiteralSearch range:NSMakeRange(0, [string length])];
+	[string replaceOccurrencesOfString:@"&lt;"   withString:@"<"  options:NSLiteralSearch range:NSMakeRange(0, [string length])];
+}
+
 +(void)configureTemperatureLayoutForLabel:(UILabel*)aView byValue:(NSInteger)value{
     if ( value > 38 ){
         aView.textColor = [UIColor colorWithRed:0.986 green:0.000 blue:0.029 alpha:1.000];

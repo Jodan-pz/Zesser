@@ -75,7 +75,7 @@
 
 -(void)test{
     JDNCitySearcher *c =[JDNCitySearcher new];
-    [c searchPlaceByText:@"gorg"];
+    [c searchPlaceByText:@"tre"];
 }
 
 - (void)viewDidLoad{

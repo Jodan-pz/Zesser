@@ -33,23 +33,23 @@
                             }];
 }
 
--(void)fetchNowSimpleDailyDataForCity:(NSString *)cityName withCompletion:(ArrayDataCallBack)callback{
+-(void)fetchNowSimpleDailyDataForCity:(NSString *)cityUrl withCompletion:(ArrayDataCallBack)callback{
     self.fetchNow = YES;
-    [self internalFetchDailyDataForCity:cityName withCompletion:callback];
+    [self internalFetchDailyDataForCity:cityUrl withCompletion:callback];
 }
 
--(void)fetchDailyDataForCity:(NSString *)cityName withCompletion:(ArrayDataCallBack)callback{
+-(void)fetchDailyDataForCity:(NSString *)cityUrl withCompletion:(ArrayDataCallBack)callback{
     self.fetchNow = NO;
-    [self internalFetchDailyDataForCity:cityName withCompletion:callback];
+    [self internalFetchDailyDataForCity:cityUrl withCompletion:callback];
 }
 
--(void)internalFetchDailyDataForCity:(NSString *)cityName withCompletion:(ArrayDataCallBack)callback{
+-(void)internalFetchDailyDataForCity:(NSString *)cityUrl withCompletion:(ArrayDataCallBack)callback{
     self.callback = callback;
     self.receivedData = [[NSMutableData alloc] init];
     self.receivedString = @"";
-        
+    
     NSURLRequest *request = [[NSURLRequest alloc]
- 							 initWithURL: [NSURL URLWithString: [NSString stringWithFormat:DATA_URL, cityName]]
+ 							 initWithURL: [NSURL URLWithString: [NSString stringWithFormat:DATA_URL, cityUrl]]
  							 cachePolicy: NSURLRequestReloadIgnoringLocalCacheData
  							 timeoutInterval: 10
  							 ];
@@ -78,35 +78,30 @@
 
 - (NSArray*)collectData {
     NSMutableString *xmlData = [[NSMutableString alloc] initWithString:@"<table id=\""];
-    
     NSRange tab = [self.receivedString rangeOfString:@"previsioniOverlTable"];
     [xmlData appendString:[self.receivedString substringFromIndex:tab.location ]];
-    
     NSRange tabEnd = [xmlData rangeOfString:@"</table>"];
+
     NSString *finalXml = [xmlData substringToIndex:tabEnd.location + tabEnd.length ];
+    finalXml = [JDNClientHelper unescapeString:finalXml];
     
-    /*NSArray *titles = [PerformXMLXPathQuery([finalXml
-                                             dataUsingEncoding:NSUTF8StringEncoding],
-                                            @"/table/tr[1]/td/strong" )
-                       valueForKeyPath:@"nodeContent"];
-    */
     NSArray *daysAndHours = [[PerformXMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],
                                                    @"/table/tr/td[@class='previsioniRow']" )
-                              valueForKeyPath:@"nodeContent"] filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSString *evaluatedObject, NSDictionary *bindings) {
+                              valueForKey:@"nodeContent"] filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSString *evaluatedObject, NSDictionary *bindings) {
         return evaluatedObject != nil &&  [evaluatedObject class] != [NSNull class] ;
     }]] ;
     
     NSArray *temperatures = [PerformXMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],
                                                   @"/table/tr/td[@class='previsioniRow']/strong" )
-                             valueForKeyPath:@"nodeContent"];
+                             valueForKey:@"nodeContent"];
     
     NSArray *forecastAndWind = [[PerformXMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],
                                                       @"/table/tr/td[@class='previsioniRow']/img" )
-                                 valueForKeyPath:@"nodeAttributeArray"] valueForKey:@"nodeContent"];
+                                 valueForKey:@"nodeAttributeArray"] valueForKey:@"nodeContent"];
     
     NSArray *appTemp = [PerformXMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],
                                               @"/table/tr/td[@class='previsioniRow']/div" )
-                         valueForKeyPath:@"nodeContent"];
+                        valueForKey:@"nodeContent"];
     
     NSMutableArray *datas = [NSMutableArray arrayWithCapacity:5];
     

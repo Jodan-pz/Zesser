@@ -12,7 +12,7 @@
 @interface JDNWeatherFetcher : NSObject
 
 -(void)isAvailable:(BooleanCallBack)callback;
--(void)fetchDailyDataForCity:(NSString *)cityName withCompletion:(ArrayDataCallBack)callback;
--(void)fetchNowSimpleDailyDataForCity:(NSString *)cityName withCompletion:(ArrayDataCallBack)callback;
+-(void)fetchDailyDataForCity:(NSString *)cityUrl withCompletion:(ArrayDataCallBack)callback;
+-(void)fetchNowSimpleDailyDataForCity:(NSString *)cityUrl withCompletion:(ArrayDataCallBack)callback;
 
 @end

@@ -93,20 +93,26 @@
 
 - (NSArray*)collectData {
     NSMutableArray *datas = [NSMutableArray array];
-    NSMutableString *xmlData = [[NSMutableString alloc] initWithString:@"<root id='cities'>"];
-    
+    NSMutableString *xmlData = [[NSMutableString alloc] initWithString:@"<root>"];
     [xmlData appendString:self.receivedString];
+    [JDNClientHelper unescapeMutableString:xmlData];
     [xmlData appendString:@"</root>"];
     
-    NSArray *urls = [PerformXMLXPathQuery([xmlData dataUsingEncoding:4],@"/root/a[@class='link-localita']/@href" )
+    NSArray *urls = [[PerformXMLXPathQuery(
+                                           [xmlData dataUsingEncoding:4],
+                                           @"/root/a[@class='link-localita']" )
+                      valueForKey:@"nodeAttributeArray"]
                      valueForKey:@"nodeContent"];
-    
-    NSArray *names = [PerformXMLXPathQuery( [xmlData dataUsingEncoding:4],@"/root/a/div[@class='localita']" ) valueForKey:@"nodeContent"];
     
     for (NSUInteger i=0; i < urls.count; i++) {
         JDNCity *data = [[JDNCity alloc] init];
-        data.name = names[i];
-        data.url = urls[i];
+        NSString *url = [urls[i]lastObject];
+        NSRange pos = [url rangeOfString:@"/" options:NSBackwardsSearch];
+        if ( pos.location != NSNotFound){
+            data.name = [url substringFromIndex:pos.location + pos.length];
+        }else
+            data.name = @"NonName";
+        data.url = url;
         [datas addObject:data];
     }
     return datas;
