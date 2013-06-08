@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		143AAC1117632820002C3D31 /* NSArray+LinqExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 143AAC0F17632820002C3D31 /* NSArray+LinqExtensions.m */; };
+		143AAC1217632820002C3D31 /* NSDictionary+LinqExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 143AAC1017632820002C3D31 /* NSDictionary+LinqExtensions.m */; };
 		CB12347D175F79EA006F890E /* JDNWeatherTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB12347C175F79EA006F890E /* JDNWeatherTableViewController.m */; };
 		CB123481175F7DB3006F890E /* JDNWeatherFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = CB123480175F7DB3006F890E /* JDNWeatherFetcher.m */; };
 		CB123484175F7DEF006F890E /* JDNDailyData.m in Sources */ = {isa = PBXBuildFile; fileRef = CB123483175F7DEF006F890E /* JDNDailyData.m */; };
@@ -28,8 +30,6 @@
 		CB9BCC7617608DFE00996188 /* JDNCitiesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC7517608DFE00996188 /* JDNCitiesTableViewController.m */; };
 		CB9BCC7D17609FDE00996188 /* JDNWeatherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC7C17609FDE00996188 /* JDNWeatherCell.m */; };
 		CB9BCC801760B39900996188 /* JDNSharedImages.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC7F1760B39900996188 /* JDNSharedImages.m */; };
-		CB9BCC851760CCAD00996188 /* NSArray+LinqExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC821760CCAD00996188 /* NSArray+LinqExtensions.m */; };
-		CB9BCC861760CCAD00996188 /* NSDictionary+LinqExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC841760CCAD00996188 /* NSDictionary+LinqExtensions.m */; };
 		CBD7107B1761CFD400ACA525 /* JDNClientHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD7107A1761CFD400ACA525 /* JDNClientHelper.m */; };
 		CBD7107E1761D2DB00ACA525 /* info_64.png in Resources */ = {isa = PBXBuildFile; fileRef = CBD7107D1761D2DB00ACA525 /* info_64.png */; };
 		CBD710811761DB1100ACA525 /* JDNTestConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD710801761DB1100ACA525 /* JDNTestConnection.m */; };
@@ -39,6 +39,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		143AAC0D17632820002C3D31 /* NSArray+LinqExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+LinqExtensions.h"; path = "Zesser/NSArray+LinqExtensions.h"; sourceTree = "<group>"; };
+		143AAC0E17632820002C3D31 /* NSDictionary+LinqExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+LinqExtensions.h"; path = "Zesser/NSDictionary+LinqExtensions.h"; sourceTree = "<group>"; };
+		143AAC0F17632820002C3D31 /* NSArray+LinqExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+LinqExtensions.m"; path = "Zesser/NSArray+LinqExtensions.m"; sourceTree = "<group>"; };
+		143AAC1017632820002C3D31 /* NSDictionary+LinqExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+LinqExtensions.m"; path = "Zesser/NSDictionary+LinqExtensions.m"; sourceTree = "<group>"; };
 		CB12347B175F79EA006F890E /* JDNWeatherTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNWeatherTableViewController.h; sourceTree = "<group>"; };
 		CB12347C175F79EA006F890E /* JDNWeatherTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNWeatherTableViewController.m; sourceTree = "<group>"; };
 		CB12347F175F7DB3006F890E /* JDNWeatherFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNWeatherFetcher.h; sourceTree = "<group>"; };
@@ -74,10 +78,6 @@
 		CB9BCC7C17609FDE00996188 /* JDNWeatherCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNWeatherCell.m; sourceTree = "<group>"; };
 		CB9BCC7E1760B39900996188 /* JDNSharedImages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNSharedImages.h; sourceTree = "<group>"; };
 		CB9BCC7F1760B39900996188 /* JDNSharedImages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNSharedImages.m; sourceTree = "<group>"; };
-		CB9BCC811760CCAD00996188 /* NSArray+LinqExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+LinqExtensions.h"; sourceTree = "<group>"; };
-		CB9BCC821760CCAD00996188 /* NSArray+LinqExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+LinqExtensions.m"; sourceTree = "<group>"; };
-		CB9BCC831760CCAD00996188 /* NSDictionary+LinqExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+LinqExtensions.h"; sourceTree = "<group>"; };
-		CB9BCC841760CCAD00996188 /* NSDictionary+LinqExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+LinqExtensions.m"; sourceTree = "<group>"; };
 		CBD710791761CFD400ACA525 /* JDNClientHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNClientHelper.h; sourceTree = "<group>"; };
 		CBD7107A1761CFD400ACA525 /* JDNClientHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNClientHelper.m; sourceTree = "<group>"; };
 		CBD7107D1761D2DB00ACA525 /* info_64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info_64.png; sourceTree = "<group>"; };
@@ -158,9 +158,7 @@
 		CB615EB21754DF46004C1BA4 = {
 			isa = PBXGroup;
 			children = (
-				CBD71087176214B500ACA525 /* QuartzCore.framework */,
 				CB26ACAC1761C57100070F8C /* Zesser.png */,
-				CB9BCC68175F8CF900996188 /* libxml2.dylib */,
 				CB615EC41754DF46004C1BA4 /* Zesser */,
 				CB615EBD1754DF46004C1BA4 /* Frameworks */,
 				CB615EBC1754DF46004C1BA4 /* Products */,
@@ -178,6 +176,8 @@
 		CB615EBD1754DF46004C1BA4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CB9BCC68175F8CF900996188 /* libxml2.dylib */,
+				CBD71087176214B500ACA525 /* QuartzCore.framework */,
 				CB615EBE1754DF46004C1BA4 /* UIKit.framework */,
 				CB615EC01754DF46004C1BA4 /* Foundation.framework */,
 				CB615EC21754DF46004C1BA4 /* CoreGraphics.framework */,
@@ -188,6 +188,8 @@
 		CB615EC41754DF46004C1BA4 /* Zesser */ = {
 			isa = PBXGroup;
 			children = (
+				CBD7107F1761DB1000ACA525 /* JDNTestConnection.h */,
+				CBD710801761DB1100ACA525 /* JDNTestConnection.m */,
 				CB9BCC5B175F850400996188 /* JDNCommon.h */,
 				CBD710791761CFD400ACA525 /* JDNClientHelper.h */,
 				CBD7107A1761CFD400ACA525 /* JDNClientHelper.m */,
@@ -201,8 +203,6 @@
 				CB615ED61754DF47004C1BA4 /* MainStoryboard.storyboard */,
 				CBD7107C1761D2CE00ACA525 /* Resources */,
 				CB615EC51754DF46004C1BA4 /* Supporting Files */,
-				CBD7107F1761DB1000ACA525 /* JDNTestConnection.h */,
-				CBD710801761DB1100ACA525 /* JDNTestConnection.m */,
 			);
 			path = Zesser;
 			sourceTree = "<group>";
@@ -235,10 +235,10 @@
 		CB9BCC871760CCB300996188 /* LinqExtensions */ = {
 			isa = PBXGroup;
 			children = (
-				CB9BCC811760CCAD00996188 /* NSArray+LinqExtensions.h */,
-				CB9BCC821760CCAD00996188 /* NSArray+LinqExtensions.m */,
-				CB9BCC831760CCAD00996188 /* NSDictionary+LinqExtensions.h */,
-				CB9BCC841760CCAD00996188 /* NSDictionary+LinqExtensions.m */,
+				143AAC0D17632820002C3D31 /* NSArray+LinqExtensions.h */,
+				143AAC0E17632820002C3D31 /* NSDictionary+LinqExtensions.h */,
+				143AAC0F17632820002C3D31 /* NSArray+LinqExtensions.m */,
+				143AAC1017632820002C3D31 /* NSDictionary+LinqExtensions.m */,
 			);
 			name = LinqExtensions;
 			sourceTree = "<group>";
@@ -332,12 +332,12 @@
 				CB9BCC7617608DFE00996188 /* JDNCitiesTableViewController.m in Sources */,
 				CB9BCC7D17609FDE00996188 /* JDNWeatherCell.m in Sources */,
 				CB9BCC801760B39900996188 /* JDNSharedImages.m in Sources */,
-				CB9BCC851760CCAD00996188 /* NSArray+LinqExtensions.m in Sources */,
-				CB9BCC861760CCAD00996188 /* NSDictionary+LinqExtensions.m in Sources */,
 				CBD7107B1761CFD400ACA525 /* JDNClientHelper.m in Sources */,
 				CBD710811761DB1100ACA525 /* JDNTestConnection.m in Sources */,
 				CBD710841761F48400ACA525 /* JDNSimpleWeatherCell.m in Sources */,
 				CBD7108E1762192F00ACA525 /* JDNNewCityViewController.m in Sources */,
+				143AAC1117632820002C3D31 /* NSArray+LinqExtensions.m in Sources */,
+				143AAC1217632820002C3D31 /* NSDictionary+LinqExtensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
