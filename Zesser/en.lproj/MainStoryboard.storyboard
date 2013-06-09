@@ -73,7 +73,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="pPw-Mc-xfb">
                             <connections>
-                                <segue destination="MFE-ne-Vn9" kind="modal" identifier="newCity" modalTransitionStyle="coverVertical" id="SwA-3R-2VR"/>
+                                <segue destination="MFE-ne-Vn9" kind="modal" identifier="newCity" modalTransitionStyle="coverVertical" id="G6R-AM-3Vo"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -169,7 +169,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lkS-bn-Sfc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2369" y="134"/>
+            <point key="canvasLocation" x="-2356" y="63"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="cyc-4h-1mN">
