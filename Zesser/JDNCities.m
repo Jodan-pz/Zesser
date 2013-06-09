@@ -75,7 +75,8 @@ static JDNCities *sharedCities_;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     
-    self.mcities = [NSKeyedUnarchiver unarchiveObjectWithFile:[documentsDirectory stringByAppendingPathComponent:@"cities.plist"]];
+    self.mcities = [NSKeyedUnarchiver unarchiveObjectWithFile:[documentsDirectory
+                                                               stringByAppendingPathComponent:@"cities.dat"]];
     
     if ( !self.mcities ) {
         self.mcities = [NSMutableArray array];
@@ -83,13 +84,13 @@ static JDNCities *sharedCities_;
         city.name = @"Casa";
         city.url =@"3841/POZZO%20D'ADDA";
         city.order = 0;
-        [((NSMutableArray*)self.mcities) addObject:city];
+        [self.mcities addObject:city];
         
         JDNCity *city2 = [[JDNCity alloc] init];
         city2.name = @"Muggia";
         city2.url = @"8250/MUGGIA";
-        city.order = 1;
-        [((NSMutableArray*)self.mcities) addObject:city2];
+        city2.order = 1;
+        [self.mcities addObject:city2];
     }
     
     [self write];
@@ -101,7 +102,7 @@ static JDNCities *sharedCities_;
     
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.mcities];
     NSError *err;
-    [data writeToFile:[documentsDirectory stringByAppendingPathComponent:@"cities.plist"]
+    [data writeToFile:[documentsDirectory stringByAppendingPathComponent:@"cities.dat"]
               options:NSDataWritingFileProtectionComplete error:&err];
     if ( err ){
         NSLog(@"Error saving cities: %@", err.debugDescription);

@@ -75,7 +75,7 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-    
+    self.clearsSelectionOnViewWillAppear = YES;
     UIView *gradientView = [[UIView alloc] initWithFrame:self.tableView.frame];
     CAGradientLayer *bgLayer = [JDNCitiesTableViewController blueGradient];
     bgLayer.frame = self.tableView.bounds;
@@ -83,6 +83,11 @@
     self.tableView.backgroundView = gradientView;
     self.refreshControl = self.citiesRefreshControl;
     self.navigationItem.rightBarButtonItem = self.addCityButton;
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+      self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.075 green:0.000 blue:0.615 alpha:1.000];
 }
 
 - (void)didReceiveMemoryWarning
@@ -116,7 +121,7 @@
 -(void)updateWeatherDataForCity: (JDNCity*)city inCell: (JDNSimpleWeatherCell*)cell {
     JDNWeatherFetcher *weatherFetcher =  [[JDNWeatherFetcher alloc] init];
     if( self.lastAvailableCheck &&
-       (int)[[NSDate date] timeIntervalSinceDate:self.lastAvailableCheck] % 60 < 5 ){
+        ((int)[[NSDate date] timeIntervalSinceDate:self.lastAvailableCheck] % 60) < 5 ){
         [cell startLoadingData];
         [weatherFetcher fetchNowSimpleDailyDataForCity:city.url withCompletion:^(NSArray *data) {
             [cell setupCellWithDailyData: (JDNDailyData*) data[0]];
@@ -160,8 +165,8 @@
 {
     JDNCity *city = [JDNCities sharedCities].cities[fromIndexPath.row];
     JDNCity *city2 = [JDNCities sharedCities].cities[toIndexPath.row];
-    [[JDNCities sharedCities] setOrderForCity:city order:city2.order];
-    [[JDNCities sharedCities] setOrderForCity:city2 order:city.order];
+    [[JDNCities sharedCities] setOrderForCity:city order:toIndexPath.row];
+    [[JDNCities sharedCities] setOrderForCity:city2 order:fromIndexPath.row];
     [[JDNCities sharedCities] write];
 }
 
@@ -184,7 +189,7 @@
         [self.tableView setEditing:YES animated:YES];
         self.refreshControl = nil;
         self.navigationItem.rightBarButtonItem = nil;
-        self.navigationItem.leftBarButtonItem.style =UIBarButtonItemStyleDone;
+        self.navigationItem.leftBarButtonItem.style =UIBarButtonItemStyleBordered;
         self.navigationItem.leftBarButtonItem.title = @"Fatto";
     }
 }

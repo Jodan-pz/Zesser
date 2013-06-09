@@ -98,11 +98,15 @@
     }
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.tintColor = SECTION_BACKGROUND_COLOR;
+}
+
 - (void)viewDidLoad{
     [super viewDidLoad];
     
     self.weatherFetcher = [[JDNWeatherFetcher alloc] init];
-    
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc]
@@ -110,11 +114,11 @@
                                         attributes:REFRESH_TITLE_ATTRIBUTES];
     
     refreshControl.attributedTitle = title;
-    
     refreshControl.tintColor = REFRESH_TINT_COLOR;
-    [refreshControl addTarget:self action:@selector(refreshData:) forControlEvents:UIControlEventValueChanged];
+    [refreshControl addTarget:self
+                       action:@selector(refreshData:)
+             forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
-    
     [self.refreshControl beginRefreshing];
     [self refreshData:refreshControl];
 }
