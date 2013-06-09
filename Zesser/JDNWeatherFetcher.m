@@ -84,6 +84,8 @@
 
     NSString *finalXml = [xmlData substringToIndex:tabEnd.location + tabEnd.length ];
     finalXml = [JDNClientHelper unescapeString:finalXml];
+    // fix bad table column headers in source
+    finalXml = [finalXml stringByReplacingOccurrencesOfString:@"</th>" withString:@"</td>"];
     
     NSArray *daysAndHours = [[PerformXMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],
                                                    @"/table/tr/td[@class='previsioniRow']" )

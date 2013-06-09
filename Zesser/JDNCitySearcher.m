@@ -96,22 +96,23 @@
     NSMutableString *xmlData = [[NSMutableString alloc] initWithString:@"<root>"];
     [xmlData appendString:self.receivedString];
     [JDNClientHelper unescapeMutableString:xmlData];
+
+    // fix single quote error for href tag
+    xmlData = [[[xmlData stringByReplacingOccurrencesOfString:@"href='" withString:@"href=\""] stringByReplacingOccurrencesOfString:@"'>" withString:@"\">" ] mutableCopy];
+    
     [xmlData appendString:@"</root>"];
     
-    NSArray *urls = [[PerformXMLXPathQuery(
-                                           [xmlData dataUsingEncoding:4],
+    NSArray *urls = [[PerformXMLXPathQuery([xmlData dataUsingEncoding:NSUTF8StringEncoding],
                                            @"/root/a[@class='link-localita']" )
                       valueForKey:@"nodeAttributeArray"]
                      valueForKey:@"nodeContent"];
     
+    NSArray *names = [PerformXMLXPathQuery([xmlData dataUsingEncoding:NSUTF8StringEncoding],@"/root/a/div[@class='localita']" ) valueForKey:@"nodeContent"];
+    
     for (NSUInteger i=0; i < urls.count; i++) {
         JDNCity *data = [[JDNCity alloc] init];
         NSString *url = [urls[i]lastObject];
-        NSRange pos = [url rangeOfString:@"/" options:NSBackwardsSearch];
-        if ( pos.location != NSNotFound){
-            data.name = [url substringFromIndex:pos.location + pos.length];
-        }else
-            data.name = @"NonName";
+        data.name = names[i];
         data.url = url;
         [datas addObject:data];
     }

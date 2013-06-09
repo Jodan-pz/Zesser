@@ -191,9 +191,9 @@
 		CB615EC41754DF46004C1BA4 /* Zesser */ = {
 			isa = PBXGroup;
 			children = (
+				CB9BCC5B175F850400996188 /* JDNCommon.h */,
 				CBD7107F1761DB1000ACA525 /* JDNTestConnection.h */,
 				CBD710801761DB1100ACA525 /* JDNTestConnection.m */,
-				CB9BCC5B175F850400996188 /* JDNCommon.h */,
 				CBD710791761CFD400ACA525 /* JDNClientHelper.h */,
 				CBD7107A1761CFD400ACA525 /* JDNClientHelper.m */,
 				CB9BCC7E1760B39900996188 /* JDNSharedImages.h */,

@@ -88,6 +88,9 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
       self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.075 green:0.000 blue:0.615 alpha:1.000];
+    
+    JDNCitySearcher *s = [JDNCitySearcher new];
+    [s searchPlaceByText:@"trezzo"];
 }
 
 - (void)didReceiveMemoryWarning
