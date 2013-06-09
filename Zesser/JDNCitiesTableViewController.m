@@ -119,6 +119,7 @@
 }
 
 -(void)updateWeatherDataForCity: (JDNCity*)city inCell: (JDNSimpleWeatherCell*)cell {
+    if ( self.tableView.editing ) return;
     JDNWeatherFetcher *weatherFetcher =  [[JDNWeatherFetcher alloc] init];
     if( self.lastAvailableCheck &&
         ((int)[[NSDate date] timeIntervalSinceDate:self.lastAvailableCheck] % 60) < 5 ){
