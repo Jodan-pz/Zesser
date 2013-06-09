@@ -23,7 +23,7 @@
 @implementation JDNWeatherFetcher
 
 #define BASE_URL          @"http://www.meteoam.it/"
-#define DATA_URL BASE_URL @"?q=ta/previsione/%@"
+
 
 -(void)isAvailable:(BooleanCallBack)callback {
     JDNTestConnection *testConnection = [[JDNTestConnection alloc] init];
@@ -49,7 +49,7 @@
     self.receivedString = @"";
     
     NSURLRequest *request = [[NSURLRequest alloc]
- 							 initWithURL: [NSURL URLWithString: [NSString stringWithFormat:DATA_URL, cityUrl]]
+ 							 initWithURL: [NSURL URLWithString: [BASE_URL stringByAppendingString:cityUrl]]
  							 cachePolicy: NSURLRequestReloadIgnoringLocalCacheData
  							 timeoutInterval: 10
  							 ];

@@ -10,6 +10,6 @@
 
 @interface JDNCitySearcher : NSObject
 
--(NSArray*)searchPlaceByText:(NSString*)textToSearch;
+-(void)searchPlaceByText:(NSString*)textToSearch withCompletion:(ArrayDataCallBack)completion;
 
 @end

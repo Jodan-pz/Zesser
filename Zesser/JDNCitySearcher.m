@@ -40,12 +40,8 @@
  
  */
 
--(NSArray*)searchPlaceByText:(NSString*)textToSearch{
-    [self internalSearchCitiesLikeText:textToSearch withCompletion:^(NSArray *data) {
-        // end
-        NSLog(@"%@", data);
-    }];
-    return nil;
+-(void)searchPlaceByText:(NSString*)textToSearch withCompletion:(ArrayDataCallBack)completion {
+    [self internalSearchCitiesLikeText:textToSearch withCompletion:completion];
 }
 
 -(void)internalSearchCitiesLikeText:(NSString *)text withCompletion:(ArrayDataCallBack)callback{
