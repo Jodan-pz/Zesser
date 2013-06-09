@@ -16,7 +16,6 @@
 #import "JDNDailyData.h"
 #import "JDNSimpleWeatherCell.h"
 #import "JDNNewCityViewController.h"
-#import "JDNCitySearcher.h"
 
 #define REFRESH_TITLE_ATTRIBUTES @{NSForegroundColorAttributeName:[UIColor colorWithRed:0.746 green:0.909 blue:0.936 alpha:1.000] }
 #define REFRESH_TINT_COLOR       [UIColor colorWithRed:0.367 green:0.609 blue:0.887 alpha:1.000]
@@ -25,7 +24,7 @@
 
 @property (strong, nonatomic) UIBarButtonItem   *addCityButton;
 @property (strong, nonatomic) UIRefreshControl  *citiesRefreshControl;
-@property (strong,nonatomic)  NSDate            *lastAvailableCheck;
+@property (strong, nonatomic) NSDate            *lastAvailableCheck;
 
 @end
 
@@ -88,19 +87,10 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
       self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.075 green:0.000 blue:0.615 alpha:1.000];
-
-    JDNCitySearcher *s = [JDNCitySearcher new];
-    [s searchPlaceByText:@"gor" withCompletion:^(NSArray *data) {
-        for (JDNCity *city in data) {
-            [[JDNCities sharedCities] addCity:city];
-        }
-    }];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)viewWeather:(UITapGestureRecognizer*)tg{
+    [self.navigationController performSegueWithIdentifier:@"viewWeather" sender:tg.view];
 }
 
 #pragma mark - Table view data source
