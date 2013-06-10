@@ -141,7 +141,6 @@
     return tableView.editing;
 }
 
-// Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         JDNCity *city = [JDNCities sharedCities].cities[indexPath.row];
@@ -151,9 +150,7 @@
 }
 
 
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath{
     JDNCity *city = [JDNCities sharedCities].cities[fromIndexPath.row];
     JDNCity *city2 = [JDNCities sharedCities].cities[toIndexPath.row];
     [[JDNCities sharedCities] setOrderForCity:city order:toIndexPath.row];
@@ -165,6 +162,9 @@
     [self toggleEditMode];
 }
 
+-(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
+    [self performSegueWithIdentifier:@"viewWeather" sender:nil];
+}
 
 -(void)toggleEditMode{
     if(self.tableView.editing) {

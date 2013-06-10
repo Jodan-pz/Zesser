@@ -71,6 +71,67 @@
             </objects>
             <point key="canvasLocation" x="-2369" y="-583"/>
         </scene>
+        <!--Table View Controller - Cerca località-->
+        <scene sceneID="U8R-oU-ZXy">
+            <objects>
+                <tableViewController id="S2F-20-GIH" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="9tC-BA-aO9">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="GRu-x9-ahp">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="S2F-20-GIH" id="xZO-3k-nJW"/>
+                            </connections>
+                        </searchBar>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="4Ij-ek-IEr">
+                                <rect key="frame" x="0.0" y="66" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Cerca località" id="ekU-Lg-nWg"/>
+                    <connections>
+                        <outlet property="searchDisplayController" destination="efc-Z2-lbO" id="3Cy-0l-Qti"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hXm-OQ-RJ4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="efc-Z2-lbO">
+                    <connections>
+                        <outlet property="delegate" destination="S2F-20-GIH" id="rri-Th-y7b"/>
+                        <outlet property="searchBar" destination="GRu-x9-ahp" id="sB2-FU-i6T"/>
+                        <outlet property="searchContentsController" destination="S2F-20-GIH" id="vwY-ZE-SYb"/>
+                        <outlet property="searchResultsDataSource" destination="S2F-20-GIH" id="ODh-4X-01C"/>
+                        <outlet property="searchResultsDelegate" destination="S2F-20-GIH" id="wjR-kg-Ber"/>
+                    </connections>
+                </searchDisplayController>
+            </objects>
+            <point key="canvasLocation" x="-2523" y="175"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="4pv-H9-UL1">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="7cC-TT-YEK" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="UWH-sE-lLq">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="S2F-20-GIH" kind="relationship" relationship="rootViewController" id="I6K-8v-JEd"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pxq-el-Vgj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2997" y="175"/>
+        </scene>
         <!--New City View Controller-->
         <scene sceneID="vqr-74-Vxr">
             <objects>
@@ -138,7 +199,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lkS-bn-Sfc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2356" y="63"/>
+            <point key="canvasLocation" x="-2003" y="175"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="cyc-4h-1mN">
@@ -241,49 +302,6 @@
             <point key="canvasLocation" x="-1988" y="-583"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="JDNCitiesTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNCitiesTableViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="editCities:"/>
-            </relationships>
-        </class>
-        <class className="JDNNewCityViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNNewCityViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="addCity:"/>
-                <relationship kind="action" name="cancelAddCity:"/>
-                <relationship kind="action" name="cityEditingChanged:"/>
-                <relationship kind="action" name="urlEditingChanged:"/>
-                <relationship kind="outlet" name="city" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="okButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="url" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="JDNSimpleWeatherCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNSimpleWeatherCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="cityName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="forecast" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="temperature" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="JDNWeatherCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNWeatherCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="apparentTemperature" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="forecast" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="forecastImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="hourOfDay" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="temperature" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="wind" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="windImage" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="JDNWeatherTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNWeatherTableViewController.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
