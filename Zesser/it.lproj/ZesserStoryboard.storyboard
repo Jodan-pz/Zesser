@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="aYY-Eg-Bpw">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
+    </dependencies>
+    <scenes>
+        <!--Cities Table View Controller - Zesser-->
+        <scene sceneID="9bP-X0-37t">
+            <objects>
+                <tableViewController id="L8l-KH-tDu" customClass="JDNCitiesTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="75" sectionHeaderHeight="22" sectionFooterHeight="22" id="2li-gY-9HC">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="2" indentationWidth="100" shouldIndentWhileEditing="NO" reuseIdentifier="Cell" rowHeight="75" id="7CY-mQ-s1J" customClass="JDNSimpleWeatherCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="75"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="74"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" id="C8S-3O-XRZ">
+                                            <rect key="frame" x="20" y="22" width="136" height="32"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="22"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Zpm-Mg-Obp">
+                                            <rect key="frame" x="173" y="22" width="41" height="32"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="TqT-qx-XYo">
+                                            <rect key="frame" x="222" y="22" width="32" height="32"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <connections>
+                                    <outlet property="cityName" destination="C8S-3O-XRZ" id="vEF-9n-Sci"/>
+                                    <outlet property="forecast" destination="TqT-qx-XYo" id="Js9-8o-URu"/>
+                                    <outlet property="temperature" destination="Zpm-Mg-Obp" id="pkC-Vc-QR3"/>
+                                    <segue destination="ccC-Tc-vuL" kind="push" identifier="viewWeather" id="pyD-uQ-gCM"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Zesser" id="oce-WF-wFE">
+                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="dIa-g0-E2M">
+                            <connections>
+                                <action selector="editCities:" destination="L8l-KH-tDu" id="jRT-W9-K3d"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="pPw-Mc-xfb">
+                            <connections>
+                                <segue destination="7cC-TT-YEK" kind="modal" identifier="searchCity" modalTransitionStyle="coverVertical" id="4FI-f1-9Zk"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="addCityButton" destination="pPw-Mc-xfb" id="tIz-IT-jOV"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IKf-Pe-29E" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2600" y="-593"/>
+        </scene>
+        <!--City Search Table View Controller - Cerca località-->
+        <scene sceneID="U8R-oU-ZXy">
+            <objects>
+                <tableViewController id="S2F-20-GIH" customClass="JDNCitySearchTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="9tC-BA-aO9">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Nome località" id="GRu-x9-ahp">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                            <connections>
+                                <outlet property="delegate" destination="S2F-20-GIH" id="xZO-3k-nJW"/>
+                            </connections>
+                        </searchBar>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Cerca località" id="ekU-Lg-nWg">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="r1L-7T-ld9">
+                            <connections>
+                                <action selector="cancelCitySearch:" destination="S2F-20-GIH" id="Ngc-lz-4Cv"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="searchDisplayController" destination="efc-Z2-lbO" id="3Cy-0l-Qti"/>
+                        <segue destination="MFE-ne-Vn9" kind="push" identifier="newCity" id="vTQ-Ee-wwF"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hXm-OQ-RJ4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="efc-Z2-lbO">
+                    <connections>
+                        <outlet property="delegate" destination="S2F-20-GIH" id="rri-Th-y7b"/>
+                        <outlet property="searchBar" destination="GRu-x9-ahp" id="sB2-FU-i6T"/>
+                        <outlet property="searchContentsController" destination="S2F-20-GIH" id="vwY-ZE-SYb"/>
+                        <outlet property="searchResultsDataSource" destination="S2F-20-GIH" id="ODh-4X-01C"/>
+                        <outlet property="searchResultsDelegate" destination="S2F-20-GIH" id="wjR-kg-Ber"/>
+                    </connections>
+                </searchDisplayController>
+            </objects>
+            <point key="canvasLocation" x="-1578" y="-164"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="4pv-H9-UL1">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="7cC-TT-YEK" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="zOj-TZ-mK9"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="UWH-sE-lLq">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="S2F-20-GIH" kind="relationship" relationship="rootViewController" id="I6K-8v-JEd"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pxq-el-Vgj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2008" y="-164"/>
+        </scene>
+        <!--New City View Controller - Aggiungi-->
+        <scene sceneID="vqr-74-Vxr">
+            <objects>
+                <viewController id="MFE-ne-Vn9" customClass="JDNNewCityViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7GZ-BB-9Fh">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Nome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hoG-K6-8Yi">
+                                <rect key="frame" x="33" y="43" width="261" height="34"/>
+                                <fontDescription key="fontDescription" name="Thonburi" family="Thonburi" pointSize="28"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="URL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bNI-aU-0xX">
+                                <rect key="frame" x="33" y="127" width="261" height="21"/>
+                                <fontDescription key="fontDescription" name="Thonburi" family="Thonburi" pointSize="28"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="ei2-OO-mqe">
+                                <rect key="frame" x="33" y="80" width="261" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                                <connections>
+                                    <action selector="cityEditingChanged:" destination="MFE-ne-Vn9" eventType="editingChanged" id="G5F-y8-NxE"/>
+                                    <outlet property="delegate" destination="MFE-ne-Vn9" id="NiP-2T-h7O"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="MGZ-9C-llh">
+                                <rect key="frame" x="33" y="153" width="261" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="URL" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                <connections>
+                                    <action selector="urlEditingChanged:" destination="MFE-ne-Vn9" eventType="editingChanged" id="GEB-3c-FHb"/>
+                                    <outlet property="delegate" destination="MFE-ne-Vn9" id="r9u-Cx-G1K"/>
+                                </connections>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" red="0.20000000000000001" green="0.40000000000000002" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Aggiungi" id="NsP-q3-TMT">
+                        <barButtonItem key="leftBarButtonItem" id="3SA-Fj-Kjl">
+                            <connections>
+                                <action selector="cancelAddCity:" destination="MFE-ne-Vn9" id="BdK-ID-Vrr"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="utP-yS-TMf">
+                            <connections>
+                                <action selector="addCity:" destination="MFE-ne-Vn9" id="a8x-ml-nTt"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="cityName" destination="ei2-OO-mqe" id="uKb-Ut-nd6"/>
+                        <outlet property="nameLabel" destination="hoG-K6-8Yi" id="4LX-0E-bbV"/>
+                        <outlet property="okButton" destination="utP-yS-TMf" id="HrV-mW-xbN"/>
+                        <outlet property="url" destination="MGZ-9C-llh" id="EiT-vm-EOv"/>
+                        <outlet property="urlLabel" destination="bNI-aU-0xX" id="Lx2-zs-C43"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lkS-bn-Sfc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1147" y="-164"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="cyc-4h-1mN">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="aYY-Eg-Bpw" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bxz-0y-aks">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="kVS-Zm-4q8">
+                        <rect key="frame" x="0.0" y="416" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="L8l-KH-tDu" kind="relationship" relationship="rootViewController" id="EmU-Zj-y9d"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aea-ZZ-ubE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3044" y="-588"/>
+        </scene>
+        <!--Weather Table View Controller-->
+        <scene sceneID="123-Wn-uL5">
+            <objects>
+                <tableViewController id="ccC-Tc-vuL" customClass="JDNWeatherTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsSelection="NO" rowHeight="77" sectionHeaderHeight="22" sectionFooterHeight="22" id="RJP-Fl-E35">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.20671752582648911" green="0.42630244757076224" blue="0.68295338114754101" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="separatorColor" red="0.6338234157" green="0.75786300689999997" blue="0.8901367188" alpha="1" colorSpace="calibratedRGB"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="77" id="n6m-6r-Ve2" customClass="JDNWeatherCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="77"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="76"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="nwK-P3-D4b">
+                                            <rect key="frame" x="268" y="8" width="32" height="32"/>
+                                        </imageView>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="tgC-Cd-dkH">
+                                            <rect key="frame" x="215" y="8" width="32" height="32"/>
+                                        </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="12.00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZSd-zi-fag">
+                                            <rect key="frame" x="20" y="8" width="69" height="32"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="22°" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Aoa-wB-zsm">
+                                            <rect key="frame" x="89" y="8" width="54" height="32"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(22°)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WeY-AN-Hrb">
+                                            <rect key="frame" x="153" y="8" width="54" height="32"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Sereno" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DDm-g6-5g4">
+                                            <rect key="frame" x="20" y="38" width="280" height="21"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Vento: a dx as s" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="p9Z-xT-UaM">
+                                            <rect key="frame" x="20" y="55" width="187" height="21"/>
+                                            <fontDescription key="fontDescription" type="italicSystem" pointSize="10"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <connections>
+                                    <outlet property="apparentTemperature" destination="WeY-AN-Hrb" id="6kU-q3-yYL"/>
+                                    <outlet property="forecast" destination="DDm-g6-5g4" id="Csy-qp-y6I"/>
+                                    <outlet property="forecastImage" destination="nwK-P3-D4b" id="Wuz-oU-MPY"/>
+                                    <outlet property="hourOfDay" destination="ZSd-zi-fag" id="rvY-Ir-E1x"/>
+                                    <outlet property="temperature" destination="Aoa-wB-zsm" id="h33-Y1-HPh"/>
+                                    <outlet property="wind" destination="p9Z-xT-UaM" id="Q1b-c4-rly"/>
+                                    <outlet property="windImage" destination="tgC-Cd-dkH" id="OGl-oE-LbM"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="ccC-Tc-vuL" id="OWD-1q-IS3"/>
+                            <outlet property="delegate" destination="ccC-Tc-vuL" id="6AB-Dc-4wT"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="P2Z-l7-qw3"/>
+                    <connections>
+                        <outlet property="view" destination="RJP-Fl-E35" id="9nn-lc-GeH"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bfh-HO-Uon" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2008" y="-797"/>
+        </scene>
+    </scenes>
+    <classes>
+        <class className="JDNCitiesTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNCitiesTableViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="editCities:"/>
+            </relationships>
+        </class>
+        <class className="JDNCitySearchTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNCitySearchTableViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancelCitySearch:"/>
+            </relationships>
+        </class>
+        <class className="JDNNewCityViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNNewCityViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="addCity:"/>
+                <relationship kind="action" name="cancelAddCity:"/>
+                <relationship kind="action" name="cityEditingChanged:"/>
+                <relationship kind="action" name="urlEditingChanged:"/>
+                <relationship kind="outlet" name="cityName" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="okButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="url" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="urlLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="JDNSimpleWeatherCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNSimpleWeatherCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="cityName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="forecast" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="temperature" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="JDNWeatherCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNWeatherCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="apparentTemperature" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="forecast" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="forecastImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="hourOfDay" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="temperature" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="wind" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="windImage" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="JDNWeatherTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNWeatherTableViewController.h"/>
+        </class>
+    </classes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination"/>
+    </simulatedMetricsContainer>
+</document>

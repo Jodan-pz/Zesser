@@ -23,7 +23,7 @@
 		CB615ED31754DF46004C1BA4 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB615ED21754DF46004C1BA4 /* Default@2x.png */; };
 		CB615ED51754DF47004C1BA4 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB615ED41754DF46004C1BA4 /* Default-568h@2x.png */; };
 		CB9455BF17661D3B00BB85B1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CB9455BD17661D3B00BB85B1 /* InfoPlist.strings */; };
-		CB9AB21617661D8200A74503 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB9AB21817661D8200A74503 /* MainStoryboard.storyboard */; };
+		CB9AB21A1766254600A74503 /* ZesserStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB9AB21817661D8200A74503 /* ZesserStoryboard.storyboard */; };
 		CB9BCC67175F8CE400996188 /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC66175F8CE400996188 /* XPathQuery.m */; };
 		CB9BCC69175F8CF900996188 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CB9BCC68175F8CF900996188 /* libxml2.dylib */; };
 		CB9BCC6F17608B1800996188 /* JDNCities.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC6E17608B1700996188 /* JDNCities.m */; };
@@ -68,7 +68,8 @@
 		CB615ED41754DF46004C1BA4 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		CB9455BE17661D3B00BB85B1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
 		CB9AB21517661D6100A74503 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		CB9AB21717661D8200A74503 /* it */ = {isa = PBXFileReference; lastKnownFileType = file; name = it; path = it.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		CB9AB21717661D8200A74503 /* it */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = it; path = it.lproj/ZesserStoryboard.storyboard; sourceTree = "<group>"; };
+		CB9AB2191766242900A74503 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/ZesserStoryboard.storyboard; sourceTree = "<group>"; };
 		CB9BCC5B175F850400996188 /* JDNCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNCommon.h; sourceTree = "<group>"; };
 		CB9BCC65175F8CE400996188 /* XPathQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPathQuery.h; sourceTree = "<group>"; };
 		CB9BCC66175F8CE400996188 /* XPathQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPathQuery.m; sourceTree = "<group>"; };
@@ -169,7 +170,6 @@
 			isa = PBXGroup;
 			children = (
 				CB26ACAC1761C57100070F8C /* Zesser.png */,
-				CB9AB21817661D8200A74503 /* MainStoryboard.storyboard */,
 				CB9455BC17661D3B00BB85B1 /* en.lproj */,
 				CB615EC41754DF46004C1BA4 /* Zesser */,
 				CB615EBD1754DF46004C1BA4 /* Frameworks */,
@@ -235,6 +235,7 @@
 		CB9455BC17661D3B00BB85B1 /* en.lproj */ = {
 			isa = PBXGroup;
 			children = (
+				CB9AB21817661D8200A74503 /* ZesserStoryboard.storyboard */,
 				CB9455BD17661D3B00BB85B1 /* InfoPlist.strings */,
 			);
 			name = en.lproj;
@@ -327,12 +328,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB9AB21A1766254600A74503 /* ZesserStoryboard.storyboard in Resources */,
 				CB615ED11754DF46004C1BA4 /* Default.png in Resources */,
 				CB615ED31754DF46004C1BA4 /* Default@2x.png in Resources */,
 				CB615ED51754DF47004C1BA4 /* Default-568h@2x.png in Resources */,
 				CB26ACAD1761C57100070F8C /* Zesser.png in Resources */,
 				CBD7107E1761D2DB00ACA525 /* info_64.png in Resources */,
-				CB9AB21617661D8200A74503 /* MainStoryboard.storyboard in Resources */,
 				CB9455BF17661D3B00BB85B1 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -378,13 +379,14 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		CB9AB21817661D8200A74503 /* MainStoryboard.storyboard */ = {
+		CB9AB21817661D8200A74503 /* ZesserStoryboard.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				CB9AB21717661D8200A74503 /* it */,
+				CB9AB2191766242900A74503 /* en */,
 			);
-			name = MainStoryboard.storyboard;
-			path = Zesser;
+			name = ZesserStoryboard.storyboard;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
