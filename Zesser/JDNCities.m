@@ -77,20 +77,13 @@ static JDNCities *sharedCities_;
     
     self.mcities = [NSKeyedUnarchiver unarchiveObjectWithFile:[documentsDirectory
                                                                stringByAppendingPathComponent:@"cities.dat"]];
-    
     if ( !self.mcities ) {
         self.mcities = [NSMutableArray array];
         JDNCity *city = [[JDNCity alloc] init];
-        city.name = @"Casa";
-        city.url = @"?q=ta/previsione/3841/POZZO%20D'ADDA";
+        city.name = @"Milano";
+        city.url = @"?q=ta/previsione/87/MILANO";
         city.order = 0;
         [self.mcities addObject:city];
-        
-        JDNCity *city2 = [[JDNCity alloc] init];
-        city2.name = @"Muggia";
-        city2.url = @"?q=ta/previsione/8250/MUGGIA";
-        city2.order = 1;
-        [self.mcities addObject:city2];
     }
     
     [self write];
