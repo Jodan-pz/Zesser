@@ -57,15 +57,6 @@
     self.okButton.enabled = a.length && b.length;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (IBAction)cityEditingChanged:(id)sender {
     [self checkIfCanAddNewCity];
 }
@@ -74,17 +65,10 @@
     [self checkIfCanAddNewCity];
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad{
     [super viewDidLoad];
     [self checkIfCanAddNewCity];
     [self.city becomeFirstResponder];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

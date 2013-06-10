@@ -19,8 +19,8 @@
 @end
 
 @interface JDNNewCityViewController : UIViewController
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *okButton;
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *okButton;
 @property (weak, nonatomic) IBOutlet UITextField *city;
 @property (weak, nonatomic) IBOutlet UITextField *url;
 @property (weak) id<JDNNewCityViewDelegate> delegate;

@@ -19,6 +19,9 @@
 
 #define REFRESH_TITLE_ATTRIBUTES @{NSForegroundColorAttributeName:[UIColor colorWithRed:0.746 green:0.909 blue:0.936 alpha:1.000] }
 #define REFRESH_TINT_COLOR       [UIColor colorWithRed:0.367 green:0.609 blue:0.887 alpha:1.000]
+#define NAVIGATION_TINT_COLOR    [UIColor colorWithRed:0.075 green:0.000 blue:0.615 alpha:1.000]
+#define VIEW_BKG_GRADIENT_FROM   [UIColor colorWithRed:0.075 green:0.000 blue:0.615 alpha:1.000]
+#define VIEW_BKG_GRADIENT_TO     [UIColor colorWithRed:0.703 green:0.000 blue:0.930 alpha:1.000]
 
 @interface JDNCitiesTableViewController ()<JDNNewCityViewDelegate>
 
@@ -57,8 +60,8 @@
 //Blue gradient background
 + (CAGradientLayer*) blueGradient {
     
-    UIColor *colorOne = [UIColor colorWithRed:0.075 green:0.000 blue:0.615 alpha:1.000];
-    UIColor *colorTwo = [UIColor colorWithRed:0.703 green:0.000 blue:0.930 alpha:1.000];
+    UIColor *colorOne = VIEW_BKG_GRADIENT_FROM;
+    UIColor *colorTwo = VIEW_BKG_GRADIENT_TO;
     
     NSArray *colors = [NSArray arrayWithObjects:(id)colorOne.CGColor, colorTwo.CGColor, nil];
     NSNumber *stopOne = [NSNumber numberWithFloat:0.0];
@@ -86,7 +89,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-      self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.075 green:0.000 blue:0.615 alpha:1.000];
+      self.navigationController.navigationBar.tintColor = NAVIGATION_TINT_COLOR;
 }
 
 -(void)viewWeather:(UITapGestureRecognizer*)tg{
