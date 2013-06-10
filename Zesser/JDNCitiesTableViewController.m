@@ -7,6 +7,7 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
+#import <CoreLocation/CoreLocation.h>
 
 #import "JDNCitiesTableViewController.h"
 #import "JDNCities.h"
@@ -22,7 +23,7 @@
 #define REFRESH_TINT_COLOR       [UIColor colorWithRed:0.367 green:0.609 blue:0.887 alpha:1.000]
 #define NAVIGATION_TINT_COLOR    [UIColor colorWithRed:0.075 green:0.000 blue:0.615 alpha:1.000]
 
-@interface JDNCitiesTableViewController ()<JDNAddCityDelegate>
+@interface JDNCitiesTableViewController ()<JDNAddCityDelegate,CLLocationManagerDelegate>
 
 @property (strong, nonatomic) UIBarButtonItem   *addCityButton;
 @property (strong, nonatomic) UIRefreshControl  *citiesRefreshControl;
@@ -32,7 +33,10 @@
 
 @end
 
-@implementation JDNCitiesTableViewController
+@implementation JDNCitiesTableViewController{
+    CLLocationManager *locationManager;
+    CLLocation *currentLocation;
+}
 
 -(UIRefreshControl *)citiesRefreshControl{
     if ( !_citiesRefreshControl){
@@ -76,6 +80,28 @@
     self.tableView.backgroundView = gradientView;
     self.refreshControl = self.citiesRefreshControl;
     self.navigationItem.rightBarButtonItem = self.addCityButton;
+    
+    locationManager = [CLLocationManager new];
+    locationManager.delegate = self;
+    locationManager.distanceFilter = kCLDistanceFilterNone;
+    locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+    [locationManager startUpdatingLocation];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
+    currentLocation = [locations objectAtIndex:0];
+    [locationManager stopUpdatingLocation];
+    NSLog(@"Detected Location : %f, %f", currentLocation.coordinate.latitude, currentLocation.coordinate.longitude);
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init] ;
+    [geocoder reverseGeocodeLocation:currentLocation
+                   completionHandler:^(NSArray *placemarks, NSError *error) {
+                       if (error){
+                           NSLog(@"Geocode failed with error: %@", error);
+                           return;
+                       }
+                       CLPlacemark *placemark = [placemarks objectAtIndex:0];
+                       NSLog(@"%@",placemark.locality);
+                   }];
 }
 
 -(void)viewWillAppear:(BOOL)animated{

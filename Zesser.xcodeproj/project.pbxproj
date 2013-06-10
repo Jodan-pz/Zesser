@@ -10,6 +10,7 @@
 		143AAC1117632820002C3D31 /* NSArray+LinqExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 143AAC0F17632820002C3D31 /* NSArray+LinqExtensions.m */; };
 		143AAC1217632820002C3D31 /* NSDictionary+LinqExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 143AAC1017632820002C3D31 /* NSDictionary+LinqExtensions.m */; };
 		143AAC1517632E5D002C3D31 /* JDNCitySearcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 143AAC1417632E5D002C3D31 /* JDNCitySearcher.m */; };
+		143C766A1766398100918ED0 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 143C76691766398100918ED0 /* CoreLocation.framework */; };
 		CB12347D175F79EA006F890E /* JDNWeatherTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB12347C175F79EA006F890E /* JDNWeatherTableViewController.m */; };
 		CB123481175F7DB3006F890E /* JDNWeatherFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = CB123480175F7DB3006F890E /* JDNWeatherFetcher.m */; };
 		CB123484175F7DEF006F890E /* JDNDailyData.m in Sources */ = {isa = PBXBuildFile; fileRef = CB123483175F7DEF006F890E /* JDNDailyData.m */; };
@@ -47,6 +48,7 @@
 		143AAC1017632820002C3D31 /* NSDictionary+LinqExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+LinqExtensions.m"; path = "Zesser/NSDictionary+LinqExtensions.m"; sourceTree = "<group>"; };
 		143AAC1317632E5D002C3D31 /* JDNCitySearcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNCitySearcher.h; sourceTree = "<group>"; };
 		143AAC1417632E5D002C3D31 /* JDNCitySearcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNCitySearcher.m; sourceTree = "<group>"; };
+		143C76691766398100918ED0 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		CB12347B175F79EA006F890E /* JDNWeatherTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNWeatherTableViewController.h; sourceTree = "<group>"; };
 		CB12347C175F79EA006F890E /* JDNWeatherTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNWeatherTableViewController.m; sourceTree = "<group>"; };
 		CB12347F175F7DB3006F890E /* JDNWeatherFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNWeatherFetcher.h; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				143C766A1766398100918ED0 /* CoreLocation.framework in Frameworks */,
 				CBD71088176214B500ACA525 /* QuartzCore.framework in Frameworks */,
 				CB9BCC69175F8CF900996188 /* libxml2.dylib in Frameworks */,
 				CB615EBF1754DF46004C1BA4 /* UIKit.framework in Frameworks */,
@@ -188,6 +191,7 @@
 		CB615EBD1754DF46004C1BA4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				143C76691766398100918ED0 /* CoreLocation.framework */,
 				CB9BCC68175F8CF900996188 /* libxml2.dylib */,
 				CBD71087176214B500ACA525 /* QuartzCore.framework */,
 				CB615EBE1754DF46004C1BA4 /* UIKit.framework */,
