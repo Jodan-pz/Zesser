@@ -73,6 +73,7 @@
     [_filteredList removeAllObjects];
     [_citySearcher searchPlaceByText:searchText withCompletion:^(NSArray *data) {
         [self.loadSpinner stopAnimating];
+        sender.userInteractionEnabled = YES;
         for (JDNCity *city in data) {
             [_filteredList addObject:city];
         }
