@@ -79,7 +79,7 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="GRu-x9-ahp">
+                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Nome località" id="GRu-x9-ahp">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits" autocorrectionType="no"/>
@@ -129,7 +129,7 @@
             </objects>
             <point key="canvasLocation" x="-2008" y="-164"/>
         </scene>
-        <!--New City View Controller - Nuovo-->
+        <!--New City View Controller - Aggiungi-->
         <scene sceneID="vqr-74-Vxr">
             <objects>
                 <viewController id="MFE-ne-Vn9" customClass="JDNNewCityViewController" sceneMemberID="viewController">
@@ -170,13 +170,13 @@
                         </subviews>
                         <color key="backgroundColor" red="0.20000000000000001" green="0.40000000000000002" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Nuovo" id="NsP-q3-TMT">
-                        <barButtonItem key="leftBarButtonItem" title="Annulla" id="3SA-Fj-Kjl">
+                    <navigationItem key="navigationItem" title="Aggiungi" id="NsP-q3-TMT">
+                        <barButtonItem key="leftBarButtonItem" id="3SA-Fj-Kjl">
                             <connections>
                                 <action selector="cancelAddCity:" destination="MFE-ne-Vn9" id="BdK-ID-Vrr"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="OK" id="utP-yS-TMf">
+                        <barButtonItem key="rightBarButtonItem" title="Salva" id="utP-yS-TMf">
                             <connections>
                                 <action selector="addCity:" destination="MFE-ne-Vn9" id="a8x-ml-nTt"/>
                             </connections>
@@ -295,47 +295,6 @@
             <point key="canvasLocation" x="-2008" y="-797"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="JDNCitiesTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNCitiesTableViewController.h"/>
-        </class>
-        <class className="JDNCitySearchTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNCitySearchTableViewController.h"/>
-        </class>
-        <class className="JDNNewCityViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNNewCityViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="cityName" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="okButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="url" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="urlLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="JDNSimpleWeatherCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNSimpleWeatherCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="cityName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="forecast" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="temperature" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="JDNWeatherCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNWeatherCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="apparentTemperature" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="forecast" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="forecastImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="hourOfDay" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="temperature" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="wind" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="windImage" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="JDNWeatherTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNWeatherTableViewController.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

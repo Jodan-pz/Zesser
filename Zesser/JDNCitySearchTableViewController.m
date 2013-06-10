@@ -49,7 +49,9 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [self.searchDisplayController.searchBar becomeFirstResponder];
+    if ( _filteredList.count == 0 ){
+        [self.searchDisplayController.searchBar becomeFirstResponder];
+    }
 }
 
 - (IBAction)cancelCitySearch:(id)sender {
@@ -138,6 +140,13 @@
     if (tableView == self.searchDisplayController.searchResultsTableView){
         [self performSegueWithIdentifier:@"newCity" sender: _filteredList[indexPath.row]];
     }
+}
+
+-(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
+    if (tableView == self.searchDisplayController.searchResultsTableView){
+        [self performSegueWithIdentifier:@"newCity" sender:_filteredList[indexPath.row]];
+    }
+    
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(JDNCity*)city{

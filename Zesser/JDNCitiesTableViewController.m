@@ -144,7 +144,7 @@
 }
 
 -(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
-    [self performSegueWithIdentifier:@"viewWeather" sender:nil];
+    [self performSegueWithIdentifier:@"viewWeather" sender:[JDNCities sharedCities].cities[indexPath.row]];
 }
 
 -(void)toggleEditMode{
@@ -153,23 +153,24 @@
         [self.tableView setEditing:NO animated:YES];
         self.refreshControl = self.citiesRefreshControl;
         self.navigationItem.rightBarButtonItem = self.addCityButton;
-        self.navigationItem.leftBarButtonItem.style =UIBarButtonItemStyleBordered;
         self.navigationItem.leftBarButtonItem.title = @"Modifica";
     }
     else {
         [self.tableView setEditing:YES animated:YES];
         self.refreshControl = nil;
         self.navigationItem.rightBarButtonItem = nil;
-        self.navigationItem.leftBarButtonItem.style =UIBarButtonItemStyleBordered;
-        self.navigationItem.leftBarButtonItem.title = @"Fatto";
-    }
+        self.navigationItem.leftBarButtonItem.title = @"Fine";    }
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ( [segue.identifier isEqualToString:@"viewWeather"]){
-        JDNWeatherTableViewController *weathControler = segue.destinationViewController;
-        NSIndexPath* indexPath=[self.tableView indexPathForCell:sender];
-        weathControler.city = [JDNCities sharedCities].cities[indexPath.row];
+        JDNWeatherTableViewController *weathController = segue.destinationViewController;
+        if ( [sender isKindOfClass:[JDNCity class]]){
+            weathController.city = sender;
+        }else{
+            NSIndexPath* indexPath=[self.tableView indexPathForCell:sender];
+            weathController.city = [JDNCities sharedCities].cities[indexPath.row];
+        }
     } else if ( [segue.identifier isEqualToString:@"searchCity"]){
         UINavigationController *searchCityController = segue.destinationViewController;
         ((JDNCitySearchTableViewController*) searchCityController.topViewController).delegate = self;
