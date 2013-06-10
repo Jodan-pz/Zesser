@@ -74,6 +74,7 @@
  								   startImmediately:YES];
  	if(!connection) {
  		NSLog(@"connection failed :(");
+        if ( callback ) callback( nil );
  	}
 }
 

@@ -88,6 +88,9 @@
 
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
     [_filteredList removeAllObjects];
+    if ( self.delegate ) {
+        [self.delegate didAddedNewCity:nil sender:self];
+    }
 }
 
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
@@ -111,12 +114,13 @@
     static NSString *CellIdentifier = @"SearchCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
         cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
         cell.accessoryView.userInteractionEnabled = YES;
         cell.backgroundColor = [UIColor clearColor];
         cell.textLabel.textColor = [UIColor whiteColor];
     }
+    
     NSString *title;
     if (tableView == self.searchDisplayController.searchResultsTableView && _filteredList.count){
         //If the user is searching, use the list in our filteredList array.

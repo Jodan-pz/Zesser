@@ -24,7 +24,6 @@
 
 #define BASE_URL          @"http://www.meteoam.it/"
 
-
 -(void)isAvailable:(BooleanCallBack)callback {
     JDNTestConnection *testConnection = [[JDNTestConnection alloc] init];
     [testConnection checkConnectionToUrl:BASE_URL
