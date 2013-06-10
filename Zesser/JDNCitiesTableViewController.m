@@ -27,6 +27,8 @@
 @property (strong, nonatomic) UIBarButtonItem   *addCityButton;
 @property (strong, nonatomic) UIRefreshControl  *citiesRefreshControl;
 @property (strong, nonatomic) NSDate            *lastAvailableCheck;
+@property (strong, nonatomic) UIBarButtonItem   *editCitiesBarButtonItem;
+@property (strong, nonatomic) UIBarButtonItem   *doneEditCitiesBarButtonItem;
 
 @end
 
@@ -147,19 +149,35 @@
     [self performSegueWithIdentifier:@"viewWeather" sender:[JDNCities sharedCities].cities[indexPath.row]];
 }
 
+-(UIBarButtonItem*)editCitiesBarButtonItem{
+    if  (!_editCitiesBarButtonItem){
+        _editCitiesBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(toggleEditMode)];
+    }
+    return _editCitiesBarButtonItem;
+}
+
+-(UIBarButtonItem*)doneEditCitiesBarButtonItem{
+    if  (!_doneEditCitiesBarButtonItem){
+        _doneEditCitiesBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(toggleEditMode)];
+    }
+    return _doneEditCitiesBarButtonItem;
+    
+}
+
 -(void)toggleEditMode{
     if(self.tableView.editing) {
         self.navigationItem.rightBarButtonItem.enabled = YES;
         [self.tableView setEditing:NO animated:YES];
         self.refreshControl = self.citiesRefreshControl;
         self.navigationItem.rightBarButtonItem = self.addCityButton;
-        self.navigationItem.leftBarButtonItem.title = @"Modifica";
+        self.navigationItem.leftBarButtonItem = self.editCitiesBarButtonItem;
     }
     else {
         [self.tableView setEditing:YES animated:YES];
         self.refreshControl = nil;
         self.navigationItem.rightBarButtonItem = nil;
-        self.navigationItem.leftBarButtonItem.title = @"Fine";    }
+        self.navigationItem.leftBarButtonItem = self.doneEditCitiesBarButtonItem;
+    }
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
