@@ -58,6 +58,14 @@
     return _addCityButton;
 }
 
+-(void)configureCandEditButton{
+    if ( [JDNCities sharedCities].cities.count < 2){
+        self.navigationItem.leftBarButtonItem = nil;
+    }else{
+        self.navigationItem.leftBarButtonItem = self.editCitiesBarButtonItem;
+    }
+}
+
 - (void)viewDidLoad{
     [super viewDidLoad];
     self.clearsSelectionOnViewWillAppear = YES;
@@ -73,6 +81,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.tintColor = NAVIGATION_TINT_COLOR;
+    [self configureCandEditButton];
 }
 
 -(void)viewWeather:(UITapGestureRecognizer*)tg{
@@ -171,6 +180,7 @@
         self.refreshControl = self.citiesRefreshControl;
         self.navigationItem.rightBarButtonItem = self.addCityButton;
         self.navigationItem.leftBarButtonItem = self.editCitiesBarButtonItem;
+        [self configureCandEditButton];
     }
     else {
         [self.tableView setEditing:YES animated:YES];
