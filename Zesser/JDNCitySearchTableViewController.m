@@ -64,20 +64,17 @@
     if( self.loadSpinner.superview != sender){
         [sender addSubview:self.loadSpinner];
     }
-    
-    // search
-    sender.userInteractionEnabled = NO;
-    
-    [self.loadSpinner startAnimating];
     _isSearching = YES;
+    // search
+    [self.loadSpinner startAnimating];
     [_filteredList removeAllObjects];
     [_citySearcher searchPlaceByText:searchText withCompletion:^(NSArray *data) {
         [self.loadSpinner stopAnimating];
-        sender.userInteractionEnabled = YES;
         for (JDNCity *city in data) {
             [_filteredList addObject:city];
         }
         _isSearching = NO;
+        
         [self.searchDisplayController.searchResultsTableView reloadData];
     }];
 }
@@ -115,7 +112,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
         cell.accessoryView.userInteractionEnabled = YES;
         cell.backgroundColor = [UIColor clearColor];
         cell.textLabel.textColor = [UIColor whiteColor];
