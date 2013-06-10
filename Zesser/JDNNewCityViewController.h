@@ -7,22 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@class JDNNewCityViewController;
-@class JDNCity;
-
-@protocol JDNNewCityViewDelegate
-
--(void)didAddedNewCity:(JDNCity*)newCity
-                sender:(JDNNewCityViewController*)sender;
-
-@end
+#import "JDNAddCityDelegate.h"
 
 @interface JDNNewCityViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *okButton;
-@property (weak, nonatomic) IBOutlet UITextField *city;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UITextField *cityName;
+@property (weak, nonatomic) IBOutlet UILabel *urlLabel;
 @property (weak, nonatomic) IBOutlet UITextField *url;
-@property (weak) id<JDNNewCityViewDelegate> delegate;
+@property (weak) id<JDNAddCityDelegate> delegate;
+@property (nonatomic)        BOOL    showUrl;
+@property (strong,nonatomic) JDNCity *city;
+
 
 @end

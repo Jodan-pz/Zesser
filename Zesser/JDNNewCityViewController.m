@@ -16,15 +16,19 @@
 
 @implementation JDNNewCityViewController
 
+-(void)hideUrl{
+    self.url.alpha = 0;
+    self.urlLabel.alpha = 0;
+    self.cityName.returnKeyType = UIReturnKeyDone;
+}
+
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
-    NSInteger nextTag = textField.tag + 1;
-    UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
-    if (nextResponder) {
-        [nextResponder becomeFirstResponder];
-    } else {
-        if ( textField == self.url){
-            [self addCity:textField];
-            return YES;
+    if ( textField.returnKeyType == UIReturnKeyDone ){
+        [self addCity:textField];
+        return YES;
+    }else if ( textField == self.cityName ){
+        if ( self.url.alpha ){
+            [self.url becomeFirstResponder];
         }else{
             [textField resignFirstResponder];
         }
@@ -33,7 +37,7 @@
 }
 
 - (IBAction)cancelAddCity:(id)sender {
-    if ( self.delegate){
+    if ( self.delegate ){
         [self.delegate didAddedNewCity:nil
                           sender:self];
     }
@@ -42,7 +46,7 @@
 - (IBAction)addCity:(id)sender {
     if ( self.delegate ){
         JDNCity *city = [[JDNCity alloc] init];
-        city.name = self.city.text;
+        city.name = self.cityName.text;
         city.url = self.url.text;
         [[JDNCities sharedCities] addCity:city];
         [self.delegate didAddedNewCity:city
@@ -52,7 +56,7 @@
 
 -(void)checkIfCanAddNewCity{
     self.okButton.enabled = NO;
-    NSString *a = [self.city.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *a = [self.cityName.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *b = [self.url.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     self.okButton.enabled = a.length && b.length;
 }
@@ -67,8 +71,22 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
+    
+    CAGradientLayer *bgLayer = [JDNClientHelper blueGradient];
+    bgLayer.frame = self.view.bounds;
+    [self.view.layer addSublayer:bgLayer];
+    [self.view bringSubviewToFront:self.cityName];
+    [self.view bringSubviewToFront:self.url];
+    [self.view bringSubviewToFront:self.nameLabel];
+    [self.view bringSubviewToFront:self.urlLabel];
     [self checkIfCanAddNewCity];
-    [self.city becomeFirstResponder];
+    if ( !self.showUrl ) [self hideUrl];
+    if ( self.city ){
+        self.cityName.text = self.city.name;
+        self.url.text = self.city.url;
+        [self checkIfCanAddNewCity];
+    }
+    [self.cityName becomeFirstResponder];
 }
 
 @end

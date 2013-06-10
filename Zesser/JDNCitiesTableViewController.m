@@ -16,14 +16,13 @@
 #import "JDNDailyData.h"
 #import "JDNSimpleWeatherCell.h"
 #import "JDNNewCityViewController.h"
+#import "JDNCitySearchTableViewController.h"
 
 #define REFRESH_TITLE_ATTRIBUTES @{NSForegroundColorAttributeName:[UIColor colorWithRed:0.746 green:0.909 blue:0.936 alpha:1.000] }
 #define REFRESH_TINT_COLOR       [UIColor colorWithRed:0.367 green:0.609 blue:0.887 alpha:1.000]
 #define NAVIGATION_TINT_COLOR    [UIColor colorWithRed:0.075 green:0.000 blue:0.615 alpha:1.000]
-#define VIEW_BKG_GRADIENT_FROM   [UIColor colorWithRed:0.075 green:0.000 blue:0.615 alpha:1.000]
-#define VIEW_BKG_GRADIENT_TO     [UIColor colorWithRed:0.703 green:0.000 blue:0.930 alpha:1.000]
 
-@interface JDNCitiesTableViewController ()<JDNNewCityViewDelegate>
+@interface JDNCitiesTableViewController ()<JDNAddCityDelegate>
 
 @property (strong, nonatomic) UIBarButtonItem   *addCityButton;
 @property (strong, nonatomic) UIRefreshControl  *citiesRefreshControl;
@@ -57,29 +56,11 @@
     return _addCityButton;
 }
 
-//Blue gradient background
-+ (CAGradientLayer*) blueGradient {
-    
-    UIColor *colorOne = VIEW_BKG_GRADIENT_FROM;
-    UIColor *colorTwo = VIEW_BKG_GRADIENT_TO;
-    
-    NSArray *colors = [NSArray arrayWithObjects:(id)colorOne.CGColor, colorTwo.CGColor, nil];
-    NSNumber *stopOne = [NSNumber numberWithFloat:0.0];
-    NSNumber *stopTwo = [NSNumber numberWithFloat:1.0];
-    
-    NSArray *locations = [NSArray arrayWithObjects:stopOne, stopTwo, nil];
-    
-    CAGradientLayer *headerLayer = [CAGradientLayer layer];
-    headerLayer.colors = colors;
-    headerLayer.locations = locations;
-    return headerLayer;
-}
-
 - (void)viewDidLoad{
     [super viewDidLoad];
     self.clearsSelectionOnViewWillAppear = YES;
     UIView *gradientView = [[UIView alloc] initWithFrame:self.tableView.frame];
-    CAGradientLayer *bgLayer = [JDNCitiesTableViewController blueGradient];
+    CAGradientLayer *bgLayer = [JDNClientHelper blueGradient];
     bgLayer.frame = self.tableView.bounds;
     [gradientView.layer insertSublayer:bgLayer atIndex:1];
     self.tableView.backgroundView = gradientView;
@@ -89,7 +70,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-      self.navigationController.navigationBar.tintColor = NAVIGATION_TINT_COLOR;
+    self.navigationController.navigationBar.tintColor = NAVIGATION_TINT_COLOR;
 }
 
 -(void)viewWeather:(UITapGestureRecognizer*)tg{
@@ -189,14 +170,13 @@
         JDNWeatherTableViewController *weathControler = segue.destinationViewController;
         NSIndexPath* indexPath=[self.tableView indexPathForCell:sender];
         weathControler.city = [JDNCities sharedCities].cities[indexPath.row];
-    } else if ( [segue.identifier isEqualToString:@"newCity"]){
-        JDNNewCityViewController *newCityController = segue.destinationViewController;
-        newCityController.delegate = self;
+    } else if ( [segue.identifier isEqualToString:@"searchCity"]){
+        UINavigationController *searchCityController = segue.destinationViewController;
+        ((JDNCitySearchTableViewController*) searchCityController.topViewController).delegate = self;
     }
-    
 }
 
--(void)didAddedNewCity:(JDNCity *)newCity sender:(JDNNewCityViewController *)sender{
+-(void)didAddedNewCity:(JDNCity *)newCity sender:(UIViewController *)sender{
     [sender dismissViewControllerAnimated:YES completion:^{
         if ( newCity ){
             [self refreshData:self.refreshControl];

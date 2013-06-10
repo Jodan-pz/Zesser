@@ -37,6 +37,7 @@
 		CBD710841761F48400ACA525 /* JDNSimpleWeatherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD710831761F48300ACA525 /* JDNSimpleWeatherCell.m */; };
 		CBD71088176214B500ACA525 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBD71087176214B500ACA525 /* QuartzCore.framework */; };
 		CBD7108E1762192F00ACA525 /* JDNNewCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD7108D1762192F00ACA525 /* JDNNewCityViewController.m */; };
+		CBE3290B1765CCA800526BC3 /* JDNCitySearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE3290A1765CCA800526BC3 /* JDNCitySearchTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -91,6 +92,9 @@
 		CBD71087176214B500ACA525 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		CBD7108C1762192F00ACA525 /* JDNNewCityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNNewCityViewController.h; sourceTree = "<group>"; };
 		CBD7108D1762192F00ACA525 /* JDNNewCityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNNewCityViewController.m; sourceTree = "<group>"; };
+		CBE329091765CCA800526BC3 /* JDNCitySearchTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNCitySearchTableViewController.h; sourceTree = "<group>"; };
+		CBE3290A1765CCA800526BC3 /* JDNCitySearchTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNCitySearchTableViewController.m; sourceTree = "<group>"; };
+		CBE3290C1765D84E00526BC3 /* JDNAddCityDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JDNAddCityDelegate.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +122,8 @@
 				CB12347C175F79EA006F890E /* JDNWeatherTableViewController.m */,
 				CBD7108C1762192F00ACA525 /* JDNNewCityViewController.h */,
 				CBD7108D1762192F00ACA525 /* JDNNewCityViewController.m */,
+				CBE329091765CCA800526BC3 /* JDNCitySearchTableViewController.h */,
+				CBE3290A1765CCA800526BC3 /* JDNCitySearchTableViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -191,6 +197,7 @@
 		CB615EC41754DF46004C1BA4 /* Zesser */ = {
 			isa = PBXGroup;
 			children = (
+				CBE3290C1765D84E00526BC3 /* JDNAddCityDelegate.h */,
 				CB9BCC5B175F850400996188 /* JDNCommon.h */,
 				CBD7107F1761DB1000ACA525 /* JDNTestConnection.h */,
 				CBD710801761DB1100ACA525 /* JDNTestConnection.m */,
@@ -344,6 +351,7 @@
 				143AAC1117632820002C3D31 /* NSArray+LinqExtensions.m in Sources */,
 				143AAC1217632820002C3D31 /* NSDictionary+LinqExtensions.m in Sources */,
 				143AAC1517632E5D002C3D31 /* JDNCitySearcher.m in Sources */,
+				CBE3290B1765CCA800526BC3 /* JDNCitySearchTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

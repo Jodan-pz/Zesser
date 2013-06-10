@@ -16,3 +16,4 @@
 
 typedef void(^ArrayDataCallBack)(NSArray *data);
 typedef void(^BooleanCallBack)(BOOL result);
+

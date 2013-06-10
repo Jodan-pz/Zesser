@@ -41,7 +41,10 @@
  */
 
 -(void)searchPlaceByText:(NSString*)textToSearch withCompletion:(ArrayDataCallBack)completion {
-    [self internalSearchCitiesLikeText:textToSearch withCompletion:completion];
+    NSMutableString *temp = [[NSMutableString alloc] initWithString:textToSearch];
+    [temp replaceOccurrencesOfString:@"'" withString:@"&apos;" options:NSLiteralSearch range:NSMakeRange(0, [textToSearch length])];
+    [temp replaceOccurrencesOfString:@" " withString:@"&nbsp;" options:NSLiteralSearch range:NSMakeRange(0, [textToSearch length])];
+    [self internalSearchCitiesLikeText:[temp copy] withCompletion:completion];
 }
 
 -(void)internalSearchCitiesLikeText:(NSString *)text withCompletion:(ArrayDataCallBack)callback{

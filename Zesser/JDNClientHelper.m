@@ -9,7 +9,28 @@
 #import "JDNClientHelper.h"
 #import <QuartzCore/QuartzCore.h>
 
+#define VIEW_BKG_GRADIENT_FROM   [UIColor colorWithRed:0.075 green:0.000 blue:0.615 alpha:1.000]
+#define VIEW_BKG_GRADIENT_TO     [UIColor colorWithRed:0.703 green:0.000 blue:0.930 alpha:1.000]
+
 @implementation JDNClientHelper
+
+//Blue gradient background
++ (CAGradientLayer*) blueGradient {
+    
+    UIColor *colorOne = VIEW_BKG_GRADIENT_FROM;
+    UIColor *colorTwo = VIEW_BKG_GRADIENT_TO;
+    
+    NSArray *colors = [NSArray arrayWithObjects:(id)colorOne.CGColor, colorTwo.CGColor, nil];
+    NSNumber *stopOne = [NSNumber numberWithFloat:0.0];
+    NSNumber *stopTwo = [NSNumber numberWithFloat:1.0];
+    
+    NSArray *locations = [NSArray arrayWithObjects:stopOne, stopTwo, nil];
+    
+    CAGradientLayer *headerLayer = [CAGradientLayer layer];
+    headerLayer.colors = colors;
+    headerLayer.locations = locations;
+    return headerLayer;
+}
 
 +(NSString*)unescapeString:(NSString*)string{
     NSMutableString *mut = [[NSMutableString alloc] initWithString:string];
