@@ -78,6 +78,10 @@
  	}
 }
 
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
+    NSLog(@"Search city error: %@", error.debugDescription);
+    if ( self.callback ) self.callback(nil);
+}
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
     self.receivedData.length = 0;
 }

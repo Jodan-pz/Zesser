@@ -118,7 +118,8 @@
         cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
         cell.accessoryView.userInteractionEnabled = YES;
         cell.backgroundColor = [UIColor clearColor];
-        cell.textLabel.textColor = [UIColor whiteColor];
+        cell.textLabel.font = [UIFont systemFontOfSize:12];
+        cell.textLabel.textColor = [UIColor colorWithRed:0.824 green:0.948 blue:0.951 alpha:1.000];
     }
     
     NSString *title;
