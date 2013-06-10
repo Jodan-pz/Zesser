@@ -82,7 +82,7 @@
                         <searchBar key="tableHeaderView" contentMode="redraw" id="GRu-x9-ahp">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                             <connections>
                                 <outlet property="delegate" destination="S2F-20-GIH" id="xZO-3k-nJW"/>
                             </connections>
@@ -152,7 +152,7 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="ei2-OO-mqe">
                                 <rect key="frame" x="33" y="80" width="261" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                 <connections>
                                     <action selector="cityEditingChanged:" destination="MFE-ne-Vn9" eventType="editingChanged" id="G5F-y8-NxE"/>
                                     <outlet property="delegate" destination="MFE-ne-Vn9" id="NiP-2T-h7O"/>
@@ -161,14 +161,14 @@
                             <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="MGZ-9C-llh">
                                 <rect key="frame" x="33" y="153" width="261" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="URL" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="URL" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                 <connections>
                                     <action selector="urlEditingChanged:" destination="MFE-ne-Vn9" eventType="editingChanged" id="GEB-3c-FHb"/>
                                     <outlet property="delegate" destination="MFE-ne-Vn9" id="r9u-Cx-G1K"/>
                                 </connections>
                             </textField>
                         </subviews>
-                        <color key="backgroundColor" red="0.39607846736907959" green="0.086274512112140656" blue="0.49803924560546875" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="backgroundColor" red="0.20000000000000001" green="0.40000000000000002" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Nuovo" id="NsP-q3-TMT">
                         <barButtonItem key="leftBarButtonItem" title="Annulla" id="3SA-Fj-Kjl">
@@ -298,23 +298,13 @@
     <classes>
         <class className="JDNCitiesTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNCitiesTableViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="editCities:"/>
-            </relationships>
         </class>
         <class className="JDNCitySearchTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNCitySearchTableViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="cancelCitySearch:"/>
-            </relationships>
         </class>
         <class className="JDNNewCityViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNNewCityViewController.h"/>
             <relationships>
-                <relationship kind="action" name="addCity:"/>
-                <relationship kind="action" name="cancelAddCity:"/>
-                <relationship kind="action" name="cityEditingChanged:"/>
-                <relationship kind="action" name="urlEditingChanged:"/>
                 <relationship kind="outlet" name="cityName" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="okButton" candidateClass="UIBarButtonItem"/>
