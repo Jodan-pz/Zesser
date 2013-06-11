@@ -69,6 +69,15 @@
     [self checkIfCanAddNewCity];
 }
 
+-(NSString*)currentCityName{
+    NSString *temp = self.city.name;
+    NSRange range = [temp rangeOfString:@"(" options:NSLiteralSearch];
+    if (range.location != NSNotFound){
+        return [temp substringToIndex:range.location];
+    }
+    return temp;
+}
+
 - (void)viewDidLoad{
     [super viewDidLoad];
     
@@ -82,7 +91,8 @@
     [self checkIfCanAddNewCity];
     if ( !self.showUrl ) [self hideUrl];
     if ( self.city ){
-        self.cityName.text = self.city.name;
+        
+        self.cityName.text = [self currentCityName];
         self.url.text = self.city.url;
         [self checkIfCanAddNewCity];
     }

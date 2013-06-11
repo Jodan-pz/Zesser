@@ -138,7 +138,8 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView == self.searchDisplayController.searchResultsTableView){
-        [self performSegueWithIdentifier:@"newCity" sender: _filteredList[indexPath.row]];
+        [self performSegueWithIdentifier:@"newCity"
+                                  sender: _filteredList[indexPath.row]];
     }
 }
 
