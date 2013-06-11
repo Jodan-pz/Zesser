@@ -210,7 +210,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         JDNCity *city = [JDNCities sharedCities].cities[indexPath.row];
         [[JDNCities sharedCities] removeCity:city];
-        [self.currentSimpleDailyData removeObjectForKey:city.name]
+        [self.currentSimpleDailyData removeObjectForKey:city.name];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
 }
