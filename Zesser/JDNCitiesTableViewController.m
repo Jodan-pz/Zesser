@@ -35,7 +35,7 @@
 @property (strong, nonatomic) UIBarButtonItem   *doneEditCitiesBarButtonItem;
 @property (strong, nonatomic) JDNFindMyPlace    *findMyPlace;
 @property (strong, nonatomic) JDNCitySearcher   *citySearcher;
-
+@property (strong, nonatomic) NSMutableDictionary   *currentSimpleDailyData;
 @end
 
 @implementation JDNCitiesTableViewController
@@ -92,6 +92,7 @@
     self.findMyPlace = [[JDNFindMyPlace alloc] init];
     self.findMyPlace.delegate = self;
     [self.findMyPlace startSearchingCurrentLocation];
+    self.currentSimpleDailyData = [NSMutableDictionary dictionary];
 }
 
 -(void)dealloc{
@@ -171,12 +172,20 @@
 
 -(void)updateWeatherDataForCity: (JDNCity*)city inCell: (JDNSimpleWeatherCell*)cell {
     if ( self.tableView.editing ) return;
+    
+    // check current daily (speedup)
+    JDNDailyData *daily = [self.currentSimpleDailyData valueForKey:city.name];
+    if(daily){
+        [cell setupCellWithDailyData: daily ];
+    }
+    
     JDNWeatherFetcher *weatherFetcher =  [[JDNWeatherFetcher alloc] init];
     if( self.lastAvailableCheck &&
         ((int)[[NSDate date] timeIntervalSinceDate:self.lastAvailableCheck] % 60) < 5 ){
         [cell startLoadingData];
         [weatherFetcher fetchNowSimpleDailyDataForCity:city.url withCompletion:^(NSArray *data) {
             [cell setupCellWithDailyData: (JDNDailyData*) [data firstOrNil] ];
+            [self.currentSimpleDailyData setValue:data forKey:city.name];
         }];
     }else{
         [weatherFetcher isAvailable:^(BOOL available) {
@@ -185,6 +194,7 @@
                 [cell startLoadingData];
                 [weatherFetcher fetchNowSimpleDailyDataForCity:city.url withCompletion:^(NSArray *data) {
                     [cell setupCellWithDailyData: (JDNDailyData*) [data firstOrNil]];
+                    [self.currentSimpleDailyData setValue:data forKey:city.name];
                 }];
             }
         }];
@@ -200,6 +210,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         JDNCity *city = [JDNCities sharedCities].cities[indexPath.row];
         [[JDNCities sharedCities] removeCity:city];
+        [self.currentSimpleDailyData removeObjectForKey:city.name]
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
 }
