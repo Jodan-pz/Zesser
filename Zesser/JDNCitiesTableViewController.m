@@ -38,6 +38,51 @@
     CLLocation *currentLocation;
 }
 
+
+-(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+    if ( [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]){
+        [self addCityRemovedObserver];
+    }
+    return self;
+}
+
+-(id)initWithCoder:(NSCoder *)aDecoder{
+    if  (self = [super initWithCoder:aDecoder]){
+        [self addCityRemovedObserver];
+    }
+    return self;
+}
+
+- (id)init{
+    self = [super init];
+    if (self) {
+        [self addCityRemovedObserver];
+    }
+    return self;
+}
+
+-(void)addCityRemovedObserver{
+    // register for notifications
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleCityRemoved:)
+                                                 name:CITY_REMOVED_NOTIFICATION
+                                               object:nil];
+}
+
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self ];
+}
+
+-(void)handleCityRemoved:(NSNotification*)notification{
+    JDNCity *city = notification.object;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *cachedData = [documentsDirectory stringByAppendingPathComponent: [city.name stringByAppendingString:@"_lres.dat"]];
+    if ( [[NSFileManager defaultManager] fileExistsAtPath:cachedData] ){
+        [[NSFileManager defaultManager] removeItemAtPath:cachedData error:NULL];
+    }
+}
+
 -(UIRefreshControl *)citiesRefreshControl{
     if ( !_citiesRefreshControl){
         _citiesRefreshControl = [[UIRefreshControl alloc] init];

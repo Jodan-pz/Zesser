@@ -68,6 +68,7 @@ static JDNCities *sharedCities_;
     if ( cityToRemove ) {
         [self.mcities removeObject:cityToRemove];
         [self write];
+        [[NSNotificationCenter defaultCenter] postNotificationName:CITY_REMOVED_NOTIFICATION  object:cityToRemove];
     }
 }
 

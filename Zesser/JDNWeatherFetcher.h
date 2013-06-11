@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+
 @class JDNDailyData;
 
 @interface JDNWeatherFetcher : NSObject

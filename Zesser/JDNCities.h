@@ -7,6 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+
+#define CITY_REMOVED_NOTIFICATION @"JDN_CITY_REMOVED_NOTIFICATION"
+
 @class JDNCity;
 
 @interface JDNCities : NSObject
