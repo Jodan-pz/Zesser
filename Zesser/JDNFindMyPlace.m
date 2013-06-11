@@ -22,8 +22,8 @@
     if (self) {
         locationManager = [CLLocationManager new];
         locationManager.delegate = self;
-        locationManager.distanceFilter = kCLDistanceFilterNone;
-        locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers;
+        locationManager.distanceFilter = 10.0f;
+        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
     }
     return self;
 }
