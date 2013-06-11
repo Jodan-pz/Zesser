@@ -115,7 +115,9 @@
     
     for (NSUInteger i=0; i < urls.count; i++) {
         JDNCity *data = [[JDNCity alloc] init];
-        NSString *url = [urls[i]lastObject];
+        NSString *fullURL = [urls[i]lastObject];
+        NSRange range = [fullURL rangeOfString:@"/" options:NSBackwardsSearch];
+        NSString *url = [fullURL substringToIndex:range.location];
         data.name = names[i];
         data.url = url;
         [datas addObject:data];
