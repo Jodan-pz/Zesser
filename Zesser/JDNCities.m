@@ -51,7 +51,7 @@ static JDNCities *sharedCities_;
     }];
 }
 
--(void)addCity:(JDNCity*)city withOrder:(NSInteger)order{
+-(JDNCity*)addCity:(JDNCity*)city withOrder:(NSInteger)order{
     JDNCity *temp = [[ self.mcities where:^BOOL(JDNCity *item) {
         return [item.name isEqualToString:city.name];
     }] firstOrNil];
@@ -67,6 +67,7 @@ static JDNCities *sharedCities_;
             temp.url = city.url;
         }
     }
+    return temp;
 }
 
 -(void)addCity:(JDNCity *)city {

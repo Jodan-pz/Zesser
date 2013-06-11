@@ -15,6 +15,7 @@
 		CB123481175F7DB3006F890E /* JDNWeatherFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = CB123480175F7DB3006F890E /* JDNWeatherFetcher.m */; };
 		CB123484175F7DEF006F890E /* JDNDailyData.m in Sources */ = {isa = PBXBuildFile; fileRef = CB123483175F7DEF006F890E /* JDNDailyData.m */; };
 		CB1F4E841767113B00ACD371 /* JDNFindMyPlace.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1F4E831767113B00ACD371 /* JDNFindMyPlace.m */; };
+		CB1F4E91176734C400ACD371 /* pin_28.png in Resources */ = {isa = PBXBuildFile; fileRef = CB1F4E90176734C400ACD371 /* pin_28.png */; };
 		CB26ACAD1761C57100070F8C /* Zesser.png in Resources */ = {isa = PBXBuildFile; fileRef = CB26ACAC1761C57100070F8C /* Zesser.png */; };
 		CB615EBF1754DF46004C1BA4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB615EBE1754DF46004C1BA4 /* UIKit.framework */; };
 		CB615EC11754DF46004C1BA4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB615EC01754DF46004C1BA4 /* Foundation.framework */; };
@@ -58,6 +59,7 @@
 		CB123483175F7DEF006F890E /* JDNDailyData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNDailyData.m; sourceTree = "<group>"; };
 		CB1F4E821767113B00ACD371 /* JDNFindMyPlace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNFindMyPlace.h; sourceTree = "<group>"; };
 		CB1F4E831767113B00ACD371 /* JDNFindMyPlace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNFindMyPlace.m; sourceTree = "<group>"; };
+		CB1F4E90176734C400ACD371 /* pin_28.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin_28.png; sourceTree = "<group>"; };
 		CB26ACAC1761C57100070F8C /* Zesser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Zesser.png; sourceTree = "<group>"; };
 		CB615EBB1754DF46004C1BA4 /* Zesser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zesser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB615EBE1754DF46004C1BA4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -278,6 +280,7 @@
 		CBD7107C1761D2CE00ACA525 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CB1F4E90176734C400ACD371 /* pin_28.png */,
 				CBD7107D1761D2DB00ACA525 /* info_64.png */,
 			);
 			name = Resources;
@@ -344,6 +347,7 @@
 				CB26ACAD1761C57100070F8C /* Zesser.png in Resources */,
 				CBD7107E1761D2DB00ACA525 /* info_64.png in Resources */,
 				CB9455BF17661D3B00BB85B1 /* InfoPlist.strings in Resources */,
+				CB1F4E91176734C400ACD371 /* pin_28.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -147,10 +147,20 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *CellIdentifier = @"Cell";
-    JDNCity *city = [JDNCities sharedCities].cities[indexPath.row];
     
-    JDNSimpleWeatherCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    JDNCity *city = [JDNCities sharedCities].cities[indexPath.row];
+    JDNSimpleWeatherCell *cell = nil;
+    cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier
+                                           forIndexPath:indexPath];
     cell.cityName.text = city.name;
+    
+    if ( city.order == -1 ){
+        // change discolure to flag mark!
+        cell.accessoryView = [[UIImageView alloc] initWithImage:JDN_COMMON_IMAGE_HERE];
+    }else{
+        cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+    }
+    
     [cell clear];
     [self updateWeatherDataForCity:city
                             inCell:cell];
@@ -200,10 +210,10 @@
 
 -(NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath{
     JDNCity *destCity = [JDNCities sharedCities].cities[proposedDestinationIndexPath.row];
-    if (destCity.order == -1){
-        return sourceIndexPath;
+    if (destCity.order >= 0){
+        return proposedDestinationIndexPath;
     }
-    return proposedDestinationIndexPath;
+    return sourceIndexPath;
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath{
@@ -219,6 +229,7 @@
 }
 
 -(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
+    if ( self.tableView.editing ) return;
     [self performSegueWithIdentifier:@"viewWeather" sender:[JDNCities sharedCities].cities[indexPath.row]];
 }
 
@@ -293,13 +304,16 @@
     if ( oldFixedCity.order != -1) oldFixedCity = nil;
     
     [self.citySearcher searchPlaceByText:place.locality withCompletion:^(NSArray *data) {
+        if (data.count == 0) return;
         JDNCity *firstFound = data[0];
         if ( [firstFound.name  rangeOfString:place.locality options:NSCaseInsensitiveSearch ].location == 0 ){
-            [[JDNCities sharedCities] addCity:firstFound withOrder:-1];
+            JDNCity *cityAdded = [[JDNCities sharedCities] addCity:firstFound withOrder:-1];
             if ( !oldFixedCity ){
                 [self.tableView reloadData];
             }else{
-                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+                if ( ![ oldFixedCity isEqual:cityAdded] ){
+                    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+                }
             }
         }
     }];
