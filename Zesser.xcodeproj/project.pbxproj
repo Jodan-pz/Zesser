@@ -14,6 +14,7 @@
 		CB12347D175F79EA006F890E /* JDNWeatherTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB12347C175F79EA006F890E /* JDNWeatherTableViewController.m */; };
 		CB123481175F7DB3006F890E /* JDNWeatherFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = CB123480175F7DB3006F890E /* JDNWeatherFetcher.m */; };
 		CB123484175F7DEF006F890E /* JDNDailyData.m in Sources */ = {isa = PBXBuildFile; fileRef = CB123483175F7DEF006F890E /* JDNDailyData.m */; };
+		CB1F4E841767113B00ACD371 /* JDNFindMyPlace.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1F4E831767113B00ACD371 /* JDNFindMyPlace.m */; };
 		CB26ACAD1761C57100070F8C /* Zesser.png in Resources */ = {isa = PBXBuildFile; fileRef = CB26ACAC1761C57100070F8C /* Zesser.png */; };
 		CB615EBF1754DF46004C1BA4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB615EBE1754DF46004C1BA4 /* UIKit.framework */; };
 		CB615EC11754DF46004C1BA4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB615EC01754DF46004C1BA4 /* Foundation.framework */; };
@@ -55,6 +56,8 @@
 		CB123480175F7DB3006F890E /* JDNWeatherFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNWeatherFetcher.m; sourceTree = "<group>"; };
 		CB123482175F7DEF006F890E /* JDNDailyData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNDailyData.h; sourceTree = "<group>"; };
 		CB123483175F7DEF006F890E /* JDNDailyData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNDailyData.m; sourceTree = "<group>"; };
+		CB1F4E821767113B00ACD371 /* JDNFindMyPlace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNFindMyPlace.h; sourceTree = "<group>"; };
+		CB1F4E831767113B00ACD371 /* JDNFindMyPlace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNFindMyPlace.m; sourceTree = "<group>"; };
 		CB26ACAC1761C57100070F8C /* Zesser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Zesser.png; sourceTree = "<group>"; };
 		CB615EBB1754DF46004C1BA4 /* Zesser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zesser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB615EBE1754DF46004C1BA4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -204,6 +207,8 @@
 		CB615EC41754DF46004C1BA4 /* Zesser */ = {
 			isa = PBXGroup;
 			children = (
+				CB1F4E821767113B00ACD371 /* JDNFindMyPlace.h */,
+				CB1F4E831767113B00ACD371 /* JDNFindMyPlace.m */,
 				CBE3290C1765D84E00526BC3 /* JDNAddCityDelegate.h */,
 				CB9BCC5B175F850400996188 /* JDNCommon.h */,
 				CBD7107F1761DB1000ACA525 /* JDNTestConnection.h */,
@@ -368,6 +373,7 @@
 				143AAC1217632820002C3D31 /* NSDictionary+LinqExtensions.m in Sources */,
 				143AAC1517632E5D002C3D31 /* JDNCitySearcher.m in Sources */,
 				CBE3290B1765CCA800526BC3 /* JDNCitySearchTableViewController.m in Sources */,
+				CB1F4E841767113B00ACD371 /* JDNFindMyPlace.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

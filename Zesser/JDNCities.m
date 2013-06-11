@@ -51,6 +51,24 @@ static JDNCities *sharedCities_;
     }];
 }
 
+-(void)addCity:(JDNCity*)city withOrder:(NSInteger)order{
+    JDNCity *temp = [[ self.mcities where:^BOOL(JDNCity *item) {
+        return [item.name isEqualToString:city.name];
+    }] firstOrNil];
+    
+    if (!temp){
+        city.order = order;
+        [self.mcities addObject:city];
+        [self write];
+    }else{
+        // update fixed city
+        if (temp.order == -1){
+            temp.name = city.name;
+            temp.url = city.url;
+        }
+    }
+}
+
 -(void)addCity:(JDNCity *)city {
     if (![[ self.mcities where:^BOOL(JDNCity *item) {
         return [item.name isEqualToString:city.name];
@@ -94,7 +112,9 @@ static JDNCities *sharedCities_;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.mcities];
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:[self.mcities where:^BOOL(JDNCity *item) {
+        return item.order >=0;
+    } ]];
     NSError *err;
     [data writeToFile:[documentsDirectory stringByAppendingPathComponent:@"cities.dat"]
               options:NSDataWritingFileProtectionComplete error:&err];

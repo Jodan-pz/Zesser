@@ -18,37 +18,37 @@
 #import "JDNSimpleWeatherCell.h"
 #import "JDNNewCityViewController.h"
 #import "JDNCitySearchTableViewController.h"
+#import "JDNFindMyPlace.h"
+#import "JDNCitySearcher.h"
 
 #define REFRESH_TITLE_ATTRIBUTES @{NSForegroundColorAttributeName:[UIColor colorWithRed:0.746 green:0.909 blue:0.936 alpha:1.000] }
 #define REFRESH_TINT_COLOR       [UIColor colorWithRed:0.367 green:0.609 blue:0.887 alpha:1.000]
 #define NAVIGATION_TINT_COLOR    [UIColor colorWithRed:0.075 green:0.000 blue:0.615 alpha:1.000]
 
-@interface JDNCitiesTableViewController ()<JDNAddCityDelegate,CLLocationManagerDelegate>
+@interface JDNCitiesTableViewController ()<JDNAddCityDelegate, JDNFindMyPlaceDelegate>
 
 @property (strong, nonatomic) UIBarButtonItem   *addCityButton;
 @property (strong, nonatomic) UIRefreshControl  *citiesRefreshControl;
 @property (strong, nonatomic) NSDate            *lastAvailableCheck;
 @property (strong, nonatomic) UIBarButtonItem   *editCitiesBarButtonItem;
 @property (strong, nonatomic) UIBarButtonItem   *doneEditCitiesBarButtonItem;
+@property (strong, nonatomic) JDNFindMyPlace    *findMyPlace;
+@property (strong, nonatomic) JDNCitySearcher   *citySearcher;
 
 @end
 
-@implementation JDNCitiesTableViewController{
-    CLLocationManager *locationManager;
-    CLLocation *currentLocation;
-}
-
+@implementation JDNCitiesTableViewController
 
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     if ( [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]){
-        [self addCityRemovedObserver];
+        [self setupCitiesManager];
     }
     return self;
 }
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
     if  (self = [super initWithCoder:aDecoder]){
-        [self addCityRemovedObserver];
+        [self setupCitiesManager];
     }
     return self;
 }
@@ -56,17 +56,41 @@
 - (id)init{
     self = [super init];
     if (self) {
-        [self addCityRemovedObserver];
+        [self setupCitiesManager];
     }
     return self;
 }
 
--(void)addCityRemovedObserver{
+-(void)setupCitiesManager{
     // register for notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleCityRemoved:)
                                                  name:CITY_REMOVED_NOTIFICATION
                                                object:nil];
+    self.citiesRefreshControl = [[UIRefreshControl alloc] init];
+    NSMutableAttributedString *title = [[NSMutableAttributedString alloc]
+                                        initWithString:@"Trascina per aggiornare"
+                                        attributes:REFRESH_TITLE_ATTRIBUTES];
+    
+    self.citiesRefreshControl.attributedTitle = title;
+    
+    self.citiesRefreshControl.tintColor = REFRESH_TINT_COLOR;
+    [self.citiesRefreshControl addTarget:self
+                              action:@selector(refreshData:)
+                    forControlEvents:UIControlEventValueChanged];
+    
+    self.addCityButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                                                       target:self
+                                                                       action:@selector(addCity:)];
+    self.editCitiesBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
+                                                                                 target:self
+                                                                                 action:@selector(toggleEditMode)];
+    self.doneEditCitiesBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+                                                                                     target:self
+                                                                                     action:@selector(toggleEditMode)];
+    self.findMyPlace = [[JDNFindMyPlace alloc] init];
+    self.findMyPlace.delegate = self;
+    [self.findMyPlace startSearchingCurrentLocation];
 }
 
 -(void)dealloc{
@@ -83,33 +107,8 @@
     }
 }
 
--(UIRefreshControl *)citiesRefreshControl{
-    if ( !_citiesRefreshControl){
-        _citiesRefreshControl = [[UIRefreshControl alloc] init];
-        NSMutableAttributedString *title = [[NSMutableAttributedString alloc]
-                                            initWithString:@"Trascina per aggiornare"
-                                            attributes:REFRESH_TITLE_ATTRIBUTES];
-        
-        _citiesRefreshControl.attributedTitle = title;
-        
-        _citiesRefreshControl.tintColor = REFRESH_TINT_COLOR;
-        [_citiesRefreshControl addTarget:self
-                                  action:@selector(refreshData:)
-                        forControlEvents:UIControlEventValueChanged];
-    }
-    return _citiesRefreshControl;
-}
-
--(UIBarButtonItem *)addCityButton{
-    if ( !_addCityButton ){
-        _addCityButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addCity:)];
-    }
-    return _addCityButton;
-}
-
 -(void)configureCandEditButton{
     NSArray *cities = [JDNCities sharedCities].cities;
-    
     if ( cities.count < 1 || ( cities.count == 1 && ((JDNCity*)cities[0]).order == -1 ) ){
         self.navigationItem.leftBarButtonItem = nil;
     }else{
@@ -128,28 +127,6 @@
     self.tableView.backgroundView = gradientView;
     self.refreshControl = self.citiesRefreshControl;
     self.navigationItem.rightBarButtonItem = self.addCityButton;
-    
-    locationManager = [CLLocationManager new];
-    locationManager.delegate = self;
-    locationManager.distanceFilter = kCLDistanceFilterNone;
-    locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
-    [locationManager startUpdatingLocation];
-}
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
-    currentLocation = [locations objectAtIndex:0];
-    [locationManager stopUpdatingLocation];
-    NSLog(@"Detected Location : %f, %f", currentLocation.coordinate.latitude, currentLocation.coordinate.longitude);
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init] ;
-    [geocoder reverseGeocodeLocation:currentLocation
-                   completionHandler:^(NSArray *placemarks, NSError *error) {
-                       if (error){
-                           NSLog(@"Geocode failed with error: %@", error);
-                           return;
-                       }
-                       CLPlacemark *placemark = [placemarks objectAtIndex:0];
-                       NSLog(@"%@",placemark.locality);
-                   }];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -204,7 +181,8 @@
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
-    return tableView.editing;
+    JDNCity *city = [JDNCities sharedCities].cities[indexPath.row];
+    return city.order >=0 && tableView.editing;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -215,6 +193,18 @@
     }
 }
 
+-(BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath{
+    JDNCity *city = [JDNCities sharedCities].cities[indexPath.row];
+    return city.order >=0;
+}
+
+-(NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath{
+    JDNCity *destCity = [JDNCities sharedCities].cities[proposedDestinationIndexPath.row];
+    if (destCity.order == -1){
+        return sourceIndexPath;
+    }
+    return proposedDestinationIndexPath;
+}
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath{
     JDNCity *city = [JDNCities sharedCities].cities[fromIndexPath.row];
@@ -230,21 +220,6 @@
 
 -(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
     [self performSegueWithIdentifier:@"viewWeather" sender:[JDNCities sharedCities].cities[indexPath.row]];
-}
-
--(UIBarButtonItem*)editCitiesBarButtonItem{
-    if  (!_editCitiesBarButtonItem){
-        _editCitiesBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(toggleEditMode)];
-    }
-    return _editCitiesBarButtonItem;
-}
-
--(UIBarButtonItem*)doneEditCitiesBarButtonItem{
-    if  (!_doneEditCitiesBarButtonItem){
-        _doneEditCitiesBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(toggleEditMode)];
-    }
-    return _doneEditCitiesBarButtonItem;
-    
 }
 
 -(void)toggleEditMode{
@@ -288,6 +263,9 @@
 }
 
 -(void)refreshData:(UIRefreshControl *)refresh {
+    
+    [self.findMyPlace startSearchingCurrentLocation];
+    
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc]
                                         initWithString:@"Aggiornamento dati..."
                                         attributes:REFRESH_TITLE_ATTRIBUTES];
@@ -305,6 +283,26 @@
     
     refresh.attributedTitle = update;
     [refresh endRefreshing];
+}
+
+-(void)findMyPlaceDidFoundCurrentLocation:(CLPlacemark *)place{
+    if ( !self.citySearcher ){
+        self.citySearcher = [[JDNCitySearcher alloc] init];
+    }
+    JDNCity *oldFixedCity = [JDNCities sharedCities].cities[0];
+    if ( oldFixedCity.order != -1) oldFixedCity = nil;
+    
+    [self.citySearcher searchPlaceByText:place.locality withCompletion:^(NSArray *data) {
+        JDNCity *firstFound = data[0];
+        if ( [firstFound.name  rangeOfString:place.locality options:NSCaseInsensitiveSearch ].location == 0 ){
+            [[JDNCities sharedCities] addCity:firstFound withOrder:-1];
+            if ( !oldFixedCity ){
+                [self.tableView reloadData];
+            }else{
+                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+            }
+        }
+    }];
 }
 
 @end
