@@ -20,6 +20,7 @@
 #import "JDNCitySearchTableViewController.h"
 #import "JDNFindMyPlace.h"
 #import "JDNCitySearcher.h"
+#import "NSArray+LinqExtensions.h"
 
 #define REFRESH_TITLE_ATTRIBUTES @{NSForegroundColorAttributeName:[UIColor colorWithRed:0.746 green:0.909 blue:0.936 alpha:1.000] }
 #define REFRESH_TINT_COLOR       [UIColor colorWithRed:0.367 green:0.609 blue:0.887 alpha:1.000]
@@ -175,7 +176,7 @@
         ((int)[[NSDate date] timeIntervalSinceDate:self.lastAvailableCheck] % 60) < 5 ){
         [cell startLoadingData];
         [weatherFetcher fetchNowSimpleDailyDataForCity:city.url withCompletion:^(NSArray *data) {
-            [cell setupCellWithDailyData: (JDNDailyData*) data[0]];
+            [cell setupCellWithDailyData: (JDNDailyData*) [data firstOrNil] ];
         }];
     }else{
         [weatherFetcher isAvailable:^(BOOL available) {
@@ -183,7 +184,7 @@
                 self.lastAvailableCheck = [NSDate date];
                 [cell startLoadingData];
                 [weatherFetcher fetchNowSimpleDailyDataForCity:city.url withCompletion:^(NSArray *data) {
-                    [cell setupCellWithDailyData: (JDNDailyData*) data[0]];
+                    [cell setupCellWithDailyData: (JDNDailyData*) [data firstOrNil]];
                 }];
             }
         }];
@@ -300,8 +301,8 @@
     if ( !self.citySearcher ){
         self.citySearcher = [[JDNCitySearcher alloc] init];
     }
-    JDNCity *oldFixedCity = [JDNCities sharedCities].cities[0];
-    if ( oldFixedCity.order != -1) oldFixedCity = nil;
+    JDNCity *oldFixedCity = [[JDNCities sharedCities].cities firstOrNil];
+    if ( oldFixedCity && oldFixedCity.order != -1) oldFixedCity = nil;
     
     [self.citySearcher searchPlaceByText:place.locality withCompletion:^(NSArray *data) {
         if (data.count == 0) return;
