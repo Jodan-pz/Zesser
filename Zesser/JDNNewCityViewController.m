@@ -73,7 +73,7 @@
     NSString *temp = self.city.name;
     NSRange range = [temp rangeOfString:@"(" options:NSLiteralSearch];
     if (range.location != NSNotFound){
-        return [temp substringToIndex:range.location];
+        return [temp substringToIndex:range.location-1];
     }
     return temp;
 }

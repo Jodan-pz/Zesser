@@ -177,8 +177,6 @@
 		CB615EB21754DF46004C1BA4 = {
 			isa = PBXGroup;
 			children = (
-				CB26ACAC1761C57100070F8C /* Zesser.png */,
-				CB9455BC17661D3B00BB85B1 /* en.lproj */,
 				CB615EC41754DF46004C1BA4 /* Zesser */,
 				CB615EBD1754DF46004C1BA4 /* Frameworks */,
 				CB615EBC1754DF46004C1BA4 /* Products */,
@@ -209,21 +207,20 @@
 		CB615EC41754DF46004C1BA4 /* Zesser */ = {
 			isa = PBXGroup;
 			children = (
-				CB1F4E821767113B00ACD371 /* JDNFindMyPlace.h */,
-				CB1F4E831767113B00ACD371 /* JDNFindMyPlace.m */,
+				CB9455BC17661D3B00BB85B1 /* en.lproj */,
+				CB26ACAF1761C64800070F8C /* Support */,
+				CB12347E175F7B84006F890E /* Controllers */,
+				CB123485175F7E50006F890E /* Weather */,
 				CBE3290C1765D84E00526BC3 /* JDNAddCityDelegate.h */,
 				CB9BCC5B175F850400996188 /* JDNCommon.h */,
+				CB9BCC7E1760B39900996188 /* JDNSharedImages.h */,
+				CB9BCC7F1760B39900996188 /* JDNSharedImages.m */,
 				CBD7107F1761DB1000ACA525 /* JDNTestConnection.h */,
 				CBD710801761DB1100ACA525 /* JDNTestConnection.m */,
 				CBD710791761CFD400ACA525 /* JDNClientHelper.h */,
 				CBD7107A1761CFD400ACA525 /* JDNClientHelper.m */,
-				CB9BCC7E1760B39900996188 /* JDNSharedImages.h */,
-				CB9BCC7F1760B39900996188 /* JDNSharedImages.m */,
-				CB615ECE1754DF46004C1BA4 /* JDNAppDelegate.m */,
-				CB615ECD1754DF46004C1BA4 /* JDNAppDelegate.h */,
-				CB26ACAF1761C64800070F8C /* Support */,
-				CB123485175F7E50006F890E /* Weather */,
-				CB12347E175F7B84006F890E /* Controllers */,
+				CB1F4E821767113B00ACD371 /* JDNFindMyPlace.h */,
+				CB1F4E831767113B00ACD371 /* JDNFindMyPlace.m */,
 				CBD7107C1761D2CE00ACA525 /* Resources */,
 				CB615EC51754DF46004C1BA4 /* Supporting Files */,
 			);
@@ -233,6 +230,8 @@
 		CB615EC51754DF46004C1BA4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				CB615ECE1754DF46004C1BA4 /* JDNAppDelegate.m */,
+				CB615ECD1754DF46004C1BA4 /* JDNAppDelegate.h */,
 				CB615EC61754DF46004C1BA4 /* Zesser-Info.plist */,
 				CB615ECA1754DF46004C1BA4 /* main.m */,
 				CB615ECC1754DF46004C1BA4 /* Zesser-Prefix.pch */,
@@ -249,8 +248,7 @@
 				CB9AB21817661D8200A74503 /* ZesserStoryboard.storyboard */,
 				CB9455BD17661D3B00BB85B1 /* InfoPlist.strings */,
 			);
-			name = en.lproj;
-			path = Zesser/en.lproj;
+			path = en.lproj;
 			sourceTree = "<group>";
 		};
 		CB9BCC7317608B8200996188 /* City */ = {
@@ -280,6 +278,7 @@
 		CBD7107C1761D2CE00ACA525 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CB26ACAC1761C57100070F8C /* Zesser.png */,
 				CB1F4E90176734C400ACD371 /* pin_28.png */,
 				CBD7107D1761D2DB00ACA525 /* info_64.png */,
 			);
