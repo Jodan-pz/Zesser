@@ -28,13 +28,13 @@
 
 @interface JDNCitiesTableViewController ()<JDNAddCityDelegate, JDNFindMyPlaceDelegate>
 
-@property (strong, nonatomic) UIBarButtonItem   *addCityButton;
-@property (strong, nonatomic) UIRefreshControl  *citiesRefreshControl;
-@property (strong, nonatomic) NSDate            *lastAvailableCheck;
-@property (strong, nonatomic) UIBarButtonItem   *editCitiesBarButtonItem;
-@property (strong, nonatomic) UIBarButtonItem   *doneEditCitiesBarButtonItem;
-@property (strong, nonatomic) JDNFindMyPlace    *findMyPlace;
-@property (strong, nonatomic) JDNCitySearcher   *citySearcher;
+@property (strong, nonatomic) UIBarButtonItem       *addCityButton;
+@property (strong, nonatomic) UIRefreshControl      *citiesRefreshControl;
+@property (strong, nonatomic) NSDate                *lastAvailableCheck;
+@property (strong, nonatomic) UIBarButtonItem       *editCitiesBarButtonItem;
+@property (strong, nonatomic) UIBarButtonItem       *doneEditCitiesBarButtonItem;
+@property (strong, nonatomic) JDNFindMyPlace        *findMyPlace;
+@property (strong, nonatomic) JDNCitySearcher       *citySearcher;
 @property (strong, nonatomic) NSMutableDictionary   *currentSimpleDailyData;
 @end
 
@@ -91,7 +91,7 @@
                                                                                      action:@selector(toggleEditMode)];
     self.findMyPlace = [[JDNFindMyPlace alloc] init];
     self.findMyPlace.delegate = self;
-    [self.findMyPlace startSearchingCurrentLocation];
+    [self.findMyPlace startSearchingCurrentLocationWithAccurancy:kCLLocationAccuracyBestForNavigation];
     self.currentSimpleDailyData = [NSMutableDictionary dictionary];
 }
 
@@ -177,6 +177,7 @@
     JDNDailyData *daily = [self.currentSimpleDailyData valueForKey:city.name];
     if(daily){
         [cell setupCellWithDailyData: daily ];
+        return;
     }
     
     JDNWeatherFetcher *weatherFetcher =  [[JDNWeatherFetcher alloc] init];
@@ -184,8 +185,9 @@
         ((int)[[NSDate date] timeIntervalSinceDate:self.lastAvailableCheck] % 60) < 5 ){
         [cell startLoadingData];
         [weatherFetcher fetchNowSimpleDailyDataForCity:city.url withCompletion:^(NSArray *data) {
-            [cell setupCellWithDailyData: (JDNDailyData*) [data firstOrNil] ];
-            [self.currentSimpleDailyData setValue:data forKey:city.name];
+            JDNDailyData *dailyData = (JDNDailyData*) [data firstOrNil];
+            [cell setupCellWithDailyData: dailyData];
+            [self.currentSimpleDailyData setValue:dailyData forKey:city.name];
         }];
     }else{
         [weatherFetcher isAvailable:^(BOOL available) {
@@ -193,8 +195,9 @@
                 self.lastAvailableCheck = [NSDate date];
                 [cell startLoadingData];
                 [weatherFetcher fetchNowSimpleDailyDataForCity:city.url withCompletion:^(NSArray *data) {
-                    [cell setupCellWithDailyData: (JDNDailyData*) [data firstOrNil]];
-                    [self.currentSimpleDailyData setValue:data forKey:city.name];
+                    JDNDailyData *dailyData = (JDNDailyData*) [data firstOrNil];
+                    [cell setupCellWithDailyData: dailyData];
+                    [self.currentSimpleDailyData setValue:dailyData forKey:city.name];
                 }];
             }
         }];
@@ -287,7 +290,9 @@
 
 -(void)refreshData:(UIRefreshControl *)refresh {
     
-    [self.findMyPlace startSearchingCurrentLocation];
+    [self.currentSimpleDailyData removeAllObjects];
+    
+    [self.findMyPlace startSearchingCurrentLocationWithAccurancy:kCLLocationAccuracyBestForNavigation];
     
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc]
                                         initWithString:@"Aggiornamento dati..."
@@ -316,7 +321,9 @@
     if ( oldFixedCity && oldFixedCity.order != -1) oldFixedCity = nil;
     
     [self.citySearcher searchPlaceByText:place.locality withCompletion:^(NSArray *data) {
-        if (data.count == 0) return;
+        if (data.count == 0) {
+            return;
+        }
         JDNCity *firstFound = data[0];
         if ( [firstFound.name  rangeOfString:place.locality options:NSCaseInsensitiveSearch ].location == 0 ){
             JDNCity *cityAdded = [[JDNCities sharedCities] addCity:firstFound withOrder:-1];

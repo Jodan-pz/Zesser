@@ -28,8 +28,9 @@
     return self;
 }
 
--(void)startSearchingCurrentLocation{
-    if (self.delegate){
+-(void)startSearchingCurrentLocationWithAccurancy:(CLLocationAccuracy)accurancy{
+    if ( self.delegate ) {
+        locationManager.desiredAccuracy = accurancy;
         [locationManager startUpdatingLocation];
     }
 }

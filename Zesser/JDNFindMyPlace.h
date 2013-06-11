@@ -19,6 +19,6 @@
 
 @property (weak,nonatomic) id<JDNFindMyPlaceDelegate> delegate;
 
--(void)startSearchingCurrentLocation;
+-(void)startSearchingCurrentLocationWithAccurancy:(CLLocationAccuracy)accurancy;
 
 @end
