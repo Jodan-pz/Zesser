@@ -108,9 +108,12 @@
 }
 
 -(void)configureCandEditButton{
-    if ( [JDNCities sharedCities].cities.count < 2){
+    NSArray *cities = [JDNCities sharedCities].cities;
+    
+    if ( cities.count < 1 || ( cities.count == 1 && ((JDNCity*)cities[0]).order == -1 ) ){
         self.navigationItem.leftBarButtonItem = nil;
     }else{
+        
         self.navigationItem.leftBarButtonItem = self.editCitiesBarButtonItem;
     }
 }
