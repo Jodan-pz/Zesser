@@ -91,7 +91,7 @@
                                                                                      action:@selector(toggleEditMode)];
     self.findMyPlace = [[JDNFindMyPlace alloc] init];
     self.findMyPlace.delegate = self;
-    [self.findMyPlace startSearchingCurrentLocationWithAccurancy:kCLLocationAccuracyBestForNavigation];
+    [self.findMyPlace startSearchingCurrentLocationWithAccuracy:kCLLocationAccuracyBestForNavigation];
     self.currentSimpleDailyData = [NSMutableDictionary dictionary];
 }
 
@@ -292,7 +292,7 @@
     
     [self.currentSimpleDailyData removeAllObjects];
     
-    [self.findMyPlace startSearchingCurrentLocationWithAccurancy:kCLLocationAccuracyBestForNavigation];
+    [self.findMyPlace startSearchingCurrentLocationWithAccuracy:kCLLocationAccuracyBestForNavigation];
     
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc]
                                         initWithString:@"Aggiornamento dati..."
@@ -326,13 +326,12 @@
         }
         JDNCity *firstFound = data[0];
         if ( [firstFound.name  rangeOfString:place.locality options:NSCaseInsensitiveSearch ].location == 0 ){
-            JDNCity *cityAdded = [[JDNCities sharedCities] addCity:firstFound withOrder:-1];
+            firstFound.order = -1; 
+            [[JDNCities sharedCities] updateOrAddByOldCity:oldFixedCity andNewCity:firstFound];
             if ( !oldFixedCity ){
                 [self.tableView reloadData];
             }else{
-                if ( ![ oldFixedCity isEqual:cityAdded] ){
-                    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
-                }
+                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
             }
         }
     }];

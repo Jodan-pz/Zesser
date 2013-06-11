@@ -15,7 +15,7 @@
 @implementation JDNCity
 
 -(NSString *)description{
-    return [NSString stringWithFormat:@"%@ - %@ - %lu", self.name, self.url, (unsigned long)self.order];
+    return [NSString stringWithFormat:@"%@ - %@ - %ld", self.name, self.url, (long)self.order];
 }
 
 -(void)encodeWithCoder:(NSCoder *)aCoder{

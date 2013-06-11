@@ -51,23 +51,19 @@ static JDNCities *sharedCities_;
     }];
 }
 
--(JDNCity*)addCity:(JDNCity*)city withOrder:(NSInteger)order{
-    JDNCity *temp = [[ self.mcities where:^BOOL(JDNCity *item) {
-        return [item.name isEqualToString:city.name];
-    }] firstOrNil];
-    
-    if (!temp){
-        city.order = order;
-        [self.mcities addObject:city];
-        [self write];
-    }else{
-        // update fixed city
-        if (temp.order == -1){
-            temp.name = city.name;
-            temp.url = city.url;
+-(void)updateOrAddByOldCity:(JDNCity*)oldCity andNewCity:(JDNCity*)newCity{
+    if ( oldCity ){
+        JDNCity *temp = [[ self.mcities where:^BOOL(JDNCity *item) {
+            return [item.name isEqualToString:oldCity.name];
+        }] firstOrNil];
+        
+        if (temp){
+            [self.mcities removeObject:temp];
         }
+
     }
-    return temp;
+    [self.mcities addObject:newCity];
+    [self write];
 }
 
 -(void)addCity:(JDNCity *)city {

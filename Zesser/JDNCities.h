@@ -19,7 +19,7 @@
 + (JDNCities*)sharedCities;
 
 -(void)addCity:(JDNCity*)city;
--(JDNCity*)addCity:(JDNCity*)city withOrder:(NSInteger)order;
+-(void)updateOrAddByOldCity:(JDNCity*)oldCity andNewCity:(JDNCity*)newCity;
 -(void)removeCity:(JDNCity*)city;
 -(void)setOrderForCity:(JDNCity*)city order:(NSInteger)order;
 -(void)load;
