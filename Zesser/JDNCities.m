@@ -97,6 +97,9 @@ static JDNCities *sharedCities_;
     
     self.mcities = [NSKeyedUnarchiver unarchiveObjectWithFile:[documentsDirectory
                                                                stringByAppendingPathComponent:@"cities.dat"]];
+    if ( !self.mcities ) {
+        self.mcities = [NSMutableArray array];
+    }
     [self write];
 }
 
