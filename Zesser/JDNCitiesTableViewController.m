@@ -341,6 +341,10 @@
     if ( oldFixedCity && oldFixedCity.order != -1) oldFixedCity = nil;
     
     [self.citySearcher searchPlaceByText:place.locality withCompletion:^(NSArray *data) {
+        if ( !data ) {
+            [self finalizeRefreshAction];
+            return;
+        }
         if (data.count) {
             JDNCity *firstFound = data[0];
             if ( [firstFound.name  rangeOfString:place.locality options:NSCaseInsensitiveSearch ].location == 0 ){

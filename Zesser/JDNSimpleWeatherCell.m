@@ -15,35 +15,38 @@
 }
 
 -(void)clear{
-    if ( _loading){
-     [_loading stopAnimating];
-    }
-    self.forecast.image = nil;
-    [self.forecast setNeedsDisplay];
-    self.temperature.text = nil;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ( _loading){
+            [_loading stopAnimating];
+        }
+        self.forecast.image = nil;
+        [self.forecast setNeedsDisplay];
+        self.temperature.text = nil;
+    });
 }
 
 -(void)startLoadingData{
-    _loading = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0,0,32,32)];
-    _loading.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
-    _loading.hidesWhenStopped = YES;
-    [self.forecast addSubview:_loading];
-    [_loading startAnimating];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        _loading = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0,0,32,32)];
+        _loading.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+        _loading.hidesWhenStopped = YES;
+        [self.forecast addSubview:_loading];
+        [_loading startAnimating];
+    });
 }
 
 -(void)setupCellWithDailyData:(JDNDailyData *)dailyData{
     
     if (!dailyData) return;
     
-    [_loading stopAnimating];
-    
-    self.temperature.text = [NSString stringWithFormat:@"%@°", dailyData.apparentTemperature];
-    
-    [[JDNSharedImages sharedImages] setImageView:self.forecast
-                                         withUrl:[NSURL URLWithString:dailyData.forecastImage]];
-    
-    [JDNClientHelper configureTemperatureLayoutForLabel:self.temperature
-                                                byValue:dailyData.apparentTemperature.integerValue];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_loading stopAnimating];
+        self.temperature.text = [NSString stringWithFormat:@"%@°", dailyData.apparentTemperature];
+        [[JDNSharedImages sharedImages] setImageView:self.forecast
+                                             withUrl:[NSURL URLWithString:dailyData.forecastImage]];
+        [JDNClientHelper configureTemperatureLayoutForLabel:self.temperature
+                                                    byValue:dailyData.apparentTemperature.integerValue];
+    });
 }
 
 @end
