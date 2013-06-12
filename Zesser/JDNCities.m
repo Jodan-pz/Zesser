@@ -56,13 +56,15 @@ static JDNCities *sharedCities_;
         JDNCity *temp = [[ self.mcities where:^BOOL(JDNCity *item) {
             return [item.name isEqualToString:oldCity.name];
         }] firstOrNil];
-        
         if (temp){
-            [self.mcities removeObject:temp];
+            temp.url = newCity.url;
+            temp.order = newCity.order;
+        }else{
+            [self.mcities addObject:newCity];
         }
-
+    }else{
+        [self.mcities addObject:newCity];
     }
-    [self.mcities addObject:newCity];
     [self write];
 }
 

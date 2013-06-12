@@ -96,8 +96,6 @@
     self.currentSimpleDailyData = [NSMutableDictionary dictionary];
     
     self.isSearchingCurrentLocation = NO;
-    
-    [self refreshData:self.refreshControl];
 }
 
 -(void)dealloc{
@@ -126,14 +124,20 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
+    
     self.clearsSelectionOnViewWillAppear = YES;
+    
     UIView *gradientView = [[UIView alloc] initWithFrame:self.tableView.frame];
     CAGradientLayer *bgLayer = [JDNClientHelper blueGradient];
     bgLayer.frame = self.tableView.bounds;
     [gradientView.layer insertSublayer:bgLayer atIndex:1];
     self.tableView.backgroundView = gradientView;
+    
     self.refreshControl = self.citiesRefreshControl;
     self.navigationItem.rightBarButtonItem = self.addCityButton;
+    
+    // first refresh data...
+    [self refreshData:self.refreshControl];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -305,7 +309,26 @@
     }
 }
 
+-(void)finalizeRefreshAction{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"d MMMM yyyy, HH:mm:ss"];
+    NSString *lastUpdated = [NSString stringWithFormat:@"Aggiornato al %@",
+                             [formatter stringFromDate:[NSDate date]]];
+    NSMutableAttributedString *update = [[NSMutableAttributedString alloc]
+                                         initWithString:lastUpdated
+                                         attributes:REFRESH_TITLE_ATTRIBUTES];
+    self.refreshControl.attributedTitle = update;
+    [self.refreshControl endRefreshing];
+    [self.tableView reloadData];
+    self.isSearchingCurrentLocation = NO;
+}
+
 -(void)findMyPlaceDidFoundCurrentLocation:(CLPlacemark *)place{
+    if( !place ){
+        [self finalizeRefreshAction];
+        return;
+    }
+    
     if ( !self.citySearcher ){
         self.citySearcher = [[JDNCitySearcher alloc] init];
     }
@@ -313,25 +336,14 @@
     if ( oldFixedCity && oldFixedCity.order != -1) oldFixedCity = nil;
     
     [self.citySearcher searchPlaceByText:place.locality withCompletion:^(NSArray *data) {
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"d MMMM yyyy, HH:mm:ss"];
-        NSString *lastUpdated = [NSString stringWithFormat:@"Aggiornato al %@",
-                                 [formatter stringFromDate:[NSDate date]]];
-        NSMutableAttributedString *update = [[NSMutableAttributedString alloc]
-                                             initWithString:lastUpdated
-                                             attributes:REFRESH_TITLE_ATTRIBUTES];
-        self.refreshControl.attributedTitle = update;
-        
         if (data.count) {
             JDNCity *firstFound = data[0];
             if ( [firstFound.name  rangeOfString:place.locality options:NSCaseInsensitiveSearch ].location == 0 ){
                 firstFound.order = -1;
                 [[JDNCities sharedCities] updateOrAddByOldCity:oldFixedCity andNewCity:firstFound];
+                [self finalizeRefreshAction];
             }
         }
-        [self.refreshControl endRefreshing];
-        [self.tableView reloadData];
-        self.isSearchingCurrentLocation = NO;
     }];
 }
 

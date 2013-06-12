@@ -35,15 +35,21 @@
     }
 }
 
+-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
+    [locationManager stopUpdatingLocation];
+    NSLog(@"Geocode failed with error: %@", error);
+    [self.delegate findMyPlaceDidFoundCurrentLocation:nil];
+}
+
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
     currentLocation = [locations objectAtIndex:0];
     [locationManager stopUpdatingLocation];
-    NSLog(@"Detected Location : %f, %f", currentLocation.coordinate.latitude, currentLocation.coordinate.longitude);
     CLGeocoder *geocoder = [[CLGeocoder alloc] init] ;
     [geocoder reverseGeocodeLocation:currentLocation
                    completionHandler:^(NSArray *placemarks, NSError *error) {
                        if (error){
                            NSLog(@"Geocode failed with error: %@", error);
+                           [self.delegate findMyPlaceDidFoundCurrentLocation:nil];
                            return;
                        }
                        CLPlacemark *placemark = [placemarks objectAtIndex:0];
