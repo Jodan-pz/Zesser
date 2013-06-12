@@ -36,7 +36,7 @@
 }
 
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
-    [locationManager stopUpdatingLocation];
+    //[locationManager stopUpdatingLocation];
     NSLog(@"Geocode failed with error: %@", error);
     [self.delegate findMyPlaceDidFoundCurrentLocation:nil];
 }

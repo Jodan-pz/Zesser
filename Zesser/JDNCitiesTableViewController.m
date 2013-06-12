@@ -36,7 +36,7 @@
 @property (strong, nonatomic) JDNFindMyPlace        *findMyPlace;
 @property (strong, nonatomic) JDNCitySearcher       *citySearcher;
 @property (strong, nonatomic) NSMutableDictionary   *currentSimpleDailyData;
-@property (atomic)            BOOL                  isSearchingCurrentLocation;
+@property (atomic)            BOOL                  isRefreshingData;
 
 @end
 
@@ -95,7 +95,7 @@
     self.findMyPlace.delegate = self;
     self.currentSimpleDailyData = [NSMutableDictionary dictionary];
     
-    self.isSearchingCurrentLocation = NO;
+    self.isRefreshingData = NO;
 }
 
 -(void)dealloc{
@@ -117,7 +117,6 @@
     if ( cities.count < 1 || ( cities.count == 1 && ((JDNCity*)cities[0]).order == -1 ) ){
         self.navigationItem.leftBarButtonItem = nil;
     }else{
-        
         self.navigationItem.leftBarButtonItem = self.editCitiesBarButtonItem;
     }
 }
@@ -298,8 +297,9 @@
 }
 
 -(void)refreshData:(UIRefreshControl *)refresh {
-    if ( !self.isSearchingCurrentLocation ) {
-        self.isSearchingCurrentLocation = YES;
+    if ( !self.isRefreshingData ) {
+        self.editCitiesBarButtonItem.enabled = self.addCityButton.enabled = NO;
+        self.isRefreshingData = YES;
         [self.currentSimpleDailyData removeAllObjects];
         [self.findMyPlace startSearchingCurrentLocationWithAccuracy:kCLLocationAccuracyBestForNavigation];
         NSMutableAttributedString *title = [[NSMutableAttributedString alloc]
@@ -310,17 +310,22 @@
 }
 
 -(void)finalizeRefreshAction{
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"d MMMM yyyy, HH:mm:ss"];
-    NSString *lastUpdated = [NSString stringWithFormat:@"Aggiornato al %@",
-                             [formatter stringFromDate:[NSDate date]]];
-    NSMutableAttributedString *update = [[NSMutableAttributedString alloc]
-                                         initWithString:lastUpdated
-                                         attributes:REFRESH_TITLE_ATTRIBUTES];
-    self.refreshControl.attributedTitle = update;
-    [self.refreshControl endRefreshing];
-    [self.tableView reloadData];
-    self.isSearchingCurrentLocation = NO;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"d MMMM yyyy, HH:mm:ss"];
+        NSString *lastUpdated = [NSString stringWithFormat:@"Aggiornato al %@",
+                                 [formatter stringFromDate:[NSDate date]]];
+        NSMutableAttributedString *update = [[NSMutableAttributedString alloc]
+                                             initWithString:lastUpdated
+                                             attributes:REFRESH_TITLE_ATTRIBUTES];
+        self.refreshControl.attributedTitle = update;
+        [self.refreshControl endRefreshing];
+        [self.tableView reloadData];
+        
+        self.isRefreshingData = NO;
+        self.editCitiesBarButtonItem.enabled = self.addCityButton.enabled = YES;
+    });
 }
 
 -(void)findMyPlaceDidFoundCurrentLocation:(CLPlacemark *)place{
@@ -341,8 +346,8 @@
             if ( [firstFound.name  rangeOfString:place.locality options:NSCaseInsensitiveSearch ].location == 0 ){
                 firstFound.order = -1;
                 [[JDNCities sharedCities] updateOrAddByOldCity:oldFixedCity andNewCity:firstFound];
-                [self finalizeRefreshAction];
             }
+            [self finalizeRefreshAction];
         }
     }];
 }
