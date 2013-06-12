@@ -14,6 +14,26 @@
 
 @implementation JDNCity
 
+-(NSUInteger)hash{
+    NSUInteger result = 1;
+    NSUInteger prime = 31;
+    result = prime * result + [self.name hash];
+    result = prime * result + [self.url hash];
+    result = prime * result + self.order;
+    return result;
+}
+
+-(BOOL)isEqual:(id)object{
+    if ( !object || ![object isKindOfClass:[self class]]) return NO;
+    return  [self isEqualToCity:(JDNCity*)object];
+}
+
+-(BOOL)isEqualToCity:(JDNCity*)other{
+    if (other == self)
+        return YES;
+    return [self.name isEqualToString:other.name] && [self.url isEqualToString:other.url] && self.order == other.order;
+}
+
 -(NSString *)description{
     return [NSString stringWithFormat:@"%@ - %@ - %ld", self.name, self.url, (long)self.order];
 }

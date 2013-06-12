@@ -52,18 +52,16 @@ static JDNCities *sharedCities_;
 }
 
 -(void)updateOrAddByOldCity:(JDNCity*)oldCity andNewCity:(JDNCity*)newCity{
-    if ( oldCity ){
+    if ( oldCity ) {
+        [self removeCity:oldCity];
+        [self.mcities addObject:newCity];
+    }else{
         JDNCity *temp = [[ self.mcities where:^BOOL(JDNCity *item) {
-            return [item.name isEqualToString:oldCity.name];
+            return [item isEqualToCity:newCity];
         }] firstOrNil];
-        if (temp){
-            temp.url = newCity.url;
-            temp.order = newCity.order;
-        }else{
+        if ( !temp ){
             [self.mcities addObject:newCity];
         }
-    }else{
-        [self.mcities addObject:newCity];
     }
     [self write];
 }

@@ -14,4 +14,6 @@
 @property (strong,nonatomic) NSString *url;
 @property (nonatomic)        NSInteger order;
 
+-(BOOL)isEqualToCity:(JDNCity*)other;
+
 @end

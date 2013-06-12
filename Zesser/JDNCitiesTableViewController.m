@@ -64,7 +64,7 @@
     return self;
 }
 
--(void)setupCitiesManager{
+-(void)setupCitiesManager{    
     // register for notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleCityRemoved:)
@@ -145,10 +145,6 @@
     [self configureCandEditButton];
 }
 
--(void)viewWeather:(UITapGestureRecognizer*)tg{
-    [self.navigationController performSegueWithIdentifier:@"viewWeather" sender:tg.view];
-}
-
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -173,18 +169,15 @@
     
     [cell clear];
     [self updateWeatherDataForCity:city
-                            inCell:cell];
-    
+                            inCell:cell];    
     return cell;
 }
 
 -(void)updateWeatherDataForCity: (JDNCity*)city inCell: (JDNSimpleWeatherCell*)cell {
-    if ( self.tableView.editing ) return;
-    
     // check current daily (speedup)
     JDNDailyData *daily = [self.currentSimpleDailyData valueForKey:city.name];
     if(daily){
-        [cell setupCellWithDailyData: daily ];
+        [cell setupCellWithDailyData: daily];
         return;
     }
     
@@ -242,13 +235,12 @@
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath{
     JDNCity *city = [JDNCities sharedCities].cities[fromIndexPath.row];
     JDNCity *city2 = [JDNCities sharedCities].cities[toIndexPath.row];
-    [[JDNCities sharedCities] setOrderForCity:city order:toIndexPath.row];
-    [[JDNCities sharedCities] setOrderForCity:city2 order:fromIndexPath.row];
+    NSInteger orderFrom = city.order;
+    NSInteger orderTo = city2.order;
+    if ( [city isEqualToCity:city2]) return;
+    [[JDNCities sharedCities] setOrderForCity:city order:orderTo];
+    [[JDNCities sharedCities] setOrderForCity:city2 order:orderFrom];
     [[JDNCities sharedCities] write];
-}
-
-- (IBAction)editCities:(id)sender {
-    [self toggleEditMode];
 }
 
 -(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
