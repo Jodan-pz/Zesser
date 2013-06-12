@@ -51,7 +51,10 @@ static JDNCities *sharedCities_;
     }];
 }
 
+static BOOL UPDATING_CITY;
 -(void)updateOrAddByOldCity:(JDNCity*)oldCity andNewCity:(JDNCity*)newCity{
+    if ( UPDATING_CITY ) return;
+    UPDATING_CITY = YES;
     if ( oldCity ) {
         [self removeCity:oldCity];
         [self.mcities addObject:newCity];
@@ -64,6 +67,7 @@ static JDNCities *sharedCities_;
         }
     }
     [self write];
+    UPDATING_CITY = NO;
 }
 
 -(void)addCity:(JDNCity *)city {
