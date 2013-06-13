@@ -12,36 +12,34 @@
 
 @implementation JDNSimpleWeatherCell{
     UIActivityIndicatorView *_loading;
-    BOOL _addLoadingView;
-}
-
--(id)initWithCoder:(NSCoder *)aDecoder{
-    if ( self = [super initWithCoder:aDecoder]){
-        _loading = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0,0,32,32)];
-        _loading.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
-        _loading.hidesWhenStopped = YES;
-        _addLoadingView = YES;
-    }
-    return self;
 }
 
 -(void)clear{
-    [_loading stopAnimating];
+    [[self loadingView] stopAnimating];
     self.forecast.image = nil;
     [self.forecast setNeedsDisplay];
     self.temperature.text = nil;
 }
 
--(void)startLoadingData{
-    if ( _addLoadingView ){
-        [self.forecast addSubview:_loading];
-        _addLoadingView = NO;
+-(UIActivityIndicatorView*) loadingView{
+    if ( !_loading ){
+        _loading = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0,0,32,32)];
+        _loading.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+        _loading.hidesWhenStopped = YES;
+        _loading.tag = 73;
+        if ( ![self.forecast viewWithTag:73]){
+            [self.forecast addSubview:_loading];
+        }
     }
-    [_loading startAnimating];
+    return _loading;
+}
+
+-(void)startLoadingData{
+    [[self loadingView] startAnimating];
 }
 
 -(void)setupCellWithDailyData:(JDNDailyData *)dailyData{
-    [_loading stopAnimating];
+    [[self loadingView] stopAnimating];
     if (!dailyData) return;
     self.temperature.text = [NSString stringWithFormat:@"%@°", dailyData.apparentTemperature];
     [[JDNSharedImages sharedImages] setImageView:self.forecast

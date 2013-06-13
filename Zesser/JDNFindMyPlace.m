@@ -40,8 +40,6 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
-    NSLog(@"Current Location Manager is %@", _locationManager);
-    
     [_locationManager stopUpdatingLocation];
     _locationManager = nil;
     
