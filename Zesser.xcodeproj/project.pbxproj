@@ -16,7 +16,6 @@
 		CB123484175F7DEF006F890E /* JDNDailyData.m in Sources */ = {isa = PBXBuildFile; fileRef = CB123483175F7DEF006F890E /* JDNDailyData.m */; };
 		CB1F4E841767113B00ACD371 /* JDNFindMyPlace.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1F4E831767113B00ACD371 /* JDNFindMyPlace.m */; };
 		CB1F4E91176734C400ACD371 /* pin_28.png in Resources */ = {isa = PBXBuildFile; fileRef = CB1F4E90176734C400ACD371 /* pin_28.png */; };
-		CB2188431768B02C00738552 /* JDNSummaryWeatherInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB2188421768B02C00738552 /* JDNSummaryWeatherInfoViewController.m */; };
 		CB26ACAD1761C57100070F8C /* Zesser.png in Resources */ = {isa = PBXBuildFile; fileRef = CB26ACAC1761C57100070F8C /* Zesser.png */; };
 		CB615EBF1754DF46004C1BA4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB615EBE1754DF46004C1BA4 /* UIKit.framework */; };
 		CB615EC11754DF46004C1BA4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB615EC01754DF46004C1BA4 /* Foundation.framework */; };
@@ -61,8 +60,6 @@
 		CB1F4E821767113B00ACD371 /* JDNFindMyPlace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNFindMyPlace.h; sourceTree = "<group>"; };
 		CB1F4E831767113B00ACD371 /* JDNFindMyPlace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNFindMyPlace.m; sourceTree = "<group>"; };
 		CB1F4E90176734C400ACD371 /* pin_28.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin_28.png; sourceTree = "<group>"; };
-		CB2188411768B02C00738552 /* JDNSummaryWeatherInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNSummaryWeatherInfoViewController.h; sourceTree = "<group>"; };
-		CB2188421768B02C00738552 /* JDNSummaryWeatherInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNSummaryWeatherInfoViewController.m; sourceTree = "<group>"; };
 		CB26ACAC1761C57100070F8C /* Zesser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Zesser.png; sourceTree = "<group>"; };
 		CB615EBB1754DF46004C1BA4 /* Zesser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zesser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB615EBE1754DF46004C1BA4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -137,8 +134,6 @@
 				CBD7108D1762192F00ACA525 /* JDNNewCityViewController.m */,
 				CBE329091765CCA800526BC3 /* JDNCitySearchTableViewController.h */,
 				CBE3290A1765CCA800526BC3 /* JDNCitySearchTableViewController.m */,
-				CB2188411768B02C00738552 /* JDNSummaryWeatherInfoViewController.h */,
-				CB2188421768B02C00738552 /* JDNSummaryWeatherInfoViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -382,7 +377,6 @@
 				143AAC1517632E5D002C3D31 /* JDNCitySearcher.m in Sources */,
 				CBE3290B1765CCA800526BC3 /* JDNCitySearchTableViewController.m in Sources */,
 				CB1F4E841767113B00ACD371 /* JDNFindMyPlace.m in Sources */,
-				CB2188431768B02C00738552 /* JDNSummaryWeatherInfoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

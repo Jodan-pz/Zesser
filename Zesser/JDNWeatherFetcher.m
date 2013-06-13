@@ -32,17 +32,8 @@
                             }];
 }
 
--(void)fetchNowSimpleDailyDataForCity:(NSString *)cityUrl withCompletion:(ArrayDataCallBack)callback{
-    self.fetchNow = YES;
-    [self internalFetchDailyDataForCity:cityUrl withCompletion:callback];
-}
 
 -(void)fetchDailyDataForCity:(NSString *)cityUrl withCompletion:(ArrayDataCallBack)callback{
-    self.fetchNow = NO;
-    [self internalFetchDailyDataForCity:cityUrl withCompletion:callback];
-}
-
--(void)internalFetchDailyDataForCity:(NSString *)cityUrl withCompletion:(ArrayDataCallBack)callback{
     self.callback = callback;
     self.receivedData = [[NSMutableData alloc] init];
     self.receivedString = @"";
@@ -106,31 +97,22 @@
     
     NSMutableArray *datas = [NSMutableArray arrayWithCapacity:5];
     
-    if ( self.fetchNow ){
+    for (NSUInteger i = 0; i < daysAndHours.count; i+=2) {
         JDNDailyData *data = [[JDNDailyData alloc] init];
-        data.apparentTemperature = appTemp[0];
-        data.forecastImage = [BASE_URL stringByAppendingString:forecastAndWind[0][0]];
+        data.day = daysAndHours[i];
+        data.hourOfDay = daysAndHours[i+1];
+        data.forecast = forecastAndWind[i][1];
+        data.forecastImage = [BASE_URL stringByAppendingString:forecastAndWind[i][0]];
+        data.wind = forecastAndWind[i+1][1];
+        data.windImage = [BASE_URL stringByAppendingString: forecastAndWind[i+1][0]];
         [datas addObject:data];
-    }else{
-        
-        for (NSUInteger i = 0; i < daysAndHours.count; i+=2) {
-            JDNDailyData *data = [[JDNDailyData alloc] init];
-            data.day = daysAndHours[i];
-            data.hourOfDay = daysAndHours[i+1];
-            data.forecast = forecastAndWind[i][1];
-            data.forecastImage = [BASE_URL stringByAppendingString:forecastAndWind[i][0]];
-            data.wind = forecastAndWind[i+1][1];
-            data.windImage = [BASE_URL stringByAppendingString: forecastAndWind[i+1][0]];
-            [datas addObject:data];
-        }
-        
-        for (NSUInteger i=0; i < temperatures.count; i++) {
-            JDNDailyData *data = datas[i];
-            data.temperature = temperatures[i];
-            data.apparentTemperature = appTemp[i];
-        }
     }
-
+    
+    for (NSUInteger i=0; i < temperatures.count; i++) {
+        JDNDailyData *data = datas[i];
+        data.temperature = temperatures[i];
+        data.apparentTemperature = appTemp[i];
+    }
     return datas;
 }
 

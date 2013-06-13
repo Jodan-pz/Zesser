@@ -14,8 +14,17 @@
 
 @implementation JDNCity
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        self.order = 0;
+    }
+    return self;
+}
+
 -(NSString*)key{
-    return [self.name stringByAppendingFormat:@"_%lu" , (unsigned long)self.order];
+    return [self.name stringByAppendingFormat:@"_%ld" , (long)self.order];
 }
 
 -(NSUInteger)hash{
@@ -39,7 +48,7 @@
 }
 
 -(NSString *)description{
-    return [NSString stringWithFormat:@"%@ - %@ - %lu", self.name, self.url, (unsigned long)self.order];
+    return [NSString stringWithFormat:@"%@ - %@ - %ld", self.name, self.url, (long)self.order];
 }
 
 -(void)encodeWithCoder:(NSCoder *)aCoder{

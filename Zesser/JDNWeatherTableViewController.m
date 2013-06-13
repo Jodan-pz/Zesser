@@ -29,13 +29,26 @@
 
 @implementation JDNWeatherTableViewController
 
+-(void)createSectionsWithData:(NSArray*)data{
+    self.sections = [NSArray array];
+    self.sections = [[data valueForKey:@"day"] distinct];
+    self.data = [data groupBy:^id(JDNDailyData *item) {
+        return item.day;
+    }];
+}
+
+-(NSString*)cachedDataFileName{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *cachedData = [documentsDirectory stringByAppendingPathComponent: [self.city.name stringByAppendingString:@"_lres.dat"]];
+    return cachedData;
+}
+
 -(void)refreshData:(UIRefreshControl *)refresh {
     self.sections = nil;
     self.data = nil;
     
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *cachedData = [documentsDirectory stringByAppendingPathComponent: [self.city.name stringByAppendingString:@"_lres.dat"]];
+    NSString *cachedData = [self cachedDataFileName];
     
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc]
                                         initWithString:@"Aggiornamento dati..."
@@ -52,12 +65,7 @@
                 
                 [self.weatherFetcher fetchDailyDataForCity:self.city.url withCompletion:^(NSArray *data) {
                     [[NSKeyedArchiver archivedDataWithRootObject:data] writeToFile:cachedData atomically:YES];
-                    self.sections = [NSArray array];
-                    self.sections = [[data valueForKey:@"day"] distinct];
-                    self.data = [data groupBy:^id(JDNDailyData *item) {
-                        return item.day;
-                    }];
-                    
+                    [self createSectionsWithData:data];
                     [self.tableView reloadData];
                     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
                     [formatter setDateFormat:@"d MMMM yyyy, HH:mm:ss"];
@@ -77,11 +85,7 @@
                     [JDNClientHelper showBezelMessage:@"Dati non aggiornati" viewController:self];
                     
                     NSArray *data =  [NSKeyedUnarchiver unarchiveObjectWithFile:cachedData];
-                    self.sections = [NSArray array];
-                    self.sections = [[data valueForKey:@"day"] distinct];
-                    self.data = [data groupBy:^id(JDNDailyData *item) {
-                        return item.day;
-                    }];
+                    [self createSectionsWithData:data];
                     [self.tableView reloadData];
                     
                 }else{
@@ -119,8 +123,15 @@
                        action:@selector(refreshData:)
              forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
-    [self.refreshControl beginRefreshing];
-    [self refreshData:refreshControl];
+    
+    if ( self.currentDailyData ){
+        NSString *cachedData = [self cachedDataFileName];
+        [[NSKeyedArchiver archivedDataWithRootObject:self.currentDailyData] writeToFile:cachedData atomically:YES];
+        [self createSectionsWithData:self.currentDailyData];
+    }else{
+        [self.refreshControl beginRefreshing];
+        [self refreshData:refreshControl];
+    }
 }
 
 #pragma mark - Table view data source

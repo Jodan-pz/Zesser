@@ -14,6 +14,5 @@
 
 -(void)isAvailable:(BooleanCallBack)callback;
 -(void)fetchDailyDataForCity:(NSString *)cityUrl withCompletion:(ArrayDataCallBack)callback;
--(void)fetchNowSimpleDailyDataForCity:(NSString *)cityUrl withCompletion:(ArrayDataCallBack)callback;
 
 @end

@@ -12,7 +12,7 @@
 
 @property (strong,nonatomic) NSString *name;
 @property (strong,nonatomic) NSString *url;
-@property (nonatomic)        NSUInteger order;
+@property (nonatomic)        NSInteger order;
 
 -(NSString*)key;
 -(BOOL)isEqualToCity:(JDNCity*)other;

@@ -13,5 +13,6 @@
 @interface JDNWeatherTableViewController : UITableViewController
 
 @property (strong,nonatomic) JDNCity *city;
+@property (strong,nonatomic) NSArray *currentDailyData;
 
 @end

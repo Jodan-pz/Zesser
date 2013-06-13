@@ -13,38 +13,39 @@
 @end
 
 @implementation JDNFindMyPlace{
-    CLLocationManager *locationManager;
-    CLLocation *currentLocation;
+    CLLocationManager *_locationManager;
 }
 
 -(CLLocationManager*)createLocationManager{
-    locationManager = [CLLocationManager new];
-    locationManager.delegate = self;
-    locationManager.distanceFilter = 10.0f;
-    locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
-    return locationManager;
+    _locationManager = [CLLocationManager new];
+    _locationManager.delegate = self;
+    _locationManager.distanceFilter = 10.0f;
+    _locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
+    return _locationManager;
 }
 
 -(void)startSearchingCurrentLocationWithAccuracy:(CLLocationAccuracy)accurancy{
     if ( self.delegate ) {
-        locationManager = [self createLocationManager];
-        locationManager.desiredAccuracy = accurancy;
-        [locationManager startUpdatingLocation];
+        _locationManager = [self createLocationManager];
+        _locationManager.desiredAccuracy = accurancy;
+        [_locationManager startUpdatingLocation];
     }
 }
 
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
-    [locationManager stopUpdatingLocation];
-    locationManager = nil;
+    [_locationManager stopUpdatingLocation];
+    _locationManager = nil;
     NSLog(@"Geocode failed with error: %@", error);
     [self.delegate findMyPlaceDidFoundCurrentLocation:nil];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
-    [locationManager stopUpdatingLocation];
-    locationManager = nil;
+    NSLog(@"Current Location Manager is %@", _locationManager);
     
-    currentLocation = [locations objectAtIndex:0];
+    [_locationManager stopUpdatingLocation];
+    _locationManager = nil;
+    
+    CLLocation *currentLocation = [locations objectAtIndex:0];
     CLGeocoder *geocoder = [[CLGeocoder alloc] init] ;
     [geocoder reverseGeocodeLocation:currentLocation
                    completionHandler:^(NSArray *placemarks, NSError *error) {

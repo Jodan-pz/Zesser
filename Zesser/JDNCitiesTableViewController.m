@@ -35,7 +35,7 @@
 @property (strong, nonatomic) UIBarButtonItem       *doneEditCitiesBarButtonItem;
 @property (strong, nonatomic) JDNFindMyPlace        *findMyPlace;
 @property (strong, nonatomic) JDNCitySearcher       *citySearcher;
-@property (strong, nonatomic) NSMutableDictionary   *currentSimpleDailyData;
+@property (strong, nonatomic) NSMutableDictionary   *currentDailyData;
 @property (atomic)            BOOL                  isRefreshingData;
 
 @end
@@ -93,7 +93,7 @@
                                                                                      action:@selector(toggleEditMode)];
     self.findMyPlace = [[JDNFindMyPlace alloc] init];
     self.findMyPlace.delegate = self;
-    self.currentSimpleDailyData = [NSMutableDictionary dictionary];
+    self.currentDailyData = [NSMutableDictionary dictionary];
     
     self.isRefreshingData = NO;
 }
@@ -175,7 +175,7 @@
 
 -(void)updateWeatherDataForCity: (JDNCity*)city inCell: (JDNSimpleWeatherCell*)cell {
     // check current daily (speedup)
-    JDNDailyData *daily = [self.currentSimpleDailyData valueForKey:city.name];
+    JDNDailyData *daily = [[self.currentDailyData valueForKey:city.key] firstOrNil];
     if(daily){
         [cell setupCellWithDailyData: daily];
         return;
@@ -185,20 +185,20 @@
     if( self.lastAvailableCheck &&
         ((int)[[NSDate date] timeIntervalSinceDate:self.lastAvailableCheck] % 60) < 5 ){
         [cell startLoadingData];
-        [weatherFetcher fetchNowSimpleDailyDataForCity:city.url withCompletion:^(NSArray *data) {
+        [weatherFetcher fetchDailyDataForCity:city.url withCompletion:^(NSArray *data) {
             JDNDailyData *dailyData = (JDNDailyData*) [data firstOrNil];
             [cell setupCellWithDailyData: dailyData];
-            [self.currentSimpleDailyData setValue:dailyData forKey:city.name];
+            [self.currentDailyData setValue:data forKey:city.key];
         }];
     }else{
         [weatherFetcher isAvailable:^(BOOL available) {
             if ( available ){
                 self.lastAvailableCheck = [NSDate date];
                 [cell startLoadingData];
-                [weatherFetcher fetchNowSimpleDailyDataForCity:city.url withCompletion:^(NSArray *data) {
+                [weatherFetcher fetchDailyDataForCity:city.url withCompletion:^(NSArray *data) {
                     JDNDailyData *dailyData = (JDNDailyData*) [data firstOrNil];
                     [cell setupCellWithDailyData: dailyData];
-                    [self.currentSimpleDailyData setValue:dailyData forKey:city.name];
+                    [self.currentDailyData setValue:data forKey:city.key];
                 }];
             }
         }];
@@ -214,7 +214,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         JDNCity *city = [JDNCities sharedCities].cities[indexPath.row];
         [[JDNCities sharedCities] removeCity:city];
-        [self.currentSimpleDailyData removeObjectForKey:city.name];
+        [self.currentDailyData removeObjectForKey:city.key];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
 }
@@ -267,12 +267,13 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ( [segue.identifier isEqualToString:@"viewWeather"]){
-        JDNWeatherTableViewController *weathController = segue.destinationViewController;
+        JDNWeatherTableViewController *weatherController = segue.destinationViewController;
         if ( [sender isKindOfClass:[JDNCity class]]){
-            weathController.city = sender;
+            weatherController.city = sender;
         }else{
-            NSIndexPath* indexPath=[self.tableView indexPathForCell:sender];
-            weathController.city = [JDNCities sharedCities].cities[indexPath.row];
+            NSIndexPath* indexPath = [self.tableView indexPathForCell:sender];
+            weatherController.city = [JDNCities sharedCities].cities[indexPath.row];
+            weatherController.currentDailyData = self.currentDailyData[weatherController.city.key];
         }
     } else if ( [segue.identifier isEqualToString:@"searchCity"]){
         UINavigationController *searchCityController = segue.destinationViewController;
@@ -292,7 +293,7 @@
     if ( !self.isRefreshingData ) {
         self.editCitiesBarButtonItem.enabled = self.addCityButton.enabled = NO;
         self.isRefreshingData = YES;
-        [self.currentSimpleDailyData removeAllObjects];
+        [self.currentDailyData removeAllObjects];
         [self.findMyPlace startSearchingCurrentLocationWithAccuracy:kCLLocationAccuracyBestForNavigation];
         NSMutableAttributedString *title = [[NSMutableAttributedString alloc]
                                             initWithString:@"Aggiornamento dati..."
