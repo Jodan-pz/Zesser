@@ -34,6 +34,8 @@
 		CB9BCC7617608DFE00996188 /* JDNCitiesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC7517608DFE00996188 /* JDNCitiesTableViewController.m */; };
 		CB9BCC7D17609FDE00996188 /* JDNWeatherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC7C17609FDE00996188 /* JDNWeatherCell.m */; };
 		CB9BCC801760B39900996188 /* JDNSharedImages.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC7F1760B39900996188 /* JDNSharedImages.m */; };
+		CBCAF3331769FE9B00B0C9FB /* JDNSummaryWeatherView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCAF32F1769FE9B00B0C9FB /* JDNSummaryWeatherView.m */; };
+		CBCAF3341769FE9B00B0C9FB /* JDNCurrentWeatherView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCAF3311769FE9B00B0C9FB /* JDNCurrentWeatherView.m */; };
 		CBD7107B1761CFD400ACA525 /* JDNClientHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD7107A1761CFD400ACA525 /* JDNClientHelper.m */; };
 		CBD7107E1761D2DB00ACA525 /* info_64.png in Resources */ = {isa = PBXBuildFile; fileRef = CBD7107D1761D2DB00ACA525 /* info_64.png */; };
 		CBD710811761DB1100ACA525 /* JDNTestConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD710801761DB1100ACA525 /* JDNTestConnection.m */; };
@@ -91,6 +93,10 @@
 		CB9BCC7C17609FDE00996188 /* JDNWeatherCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNWeatherCell.m; sourceTree = "<group>"; };
 		CB9BCC7E1760B39900996188 /* JDNSharedImages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNSharedImages.h; sourceTree = "<group>"; };
 		CB9BCC7F1760B39900996188 /* JDNSharedImages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNSharedImages.m; sourceTree = "<group>"; };
+		CBCAF32F1769FE9B00B0C9FB /* JDNSummaryWeatherView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNSummaryWeatherView.m; sourceTree = "<group>"; };
+		CBCAF3301769FE9B00B0C9FB /* JDNSummaryWeatherView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNSummaryWeatherView.h; sourceTree = "<group>"; };
+		CBCAF3311769FE9B00B0C9FB /* JDNCurrentWeatherView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNCurrentWeatherView.m; sourceTree = "<group>"; };
+		CBCAF3321769FE9B00B0C9FB /* JDNCurrentWeatherView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNCurrentWeatherView.h; sourceTree = "<group>"; };
 		CBD710791761CFD400ACA525 /* JDNClientHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNClientHelper.h; sourceTree = "<group>"; };
 		CBD7107A1761CFD400ACA525 /* JDNClientHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNClientHelper.m; sourceTree = "<group>"; };
 		CBD7107D1761D2DB00ACA525 /* info_64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info_64.png; sourceTree = "<group>"; };
@@ -141,6 +147,10 @@
 		CB123485175F7E50006F890E /* Weather */ = {
 			isa = PBXGroup;
 			children = (
+				CBCAF32F1769FE9B00B0C9FB /* JDNSummaryWeatherView.m */,
+				CBCAF3301769FE9B00B0C9FB /* JDNSummaryWeatherView.h */,
+				CBCAF3311769FE9B00B0C9FB /* JDNCurrentWeatherView.m */,
+				CBCAF3321769FE9B00B0C9FB /* JDNCurrentWeatherView.h */,
 				CBD710821761F48300ACA525 /* JDNSimpleWeatherCell.h */,
 				CBD710831761F48300ACA525 /* JDNSimpleWeatherCell.m */,
 				CB123482175F7DEF006F890E /* JDNDailyData.h */,
@@ -377,6 +387,8 @@
 				143AAC1517632E5D002C3D31 /* JDNCitySearcher.m in Sources */,
 				CBE3290B1765CCA800526BC3 /* JDNCitySearchTableViewController.m in Sources */,
 				CB1F4E841767113B00ACD371 /* JDNFindMyPlace.m in Sources */,
+				CBCAF3331769FE9B00B0C9FB /* JDNSummaryWeatherView.m in Sources */,
+				CBCAF3341769FE9B00B0C9FB /* JDNCurrentWeatherView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

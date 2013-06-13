@@ -334,7 +334,7 @@
     if ( oldFixedCity && oldFixedCity.order != -1) oldFixedCity = nil;
     
     [self.citySearcher searchPlaceByText:place.locality withCompletion:^(NSArray *data) {
-        if ( !data ) {
+        if ( !data  || !data.count ) {
             [self finalizeRefreshAction];
             return;
         }

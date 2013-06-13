@@ -111,6 +111,10 @@
                       valueForKey:@"nodeAttributeArray"]
                      valueForKey:@"nodeContent"];
     
+    if ( urls.count == 0 ){
+        return nil;
+    }
+    
     NSArray *names = [PerformXMLXPathQuery([xmlData dataUsingEncoding:NSUTF8StringEncoding],@"/root/a/div[@class='localita']" ) valueForKey:@"nodeContent"];
     
     for (NSUInteger i=0; i < urls.count; i++) {

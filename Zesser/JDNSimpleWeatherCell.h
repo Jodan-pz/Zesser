@@ -11,8 +11,7 @@
 @interface JDNSimpleWeatherCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *cityName;
-@property (weak, nonatomic) IBOutlet UILabel *temperature;
-@property (weak, nonatomic) IBOutlet UIImageView *forecast;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 -(void)clear;
 -(void)startLoadingData;
