@@ -15,11 +15,11 @@
     self = [super initWithFrame:frame];
     if (self) {
 
-        self.forecast = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 19)];
+        self.forecast = [[UILabel alloc] initWithFrame:CGRectMake(0, 2, frame.size.width, 19)];
         self.forecast.font = [UIFont systemFontOfSize:9.0];
         self.forecast.textColor = [UIColor colorWithRed:0.878 green:0.673 blue:0.926 alpha:1.000];
         
-        self.wind = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, frame.size.width, 25)];
+        self.wind = [[UILabel alloc] initWithFrame:CGRectMake(0, 22, frame.size.width, 25)];
         self.wind.font = [UIFont systemFontOfSize:11.0];
         self.wind.textColor = [UIColor colorWithRed:0.645 green:0.901 blue:0.916 alpha:1.000];
         self.wind.lineBreakMode = NSLineBreakByTruncatingTail;

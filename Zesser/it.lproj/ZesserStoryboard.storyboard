@@ -14,39 +14,32 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="2" indentationWidth="100" shouldIndentWhileEditing="NO" reuseIdentifier="Cell" rowHeight="75" id="7CY-mQ-s1J" customClass="JDNSimpleWeatherCell">
-                                <rect key="frame" x="0.0" y="22" width="320" height="75"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="2" indentationWidth="100" shouldIndentWhileEditing="NO" reuseIdentifier="Cell" rowHeight="82" id="9iJ-QW-xiP" customClass="JDNSimpleWeatherCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="82"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="287" height="74"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="81"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" id="C8S-3O-XRZ">
-                                            <rect key="frame" x="20" y="22" width="136" height="32"/>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" minimumFontSize="10" id="YzR-jb-4Md">
+                                            <rect key="frame" x="20" y="24" width="136" height="34"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="22"/>
+                                            <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="18"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Zpm-Mg-Obp">
-                                            <rect key="frame" x="173" y="22" width="41" height="32"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="TqT-qx-XYo">
-                                            <rect key="frame" x="222" y="22" width="32" height="32"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        </imageView>
+                                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsVerticalScrollIndicator="NO" id="b9m-dW-KRs">
+                                            <rect key="frame" x="164" y="0.0" width="118" height="81"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </scrollView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <connections>
-                                    <outlet property="cityName" destination="C8S-3O-XRZ" id="vEF-9n-Sci"/>
-                                    <outlet property="forecast" destination="TqT-qx-XYo" id="Js9-8o-URu"/>
-                                    <outlet property="temperature" destination="Zpm-Mg-Obp" id="pkC-Vc-QR3"/>
-                                    <segue destination="ccC-Tc-vuL" kind="push" identifier="viewWeather" id="pyD-uQ-gCM"/>
+                                    <outlet property="cityName" destination="YzR-jb-4Md" id="KxZ-ul-zh4"/>
+                                    <outlet property="scrollView" destination="b9m-dW-KRs" id="kvw-sE-rh8"/>
+                                    <segue destination="ccC-Tc-vuL" kind="push" identifier="viewWeather" id="MoF-9u-Lly"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -320,8 +313,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNSimpleWeatherCell.h"/>
             <relationships>
                 <relationship kind="outlet" name="cityName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="forecast" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="temperature" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
             </relationships>
         </class>
         <class className="JDNWeatherCell" superclassName="UITableViewCell">
