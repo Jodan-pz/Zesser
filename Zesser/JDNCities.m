@@ -8,11 +8,11 @@
 
 #import "JDNCities.h"
 #import "JDNCity.h"
-#import "NSArray+LinqExtensions.h"
+#import "NSDictionary+LinqExtensions.h"
 
 @interface JDNCities()
 
-@property (strong, nonatomic) NSMutableArray *mcities;
+@property (strong, nonatomic) NSMutableDictionary *mcities;
 
 @end
 
@@ -37,55 +37,43 @@ static JDNCities *sharedCities_;
 }
 
 -(void)setOrderForCity:(JDNCity *)city order:(NSInteger)order{
-    JDNCity *editCity = [[ self.mcities where:^BOOL(JDNCity *item) {
-        return [item.name isEqualToString:city.name];
-    } ]firstOrNil];
+    JDNCity *editCity = self.mcities[city.name];
     if ( editCity ){
         editCity.order = order;
     }
 }
 
 -(NSArray *)cities{
-    return [self.mcities sortedArrayUsingComparator:^NSComparisonResult(JDNCity *obj1, JDNCity *obj2) {
+    return [[self.mcities allValues] sortedArrayUsingComparator:^NSComparisonResult(JDNCity *obj1, JDNCity *obj2) {
         return [ @(obj1.order) compare: @(obj2.order) ];
     }];
 }
 
-static BOOL UPDATING_CITY;
 -(void)updateOrAddByOldCity:(JDNCity*)oldCity andNewCity:(JDNCity*)newCity{
-    if ( UPDATING_CITY ) return;
-    UPDATING_CITY = YES;
     if ( oldCity ) {
         [self removeCity:oldCity];
-        [self.mcities addObject:newCity];
+        [self.mcities setValue:newCity forKey:newCity.key];
     }else{
-        JDNCity *temp = [[ self.mcities where:^BOOL(JDNCity *item) {
-            return [item isEqualToCity:newCity];
-        }] firstOrNil];
+        JDNCity *temp = self.mcities[newCity.key];
         if ( !temp ){
-            [self.mcities addObject:newCity];
+            [self.mcities setValue:newCity forKey:newCity.key];
         }
     }
     [self write];
-    UPDATING_CITY = NO;
 }
 
 -(void)addCity:(JDNCity *)city {
-    if (![[ self.mcities where:^BOOL(JDNCity *item) {
-        return [item.name isEqualToString:city.name];
-    }] firstOrNil]){
+    if ( !self.mcities[city.key]){
         city.order = ((JDNCity*)[self.cities lastObject]).order + 1;
-        [self.mcities addObject:city];
+        [self.mcities setValue:city forKey:city.key];
         [self write];
     };
 }
 
 -(void)removeCity:(JDNCity *)city{
-    JDNCity *cityToRemove = [[ self.mcities where:^BOOL(JDNCity *item) {
-        return [item.name isEqualToString:city.name];
-    }] firstOrNil];
+    JDNCity *cityToRemove = self.mcities[city.key];
     if ( cityToRemove ) {
-        [self.mcities removeObject:cityToRemove];
+        [self.mcities removeObjectForKey:cityToRemove.key];
         [self write];
         [[NSNotificationCenter defaultCenter] postNotificationName:CITY_REMOVED_NOTIFICATION  object:cityToRemove];
     }
@@ -98,7 +86,7 @@ static BOOL UPDATING_CITY;
     self.mcities = [NSKeyedUnarchiver unarchiveObjectWithFile:[documentsDirectory
                                                                stringByAppendingPathComponent:@"cities.dat"]];
     if ( !self.mcities ) {
-        self.mcities = [NSMutableArray array];
+        self.mcities = [NSMutableDictionary dictionary];
     }
     [self write];
 }
@@ -107,7 +95,7 @@ static BOOL UPDATING_CITY;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:[self.mcities where:^BOOL(JDNCity *item) {
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:[self.mcities where:^BOOL(NSString *cityName, JDNCity *item) {
         return item.order >=0;
     } ]];
     NSError *err;

@@ -17,33 +17,34 @@
     CLLocation *currentLocation;
 }
 
-- (id)init{
-    self = [super init];
-    if (self) {
-        locationManager = [CLLocationManager new];
-        locationManager.delegate = self;
-        locationManager.distanceFilter = 10.0f;
-        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
-    }
-    return self;
+-(CLLocationManager*)createLocationManager{
+    locationManager = [CLLocationManager new];
+    locationManager.delegate = self;
+    locationManager.distanceFilter = 10.0f;
+    locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
+    return locationManager;
 }
 
 -(void)startSearchingCurrentLocationWithAccuracy:(CLLocationAccuracy)accurancy{
     if ( self.delegate ) {
+        locationManager = [self createLocationManager];
         locationManager.desiredAccuracy = accurancy;
         [locationManager startUpdatingLocation];
     }
 }
 
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
-    //[locationManager stopUpdatingLocation];
+    [locationManager stopUpdatingLocation];
+    locationManager = nil;
     NSLog(@"Geocode failed with error: %@", error);
     [self.delegate findMyPlaceDidFoundCurrentLocation:nil];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
-    currentLocation = [locations objectAtIndex:0];
     [locationManager stopUpdatingLocation];
+    locationManager = nil;
+    
+    currentLocation = [locations objectAtIndex:0];
     CLGeocoder *geocoder = [[CLGeocoder alloc] init] ;
     [geocoder reverseGeocodeLocation:currentLocation
                    completionHandler:^(NSArray *placemarks, NSError *error) {

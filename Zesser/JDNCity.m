@@ -14,6 +14,10 @@
 
 @implementation JDNCity
 
+-(NSString*)key{
+    return [self.name stringByAppendingFormat:@"_%lu" , (unsigned long)self.order];
+}
+
 -(NSUInteger)hash{
     NSUInteger result = 1;
     NSUInteger prime = 31;
@@ -35,7 +39,7 @@
 }
 
 -(NSString *)description{
-    return [NSString stringWithFormat:@"%@ - %@ - %ld", self.name, self.url, (long)self.order];
+    return [NSString stringWithFormat:@"%@ - %@ - %lu", self.name, self.url, (unsigned long)self.order];
 }
 
 -(void)encodeWithCoder:(NSCoder *)aCoder{
