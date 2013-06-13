@@ -175,9 +175,9 @@
 
 -(void)updateWeatherDataForCity: (JDNCity*)city inCell: (JDNSimpleWeatherCell*)cell {
     // check current daily (speedup)
-    JDNDailyData *daily = [[self.currentDailyData valueForKey:city.key] firstOrNil];
-    if(daily){
-        [cell setupCellWithDailyData: daily];
+    NSArray *data = [self.currentDailyData valueForKey:city.key];
+    if(data){
+        [cell setupCellWithDailyData: data];
         return;
     }
     
@@ -186,8 +186,7 @@
         ((int)[[NSDate date] timeIntervalSinceDate:self.lastAvailableCheck] % 60) < 5 ){
         [cell startLoadingData];
         [weatherFetcher fetchDailyDataForCity:city.url withCompletion:^(NSArray *data) {
-            JDNDailyData *dailyData = (JDNDailyData*) [data firstOrNil];
-            [cell setupCellWithDailyData: dailyData];
+            [cell setupCellWithDailyData: data];
             [self.currentDailyData setValue:data forKey:city.key];
         }];
     }else{
@@ -196,8 +195,7 @@
                 self.lastAvailableCheck = [NSDate date];
                 [cell startLoadingData];
                 [weatherFetcher fetchDailyDataForCity:city.url withCompletion:^(NSArray *data) {
-                    JDNDailyData *dailyData = (JDNDailyData*) [data firstOrNil];
-                    [cell setupCellWithDailyData: dailyData];
+                    [cell setupCellWithDailyData: data];
                     [self.currentDailyData setValue:data forKey:city.key];
                 }];
             }

@@ -15,6 +15,6 @@
 
 -(void)clear;
 -(void)startLoadingData;
--(void)setupCellWithDailyData:(JDNDailyData *)dailyData;
+-(void)setupCellWithDailyData:(NSArray*)dailyData;
 
 @end

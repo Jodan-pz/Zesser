@@ -10,6 +10,7 @@
 #import "JDNDailyData.h"
 #import "JDNCurrentWeatherView.h"
 #import "JDNSummaryWeatherView.h"
+#import "NSArray+LinqExtensions.h"
 
 @interface JDNSimpleWeatherCell()
 
@@ -78,7 +79,7 @@
         _loadingView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
         _loadingView.hidesWhenStopped = YES;
         _loadingView.tag = 73;
-        if ( ![self.curWeatherView.forecastImage viewWithTag:73]){
+        if ( ![self.curWeatherView.forecastImage viewWithTag:73] ) {
             [self.curWeatherView.forecastImage addSubview:_loadingView];
         }
     }
@@ -89,25 +90,32 @@
     [[self loadingView] startAnimating];
 }
 
--(void)setupCellWithDailyData:(JDNDailyData *)dailyData{
+-(void)setupCellWithDailyData:(NSArray*)dailyData{
     [[self loadingView] stopAnimating];
-    if (!dailyData) return;
+    if ( !dailyData || !dailyData.count ) return;
+    
+    JDNDailyData *nowData = [dailyData firstOrNil];
     
     // current view
-    self.curWeatherView.temperature.text = [NSString stringWithFormat:@"%@°", dailyData.apparentTemperature];
+    self.curWeatherView.temperature.text = [NSString stringWithFormat:@"%@°", nowData.apparentTemperature];
     [[JDNSharedImages sharedImages] setImageView:self.curWeatherView.forecastImage
-                                         withUrl:[NSURL URLWithString:dailyData.forecastImage]];
+                                         withUrl:[NSURL URLWithString:nowData.forecastImage]];
     [JDNClientHelper configureTemperatureLayoutForLabel:self.curWeatherView.temperature
-                                                byValue:dailyData.apparentTemperature.integerValue];
+                                                byValue:nowData.apparentTemperature.integerValue];
     
     // summary view
-    self.sumWeatherView.forecast.text    = dailyData.forecast;
-    self.sumWeatherView.wind.text        = dailyData.wind;
-    self.sumWeatherView.temperature.text = [NSString stringWithFormat:@"%@°", dailyData.temperature];
+    self.sumWeatherView.forecast.text    = nowData.forecast;
+    self.sumWeatherView.wind.text        = nowData.wind;
+    self.sumWeatherView.temperature.text = [NSString stringWithFormat:@"%@°", nowData.temperature];
+    
+    NSInteger minTemp = [[dailyData valueForKeyPath:@"@min.apparentTemperature"] integerValue];
+    NSInteger maxTemp = [[dailyData valueForKeyPath:@"@max.apparentTemperature"] integerValue];
+    self.sumWeatherView.minTemperature.text = @(minTemp).stringValue;
+    self.sumWeatherView.maxTemperature.text = @(maxTemp).stringValue;
     [JDNClientHelper configureTemperatureLayoutForLabel:self.sumWeatherView.minTemperature
-                                                byValue:dailyData.apparentTemperature.integerValue];
+                                                byValue:minTemp];
     [JDNClientHelper configureTemperatureLayoutForLabel:self.sumWeatherView.maxTemperature
-                                                byValue:dailyData.apparentTemperature.integerValue];
+                                                byValue:maxTemp];
 }
 
 @end
