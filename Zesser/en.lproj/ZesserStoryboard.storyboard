@@ -305,10 +305,6 @@
         <class className="JDNNewCityViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNNewCityViewController.h"/>
             <relationships>
-                <relationship kind="action" name="addCity:"/>
-                <relationship kind="action" name="cancelAddCity:"/>
-                <relationship kind="action" name="cityEditingChanged:"/>
-                <relationship kind="action" name="urlEditingChanged:"/>
                 <relationship kind="outlet" name="cityName" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="okButton" candidateClass="UIBarButtonItem"/>
@@ -321,7 +317,6 @@
             <relationships>
                 <relationship kind="outlet" name="cityName" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="forecast" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
                 <relationship kind="outlet" name="temperature" candidateClass="UILabel"/>
             </relationships>
         </class>

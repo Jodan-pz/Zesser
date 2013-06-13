@@ -124,10 +124,14 @@
              forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
     
+    
     if ( self.currentDailyData ){
-        NSString *cachedData = [self cachedDataFileName];
-        [[NSKeyedArchiver archivedDataWithRootObject:self.currentDailyData] writeToFile:cachedData atomically:YES];
-        [self createSectionsWithData:self.currentDailyData];
+        if ( self.city ){
+            self.title = self.city.name;
+            NSString *cachedData = [self cachedDataFileName];
+            [[NSKeyedArchiver archivedDataWithRootObject:self.currentDailyData] writeToFile:cachedData atomically:YES];
+            [self createSectionsWithData:self.currentDailyData];
+        }
     }else{
         [self.refreshControl beginRefreshing];
         [self refreshData:refreshControl];
