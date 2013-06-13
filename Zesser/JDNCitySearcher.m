@@ -122,7 +122,9 @@
         data.url = url;
         [datas addObject:data];
     }
-    return datas;
+    return [datas sortedArrayUsingComparator:^NSComparisonResult(JDNCity *obj1, JDNCity *obj2) {
+        return  [obj1.name compare:obj2.name];
+    }];
 }
 
 @end
