@@ -111,8 +111,9 @@
     
     NSInteger minTemp = [[dailyData valueForKeyPath:@"@min.apparentTemperature"] integerValue];
     NSInteger maxTemp = [[dailyData valueForKeyPath:@"@max.apparentTemperature"] integerValue];
-    self.sumWeatherView.minTemperature.text = @(minTemp).stringValue;
-    self.sumWeatherView.maxTemperature.text = @(maxTemp).stringValue;
+    
+    self.sumWeatherView.minTemperature.text = [NSString stringWithFormat:@"%ld°", (long)minTemp];
+    self.sumWeatherView.maxTemperature.text = [NSString stringWithFormat:@"%ld°", (long)maxTemp];
     [JDNClientHelper configureTemperatureLayoutForLabel:self.sumWeatherView.minTemperature
                                                 byValue:minTemp];
     [JDNClientHelper configureTemperatureLayoutForLabel:self.sumWeatherView.maxTemperature

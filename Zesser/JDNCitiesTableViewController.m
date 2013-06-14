@@ -168,8 +168,7 @@
     }
     
     [cell clear];
-    [self updateWeatherDataForCity:city
-                            inCell:cell];    
+    [self updateWeatherDataForCity:city inCell:cell];    
     return cell;
 }
 
@@ -319,26 +318,26 @@
     });
 }
 
--(void)findMyPlaceDidFoundCurrentLocation:(CLPlacemark *)place{
+-(void)findMyPlaceDidFoundCurrentLocation:(NSString *)place{
     if( !place ){
         [self finalizeRefreshAction];
         return;
     }
-    
+
     if ( !self.citySearcher ){
         self.citySearcher = [[JDNCitySearcher alloc] init];
     }
     JDNCity *oldFixedCity = [[JDNCities sharedCities].cities firstOrNil];
     if ( oldFixedCity && oldFixedCity.order != -1) oldFixedCity = nil;
     
-    [self.citySearcher searchPlaceByText:place.locality withCompletion:^(NSArray *data) {
+    [self.citySearcher searchPlaceByText:place withCompletion:^(NSArray *data) {
         if ( !data  || !data.count ) {
             [self finalizeRefreshAction];
             return;
         }
         if (data.count) {
             JDNCity *firstFound = data[0];
-            if ( [firstFound.name  rangeOfString:place.locality options:NSCaseInsensitiveSearch ].location == 0 ){
+            if ( [firstFound.name  rangeOfString:place options:NSCaseInsensitiveSearch ].location == 0 ){
                 firstFound.order = -1;
                 [[JDNCities sharedCities] updateOrAddByOldCity:oldFixedCity andNewCity:firstFound];
             }

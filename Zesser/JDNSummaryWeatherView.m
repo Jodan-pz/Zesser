@@ -13,8 +13,8 @@
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    if (self) {
 
+    if (self) {
         self.forecast = [[UILabel alloc] initWithFrame:CGRectMake(0, 4, frame.size.width, 19)];
         self.forecast.font = [UIFont systemFontOfSize:9.0];
         self.forecast.textColor = [UIColor colorWithRed:0.878 green:0.673 blue:0.926 alpha:1.000];
@@ -25,28 +25,28 @@
         self.wind.lineBreakMode = NSLineBreakByTruncatingTail;
         self.wind.numberOfLines = 2;
         
-        self.temperature = [[UILabel alloc] initWithFrame:CGRectMake(2, 50, 36, 31 )];
-        self.temperature.font = [UIFont fontWithName:@"Helvetica-Bold" size:16];
+        self.temperature = [[UILabel alloc] initWithFrame:CGRectMake(2, 50, 36, 31)];
+        self.temperature.font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
         self.temperature.textColor = [UIColor whiteColor];
         self.temperature.textAlignment = NSTextAlignmentCenter;
         
-        UILabel *lblMin = [[UILabel alloc] initWithFrame:CGRectMake(50, 50, 24, 16)];
+        UILabel *lblMin = [[UILabel alloc] initWithFrame:CGRectMake(50, 50, 28, 16)];
         lblMin.textAlignment = NSTextAlignmentCenter;
-        lblMin.text = @"° Min";
+        lblMin.text = @"Min";
         lblMin.textColor = [UIColor whiteColor];
-        lblMin.font = [UIFont systemFontOfSize:8];
+        lblMin.font = [UIFont fontWithName:@"Helvetica" size:10];
         
-        self.minTemperature = [[UILabel alloc] initWithFrame:CGRectMake(50, 65, 24, 14)];
+        self.minTemperature = [[UILabel alloc] initWithFrame:CGRectMake(50, 65, 28, 16)];
         self.minTemperature.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
         self.minTemperature.textAlignment = NSTextAlignmentCenter;
 
-        UILabel *lblMax = [[UILabel alloc] initWithFrame:CGRectMake(80, 50, 24, 16)];
+        UILabel *lblMax = [[UILabel alloc] initWithFrame:CGRectMake(80, 50, 28, 16)];
         lblMax.textAlignment = NSTextAlignmentCenter;
-        lblMax.text = @"° Max";
+        lblMax.text = @"Max";
         lblMax.textColor = [UIColor whiteColor];
-        lblMax.font = [UIFont systemFontOfSize:8];
+        lblMax.font = [UIFont fontWithName:@"Helvetica" size:10];
         
-        self.maxTemperature = [[UILabel alloc] initWithFrame:CGRectMake(80, 65, 24, 14)];
+        self.maxTemperature = [[UILabel alloc] initWithFrame:CGRectMake(80, 65, 28, 16)];
         self.maxTemperature.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
         self.maxTemperature.textAlignment = NSTextAlignmentCenter;
         

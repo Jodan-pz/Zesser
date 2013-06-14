@@ -11,7 +11,7 @@
 
 @protocol JDNFindMyPlaceDelegate <NSObject>
 
--(void)findMyPlaceDidFoundCurrentLocation:(CLPlacemark*)place;
+-(void)findMyPlaceDidFoundCurrentLocation:(NSString*)place;
 
 @end
 
