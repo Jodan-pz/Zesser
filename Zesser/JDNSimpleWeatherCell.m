@@ -46,11 +46,12 @@
     [self.curWeatherView.forecastImage setNeedsDisplay];
     
     // summary
+    self.sumWeatherView.alpha = 0;
     self.sumWeatherView.forecast.text = nil;
     self.sumWeatherView.wind.text = nil;
     self.sumWeatherView.temperature.text = nil;
     self.sumWeatherView.minTemperature.text = nil;
-    self.sumWeatherView.maxTemperature.text = nil;
+    self.sumWeatherView.alpha = 0;
 }
 
 -(JDNSummaryWeatherView *)sumWeatherView{
@@ -116,6 +117,9 @@
                                                 byValue:minTemp];
     [JDNClientHelper configureTemperatureLayoutForLabel:self.sumWeatherView.maxTemperature
                                                 byValue:maxTemp];
+    [UIView animateWithDuration:1 animations:^{
+        self.sumWeatherView.alpha = 1;
+    }];
 }
 
 @end

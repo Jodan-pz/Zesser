@@ -271,8 +271,8 @@
         }else{
             NSIndexPath* indexPath = [self.tableView indexPathForCell:sender];
             weatherController.city = [JDNCities sharedCities].cities[indexPath.row];
-            weatherController.currentDailyData = self.currentDailyData[weatherController.city.key];
         }
+        weatherController.currentDailyData = self.currentDailyData[weatherController.city.key];
     } else if ( [segue.identifier isEqualToString:@"searchCity"]){
         UINavigationController *searchCityController = segue.destinationViewController;
         ((JDNCitySearchTableViewController*) searchCityController.topViewController).delegate = self;
