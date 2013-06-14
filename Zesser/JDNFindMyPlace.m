@@ -30,6 +30,11 @@
 
 -(void)startSearchingCurrentLocationWithAccuracy:(CLLocationAccuracy)accurancy{
     if ( self.delegate ) {
+        if ( ! [CLLocationManager locationServicesEnabled] ||
+            [CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized ) {
+            [self.delegate findMyPlaceDidFoundCurrentLocation:nil];
+            return;
+        }
         self.decoded = NO;
         [self performSelector:@selector(searchComplete:) withObject:NO afterDelay:10];
         self.locationManager.desiredAccuracy = accurancy;
@@ -44,13 +49,16 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
+    
+    NSLog(@"ACC %f" , self.lastUpdatedLocation.horizontalAccuracy);
+    
     /* Save the new location to an instance variable */
     self.lastUpdatedLocation = [locations lastObject];
     /* Refuse updates more than a minute old */
     if (abs([self.lastUpdatedLocation.timestamp timeIntervalSinceNow]) > 60.0) {
         return;
     }
-    NSLog(@"ACC %f" , self.lastUpdatedLocation.horizontalAccuracy);
+    
     /* If it's, accurate enough, cancel the timer */
     if (self.lastUpdatedLocation.horizontalAccuracy < 1000) {
         [NSObject cancelPreviousPerformRequestsWithTarget:self];
@@ -70,7 +78,6 @@
 }
 
 -(void)decodeCurrentLocation{
-
     CLGeocoder *geocoder = [[CLGeocoder alloc] init] ;
     [geocoder reverseGeocodeLocation:self.lastUpdatedLocation
                    completionHandler:^(NSArray *placemarks, NSError *error) {
@@ -86,7 +93,7 @@
                        if ( [placemark.postalCode isEqualToString:@"20060"] && [placemark.locality isEqualToString:@"Bettola"] ){
                            place = @"Pozzo D'Adda";
                        }
-                       NSLog(@"Place: %@", placemark);
+                       NSLog(@"Place: (%@) - %@", place, placemark);
                        
                        [self.delegate findMyPlaceDidFoundCurrentLocation:place];
                    }];
