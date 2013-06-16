@@ -9,6 +9,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import <CoreLocation/CoreLocation.h>
 
+#import "NSArray+LinqExtensions.h"
 #import "JDNCitiesTableViewController.h"
 #import "JDNCities.h"
 #import "JDNCity.h"
@@ -20,7 +21,7 @@
 #import "JDNCitySearchTableViewController.h"
 #import "JDNFindMyPlace.h"
 #import "JDNCitySearcher.h"
-#import "NSArray+LinqExtensions.h"
+#import "JDNPlace.h"
 
 #define REFRESH_TITLE_ATTRIBUTES @{NSForegroundColorAttributeName:[UIColor colorWithRed:0.746 green:0.909 blue:0.936 alpha:1.000] }
 #define REFRESH_TINT_COLOR       [UIColor colorWithRed:0.367 green:0.609 blue:0.887 alpha:1.000]
@@ -291,7 +292,7 @@
         self.editCitiesBarButtonItem.enabled = self.addCityButton.enabled = NO;
         self.isRefreshingData = YES;
         [self.currentDailyData removeAllObjects];
-        [self.findMyPlace startSearchingCurrentLocationWithAccuracy:kCLLocationAccuracyBestForNavigation];
+        [self.findMyPlace startSearchingCurrentLocation];
         NSMutableAttributedString *title = [[NSMutableAttributedString alloc]
                                             initWithString:@"Aggiornamento dati..."
                                             attributes:REFRESH_TITLE_ATTRIBUTES];
@@ -318,7 +319,7 @@
     });
 }
 
--(void)findMyPlaceDidFoundCurrentLocation:(NSString *)place{
+-(void)findMyPlaceDidFoundCurrentLocation:(JDNPlace *)place{
     if( !place ){
         [self finalizeRefreshAction];
         return;
@@ -330,20 +331,32 @@
     JDNCity *oldFixedCity = [[JDNCities sharedCities].cities firstOrNil];
     if ( oldFixedCity && oldFixedCity.order != -1) oldFixedCity = nil;
     
-    [self.citySearcher searchPlaceByText:place withCompletion:^(NSArray *data) {
+    __block NSString *placeToFind = place.locality;
+    
+    [self.citySearcher searchPlaceByText:placeToFind withCompletion:^(NSArray *data) {
         if ( !data  || !data.count ) {
-            [self finalizeRefreshAction];
-            return;
-        }
-        if (data.count) {
-            JDNCity *firstFound = data[0];
-            if ( [firstFound.name  rangeOfString:place options:NSCaseInsensitiveSearch ].location == 0 ){
-                firstFound.order = -1;
-                [[JDNCities sharedCities] updateOrAddByOldCity:oldFixedCity andNewCity:firstFound];
-            }
-            [self finalizeRefreshAction];
+            placeToFind = place.subAreaLocality;
+            [self.citySearcher searchPlaceByText:placeToFind withCompletion:^(NSArray *data) {
+                if ( !data  || !data.count ) {
+                    [self finalizeRefreshAction];
+                    return;
+                }else{
+                    [self updateCurrentCity:data[0] place:placeToFind oldCity:oldFixedCity];
+                }
+            }];
+        }else{
+            [self updateCurrentCity:data[0] place:placeToFind oldCity:oldFixedCity];
         }
     }];
+}
+
+-(void) updateCurrentCity:(JDNCity*)city place:(NSString*)placeToFind oldCity:(JDNCity*)oldFixedCity{
+    JDNCity *firstFound = city;
+    if ( [firstFound.name  rangeOfString:placeToFind options:NSCaseInsensitiveSearch ].location == 0 ){
+        firstFound.order = -1;
+        [[JDNCities sharedCities] updateOrAddByOldCity:oldFixedCity andNewCity:firstFound];
+    }
+    [self finalizeRefreshAction];
 }
 
 @end

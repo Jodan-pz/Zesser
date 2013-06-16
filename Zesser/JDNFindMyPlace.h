@@ -9,9 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
+@class JDNPlace;
+
 @protocol JDNFindMyPlaceDelegate <NSObject>
 
--(void)findMyPlaceDidFoundCurrentLocation:(NSString*)place;
+-(void)findMyPlaceDidFoundCurrentLocation:(JDNPlace*)place;
 
 @end
 
@@ -19,6 +21,6 @@
 
 @property (weak,nonatomic) id<JDNFindMyPlaceDelegate> delegate;
 
--(void)startSearchingCurrentLocationWithAccuracy:(CLLocationAccuracy)accurancy;
+-(void)startSearchingCurrentLocation;
 
 @end

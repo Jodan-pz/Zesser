@@ -8,6 +8,7 @@
 
 #import "JDNFindMyPlace.h"
 #import <CoreLocation/CoreLocation.h>
+#import "JDNPlace.h"
 
 @interface JDNFindMyPlace()<CLLocationManagerDelegate>
 
@@ -23,21 +24,20 @@
     if ( !_locationManager ){
         _locationManager = [CLLocationManager new];
         _locationManager.delegate = self;
-        _locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+        _locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
     }
     return _locationManager;
 }
 
--(void)startSearchingCurrentLocationWithAccuracy:(CLLocationAccuracy)accurancy{
+-(void)startSearchingCurrentLocation{
     if ( self.delegate ) {
-        if ( ! [CLLocationManager locationServicesEnabled] ||
-            [CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized ) {
+        if ( ! [CLLocationManager locationServicesEnabled]  ||
+            [CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized  ) {
             [self.delegate findMyPlaceDidFoundCurrentLocation:nil];
             return;
         }
         self.decoded = NO;
         [self performSelector:@selector(searchComplete:) withObject:NO afterDelay:10];
-        self.locationManager.desiredAccuracy = accurancy;
         [self.locationManager startUpdatingLocation];
     }
 }
@@ -59,7 +59,7 @@
         return;
     }
     
-    /* If it's, accurate enough, cancel the timer */
+    /* If it's accurate enough, cancel the timer */
     if (self.lastUpdatedLocation.horizontalAccuracy < 1000) {
         [NSObject cancelPreviousPerformRequestsWithTarget:self];
         /* And fire it manually instead */
@@ -85,14 +85,16 @@
                            [self.delegate findMyPlaceDidFoundCurrentLocation:nil];
                            return;
                        }
+                       CLPlacemark *placemark = placemarks[0];
+                       JDNPlace *place = [JDNPlace placeWithPlacemark:placemark];
                        
-                       CLPlacemark *placemark = [placemarks objectAtIndex:0];
-                       NSString *place = placemark.locality;
-                       
+                       NSString *loc = placemark.locality;
                        // fix just home!
                        if ( [placemark.postalCode isEqualToString:@"20060"] && [placemark.locality isEqualToString:@"Bettola"] ){
-                           place = @"Pozzo D'Adda";
+                           loc = @"Pozzo D'Adda";
                        }
+                       place.locality = loc;
+                       
                        NSLog(@"Place: (%@) - %@", place, placemark);
                        
                        [self.delegate findMyPlaceDidFoundCurrentLocation:place];

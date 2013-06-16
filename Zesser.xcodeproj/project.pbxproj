@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		14349CBA176D9F8100F1FF28 /* JDNPlace.m in Sources */ = {isa = PBXBuildFile; fileRef = 14349CB9176D9F8100F1FF28 /* JDNPlace.m */; };
 		143AAC1117632820002C3D31 /* NSArray+LinqExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 143AAC0F17632820002C3D31 /* NSArray+LinqExtensions.m */; };
 		143AAC1217632820002C3D31 /* NSDictionary+LinqExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 143AAC1017632820002C3D31 /* NSDictionary+LinqExtensions.m */; };
 		143AAC1517632E5D002C3D31 /* JDNCitySearcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 143AAC1417632E5D002C3D31 /* JDNCitySearcher.m */; };
@@ -46,6 +47,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		14349CB8176D9F8100F1FF28 /* JDNPlace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNPlace.h; sourceTree = "<group>"; };
+		14349CB9176D9F8100F1FF28 /* JDNPlace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNPlace.m; sourceTree = "<group>"; };
 		143AAC0D17632820002C3D31 /* NSArray+LinqExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+LinqExtensions.h"; path = "Zesser/NSArray+LinqExtensions.h"; sourceTree = "<group>"; };
 		143AAC0E17632820002C3D31 /* NSDictionary+LinqExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+LinqExtensions.h"; path = "Zesser/NSDictionary+LinqExtensions.h"; sourceTree = "<group>"; };
 		143AAC0F17632820002C3D31 /* NSArray+LinqExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+LinqExtensions.m"; path = "Zesser/NSArray+LinqExtensions.m"; sourceTree = "<group>"; };
@@ -231,6 +234,8 @@
 				CBD7107A1761CFD400ACA525 /* JDNClientHelper.m */,
 				CB1F4E821767113B00ACD371 /* JDNFindMyPlace.h */,
 				CB1F4E831767113B00ACD371 /* JDNFindMyPlace.m */,
+				14349CB8176D9F8100F1FF28 /* JDNPlace.h */,
+				14349CB9176D9F8100F1FF28 /* JDNPlace.m */,
 				CBD7107C1761D2CE00ACA525 /* Resources */,
 				CB615EC51754DF46004C1BA4 /* Supporting Files */,
 			);
@@ -389,6 +394,7 @@
 				CB1F4E841767113B00ACD371 /* JDNFindMyPlace.m in Sources */,
 				CBCAF3331769FE9B00B0C9FB /* JDNSummaryWeatherView.m in Sources */,
 				CBCAF3341769FE9B00B0C9FB /* JDNCurrentWeatherView.m in Sources */,
+				14349CBA176D9F8100F1FF28 /* JDNPlace.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
