@@ -55,7 +55,6 @@
     [aCoder encodeObject:self.name      forKey:KEY_NAME];
     [aCoder encodeObject:self.url       forKey:KEY_URL];
     [aCoder encodeInt   :self.order     forKey:KEY_ORDER];
-    
 }
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
