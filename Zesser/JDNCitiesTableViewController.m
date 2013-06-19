@@ -332,31 +332,40 @@
     if ( oldFixedCity && oldFixedCity.order != -1) oldFixedCity = nil;
     
     __block NSString *placeToFind = place.locality;
+    __block JDNCity  *firstFound;
     
     [self.citySearcher searchPlaceByText:placeToFind withCompletion:^(NSArray *data) {
-        if ( !data  || !data.count ) {
+        firstFound = [data firstOrNil];
+        
+        if (!firstFound || ![self isValidCityName:placeToFind withFullName:firstFound.name]) {
+        
             placeToFind = place.subAreaLocality;
+            
             [self.citySearcher searchPlaceByText:placeToFind withCompletion:^(NSArray *data) {
-                if ( !data  || !data.count ) {
-                    [self finalizeRefreshAction];
-                    return;
-                }else{
-                    [self updateCurrentCity:data[0] place:placeToFind oldCity:oldFixedCity];
+                firstFound = [data firstOrNil];
+                
+                if ( firstFound && [self isValidCityName:placeToFind withFullName:firstFound.name] ){
+                    firstFound.order = -1;
+                    [[JDNCities sharedCities] updateOrAddByOldCity:oldFixedCity andNewCity:firstFound];
                 }
+                [self finalizeRefreshAction];
+                
             }];
         }else{
-            [self updateCurrentCity:data[0] place:placeToFind oldCity:oldFixedCity];
+            firstFound.order = -1;
+            [[JDNCities sharedCities] updateOrAddByOldCity:oldFixedCity andNewCity:firstFound];
+            [self finalizeRefreshAction];
         }
     }];
 }
 
--(void) updateCurrentCity:(JDNCity*)city place:(NSString*)placeToFind oldCity:(JDNCity*)oldFixedCity{
-    JDNCity *firstFound = city;
-    if ( [firstFound.name  rangeOfString:placeToFind options:NSCaseInsensitiveSearch ].location == 0 ){
-        firstFound.order = -1;
-        [[JDNCities sharedCities] updateOrAddByOldCity:oldFixedCity andNewCity:firstFound];
+-(BOOL) isValidCityName:(NSString*)name withFullName:(NSString*)fullName{
+    NSRange rng = [fullName rangeOfString:@"("];
+    NSString *tmp = fullName;
+    if ( rng.location != NSNotFound){
+        tmp = [[fullName substringToIndex:rng.location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     }
-    [self finalizeRefreshAction];
+    return [name caseInsensitiveCompare:tmp] == NSOrderedSame;
 }
 
 @end

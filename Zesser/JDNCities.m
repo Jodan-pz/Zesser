@@ -50,6 +50,9 @@ static JDNCities *sharedCities_;
 }
 
 -(void)updateOrAddByOldCity:(JDNCity*)oldCity andNewCity:(JDNCity*)newCity{
+    
+    if ( [oldCity isEqualToCity:newCity]) return;
+    
     if ( oldCity ) {
         [self removeCity:oldCity];
         [self.mcities setValue:newCity forKey:newCity.key];
