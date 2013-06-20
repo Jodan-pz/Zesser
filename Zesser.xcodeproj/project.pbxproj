@@ -37,6 +37,7 @@
 		CB9BCC801760B39900996188 /* JDNSharedImages.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC7F1760B39900996188 /* JDNSharedImages.m */; };
 		CBCAF3331769FE9B00B0C9FB /* JDNSummaryWeatherView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCAF32F1769FE9B00B0C9FB /* JDNSummaryWeatherView.m */; };
 		CBCAF3341769FE9B00B0C9FB /* JDNCurrentWeatherView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCAF3311769FE9B00B0C9FB /* JDNCurrentWeatherView.m */; };
+		CBCEED891772E8900086BC9F /* JDNWorldCitySearcher.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCEED881772E8900086BC9F /* JDNWorldCitySearcher.m */; };
 		CBD7107B1761CFD400ACA525 /* JDNClientHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD7107A1761CFD400ACA525 /* JDNClientHelper.m */; };
 		CBD7107E1761D2DB00ACA525 /* info_64.png in Resources */ = {isa = PBXBuildFile; fileRef = CBD7107D1761D2DB00ACA525 /* info_64.png */; };
 		CBD710811761DB1100ACA525 /* JDNTestConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD710801761DB1100ACA525 /* JDNTestConnection.m */; };
@@ -100,6 +101,8 @@
 		CBCAF3301769FE9B00B0C9FB /* JDNSummaryWeatherView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNSummaryWeatherView.h; sourceTree = "<group>"; };
 		CBCAF3311769FE9B00B0C9FB /* JDNCurrentWeatherView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNCurrentWeatherView.m; sourceTree = "<group>"; };
 		CBCAF3321769FE9B00B0C9FB /* JDNCurrentWeatherView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNCurrentWeatherView.h; sourceTree = "<group>"; };
+		CBCEED871772E86B0086BC9F /* JDNWorldCitySearcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNWorldCitySearcher.h; sourceTree = "<group>"; };
+		CBCEED881772E8900086BC9F /* JDNWorldCitySearcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNWorldCitySearcher.m; sourceTree = "<group>"; };
 		CBD710791761CFD400ACA525 /* JDNClientHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNClientHelper.h; sourceTree = "<group>"; };
 		CBD7107A1761CFD400ACA525 /* JDNClientHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNClientHelper.m; sourceTree = "<group>"; };
 		CBD7107D1761D2DB00ACA525 /* info_64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info_64.png; sourceTree = "<group>"; };
@@ -274,6 +277,8 @@
 				CB9BCC6D17608B1700996188 /* JDNCities.h */,
 				CB9BCC6E17608B1700996188 /* JDNCities.m */,
 				143AAC1317632E5D002C3D31 /* JDNCitySearcher.h */,
+				CBCEED871772E86B0086BC9F /* JDNWorldCitySearcher.h */,
+				CBCEED881772E8900086BC9F /* JDNWorldCitySearcher.m */,
 				143AAC1417632E5D002C3D31 /* JDNCitySearcher.m */,
 			);
 			name = City;
@@ -395,6 +400,7 @@
 				CBCAF3331769FE9B00B0C9FB /* JDNSummaryWeatherView.m in Sources */,
 				CBCAF3341769FE9B00B0C9FB /* JDNCurrentWeatherView.m in Sources */,
 				14349CBA176D9F8100F1FF28 /* JDNPlace.m in Sources */,
+				CBCEED891772E8900086BC9F /* JDNWorldCitySearcher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

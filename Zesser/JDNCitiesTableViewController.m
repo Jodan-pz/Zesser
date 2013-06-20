@@ -320,7 +320,7 @@
 }
 
 -(void)findMyPlaceDidFoundCurrentLocation:(JDNPlace *)place{
-    if( !place ){
+    if( !place || !place.isItaly ){
         [self finalizeRefreshAction];
         return;
     }

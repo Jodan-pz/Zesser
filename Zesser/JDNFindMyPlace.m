@@ -94,7 +94,7 @@
                            loc = @"Pozzo D'Adda";
                        }
                        place.locality = loc;
-                       
+
                        NSLog(@"Place: (%@) - %@", place, placemark);
                        
                        [self.delegate findMyPlaceDidFoundCurrentLocation:place];

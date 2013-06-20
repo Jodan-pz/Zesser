@@ -14,6 +14,8 @@
 
 @property (strong,nonatomic) NSString *locality;
 @property (strong,nonatomic) NSString *subAreaLocality;
+@property (strong,nonatomic) NSString *country;
+@property (nonatomic)        BOOL isItaly;
 
 -(JDNPlace *)initWithPlacemark:(CLPlacemark *)placemark;
 +(JDNPlace*)placeWithPlacemark:(CLPlacemark*)placemark;

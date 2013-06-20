@@ -11,16 +11,23 @@
 
 @implementation JDNPlace
 
+-(BOOL)isIsItaly{
+    return  [self.country caseInsensitiveCompare:@"Italia" ] == NSOrderedSame;
+}
+
 -(NSString *)description{
-    return [NSString stringWithFormat:@"Loc: %@ - SubArea: %@",
+    return [NSString stringWithFormat:@"Loc: %@ - SubArea: %@ - (%@)",
             self.locality,
-            self.subAreaLocality];
+            self.subAreaLocality,
+            self.country];
 }
 
 -(JDNPlace *)initWithPlacemark:(CLPlacemark *)placemark{
     if ( self = [super init]){
-        self.locality = placemark.locality;
+        self.locality        = placemark.locality;
         self.subAreaLocality = placemark.subAdministrativeArea;
+        self.country         = placemark.country;
+        
     }
     return self;
 }
