@@ -85,19 +85,21 @@
 }
 
 -(NSArray*)collectWorldData{
-    NSMutableString *xmlData = [[NSMutableString alloc] initWithString:@"<table id=\""];
+   /* NSMutableString *xmlData = [[NSMutableString alloc] initWithString:@"<table id=\""];
     NSRange tab = [self.receivedString rangeOfString:@"previsioniOverlTable"];
     [xmlData appendString:[self.receivedString substringFromIndex:tab.location ]];
     NSRange tabEnd = [xmlData rangeOfString:@"</table>"];
     
     NSString *finalXml = [xmlData substringToIndex:tabEnd.location + tabEnd.length ];
     finalXml = [JDNClientHelper unescapeString:finalXml];
-    
+    */
     NSMutableArray *datas = [NSMutableArray arrayWithCapacity:5];
     
     JDNDailyData *t = [[JDNDailyData alloc] init];
     t.temperature = @"10";
     t.forecast = @"Test";
+    t.day = @"lun,";
+    t.hourOfDay = @"01:00";
     
     [datas addObject:t];
     
