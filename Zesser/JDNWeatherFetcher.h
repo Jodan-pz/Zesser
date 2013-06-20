@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@class JDNDailyData;
+@class JDNDailyData, JDNCity;
 
 @interface JDNWeatherFetcher : NSObject
 
 -(void)isAvailable:(BooleanCallBack)callback;
--(void)fetchDailyDataForCity:(NSString *)cityUrl withCompletion:(ArrayDataCallBack)callback;
+-(void)fetchDailyDataForCity:(JDNCity *)city withCompletion:(ArrayDataCallBack)callback;
 
 @end

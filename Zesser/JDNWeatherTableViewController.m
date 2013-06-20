@@ -63,7 +63,7 @@
             
             if ( available ){
                 
-                [self.weatherFetcher fetchDailyDataForCity:self.city.url withCompletion:^(NSArray *data) {
+                [self.weatherFetcher fetchDailyDataForCity:self.city withCompletion:^(NSArray *data) {
                     [[NSKeyedArchiver archivedDataWithRootObject:data] writeToFile:cachedData atomically:YES];
                     [self createSectionsWithData:data];
                     [self.tableView reloadData];

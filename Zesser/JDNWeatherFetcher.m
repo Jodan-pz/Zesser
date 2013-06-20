@@ -10,36 +10,47 @@
 #import "JDNDailyData.h"
 #import "XPathQuery.h"
 #import "JDNTestConnection.h"
+#import "JDNCity.h"
 
 @interface JDNWeatherFetcher()<NSURLConnectionDataDelegate>
 
 @property (strong,nonatomic) NSString           *receivedString;
 @property (strong,nonatomic) NSMutableData      *receivedData;
 @property (strong,nonatomic) ArrayDataCallBack  callback;
-@property (nonatomic)        BOOL               fetchNow;
+@property (nonatomic)        JDNCity            *city;
 
 @end
 
 @implementation JDNWeatherFetcher
 
-#define BASE_URL          @"http://www.meteoam.it/"
+#define ITA_BASE_URL          @"http://www.meteoam.it/"
+#define WLD_BASE_URL          @"http://wwis.meteoam.it/"
 
 -(void)isAvailable:(BooleanCallBack)callback {
     JDNTestConnection *testConnection = [[JDNTestConnection alloc] init];
-    [testConnection checkConnectionToUrl:BASE_URL
+    [testConnection checkConnectionToUrl:ITA_BASE_URL
                             withCallback:^(BOOL result) {
                                 callback(result);
                             }];
 }
 
 
--(void)fetchDailyDataForCity:(NSString *)cityUrl withCompletion:(ArrayDataCallBack)callback{
+-(void)fetchDailyDataForCity:(JDNCity *)city withCompletion:(ArrayDataCallBack)callback{
     self.callback = callback;
     self.receivedData = [[NSMutableData alloc] init];
     self.receivedString = @"";
+    self.city = city;
+    
+    NSURL *url = nil;
+    
+    if ( city.isItaly ){
+        url = [NSURL URLWithString: [ITA_BASE_URL stringByAppendingString:city.url]];
+    }else{
+        url = [NSURL URLWithString: [WLD_BASE_URL stringByAppendingString:city.url]];
+    }
     
     NSURLRequest *request = [[NSURLRequest alloc]
- 							 initWithURL: [NSURL URLWithString: [BASE_URL stringByAppendingString:cityUrl]]
+ 							 initWithURL:url
  							 cachePolicy: NSURLRequestReloadIgnoringLocalCacheData
  							 timeoutInterval: 10
  							 ];
@@ -63,7 +74,34 @@
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection{
     self.receivedString = [[NSString alloc] initWithData:self.receivedData
                                            encoding:NSASCIIStringEncoding];
-    self.callback( [self collectData] );
+    
+    NSArray *data = nil;
+    if ( self.city.isItaly ){
+        data = [self collectData];
+    }else{
+        data = [self collectWorldData];
+    }
+    self.callback( data );
+}
+
+-(NSArray*)collectWorldData{
+    NSMutableString *xmlData = [[NSMutableString alloc] initWithString:@"<table id=\""];
+    NSRange tab = [self.receivedString rangeOfString:@"previsioniOverlTable"];
+    [xmlData appendString:[self.receivedString substringFromIndex:tab.location ]];
+    NSRange tabEnd = [xmlData rangeOfString:@"</table>"];
+    
+    NSString *finalXml = [xmlData substringToIndex:tabEnd.location + tabEnd.length ];
+    finalXml = [JDNClientHelper unescapeString:finalXml];
+    
+    NSMutableArray *datas = [NSMutableArray arrayWithCapacity:5];
+    
+    JDNDailyData *t = [[JDNDailyData alloc] init];
+    t.temperature = @"10";
+    t.forecast = @"Test";
+    
+    [datas addObject:t];
+    
+    return datas;
 }
 
 - (NSArray*)collectData {
@@ -102,9 +140,9 @@
         data.day = daysAndHours[i];
         data.hourOfDay = daysAndHours[i+1];
         data.forecast = forecastAndWind[i][1];
-        data.forecastImage = [BASE_URL stringByAppendingString:forecastAndWind[i][0]];
+        data.forecastImage = [ITA_BASE_URL stringByAppendingString:forecastAndWind[i][0]];
         data.wind = forecastAndWind[i+1][1];
-        data.windImage = [BASE_URL stringByAppendingString: forecastAndWind[i+1][0]];
+        data.windImage = [ITA_BASE_URL stringByAppendingString: forecastAndWind[i+1][0]];
         [datas addObject:data];
     }
     
