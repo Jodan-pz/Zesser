@@ -104,7 +104,14 @@
     NSString *finalXml = [JDNClientHelper unescapeString:tmp];
 
     NSArray *days = [ PerformHTMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],@"//table/tr[position()>2]" ) valueForKeyPath:@"nodeChildArray.nodeContent"];
- 
+    NSArray *forecast = [[  PerformHTMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],@"//table/tr[position()>2]/td" )
+                          valueForKeyPath:@"nodeChildArray.nodeChildArray.nodeChildArray.nodeChildArray.nodeContent"] filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSString *evaluatedObject, NSDictionary *bindings) {
+        return evaluatedObject != nil &&  [evaluatedObject class] != [NSNull class] ;
+    }]] ;
+
+    
+    NSArray *minTemps = [ PerformHTMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],@"//table/tr[position()>2]" ) valueForKeyPath:@"nodeChildArray.nodeContent"];
+    
     NSMutableArray *datas = [NSMutableArray arrayWithCapacity:5];
     
     for (NSUInteger i = 0; i < days.count; i++) {
