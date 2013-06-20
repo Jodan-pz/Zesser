@@ -18,3 +18,5 @@
 typedef void(^ArrayDataCallBack)(NSArray *data);
 typedef void(^BooleanCallBack)(BOOL result);
 
+#define YESPRIME 1231
+#define NOPRIME  1237
