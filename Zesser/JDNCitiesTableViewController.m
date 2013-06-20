@@ -174,6 +174,9 @@
 }
 
 -(void)updateWeatherDataForCity: (JDNCity*)city inCell: (JDNSimpleWeatherCell*)cell {
+    
+    if (!city.isItaly) return;
+    
     // check current daily (speedup)
     NSArray *data = [self.currentDailyData valueForKey:city.key];
     if(data){
@@ -334,14 +337,14 @@
     __block NSString *placeToFind = place.locality;
     __block JDNCity  *firstFound;
     
-    [self.citySearcher searchPlaceByText:placeToFind withCompletion:^(NSArray *data) {
+    [self.citySearcher searchPlaceByText:placeToFind includeWorld:NO withCompletion:^(NSArray *data) {
         firstFound = [data firstOrNil];
         
         if (!firstFound || ![self isValidCityName:placeToFind withFullName:firstFound.name]) {
         
             placeToFind = place.subAreaLocality;
             
-            [self.citySearcher searchPlaceByText:placeToFind withCompletion:^(NSArray *data) {
+            [self.citySearcher searchPlaceByText:placeToFind includeWorld:NO withCompletion:^(NSArray *data) {
                 firstFound = [data firstOrNil];
                 
                 if ( firstFound && [self isValidCityName:placeToFind withFullName:firstFound.name] ){

@@ -277,9 +277,9 @@
 				CB9BCC6D17608B1700996188 /* JDNCities.h */,
 				CB9BCC6E17608B1700996188 /* JDNCities.m */,
 				143AAC1317632E5D002C3D31 /* JDNCitySearcher.h */,
+				143AAC1417632E5D002C3D31 /* JDNCitySearcher.m */,
 				CBCEED871772E86B0086BC9F /* JDNWorldCitySearcher.h */,
 				CBCEED881772E8900086BC9F /* JDNWorldCitySearcher.m */,
-				143AAC1417632E5D002C3D31 /* JDNCitySearcher.m */,
 			);
 			name = City;
 			sourceTree = "<group>";

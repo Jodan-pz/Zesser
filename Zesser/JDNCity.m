@@ -68,7 +68,7 @@
     self.name       = [aDecoder decodeObjectForKey:KEY_NAME];
     self.url        = [aDecoder decodeObjectForKey:KEY_URL];
     self.order      = [aDecoder decodeIntForKey   :KEY_ORDER];
-    self.isItaly    = [aDecoder decodeIntForKey   :KEY_ISITA];
+    self.isItaly    = [aDecoder decodeBoolForKey  :KEY_ISITA];
     return self;
 }
 

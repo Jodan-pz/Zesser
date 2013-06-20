@@ -70,7 +70,7 @@
     // search
     [self.loadSpinner startAnimating];
     [_filteredList removeAllObjects];
-    [_citySearcher searchPlaceByText:searchText withCompletion:^(NSArray *data) {
+    [_citySearcher searchPlaceByText:searchText includeWorld:YES withCompletion:^(NSArray *data) {
         [self.loadSpinner stopAnimating];
         for (JDNCity *city in data) {
             [_filteredList addObject:city];
@@ -122,6 +122,7 @@
         cell.backgroundColor = [UIColor clearColor];
         cell.textLabel.font = [UIFont systemFontOfSize:12];
         cell.textLabel.textColor = [UIColor colorWithRed:0.824 green:0.948 blue:0.951 alpha:1.000];
+        cell.detailTextLabel.textColor = [UIColor colorWithRed:0.892 green:0.870 blue:0.965 alpha:1.000];
     }
     
     NSString *title;
@@ -129,10 +130,12 @@
         //If the user is searching, use the list in our filteredList array.
         JDNCity *city = [_filteredList objectAtIndex:indexPath.row];
         title = city.name;
+        cell.detailTextLabel.text = city.isItaly?@"ITA":@"OTHER";
     } else {
         title = @"No data...";
     }
     cell.textLabel.text = title;
+
     return cell;
 }
 
