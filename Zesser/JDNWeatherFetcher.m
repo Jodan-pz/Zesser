@@ -85,23 +85,49 @@
 }
 
 -(NSArray*)collectWorldData{
-   /* NSMutableString *xmlData = [[NSMutableString alloc] initWithString:@"<table id=\""];
-    NSRange tab = [self.receivedString rangeOfString:@"previsioniOverlTable"];
-    [xmlData appendString:[self.receivedString substringFromIndex:tab.location ]];
-    NSRange tabEnd = [xmlData rangeOfString:@"</table>"];
+    NSRange rangeFlag = [self.receivedString rangeOfString:@"wxforecast"];
+    if (rangeFlag.location == NSNotFound) return nil;
+    NSString *tmp = [self.receivedString substringFromIndex:rangeFlag.location];
     
-    NSString *finalXml = [xmlData substringToIndex:tabEnd.location + tabEnd.length ];
-    finalXml = [JDNClientHelper unescapeString:finalXml];
-    */
+    NSRange table = [tmp rangeOfString:@"<table"];
+    if (table.location == NSNotFound) return nil;
+    tmp = [ tmp substringFromIndex:table.location];
+    
+    NSRange rangeFlag2 = [tmp rangeOfString:@"wxforecast" options:NSBackwardsSearch];
+    if (rangeFlag2.location == NSNotFound) return nil;
+    tmp = [tmp substringToIndex:rangeFlag2.location];
+    
+    NSRange tableEnd = [tmp rangeOfString:@"</table>" options:NSBackwardsSearch];
+    if (tableEnd.location == NSNotFound) return nil;
+    tmp = [tmp substringToIndex:tableEnd.location + tableEnd.length];
+
+    NSString *finalXml = [JDNClientHelper unescapeString:tmp];
+
+    NSArray *days = [ PerformHTMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],@"//table/tr[position()>2]" ) valueForKeyPath:@"nodeChildArray.nodeContent"];
+ 
     NSMutableArray *datas = [NSMutableArray arrayWithCapacity:5];
     
-    JDNDailyData *t = [[JDNDailyData alloc] init];
-    t.temperature = @"10";
-    t.forecast = @"Test";
-    t.day = @"lun,";
-    t.hourOfDay = @"01:00";
-    
-    [datas addObject:t];
+    for (NSUInteger i = 0; i < days.count; i++) {
+        NSRange sep = [days[i][0] rangeOfCharacterFromSet:[NSCharacterSet newlineCharacterSet]];
+        NSString *day = [ days[i][0] substringToIndex:sep.location];
+        NSRange posStart = [days[i][0] rangeOfString:@"("];
+        NSRange posEnd = [days[i][0] rangeOfString:@")"];
+        NSString *nameOfDay = [[days[i][0] substringFromIndex:posStart.location + posStart.length] substringToIndex:posEnd.location - (posStart.location + posStart.length)];
+        day = [[nameOfDay stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
+               stringByAppendingFormat:@", %@", day];
+        
+        JDNDailyData *dataMin = [[JDNDailyData alloc] init];
+        dataMin.day = day;
+        dataMin.hourOfDay = @"01:00";
+
+        [datas addObject:dataMin];
+
+        JDNDailyData *dataMax = [[JDNDailyData alloc] init];
+        dataMax.day = day;
+        dataMax.hourOfDay = @"13:00";
+        
+        [datas addObject:dataMax];
+    }
     
     return datas;
 }

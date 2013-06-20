@@ -130,7 +130,7 @@
         //If the user is searching, use the list in our filteredList array.
         JDNCity *city = [_filteredList objectAtIndex:indexPath.row];
         title = city.name;
-        cell.detailTextLabel.text = city.isItaly?@"ITA":@"OTHER";
+        cell.detailTextLabel.text = city.isItaly?@"ITA":@"WORLD";
     } else {
         title = @"No data...";
     }

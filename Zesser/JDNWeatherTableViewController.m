@@ -124,7 +124,6 @@
              forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
     
-    
     if ( self.currentDailyData ){
         if ( self.city ){
             self.title = self.city.name;

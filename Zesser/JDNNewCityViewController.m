@@ -39,7 +39,7 @@
 - (IBAction)cancelAddCity:(id)sender {
     if ( self.delegate ){
         [self.delegate didAddedNewCity:nil
-                          sender:self];
+                                sender:self];
     }
 }
 
@@ -48,9 +48,10 @@
         JDNCity *city = [[JDNCity alloc] init];
         city.name = self.cityName.text;
         city.url = self.url.text;
+        city.isItaly = self.city.isItaly;
         [[JDNCities sharedCities] addCity:city];
         [self.delegate didAddedNewCity:city
-                          sender:self];
+                                sender:self];
     }
 }
 

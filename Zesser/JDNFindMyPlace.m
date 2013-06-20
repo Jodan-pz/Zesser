@@ -32,7 +32,7 @@
 -(void)startSearchingCurrentLocation{
     if ( self.delegate ) {
         if ( ! [CLLocationManager locationServicesEnabled]  ||
-            [CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized  ) {
+            ([CLLocationManager authorizationStatus] && [CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized ) ) {
             [self.delegate findMyPlaceDidFoundCurrentLocation:nil];
             return;
         }
