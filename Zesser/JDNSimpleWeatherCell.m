@@ -96,7 +96,7 @@
     if ( !dailyData || !dailyData.count ) return;
     
     JDNDailyData *nowData = [dailyData firstOrNil];
-    
+
     // current view
     self.curWeatherView.temperature.text = [NSString stringWithFormat:@"%@°", nowData.apparentTemperature];
     [[JDNSharedImages sharedImages] setImageView:self.curWeatherView.forecastImage

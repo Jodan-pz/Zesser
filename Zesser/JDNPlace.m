@@ -11,7 +11,7 @@
 
 @implementation JDNPlace
 
--(BOOL)isIsItaly{
+-(BOOL)isItaly{
     return  [self.country caseInsensitiveCompare:@"Italia" ] == NSOrderedSame;
 }
 

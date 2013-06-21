@@ -175,6 +175,8 @@
 
 -(void)updateWeatherDataForCity: (JDNCity*)city inCell: (JDNSimpleWeatherCell*)cell {
 
+    if ( !city.isItaly ) return;
+    
     // check current daily (speedup)
     NSArray *data = [self.currentDailyData valueForKey:city.key];
     if(data){
