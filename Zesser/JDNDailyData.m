@@ -42,6 +42,14 @@
     return self;
 }
 
+-(BOOL)isToday{
+    NSRange idx = [self.day rangeOfString:@","];
+    if (idx.location == NSNotFound) return NO; // unable to evaluate
+    NSInteger today = [[ self.day substringFromIndex:idx.location+1] integerValue];
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit fromDate:[NSDate date]];
+    return [components day] == today;
+}
+
 -(void)setDay:(NSString *)day{
     NSRange pos = [day rangeOfString:@"lun,"options:NSCaseInsensitiveSearch];
     if ( pos.location != NSNotFound){

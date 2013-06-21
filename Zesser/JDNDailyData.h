@@ -20,4 +20,6 @@
 @property (strong,nonatomic)            NSString *hourOfDay;
 @property (strong,readonly,nonatomic)   NSString *shortDescription;
 
+-(BOOL)isToday;
+
 @end

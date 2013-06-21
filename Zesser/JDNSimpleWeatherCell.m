@@ -108,7 +108,15 @@
     if ( city.isInItaly ){
        nowData = [dailyData firstOrNil];
     }else{
-        return;
+        NSUInteger idx = [dailyData indexOfObjectPassingTest:^BOOL(JDNDailyData *dailyData, NSUInteger idx, BOOL *stop) {
+            if ( [dailyData isToday] && [dailyData.hourOfDay isEqualToString:@"13:00"] ){
+                *stop = YES;
+                return YES;
+            }
+            return NO;
+        }];
+        if ( idx == NSNotFound) return;
+        nowData = dailyData[idx];
     }
 
     // current view
