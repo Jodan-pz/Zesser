@@ -139,7 +139,7 @@
         NSString *fullURL = [urls[i]lastObject];
         NSRange range = [fullURL rangeOfString:@"/" options:NSBackwardsSearch];
         NSString *url = [fullURL substringToIndex:range.location];
-        data.isItaly = YES;
+        data.isInItaly = YES;
         data.name = names[i];
         data.url = url;
         [datas addObject:data];

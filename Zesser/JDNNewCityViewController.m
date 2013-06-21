@@ -48,7 +48,7 @@
         JDNCity *city = [[JDNCity alloc] init];
         city.name = self.cityName.text;
         city.url = self.url.text;
-        city.isItaly = self.city.isItaly;
+        city.isInItaly = self.city.isInItaly;
         [[JDNCities sharedCities] addCity:city];
         [self.delegate didAddedNewCity:city
                                 sender:self];

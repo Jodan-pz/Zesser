@@ -43,7 +43,7 @@
     
     NSURL *url = nil;
     
-    if ( city.isItaly ){
+    if ( city.isInItaly ){
         url = [NSURL URLWithString: [ITA_BASE_URL stringByAppendingString:city.url]];
     }else{
         url = [NSURL URLWithString: [WLD_BASE_URL stringByAppendingString:city.url]];
@@ -76,7 +76,7 @@
                                            encoding:NSASCIIStringEncoding];
     
     NSArray *data = nil;
-    if ( self.city.isItaly ){
+    if ( self.city.isInItaly ){
         data = [self collectData];
     }else{
         data = [self collectWorldData];

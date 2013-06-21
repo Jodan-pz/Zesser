@@ -11,6 +11,7 @@
 #import "JDNCurrentWeatherView.h"
 #import "JDNSummaryWeatherView.h"
 #import "NSArray+LinqExtensions.h"
+#import "JDNCity.h"
 
 @interface JDNSimpleWeatherCell()
 
@@ -22,8 +23,7 @@
 
 @implementation JDNSimpleWeatherCell;
 
--(void)configureCell {
-    self.backgroundColor = [UIColor redColor];
+-(void)configureScrollView {
     if (_curWeatherView) return;
     
     [self.scrollView addSubview:self.curWeatherView];
@@ -35,8 +35,17 @@
     self.scrollView.contentOffset = CGPointMake(0, 0);
 }
 
--(void)clear {
-    [self configureCell];
+-(void)prepareForCity:(JDNCity*)city{
+    
+    self.scrollView.contentOffset = CGPointMake(0, 0);
+    
+    if (!city.isInItaly){
+        self.scrollView.scrollEnabled = NO;
+    }else{
+        self.scrollView.scrollEnabled = YES;
+    }
+    
+    [self configureScrollView];
     
     [[self loadingView] stopAnimating];
     
@@ -44,7 +53,6 @@
     self.curWeatherView.temperature.text = nil;
     self.curWeatherView.forecastImage.image = nil;
     [self.curWeatherView.forecastImage setNeedsDisplay];
-    
     // summary
     self.sumWeatherView.alpha = 0;
     self.sumWeatherView.forecast.text = nil;
@@ -91,11 +99,17 @@
     [[self loadingView] startAnimating];
 }
 
--(void)setupCellWithDailyData:(NSArray*)dailyData{
+-(void)setupCellForCity:(JDNCity*)city withDailyData:(NSArray*)dailyData{
     [[self loadingView] stopAnimating];
     if ( !dailyData || !dailyData.count ) return;
     
-    JDNDailyData *nowData = [dailyData firstOrNil];
+    JDNDailyData *nowData = nil;
+    
+    if ( city.isInItaly ){
+       nowData = [dailyData firstOrNil];
+    }else{
+        return;
+    }
 
     // current view
     self.curWeatherView.temperature.text = [NSString stringWithFormat:@"%@°", nowData.apparentTemperature];

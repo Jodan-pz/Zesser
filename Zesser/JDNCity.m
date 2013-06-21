@@ -34,7 +34,7 @@
     result = prime * result + [self.name hash];
     result = prime * result + [self.url hash];
     result = prime * result + self.order;
-    result = prime * result + self.isItaly?YESPRIME:NOPRIME;
+    result = prime * result + self.isInItaly?YESPRIME:NOPRIME;
     return result;
 }
 
@@ -49,26 +49,26 @@
     BOOL ret = [self.name isEqualToString:other.name] &&
     [self.url isEqualToString:other.url] &&
     self.order == other.order &&
-    self.isItaly == other.isItaly;
+    self.isInItaly == other.isInItaly;
     return ret;
 }
 
 -(NSString *)description{
-    return [NSString stringWithFormat:@"%@ - %@ - %ld - (%@)", self.name, self.url, (long)self.order, self.isItaly?@"ITA":@"WLD"];
+    return [NSString stringWithFormat:@"%@ - %@ - %ld - (%@)", self.name, self.url, (long)self.order, self.isInItaly?@"ITA":@"WLD"];
 }
 
 -(void)encodeWithCoder:(NSCoder *)aCoder{
     [aCoder encodeObject:self.name      forKey:KEY_NAME];
     [aCoder encodeObject:self.url       forKey:KEY_URL];
     [aCoder encodeInt   :self.order     forKey:KEY_ORDER];
-    [aCoder encodeBool  :self.isItaly   forKey:KEY_ISITA];
+    [aCoder encodeBool  :self.isInItaly forKey:KEY_ISITA];
 }
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
     self.name       = [aDecoder decodeObjectForKey:KEY_NAME];
     self.url        = [aDecoder decodeObjectForKey:KEY_URL];
     self.order      = [aDecoder decodeIntForKey   :KEY_ORDER];
-    self.isItaly    = [aDecoder decodeBoolForKey  :KEY_ISITA];
+    self.isInItaly  = [aDecoder decodeBoolForKey  :KEY_ISITA];
     return self;
 }
 

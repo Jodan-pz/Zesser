@@ -8,13 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@class JDNCity;
+
 @interface JDNSimpleWeatherCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *cityName;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
--(void)clear;
+-(void)prepareForCity:(JDNCity*)city;
 -(void)startLoadingData;
--(void)setupCellWithDailyData:(NSArray*)dailyData;
+-(void)setupCellForCity:(JDNCity*)city withDailyData:(NSArray*)dailyData;
 
 @end

@@ -13,7 +13,7 @@
 @property (strong,nonatomic) NSString *name;
 @property (strong,nonatomic) NSString *url;
 @property (nonatomic)        NSInteger order;
-@property (nonatomic)        BOOL     isItaly;
+@property (nonatomic)        BOOL     isInItaly;
 
 -(NSString*)key;
 -(BOOL)isEqualToCity:(JDNCity*)other;
