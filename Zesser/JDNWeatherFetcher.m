@@ -106,11 +106,13 @@
     NSArray *days = [ PerformHTMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],@"//table/tr[position()>2]" ) valueForKeyPath:@"nodeChildArray.nodeContent"];
     NSArray *forecast  = [PerformHTMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],@"//table/tr[position()>2]/td" ) valueForKeyPath:@"nodeChildArray.nodeChildArray.nodeAttributeArray.nodeContent"];
 
-    NSArray *minTemps = [ PerformHTMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],@"//table/tr[position()>2]" ) valueForKeyPath:@"nodeChildArray.nodeContent"];
-    \
+    NSArray *temps = [ PerformHTMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],@"//table/tr[position()>2]/td" ) valueForKeyPath:@"nodeChildArray.nodeChildArray"];
+    
     NSMutableArray *datas = [NSMutableArray arrayWithCapacity:5];
     
     NSUInteger foreIndex = 3;
+    NSUInteger tempIndex = 1;
+    
     for (NSUInteger i = 0; i < days.count; i++) {
         NSRange sep = [days[i][0] rangeOfCharacterFromSet:[NSCharacterSet newlineCharacterSet]];
         NSString *day = [ days[i][0] substringToIndex:sep.location];
@@ -123,6 +125,7 @@
         JDNDailyData *dataMin = [[JDNDailyData alloc] init];
         dataMin.day = day;
         dataMin.hourOfDay = @"01:00";
+        dataMin.temperature = dataMin.apparentTemperature = [temps[tempIndex][0][0] valueForKey:@"nodeContent"];
         dataMin.forecast = forecast[foreIndex][0][0][1];
         NSString *foreImage = forecast[foreIndex][0][0][0];
         NSRange fixUrl = [foreImage rangeOfString:@"/"];
@@ -135,8 +138,10 @@
         dataMax.hourOfDay = @"13:00";
         dataMax.forecast = dataMin.forecast;
         dataMax.forecastImage = dataMin.forecastImage;
+        dataMax.temperature = dataMax.apparentTemperature = [temps[tempIndex+1][0][0] valueForKey:@"nodeContent"];
         
         foreIndex += 5;
+        tempIndex += 5;
         
         [datas addObject:dataMax];
     }
