@@ -104,17 +104,13 @@
     NSString *finalXml = [JDNClientHelper unescapeString:tmp];
 
     NSArray *days = [ PerformHTMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],@"//table/tr[position()>2]" ) valueForKeyPath:@"nodeChildArray.nodeContent"];
-    NSArray *forecast = [[  PerformHTMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],@"//table/tr[position()>2]/td" )
-                          valueForKeyPath:@"nodeChildArray.nodeChildArray.nodeChildArray.nodeChildArray.nodeContent"] filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSString *evaluatedObject, NSDictionary *bindings) {
-        return evaluatedObject != nil &&  [evaluatedObject class] != [NSNull class] ;
-    }]];
+    NSArray *forecast  = [PerformHTMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],@"//table/tr[position()>2]/td" ) valueForKeyPath:@"nodeChildArray.nodeChildArray.nodeAttributeArray.nodeContent"];
 
-    
     NSArray *minTemps = [ PerformHTMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],@"//table/tr[position()>2]" ) valueForKeyPath:@"nodeChildArray.nodeContent"];
-    
+    \
     NSMutableArray *datas = [NSMutableArray arrayWithCapacity:5];
     
-    NSUInteger foreIndex = 4;
+    NSUInteger foreIndex = 3;
     for (NSUInteger i = 0; i < days.count; i++) {
         NSRange sep = [days[i][0] rangeOfCharacterFromSet:[NSCharacterSet newlineCharacterSet]];
         NSString *day = [ days[i][0] substringToIndex:sep.location];
@@ -127,13 +123,18 @@
         JDNDailyData *dataMin = [[JDNDailyData alloc] init];
         dataMin.day = day;
         dataMin.hourOfDay = @"01:00";
-        dataMin.forecast = forecast[foreIndex][0][0][0][0];
+        dataMin.forecast = forecast[foreIndex][0][0][1];
+        NSString *foreImage = forecast[foreIndex][0][0][0];
+        NSRange fixUrl = [foreImage rangeOfString:@"/"];
+        foreImage = [foreImage substringFromIndex:fixUrl.location + fixUrl.length];
+        dataMin.forecastImage = [WLD_BASE_URL stringByAppendingString:foreImage];
         [datas addObject:dataMin];
 
         JDNDailyData *dataMax = [[JDNDailyData alloc] init];
-        dataMax.day = day;
+        dataMax.day = dataMin.day;
         dataMax.hourOfDay = @"13:00";
-        dataMax.forecast = forecast[foreIndex][0][0][0][0];
+        dataMax.forecast = dataMin.forecast;
+        dataMax.forecastImage = dataMin.forecastImage;
         
         foreIndex += 5;
         
