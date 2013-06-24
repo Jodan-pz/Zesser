@@ -76,12 +76,18 @@
                                            encoding:NSASCIIStringEncoding];
     
     NSArray *data = nil;
-    if ( self.city.isInItaly ){
-        data = [self collectData];
-    }else{
-        data = [self collectWorldData];
+    @try{
+        if ( self.city.isInItaly ){
+            data = [self collectData];
+        }else{
+            data = [self collectWorldData];
+        }
+        
+    }@catch (NSException *ne) {
+        [JDNClientHelper showError:ne.description];
+    }@finally{
+        self.callback( data );
     }
-    self.callback( data );
 }
 
 -(NSArray*)collectWorldData{
