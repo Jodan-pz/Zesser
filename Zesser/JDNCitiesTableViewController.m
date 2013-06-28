@@ -162,7 +162,7 @@
     cell.cityName.text = city.name;
     
     if ( city.order == -1 ){
-        // change discolure to flag mark!
+        // change disclosure to flag mark!
         cell.accessoryView = [[UIImageView alloc] initWithImage:JDN_COMMON_IMAGE_HERE];
     }else{
         cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;

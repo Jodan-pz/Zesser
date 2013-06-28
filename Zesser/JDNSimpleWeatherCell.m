@@ -131,15 +131,15 @@
     self.sumWeatherView.wind.text        = nowData.wind;
     self.sumWeatherView.temperature.text = [NSString stringWithFormat:@"%@°", nowData.temperature];
     
-    NSInteger minTemp = [[dailyData valueForKeyPath:@"@min.apparentTemperature"] integerValue];
-    NSInteger maxTemp = [[dailyData valueForKeyPath:@"@max.apparentTemperature"] integerValue];
+    NSNumber *minTemp = [dailyData valueForKeyPath:@"@min.apparentTemperature.integerValue"];
+    NSNumber *maxTemp = [dailyData valueForKeyPath:@"@max.apparentTemperature.integerValue"];
     
-    self.sumWeatherView.minTemperature.text = [NSString stringWithFormat:@"%ld°", (long)minTemp];
-    self.sumWeatherView.maxTemperature.text = [NSString stringWithFormat:@"%ld°", (long)maxTemp];
+    self.sumWeatherView.minTemperature.text = [NSString stringWithFormat:@"%@°", minTemp];
+    self.sumWeatherView.maxTemperature.text = [NSString stringWithFormat:@"%@°", maxTemp];
     [JDNClientHelper configureTemperatureLayoutForLabel:self.sumWeatherView.minTemperature
-                                                byValue:minTemp];
+                                                byValue:minTemp.integerValue];
     [JDNClientHelper configureTemperatureLayoutForLabel:self.sumWeatherView.maxTemperature
-                                                byValue:maxTemp];
+                                                byValue:maxTemp.integerValue];
     [UIView animateWithDuration:1 animations:^{
         self.sumWeatherView.alpha = 1;
     }];
