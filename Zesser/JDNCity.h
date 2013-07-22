@@ -15,6 +15,8 @@
 @property (nonatomic)        NSInteger order;
 @property (nonatomic)        BOOL     isInItaly;
 
+-(void)setFixed;
+-(BOOL)isFixed;
 -(NSString*)key;
 -(BOOL)isEqualToCity:(JDNCity*)other;
 

@@ -37,7 +37,7 @@ static JDNCities *sharedCities_;
 }
 
 -(void)setOrderForCity:(JDNCity *)city order:(NSInteger)order{
-    JDNCity *editCity = self.mcities[city.name];
+    JDNCity *editCity = self.mcities[city.key];
     if ( editCity ){
         editCity.order = order;
     }
@@ -62,11 +62,20 @@ static JDNCities *sharedCities_;
             [self.mcities setValue:newCity forKey:newCity.key];
         }
     }
-    [self write];
+}
+
+-(void)removeDynamicCities{
+    JDNCity *first = self.cities[0];
+    [self.mcities removeAllObjects];
+    if ( first.isFixed ){
+        [self.mcities setValue:first forKey:first.key];
+    }
 }
 
 -(void)addCity:(JDNCity *)city {
-    if ( !self.mcities[city.key]){
+    if ( ![self.mcities where:^BOOL(id key, JDNCity *value) {
+        return [value.name isEqualToString:city.name];
+    }].count) {
         city.order = ((JDNCity*)[self.cities lastObject]).order + 1;
         [self.mcities setValue:city forKey:city.key];
         [self write];
@@ -98,9 +107,11 @@ static JDNCities *sharedCities_;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:[self.mcities where:^BOOL(NSString *cityName, JDNCity *item) {
+    NSDictionary *toWrite = [self.mcities where:^BOOL(NSString *cityName, JDNCity *item) {
         return item.order >=0;
-    } ]];
+    } ];
+    
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:toWrite];
     NSError *err;
     [data writeToFile:[documentsDirectory stringByAppendingPathComponent:@"cities.dat"]
               options:NSDataWritingFileProtectionComplete error:&err];

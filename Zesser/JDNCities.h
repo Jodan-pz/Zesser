@@ -18,6 +18,7 @@
 
 + (JDNCities*)sharedCities;
 
+-(void)removeDynamicCities;
 -(void)addCity:(JDNCity*)city;
 -(void)updateOrAddByOldCity:(JDNCity*)oldCity andNewCity:(JDNCity*)newCity;
 -(void)removeCity:(JDNCity*)city;

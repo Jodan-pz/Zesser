@@ -24,6 +24,14 @@
     return self;
 }
 
+-(void)setFixed{
+    self.order = -1;
+}
+
+-(BOOL)isFixed{
+    return self.order == -1;
+}
+
 -(NSString*)key{
     return [self.name stringByAppendingFormat:@"_%ld" , (long)self.order];
 }

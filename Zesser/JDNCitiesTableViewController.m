@@ -37,6 +37,7 @@
 @property (strong, nonatomic) JDNFindMyPlace        *findMyPlace;
 @property (strong, nonatomic) JDNCitySearcher       *citySearcher;
 @property (strong, nonatomic) NSMutableDictionary   *currentDailyData;
+@property (strong, nonatomic) NSMutableArray        *reorderingRows;
 @property (atomic)            BOOL                  isRefreshingData;
 
 @end
@@ -97,6 +98,9 @@
     self.currentDailyData = [NSMutableDictionary dictionary];
     
     self.isRefreshingData = NO;
+    
+    // set data source
+    self.reorderingRows = [[[JDNCities sharedCities] cities] mutableCopy];
 }
 
 -(void)dealloc{
@@ -114,8 +118,8 @@
 }
 
 -(void)configureCandEditButton{
-    NSArray *cities = [JDNCities sharedCities].cities;
-    if ( cities.count < 1 || ( cities.count == 1 && ((JDNCity*)cities[0]).order == -1 ) ){
+    NSArray *cities = [[JDNCities sharedCities] cities];
+    if ( cities.count < 1 || ( cities.count == 1 && ((JDNCity*)cities[0]).isFixed ) ){
         self.navigationItem.leftBarButtonItem = nil;
     }else{
         self.navigationItem.leftBarButtonItem = self.editCitiesBarButtonItem;
@@ -149,19 +153,19 @@
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [JDNCities sharedCities].cities.count;
+    return self.reorderingRows.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *CellIdentifier = @"Cell";
     
-    JDNCity *city = [JDNCities sharedCities].cities[indexPath.row];
+    JDNCity *city = self.reorderingRows[indexPath.row];
     JDNSimpleWeatherCell *cell = nil;
     cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier
                                            forIndexPath:indexPath];
     cell.cityName.text = city.name;
     
-    if ( city.order == -1 ){
+    if ( city.isFixed ){
         // change disclosure to flag mark!
         cell.accessoryView = [[UIImageView alloc] initWithImage:JDN_COMMON_IMAGE_HERE];
     }else{
@@ -176,7 +180,7 @@
 
 -(void)updateWeatherDataForCity: (JDNCity*)city inCell: (JDNSimpleWeatherCell*)cell {
     // check current daily (speedup)
-    NSArray *data = [self.currentDailyData valueForKey:city.key];
+    NSArray *data = [self.currentDailyData valueForKey:city.name];
     if(data){
         [cell setupCellForCity:city withDailyData: data];
         return;
@@ -188,7 +192,7 @@
         [cell startLoadingData];
         [weatherFetcher fetchDailyDataForCity:city withCompletion:^(NSArray *data) {
             [cell setupCellForCity:city withDailyData: data];
-            [self.currentDailyData setValue:data forKey:city.key];
+            [self.currentDailyData setValue:data forKey:city.name];
         }];
     }else{
         [weatherFetcher isAvailable:^(BOOL available) {
@@ -197,7 +201,7 @@
                 [cell startLoadingData];
                 [weatherFetcher fetchDailyDataForCity:city withCompletion:^(NSArray *data) {
                     [cell setupCellForCity:city withDailyData: data];
-                    [self.currentDailyData setValue:data forKey:city.key];
+                    [self.currentDailyData setValue:data forKey:city.name];
                 }];
             }
         }];
@@ -205,26 +209,27 @@
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
-    JDNCity *city = [JDNCities sharedCities].cities[indexPath.row];
+    JDNCity *city = self.reorderingRows[indexPath.row];
     return city.order >=0 && tableView.editing;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        JDNCity *city = [JDNCities sharedCities].cities[indexPath.row];
+        JDNCity *city = self.reorderingRows[indexPath.row];
         [[JDNCities sharedCities] removeCity:city];
-        [self.currentDailyData removeObjectForKey:city.key];
+        [self.currentDailyData removeObjectForKey:city.name];
+        [self.reorderingRows removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
 }
 
 -(BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath{
-    JDNCity *city = [JDNCities sharedCities].cities[indexPath.row];
+    JDNCity *city = self.reorderingRows[indexPath.row];
     return city.order >=0;
 }
 
 -(NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath{
-    JDNCity *destCity = [JDNCities sharedCities].cities[proposedDestinationIndexPath.row];
+    JDNCity *destCity = self.reorderingRows[proposedDestinationIndexPath.row];
     if (destCity.order >= 0){
         return proposedDestinationIndexPath;
     }
@@ -232,23 +237,29 @@
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath{
-    JDNCity *city = [JDNCities sharedCities].cities[fromIndexPath.row];
-    JDNCity *city2 = [JDNCities sharedCities].cities[toIndexPath.row];
-    NSInteger orderFrom = city.order;
-    NSInteger orderTo = city2.order;
-    if ( [city isEqualToCity:city2]) return;
-    [[JDNCities sharedCities] setOrderForCity:city order:orderTo];
-    [[JDNCities sharedCities] setOrderForCity:city2 order:orderFrom];
-    [[JDNCities sharedCities] write];
+    JDNCity *cityToMove = self.reorderingRows[fromIndexPath.row];
+    [self.reorderingRows removeObjectAtIndex:fromIndexPath.row];
+    [self.reorderingRows insertObject:cityToMove atIndex:toIndexPath.row];
 }
 
 -(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
     if ( self.tableView.editing ) return;
-    [self performSegueWithIdentifier:@"viewWeather" sender:[JDNCities sharedCities].cities[indexPath.row]];
+    [self performSegueWithIdentifier:@"viewWeather" sender:self.reorderingRows[indexPath.row]];
+}
+
+-(void)updateCitiesOrder{
+    [[JDNCities sharedCities] removeDynamicCities];
+    for (NSUInteger pos = 0; pos < self.reorderingRows.count; pos++) {
+        JDNCity *city = self.reorderingRows[pos];
+        if ( city.isFixed ) continue;
+        [[JDNCities sharedCities] addCity:city];
+    }
+    [[JDNCities sharedCities] write];
 }
 
 -(void)toggleEditMode{
     if(self.tableView.editing) {
+        [self updateCitiesOrder];
         self.navigationItem.rightBarButtonItem.enabled = YES;
         [self.tableView setEditing:NO animated:YES];
         self.refreshControl = self.citiesRefreshControl;
@@ -271,9 +282,9 @@
             weatherController.city = sender;
         }else{
             NSIndexPath* indexPath = [self.tableView indexPathForCell:sender];
-            weatherController.city = [JDNCities sharedCities].cities[indexPath.row];
+            weatherController.city =  self.reorderingRows[indexPath.row];
         }
-        weatherController.currentDailyData = self.currentDailyData[weatherController.city.key];
+        weatherController.currentDailyData = self.currentDailyData[weatherController.city.name];
     } else if ( [segue.identifier isEqualToString:@"searchCity"]){
         UINavigationController *searchCityController = segue.destinationViewController;
         ((JDNCitySearchTableViewController*) searchCityController.topViewController).delegate = self;
@@ -283,6 +294,7 @@
 -(void)didAddedNewCity:(JDNCity *)newCity sender:(UIViewController *)sender{
     [sender dismissViewControllerAnimated:YES completion:^{
         if ( newCity ){
+            self.reorderingRows = [[[JDNCities sharedCities] cities]  mutableCopy];
             [self.tableView reloadData];
         }
     }];
@@ -313,6 +325,10 @@
                                              attributes:REFRESH_TITLE_ATTRIBUTES];
         self.refreshControl.attributedTitle = update;
         [self.refreshControl endRefreshing];
+        
+        // update data source
+        self.reorderingRows = [[[JDNCities sharedCities] cities] mutableCopy];
+        
         [self.tableView reloadData];
         
         self.isRefreshingData = NO;
@@ -329,8 +345,8 @@
     if ( !self.citySearcher ){
         self.citySearcher = [[JDNCitySearcher alloc] init];
     }
-    JDNCity *oldFixedCity = [[JDNCities sharedCities].cities firstOrNil];
-    if ( oldFixedCity && oldFixedCity.order != -1) oldFixedCity = nil;
+    JDNCity *oldFixedCity = [self.reorderingRows firstOrNil];
+    if ( oldFixedCity && !oldFixedCity.isFixed ) oldFixedCity = nil;
     
     __block NSString *placeToFind = place.locality;
     __block JDNCity  *firstFound;
@@ -346,15 +362,17 @@
                 firstFound = [data firstOrNil];
                 
                 if ( firstFound && [self isValidCityName:placeToFind withFullName:firstFound.name] ){
-                    firstFound.order = -1;
+                    [firstFound setFixed];
                     [[JDNCities sharedCities] updateOrAddByOldCity:oldFixedCity andNewCity:firstFound];
+                    [[JDNCities sharedCities] write];
                 }
                 [self finalizeRefreshAction];
                 
             }];
         }else{
-            firstFound.order = -1;
+            [firstFound setFixed];
             [[JDNCities sharedCities] updateOrAddByOldCity:oldFixedCity andNewCity:firstFound];
+            [[JDNCities sharedCities] write];
             [self finalizeRefreshAction];
         }
     }];
