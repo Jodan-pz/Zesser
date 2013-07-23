@@ -72,14 +72,17 @@ static JDNCities *sharedCities_;
     }
 }
 
--(void)addCity:(JDNCity *)city {
-    if ( ![self.mcities where:^BOOL(id key, JDNCity *value) {
+-(BOOL)addCity:(JDNCity *)city {
+    BOOL exist = [self.mcities where:^BOOL(id key, JDNCity *value) {
         return [value.name isEqualToString:city.name];
-    }].count) {
+    }].count;
+    
+    if ( !exist ) {
         city.order = ((JDNCity*)[self.cities lastObject]).order + 1;
         [self.mcities setValue:city forKey:city.key];
         [self write];
     };
+    return !exist;
 }
 
 -(void)removeCity:(JDNCity *)city{

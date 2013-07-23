@@ -19,7 +19,7 @@
 + (JDNCities*)sharedCities;
 
 -(void)removeDynamicCities;
--(void)addCity:(JDNCity*)city;
+-(BOOL)addCity:(JDNCity *)city;
 -(void)updateOrAddByOldCity:(JDNCity*)oldCity andNewCity:(JDNCity*)newCity;
 -(void)removeCity:(JDNCity*)city;
 -(void)setOrderForCity:(JDNCity*)city order:(NSInteger)order;

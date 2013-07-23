@@ -49,9 +49,12 @@
         city.name = self.cityName.text;
         city.url = self.url.text;
         city.isInItaly = self.city.isInItaly;
-        [[JDNCities sharedCities] addCity:city];
-        [self.delegate didAddedNewCity:city
-                                sender:self];
+        if  ([[JDNCities sharedCities] addCity:city] ){
+            [self.delegate didAddedNewCity:city
+                                    sender:self];
+        }else{
+            [JDNClientHelper showWarning:@"Il nome è già presente!"];
+        }
     }
 }
 
