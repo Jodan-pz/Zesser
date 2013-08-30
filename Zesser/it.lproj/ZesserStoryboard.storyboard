@@ -254,7 +254,7 @@
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Vento: a dx as s" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="p9Z-xT-UaM">
-                                            <rect key="frame" x="20" y="55" width="187" height="21"/>
+                                            <rect key="frame" x="20" y="55" width="280" height="21"/>
                                             <fontDescription key="fontDescription" type="italicSystem" pointSize="10"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -288,50 +288,6 @@
             <point key="canvasLocation" x="-2008" y="-797"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="JDNCitiesTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNCitiesTableViewController.h"/>
-        </class>
-        <class className="JDNCitySearchTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNCitySearchTableViewController.h"/>
-        </class>
-        <class className="JDNNewCityViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNNewCityViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="addCity:"/>
-                <relationship kind="action" name="cancelAddCity:"/>
-                <relationship kind="action" name="cityEditingChanged:"/>
-                <relationship kind="action" name="urlEditingChanged:"/>
-                <relationship kind="outlet" name="cityName" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="okButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="url" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="urlLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="JDNSimpleWeatherCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNSimpleWeatherCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="cityName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-            </relationships>
-        </class>
-        <class className="JDNWeatherCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNWeatherCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="apparentTemperature" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="forecast" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="forecastImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="hourOfDay" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="temperature" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="wind" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="windImage" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="JDNWeatherTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/JDNWeatherTableViewController.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

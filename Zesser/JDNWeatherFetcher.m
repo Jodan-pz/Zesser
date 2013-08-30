@@ -73,7 +73,12 @@
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection{
     self.receivedString = [[NSString alloc] initWithData:self.receivedData
-                                           encoding:NSASCIIStringEncoding];
+                                                encoding:NSUTF8StringEncoding];
+    
+    if ( !self.receivedString ){
+        self.receivedString = [[NSString alloc] initWithData:self.receivedData
+                                                    encoding:NSASCIIStringEncoding];
+    }
     
     NSArray *data = nil;
     @try{
@@ -120,11 +125,20 @@
     NSUInteger tempIndex = 1;
     
     for (NSUInteger i = 0; i < days.count; i++) {
-        NSRange sep = [days[i][0] rangeOfCharacterFromSet:[NSCharacterSet newlineCharacterSet]];
-        NSString *day = [ days[i][0] substringToIndex:sep.location];
-        NSRange posStart = [days[i][0] rangeOfString:@"("];
-        NSRange posEnd = [days[i][0] rangeOfString:@")"];
-        NSString *nameOfDay = [[days[i][0] substringFromIndex:posStart.location + posStart.length] substringToIndex:posEnd.location - (posStart.location + posStart.length)];
+        
+        NSString *fullDay = days[i][0];
+        NSString *day;
+        
+        NSRange sep = [fullDay rangeOfCharacterFromSet:[NSCharacterSet newlineCharacterSet]];
+        if ( sep.location != NSNotFound ){
+            day = [fullDay substringToIndex:sep.location];
+        }else{
+            sep = [fullDay rangeOfCharacterFromSet:[NSCharacterSet whitespaceCharacterSet]];
+            day = [fullDay substringToIndex:sep.location];
+        }
+        NSRange posStart = [fullDay rangeOfString:@"("];
+        NSRange posEnd = [fullDay rangeOfString:@")"];
+        NSString *nameOfDay = [[fullDay substringFromIndex:posStart.location + posStart.length] substringToIndex:posEnd.location - (posStart.location + posStart.length)];
         day = [[nameOfDay stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
                stringByAppendingFormat:@", %@", day];
         
@@ -165,36 +179,41 @@
     finalXml = [JDNClientHelper unescapeString:finalXml];
     // fix bad table column headers in source
     finalXml = [finalXml stringByReplacingOccurrencesOfString:@"</th>" withString:@"</td>"];
+    finalXml = [finalXml stringByReplacingOccurrencesOfString:@"<BR>" withString:@" "];
     
-    NSArray *daysAndHours = [[PerformXMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],
-                                                   @"/table/tr/td[@class='previsioniRow']" )
+    NSArray *daysHoursWind = [[PerformHTMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],
+                                                   @"//table/tr/td[@class='previsioniRow']" )
                               valueForKey:@"nodeContent"] filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSString *evaluatedObject, NSDictionary *bindings) {
         return evaluatedObject != nil &&  [evaluatedObject class] != [NSNull class] ;
     }]] ;
     
-    NSArray *temperatures = [PerformXMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],
-                                                  @"/table/tr/td[@class='previsioniRow']/strong" )
+    NSArray *temperatures = [PerformHTMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],
+                                                  @"//table/tr/td[@class='previsioniRow']/strong" )
                              valueForKey:@"nodeContent"];
     
-    NSArray *forecastAndWind = [[PerformXMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],
-                                                      @"/table/tr/td[@class='previsioniRow']/img" )
+    NSArray *forecastAndWindImage = [[PerformHTMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],
+                                                      @"//table/tr/td[@class='previsioniRow']/img" )
                                  valueForKey:@"nodeAttributeArray"] valueForKey:@"nodeContent"];
     
-    NSArray *appTemp = [PerformXMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],
-                                              @"/table/tr/td[@class='previsioniRow']/div" )
+    NSArray *appTemp = [PerformHTMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],
+                                              @"//table/tr/td[@class='previsioniRow']/div" )
                         valueForKey:@"nodeContent"];
     
     NSMutableArray *datas = [NSMutableArray arrayWithCapacity:5];
     
-    for (NSUInteger i = 0; i < daysAndHours.count; i+=2) {
+    for (NSUInteger i = 0; i < daysHoursWind.count; i+=3) {
         JDNDailyData *data = [[JDNDailyData alloc] init];
-        data.day = daysAndHours[i];
-        data.hourOfDay = daysAndHours[i+1];
-        data.forecast = forecastAndWind[i][1];
-        data.forecastImage = [ITA_BASE_URL stringByAppendingString:forecastAndWind[i][0]];
-        data.wind = forecastAndWind[i+1][1];
-        data.windImage = [ITA_BASE_URL stringByAppendingString: forecastAndWind[i+1][0]];
+        data.day = daysHoursWind[i];
+        data.hourOfDay = daysHoursWind[i+1];
+        data.wind = daysHoursWind[i+2];
         [datas addObject:data];
+    }
+    
+    for (NSUInteger a=0, i=0; i< forecastAndWindImage.count; a++, i+=2){
+        JDNDailyData *data = datas[a];
+        data.forecast = forecastAndWindImage[i][1];
+        data.forecastImage = [ITA_BASE_URL stringByAppendingString:forecastAndWindImage[i][0]];
+        data.windImage = [ITA_BASE_URL stringByAppendingString: forecastAndWindImage[i+1][0]];
     }
     
     for (NSUInteger i=0; i < temperatures.count; i++) {
