@@ -45,7 +45,7 @@
 @implementation JDNCitiesTableViewController
 
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
-    if ( [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]){
+    if ( self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]){
         [self setupCitiesManager];
     }
     return self;
@@ -169,7 +169,7 @@
         // change disclosure to flag mark!
         cell.accessoryView = [[UIImageView alloc] initWithImage:JDN_COMMON_IMAGE_HERE];
     }else{
-        cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
     [cell prepareForCity:city];

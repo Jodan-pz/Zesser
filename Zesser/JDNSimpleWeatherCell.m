@@ -25,6 +25,8 @@
 
 -(void)configureScrollView {
     if (_curWeatherView) return;
+
+    self.backgroundColor = [UIColor clearColor];
     
     [self.scrollView addSubview:self.curWeatherView];
     [self.scrollView addSubview:self.sumWeatherView];
