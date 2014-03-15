@@ -123,6 +123,16 @@
         cell.textLabel.font = [UIFont systemFontOfSize:12];
         cell.textLabel.textColor = [UIColor colorWithRed:0.824 green:0.948 blue:0.951 alpha:1.000];
         cell.detailTextLabel.textColor = [UIColor colorWithRed:0.892 green:0.870 blue:0.965 alpha:1.000];
+        
+        // selection background view (IOS7)
+        UIView *bgColorView = [[UIView alloc] init];
+        bgColorView.backgroundColor = [UIColor colorWithRed:0.000
+                                                      green:0.502
+                                                       blue:1.000
+                                                      alpha:1.000];
+        bgColorView.layer.masksToBounds = YES;
+        cell.selectedBackgroundView = bgColorView;
+        
     }
     
     NSString *title;

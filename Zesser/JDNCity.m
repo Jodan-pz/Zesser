@@ -42,7 +42,7 @@
     result = prime * result + [self.name hash];
     result = prime * result + [self.url hash];
     result = prime * result + self.order;
-    result = prime * result + self.isInItaly?YESPRIME:NOPRIME;
+    result = (prime * result + self.isInItaly)?YESPRIME:NOPRIME;
     return result;
 }
 

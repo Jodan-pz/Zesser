@@ -66,7 +66,8 @@
     return self;
 }
 
--(void)setupCitiesManager{    
+-(void)setupCitiesManager{
+    
     // register for notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleCityRemoved:)
@@ -78,8 +79,9 @@
                                         attributes:REFRESH_TITLE_ATTRIBUTES];
     
     self.citiesRefreshControl.attributedTitle = title;
+    self.citiesRefreshControl.backgroundColor = [UIColor redColor];
     
-    self.citiesRefreshControl.tintColor = REFRESH_TINT_COLOR;
+    self.citiesRefreshControl.tintColor = [UIColor whiteColor] ; //REFRESH_TINT_COLOR;
     [self.citiesRefreshControl addTarget:self
                               action:@selector(refreshData:)
                     forControlEvents:UIControlEventValueChanged];
@@ -135,7 +137,7 @@
     CAGradientLayer *bgLayer = [JDNClientHelper blueGradient];
     bgLayer.frame = self.tableView.bounds;
     [gradientView.layer insertSublayer:bgLayer atIndex:1];
-    self.tableView.backgroundView = gradientView;
+        self.tableView.backgroundView = gradientView;
     
     self.refreshControl = self.citiesRefreshControl;
     self.navigationItem.rightBarButtonItem = self.addCityButton;
@@ -163,6 +165,16 @@
     JDNSimpleWeatherCell *cell = nil;
     cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier
                                            forIndexPath:indexPath];
+    
+    // selection background view (IOS7)
+    UIView *bgColorView = [[UIView alloc] init];
+    bgColorView.backgroundColor = [UIColor colorWithRed:0.000
+                                                  green:0.502
+                                                   blue:1.000
+                                                  alpha:1.000];
+    bgColorView.layer.masksToBounds = YES;
+    
+    cell.selectedBackgroundView = bgColorView;
     cell.cityName.text = city.name;
     
     if ( city.isFixed ){
