@@ -166,7 +166,11 @@ NSArray *PerformHTMLXPathQuery(NSData *document, NSString *query)
     xmlDocPtr doc;
 
     /* Load XML document */
-	doc = htmlReadMemory([document bytes], [document length], "", NULL, HTML_PARSE_NOWARNING | HTML_PARSE_NOERROR);
+	doc = htmlReadMemory([document bytes],
+                         [NSNumber numberWithInteger: document.length].intValue,
+                         "",
+                         NULL,
+                         HTML_PARSE_NOWARNING | HTML_PARSE_NOERROR);
 	
     if (doc == NULL)
 	{
@@ -185,7 +189,11 @@ NSArray *PerformXMLXPathQuery(NSData *document, NSString *query)
     xmlDocPtr doc;
 	
     /* Load XML document */
-	doc = xmlReadMemory([document bytes], [document length], "", NULL, XML_PARSE_RECOVER);
+	doc = xmlReadMemory([document bytes],
+                        [NSNumber numberWithInteger: document.length].intValue,
+                        "",
+                        NULL,
+                        XML_PARSE_RECOVER);
 	
     if (doc == NULL)
 	{

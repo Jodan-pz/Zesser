@@ -66,17 +66,17 @@
 }
 
 -(void)encodeWithCoder:(NSCoder *)aCoder{
-    [aCoder encodeObject:self.name      forKey:KEY_NAME];
-    [aCoder encodeObject:self.url       forKey:KEY_URL];
-    [aCoder encodeInt   :self.order     forKey:KEY_ORDER];
-    [aCoder encodeBool  :self.isInItaly forKey:KEY_ISITA];
+    [aCoder encodeObject:   self.name      forKey:KEY_NAME];
+    [aCoder encodeObject:   self.url       forKey:KEY_URL];
+    [aCoder encodeInteger:  self.order     forKey:KEY_ORDER];
+    [aCoder encodeBool:     self.isInItaly forKey:KEY_ISITA];
 }
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
-    self.name       = [aDecoder decodeObjectForKey:KEY_NAME];
-    self.url        = [aDecoder decodeObjectForKey:KEY_URL];
-    self.order      = [aDecoder decodeIntForKey   :KEY_ORDER];
-    self.isInItaly  = [aDecoder decodeBoolForKey  :KEY_ISITA];
+    self.name       = [aDecoder decodeObjectForKey: KEY_NAME];
+    self.url        = [aDecoder decodeObjectForKey: KEY_URL];
+    self.order      = [aDecoder decodeIntegerForKey:KEY_ORDER];
+    self.isInItaly  = [aDecoder decodeBoolForKey:   KEY_ISITA];
     return self;
 }
 

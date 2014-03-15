@@ -51,7 +51,7 @@
     self.placeToFind = textToSearch;
     
     NSData              *postData   = [[@"param=" stringByAppendingString: text ] dataUsingEncoding:NSUTF8StringEncoding];
-    NSString            *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+    NSString            *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
 
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]
  							 initWithURL: [NSURL URLWithString: SRCH_URL]
