@@ -335,6 +335,11 @@
 				CLASSPREFIX = JDN;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Daniele Giove";
+				TargetAttributes = {
+					CB615EBA1754DF46004C1BA4 = {
+						DevelopmentTeam = ME8787KP7M;
+					};
+				};
 			};
 			buildConfigurationList = CB615EB61754DF46004C1BA4 /* Build configuration list for PBXProject "Zesser" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -488,12 +493,16 @@
 		CB615EDF1754DF47004C1BA4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Zesser/Zesser-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "Zesser/Zesser-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -501,12 +510,16 @@
 		CB615EE01754DF47004C1BA4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Zesser/Zesser-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "Zesser/Zesser-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
