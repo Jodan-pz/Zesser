@@ -23,8 +23,6 @@
 #import "JDNCitySearcher.h"
 #import "JDNPlace.h"
 
-#define REFRESH_TITLE_ATTRIBUTES @{NSForegroundColorAttributeName:[UIColor colorWithRed:0.746 green:0.909 blue:0.936 alpha:1.000] }
-#define REFRESH_TINT_COLOR       [UIColor colorWithRed:0.367 green:0.609 blue:0.887 alpha:1.000]
 #define NAVIGATION_TINT_COLOR    [UIColor colorWithRed:0.075 green:0.000 blue:0.615 alpha:1.000]
 
 @interface JDNCitiesTableViewController ()<JDNAddCityDelegate, JDNFindMyPlaceDelegate>
@@ -79,9 +77,9 @@
                                         attributes:REFRESH_TITLE_ATTRIBUTES];
     
     self.citiesRefreshControl.attributedTitle = title;
-    self.citiesRefreshControl.backgroundColor = [UIColor redColor];
+    self.citiesRefreshControl.backgroundColor = REFRESH_BACKGROUND_COLOR;
+    self.citiesRefreshControl.tintColor = REFRESH_TINT_COLOR;
     
-    self.citiesRefreshControl.tintColor = [UIColor whiteColor] ; //REFRESH_TINT_COLOR;
     [self.citiesRefreshControl addTarget:self
                               action:@selector(refreshData:)
                     forControlEvents:UIControlEventValueChanged];
@@ -133,13 +131,16 @@
     
     self.clearsSelectionOnViewWillAppear = YES;
     
+    self.refreshControl = self.citiesRefreshControl;
+    
     UIView *gradientView = [[UIView alloc] initWithFrame:self.tableView.frame];
     CAGradientLayer *bgLayer = [JDNClientHelper blueGradient];
     bgLayer.frame = self.tableView.bounds;
     [gradientView.layer insertSublayer:bgLayer atIndex:1];
-        self.tableView.backgroundView = gradientView;
+    self.tableView.backgroundView = gradientView;
     
-    self.refreshControl = self.citiesRefreshControl;
+    self.refreshControl.layer.zPosition = self.tableView.backgroundView.layer.zPosition + 1;
+    
     self.navigationItem.rightBarButtonItem = self.addCityButton;
     
     // first refresh data...

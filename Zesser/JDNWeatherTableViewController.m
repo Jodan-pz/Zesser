@@ -13,9 +13,6 @@
 #import "JDNWeatherCell.h"
 #import "NSArray+LinqExtensions.h"
 
-#define REFRESH_TITLE_ATTRIBUTES @{NSForegroundColorAttributeName:[UIColor colorWithRed:0.746 green:0.909 blue:0.936 alpha:1.000] }
-#define REFRESH_TINT_COLOR       [UIColor colorWithRed:0.367 green:0.609 blue:0.887 alpha:1.000]
-#define REFRESH_BACKGROUND_COLOR [UIColor colorWithRed:0.133 green:0.323 blue:0.628 alpha:1.000]
 #define SECTION_BACKGROUND_COLOR [UIColor colorWithRed:0.081 green:0.259 blue:0.504 alpha:1.000]
 #define SECTION_FOREGROUND_COLOR [UIColor colorWithRed:0.120 green:0.778 blue:0.769 alpha:1.000]
 #define SECTION_SHADOW_COLOR     [UIColor colorWithRed:0.131 green:0.000 blue:0.646 alpha:1.000]
@@ -121,7 +118,7 @@
     refreshControl.attributedTitle = title;
     refreshControl.backgroundColor = REFRESH_BACKGROUND_COLOR;
     refreshControl.tintColor = REFRESH_TINT_COLOR;
-    
+
     [refreshControl addTarget:self
                        action:@selector(refreshData:)
              forControlEvents:UIControlEventValueChanged];

@@ -16,3 +16,7 @@
 #import "JDNCommon.h"
 #import "JDNSharedImages.h"
 #import "JDNClientHelper.h"
+
+#define REFRESH_TITLE_ATTRIBUTES @{NSForegroundColorAttributeName:[UIColor colorWithRed:0.746 green:0.909 blue:0.936 alpha:1.000] }
+#define REFRESH_TINT_COLOR       [UIColor colorWithRed:0.866 green:0.952 blue:0.793 alpha:1.000]
+#define REFRESH_BACKGROUND_COLOR [UIColor colorWithRed:0.133 green:0.323 blue:0.628 alpha:1.000]

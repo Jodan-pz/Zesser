@@ -60,7 +60,6 @@ static JDNWorldCitySearcher *sharedWorldCitySearcher_;
                 return [city.name rangeOfString:textToSearch options:NSCaseInsensitiveSearch].location == 0;
             }]];
             completion(worldFiltered);
-            
         }];
         
     }else{
@@ -76,6 +75,11 @@ static JDNWorldCitySearcher *sharedWorldCitySearcher_;
 
 -(void)fetchAllCitiesWithCompletion:(ArrayDataCallBack)callback{
     self.callback = callback;
+    
+    // skip : need check!
+    if ( callback ) callback( [NSArray array] );
+    return;
+    
     self.receivedData = [[NSMutableData alloc] init];
     self.receivedString = @"";
     
@@ -104,9 +108,11 @@ static JDNWorldCitySearcher *sharedWorldCitySearcher_;
     NSLog(@"Search city error: %@", error.debugDescription);
     if ( self.callback ) self.callback(nil);
 }
+
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
     self.receivedData.length = 0;
 }
+
 -(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data{
     [self.receivedData appendData:data];
 }
