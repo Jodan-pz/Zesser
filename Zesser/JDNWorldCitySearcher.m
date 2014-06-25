@@ -84,10 +84,7 @@ static JDNWorldCitySearcher *sharedWorldCitySearcher_;
     self.receivedString = @"";
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]
-                                    initWithURL: [NSURL URLWithString:COUNTRIES_URL]
-                                    cachePolicy: NSURLRequestReloadIgnoringLocalCacheData
-                                    timeoutInterval: 10
-                                    ];
+                                    initWithURL: [NSURL URLWithString:COUNTRIES_URL]];
     
     [request setHTTPMethod:@"GET"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
