@@ -16,11 +16,18 @@
     if (!dailyData) return;
     
     self.hourOfDay.text = dailyData.hourOfDay;
-    self.temperature.text = [NSString stringWithFormat:@"%@°", dailyData.temperature];
-
-    [JDNClientHelper configureTemperatureLayoutForLabel:self.apparentTemperature
-                                                byValue:dailyData.apparentTemperature.integerValue];
-    self.apparentTemperature.text = [NSString stringWithFormat:@"(%@°)", dailyData.apparentTemperature];
+    if (dailyData.temperature.length != 0){
+        self.temperature.text = [NSString stringWithFormat:@"%@°", dailyData.temperature];
+    }else{
+        self.temperature.text = @"-";
+    }
+    if (dailyData.apparentTemperature.length != 0){
+        [JDNClientHelper configureTemperatureLayoutForLabel:self.apparentTemperature
+                                                    byValue:dailyData.apparentTemperature.integerValue];
+        self.apparentTemperature.text = [NSString stringWithFormat:@"(%@°)", dailyData.apparentTemperature];
+    }else{
+        self.apparentTemperature.text = @"-";
+    }
     
     [[JDNSharedImages sharedImages] setImageView:self.windImage withUrl:[NSURL URLWithString:dailyData.windImage]];
     [[JDNSharedImages sharedImages] setImageView:self.forecastImage withUrl:[NSURL URLWithString:dailyData.forecastImage]];

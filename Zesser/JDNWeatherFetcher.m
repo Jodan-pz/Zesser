@@ -111,7 +111,7 @@
                                      error:&err];
     
     if (err){
-        [JDNClientHelper showError:err];
+        // avoid error messages of wrong json result parsing (maybe too fast...)
         return datas;
     }
     

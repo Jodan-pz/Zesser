@@ -25,7 +25,7 @@
 
 -(void)configureScrollView {
     if (_curWeatherView) return;
-
+    
     self.backgroundColor = [UIColor clearColor];
     
     [self.scrollView addSubview:self.curWeatherView];
@@ -108,7 +108,7 @@
     JDNDailyData *nowData = nil;
     
     if ( city.isInItaly ){
-       nowData = [dailyData firstOrNil];
+        nowData = [dailyData firstOrNil];
     }else{
         NSUInteger idx = [dailyData indexOfObjectPassingTest:^BOOL(JDNDailyData *dailyData, NSUInteger idx, BOOL *stop) {
             if ( [dailyData isToday] && [dailyData.hourOfDay isEqualToString:@"13:00"] ){
@@ -120,7 +120,7 @@
         if ( idx == NSNotFound) return;
         nowData = dailyData[idx];
     }
-
+    
     // current view
     self.curWeatherView.temperature.text = [NSString stringWithFormat:@"%@°", nowData.apparentTemperature];
     [[JDNSharedImages sharedImages] setImageView:self.curWeatherView.forecastImage
@@ -131,7 +131,11 @@
     // summary view
     self.sumWeatherView.forecast.text    = nowData.forecast;
     self.sumWeatherView.wind.text        = nowData.wind;
-    self.sumWeatherView.temperature.text = [NSString stringWithFormat:@"%@°", nowData.temperature];
+    if ( nowData.temperature.length != 0){
+        self.sumWeatherView.temperature.text = [NSString stringWithFormat:@"%@°", nowData.temperature];
+    }else{
+        self.sumWeatherView.temperature.text = @"-";
+    }
     
     NSNumber *minTemp = [dailyData valueForKeyPath:@"@min.apparentTemperature.integerValue"];
     NSNumber *maxTemp = [dailyData valueForKeyPath:@"@max.apparentTemperature.integerValue"];
