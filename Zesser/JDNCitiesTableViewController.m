@@ -128,9 +128,7 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-    
     self.clearsSelectionOnViewWillAppear = YES;
-    
     self.refreshControl = self.citiesRefreshControl;
     
     UIView *gradientView = [[UIView alloc] initWithFrame:self.tableView.frame];
@@ -149,6 +147,8 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+
     self.navigationController.navigationBar.tintColor = NAVIGATION_TINT_COLOR;
     [self configureCandEditButton];
 }
