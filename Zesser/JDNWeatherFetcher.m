@@ -43,17 +43,23 @@
     
     NSURL *url = nil;
     
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]
+                                    initWithURL:url
+                                    cachePolicy: NSURLRequestReloadIgnoringLocalCacheData
+                                    timeoutInterval: 10
+                                    ];
+    
+    
     if ( city.isInItaly ){
         url = [NSURL URLWithString: [ITA_BASE_URL stringByAppendingString:city.url]];
     }else{
         url = [NSURL URLWithString: [WLD_BASE_URL stringByAppendingString:city.url]];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+        [request setValue:@"json"             forHTTPHeaderField:@"Data-Type"];
+        request.cachePolicy = NSURLRequestReloadIgnoringLocalAndRemoteCacheData;
     }
     
-    NSURLRequest *request = [[NSURLRequest alloc]
- 							 initWithURL:url
- 							 cachePolicy: NSURLRequestReloadIgnoringLocalCacheData
- 							 timeoutInterval: 10
- 							 ];
+    [request setURL:url];
     
     NSURLConnection *connection = [[NSURLConnection alloc]
  								   initWithRequest:request
@@ -72,17 +78,17 @@
 }
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection{
-    self.receivedString = [[NSString alloc] initWithData:self.receivedData
-                                                encoding:NSUTF8StringEncoding];
-    
-    if ( !self.receivedString ){
-        self.receivedString = [[NSString alloc] initWithData:self.receivedData
-                                                    encoding:NSASCIIStringEncoding];
-    }
-    
     NSArray *data = nil;
     @try{
         if ( self.city.isInItaly ){
+            self.receivedString = [[NSString alloc] initWithData:self.receivedData
+                                                        encoding:NSUTF8StringEncoding];
+            
+            if ( !self.receivedString ){
+                self.receivedString = [[NSString alloc] initWithData:self.receivedData
+                                                            encoding:NSASCIIStringEncoding];
+            }
+            
             data = [self collectData];
         }else{
             data = [self collectWorldData];
@@ -96,76 +102,70 @@
 }
 
 -(NSArray*)collectWorldData{
-    NSRange rangeFlag = [self.receivedString rangeOfString:@"wxforecast"];
-    if (rangeFlag.location == NSNotFound) return nil;
-    NSString *tmp = [self.receivedString substringFromIndex:rangeFlag.location];
-    
-    NSRange table = [tmp rangeOfString:@"<table"];
-    if (table.location == NSNotFound) return nil;
-    tmp = [ tmp substringFromIndex:table.location];
-    
-    NSRange rangeFlag2 = [tmp rangeOfString:@"wxforecast" options:NSBackwardsSearch];
-    if (rangeFlag2.location == NSNotFound) return nil;
-    tmp = [tmp substringToIndex:rangeFlag2.location];
-    
-    NSRange tableEnd = [tmp rangeOfString:@"</table>" options:NSBackwardsSearch];
-    if (tableEnd.location == NSNotFound) return nil;
-    tmp = [tmp substringToIndex:tableEnd.location + tableEnd.length];
-
-    NSString *finalXml = [JDNClientHelper unescapeString:tmp];
-
-    NSArray *days = [ PerformHTMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],@"//table/tr[position()>2]" ) valueForKeyPath:@"nodeChildArray.nodeContent"];
-    NSArray *forecast  = [PerformHTMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],@"//table/tr[position()>2]/td" ) valueForKeyPath:@"nodeChildArray.nodeChildArray.nodeAttributeArray.nodeContent"];
-
-    NSArray *temps = [ PerformHTMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],@"//table/tr[position()>2]/td" ) valueForKeyPath:@"nodeChildArray.nodeChildArray"];
     
     NSMutableArray *datas = [NSMutableArray arrayWithCapacity:5];
+    NSError         *err;
+    NSDictionary    *parseResult  = [NSJSONSerialization
+                                     JSONObjectWithData:self.receivedData
+                                     options:NSJSONReadingMutableContainers
+                                     error:&err];
     
-    NSUInteger foreIndex = 3;
-    NSUInteger tempIndex = 1;
-    
-    for (NSUInteger i = 0; i < days.count; i++) {
-        
-        NSString *fullDay = days[i][0];
-        NSString *day;
-        
-        NSRange sep = [fullDay rangeOfCharacterFromSet:[NSCharacterSet newlineCharacterSet]];
-        if ( sep.location != NSNotFound ){
-            day = [fullDay substringToIndex:sep.location];
-        }else{
-            sep = [fullDay rangeOfCharacterFromSet:[NSCharacterSet whitespaceCharacterSet]];
-            day = [fullDay substringToIndex:sep.location];
-        }
-        NSRange posStart = [fullDay rangeOfString:@"("];
-        NSRange posEnd = [fullDay rangeOfString:@")"];
-        NSString *nameOfDay = [[fullDay substringFromIndex:posStart.location + posStart.length] substringToIndex:posEnd.location - (posStart.location + posStart.length)];
-        day = [[nameOfDay stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
-               stringByAppendingFormat:@", %@", day];
-        
-        JDNDailyData *dataMin = [[JDNDailyData alloc] init];
-        dataMin.day = day;
-        dataMin.hourOfDay = @"01:00";
-        dataMin.temperature = dataMin.apparentTemperature = [temps[tempIndex][0][0] valueForKey:@"nodeContent"];
-        dataMin.forecast = forecast[foreIndex][0][0][1];
-        NSString *foreImage = forecast[foreIndex][0][0][0];
-        NSRange fixUrl = [foreImage rangeOfString:@"/"];
-        foreImage = [foreImage substringFromIndex:fixUrl.location + fixUrl.length];
-        dataMin.forecastImage = [WLD_BASE_URL stringByAppendingString:foreImage];
-        [datas addObject:dataMin];
-
-        JDNDailyData *dataMax = [[JDNDailyData alloc] init];
-        dataMax.day = dataMin.day;
-        dataMax.hourOfDay = @"13:00";
-        dataMax.forecast = dataMin.forecast;
-        dataMax.forecastImage = dataMin.forecastImage;
-        dataMax.temperature = dataMax.apparentTemperature = [temps[tempIndex+1][0][0] valueForKey:@"nodeContent"];
-        
-        foreIndex += 5;
-        tempIndex += 5;
-        
-        [datas addObject:dataMax];
+    if (err){
+        [JDNClientHelper showError:err];
+        return datas;
     }
     
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setDateFormat:@"yyyy-MM-dd"];
+    
+    NSDateFormatter *dayFormat = [[NSDateFormatter alloc] init];
+    [dayFormat setDateFormat:@"dd"];
+    
+    NSDateFormatter *dayNameFormat = [[NSDateFormatter alloc] init];
+    [dayNameFormat setDateFormat:@"EEEE"];
+    [dayNameFormat setLocale: [NSLocale currentLocale]];
+    
+    NSDictionary *forecast = [[parseResult valueForKey:@"city"] valueForKey:@"forecast"];
+    @try{
+        for (NSDictionary *forecastDay in [forecast valueForKey:@"forecastDay"]){
+            
+            JDNDailyData *dataMin = [[JDNDailyData alloc] init];
+            
+            NSDate *fDate = [df dateFromString: [forecastDay valueForKey:@"forecastDate"]];
+            
+            dataMin.day = [JDNClientHelper capitalizeFirstCharOfString:
+                           [NSString stringWithFormat:@"%@, %@",
+                           [dayNameFormat stringFromDate:fDate],
+                           [dayFormat stringFromDate:fDate]]];
+            
+            dataMin.hourOfDay = @"01:00";
+            dataMin.temperature = dataMin.apparentTemperature =
+            [forecastDay valueForKey:@"minTemp"];
+            dataMin.forecast = [forecastDay valueForKey:@"weather"];
+            NSNumber *iconNumber = [forecastDay valueForKey:@"weatherIcon"];
+            
+            NSString *iconUriFragment = iconNumber.stringValue;
+            iconUriFragment = [iconUriFragment substringWithRange:NSMakeRange(0, iconUriFragment.length-2)];
+            if ( iconUriFragment.length == 1 ) iconUriFragment = [@"0" stringByAppendingString:iconUriFragment];
+            
+            dataMin.forecastImage = [WLD_BASE_URL
+                                     stringByAppendingFormat:@"images/wxicon/pic%@.png", iconUriFragment];
+            
+            JDNDailyData *dataMax = [[JDNDailyData alloc] init];
+            dataMax.day =  dataMin.day;
+            dataMax.hourOfDay = @"13:00";
+            dataMax.temperature = dataMax.apparentTemperature =
+            [forecastDay valueForKey:@"maxTemp"];
+            dataMax.forecast = dataMin.forecast;
+            dataMax.forecastImage = dataMin.forecastImage;
+            
+            [datas addObject:dataMin];
+            [datas addObject:dataMax];
+        }
+        
+    }@catch (NSException * e) {
+        NSLog(@"collectWorldData Exception: %@", e);
+    }
     return datas;
 }
 
@@ -174,7 +174,7 @@
     NSRange tab = [self.receivedString rangeOfString:@"previsioniOverlTable"];
     [xmlData appendString:[self.receivedString substringFromIndex:tab.location ]];
     NSRange tabEnd = [xmlData rangeOfString:@"</table>"];
-
+    
     NSString *finalXml = [xmlData substringToIndex:tabEnd.location + tabEnd.length ];
     finalXml = [JDNClientHelper unescapeString:finalXml];
     // fix bad table column headers in source
@@ -182,18 +182,18 @@
     finalXml = [finalXml stringByReplacingOccurrencesOfString:@"<BR>" withString:@" "];
     
     NSArray *daysHoursWind = [[PerformHTMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],
-                                                   @"//table/tr/td[@class='previsioniRow']" )
-                              valueForKey:@"nodeContent"] filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSString *evaluatedObject, NSDictionary *bindings) {
+                                                     @"//table/tr/td[@class='previsioniRow']" )
+                               valueForKey:@"nodeContent"] filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSString *evaluatedObject, NSDictionary *bindings) {
         return evaluatedObject != nil &&  [evaluatedObject class] != [NSNull class] ;
     }]] ;
     
     NSArray *temperatures = [PerformHTMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],
-                                                  @"//table/tr/td[@class='previsioniRow']/strong" )
+                                                   @"//table/tr/td[@class='previsioniRow']/strong" )
                              valueForKey:@"nodeContent"];
     
     NSArray *forecastAndWindImage = [[PerformHTMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],
-                                                      @"//table/tr/td[@class='previsioniRow']/img" )
-                                 valueForKey:@"nodeAttributeArray"] valueForKey:@"nodeContent"];
+                                                            @"//table/tr/td[@class='previsioniRow']/img" )
+                                      valueForKey:@"nodeAttributeArray"] valueForKey:@"nodeContent"];
     
     NSArray *appTemp = [PerformHTMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],
                                               @"//table/tr/td[@class='previsioniRow']/div" )

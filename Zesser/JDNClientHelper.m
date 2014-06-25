@@ -32,6 +32,12 @@
     return headerLayer;
 }
 
++(NSString*)capitalizeFirstCharOfString:(NSString*)aString{
+    NSString *txt = [aString stringByReplacingCharactersInRange:NSMakeRange(0,1)
+                                                     withString:[[aString substringToIndex:1] uppercaseString]];
+    return txt;
+}
+
 +(NSString*)unescapeString:(NSString*)string{
     NSMutableString *mut = [[NSMutableString alloc] initWithString:string];
     [JDNClientHelper unescapeMutableString:mut];

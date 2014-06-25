@@ -25,7 +25,7 @@
 // grab from -> http://wwis.meteoam.it/it/sitemap.html
 
 #define COUNTRIES_URL      @"http://wwis.meteoam.it/it/json/Country_it.xml"
-#define BASE_URL           @"http://wwis.meteoam.it/it/city.html?cityId="
+#define BASE_URL           @"it/json/"
 
 static JDNWorldCitySearcher *sharedWorldCitySearcher_;
 
@@ -53,7 +53,8 @@ static JDNWorldCitySearcher *sharedWorldCitySearcher_;
     }];
 }
 
--(void)searchPlaceByText:(NSString*)textToSearch withCompletion:(ArrayDataCallBack)completion {
+-(void)searchPlaceByText:(NSString*)textToSearch
+          withCompletion:(ArrayDataCallBack)completion {
     
     if ( self.cachedCities.count == 0){
         [self fetchAllCitiesWithCompletion:^(NSArray *data) {
@@ -150,7 +151,7 @@ static JDNWorldCitySearcher *sharedWorldCitySearcher_;
                 NSString *cityName = [city valueForKey:@"cityName"];
                 NSNumber *cityId = [city valueForKey:@"cityId"];
                 JDNCity *data = [[JDNCity alloc] init];
-                NSString *url = [BASE_URL stringByAppendingFormat:@"%@", cityId];
+                NSString *url = [BASE_URL stringByAppendingFormat:@"%@_it.xml", cityId];
                 data.name = cityName;
                 data.url = url;
                 data.isInItaly = NO;
