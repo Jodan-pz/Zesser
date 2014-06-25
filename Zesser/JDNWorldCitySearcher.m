@@ -22,7 +22,10 @@
 
 @implementation JDNWorldCitySearcher
 
-#define BASE_URL          @"http://wwis.meteoam.it"
+// grab from -> http://wwis.meteoam.it/it/sitemap.html
+
+#define COUNTRIES_URL      @"http://wwis.meteoam.it/it/json/Country_it.xml"
+#define BASE_URL           @"http://wwis.meteoam.it/it/city.html?cityId="
 
 static JDNWorldCitySearcher *sharedWorldCitySearcher_;
 
@@ -76,22 +79,19 @@ static JDNWorldCitySearcher *sharedWorldCitySearcher_;
 -(void)fetchAllCitiesWithCompletion:(ArrayDataCallBack)callback{
     self.callback = callback;
     
-    // skip : need check!
-    if ( callback ) callback( [NSArray array] );
-    return;
-    
     self.receivedData = [[NSMutableData alloc] init];
     self.receivedString = @"";
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]
- 							 initWithURL: [NSURL URLWithString: BASE_URL]
- 							 cachePolicy: NSURLRequestReloadIgnoringLocalCacheData
- 							 timeoutInterval: 10
- 							 ];
+                                    initWithURL: [NSURL URLWithString:COUNTRIES_URL]
+                                    cachePolicy: NSURLRequestReloadIgnoringLocalCacheData
+                                    timeoutInterval: 10
+                                    ];
     
     [request setHTTPMethod:@"GET"];
-    [request setValue:@"text"             forHTTPHeaderField:@"Data-Type"];
- 
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"json"             forHTTPHeaderField:@"Data-Type"];
+    
     request.cachePolicy = NSURLRequestReloadIgnoringLocalAndRemoteCacheData;
     
     NSURLConnection *connection = [[NSURLConnection alloc]
@@ -127,31 +127,39 @@ static JDNWorldCitySearcher *sharedWorldCitySearcher_;
 
 - (NSArray*)collectData {
     NSMutableArray *datas = [NSMutableArray array];
-    NSMutableString *xmlData = [[NSMutableString alloc] initWithString:@"<html>"];
-    NSRange form = [self.receivedString rangeOfString:@"<form name=\"cityform\">"];
-    [xmlData appendString:[self.receivedString substringFromIndex:form.location ]];
-    NSRange formEnd = [xmlData rangeOfString:@"</form>"];
-    NSString *finalXml = [xmlData substringToIndex:formEnd.location + formEnd.length ];
-    finalXml =  [finalXml stringByAppendingString:@"</html>"];
+    NSError         *err;
+    NSDictionary    *parseResult  = [NSJSONSerialization
+                                     JSONObjectWithData:self.receivedData
+                                     options:NSJSONReadingMutableContainers
+                                     error:&err];
     
-    NSArray *names = [ PerformHTMLXPathQuery( [finalXml dataUsingEncoding:4],@"//form/select/option" )  valueForKey:@"nodeContent"];
-    NSArray *urls = [[ PerformHTMLXPathQuery( [finalXml dataUsingEncoding:4],@"//form/select/option" )  valueForKey:@"nodeAttributeArray"] valueForKey:@"nodeContent"];
-    
-    if ( urls.count == 0 ){
-        return nil;
+    if (err){
+        [JDNClientHelper showError:err];
+        return datas;
     }
     
-    for (NSUInteger i=0; i < urls.count; i++) {
-        
-        NSRange isCity = [names[i] rangeOfString:@"("];
-        if ( isCity.location == NSNotFound) continue;
-        
-        JDNCity *data = [[JDNCity alloc] init];
-        NSString *url = [urls[i]lastObject];
-        data.name = names[i];
-        data.url = url;
-        data.isInItaly = NO;
-        [datas addObject:data];
+    for (NSDictionary *region in [[parseResult valueForKey:@"member"] allObjects]) {
+        @try{
+            
+            if ( !region ) continue;
+            if ( ![region isKindOfClass:[NSDictionary class] ] ||
+                 ![[region allKeys ] containsObject:@"city"]) continue;
+            
+            NSDictionary *cities = [region valueForKey:@"city"];
+            for (NSDictionary *city in cities){
+                NSString *cityName = [city valueForKey:@"cityName"];
+                NSNumber *cityId = [city valueForKey:@"cityId"];
+                JDNCity *data = [[JDNCity alloc] init];
+                NSString *url = [BASE_URL stringByAppendingFormat:@"%@", cityId];
+                data.name = cityName;
+                data.url = url;
+                data.isInItaly = NO;
+                [datas addObject:data];
+            }
+            
+        }@catch (NSException * e) {
+            NSLog(@"%@ - collectData Exception: %@", region, e);
+        }
     }
     return datas;
 }
