@@ -133,31 +133,30 @@
             
             NSDate *fDate = [df dateFromString: [forecastDay valueForKey:@"forecastDate"]];
             
-            dataMin.day = [JDNClientHelper capitalizeFirstCharOfString:
-                           [NSString stringWithFormat:@"%@, %@",
-                           [dayNameFormat stringFromDate:fDate],
-                           [dayFormat stringFromDate:fDate]]];
+            dataMin.day = [JDNClientHelper capitalizeFirstCharOfString: [NSString stringWithFormat:@"%@, %@",
+                                                                         [dayNameFormat stringFromDate:fDate],
+                                                                         [dayFormat stringFromDate:fDate]]];
             
-            dataMin.hourOfDay = @"01:00";
-            dataMin.temperature = dataMin.apparentTemperature =
-            [forecastDay valueForKey:@"minTemp"];
-            dataMin.forecast = [forecastDay valueForKey:@"weather"];
+            dataMin.hourOfDay    = @"01:00";
+            dataMin.temperature  = dataMin.apparentTemperature = [forecastDay valueForKey:@"minTemp"];
+            dataMin.forecast     = [forecastDay valueForKey:@"weather"];
             NSNumber *iconNumber = [forecastDay valueForKey:@"weatherIcon"];
             
             NSString *iconUriFragment = iconNumber.stringValue;
             iconUriFragment = [iconUriFragment substringWithRange:NSMakeRange(0, iconUriFragment.length-2)];
-            if ( iconUriFragment.length == 1 ) iconUriFragment = [@"0" stringByAppendingString:iconUriFragment];
+            if ( iconUriFragment.length == 1 ) {
+             iconUriFragment = [@"0" stringByAppendingString:iconUriFragment];
+            }
             
             dataMin.forecastImage = [WLD_BASE_URL
                                      stringByAppendingFormat:@"images/wxicon/pic%@.png", iconUriFragment];
             
             JDNDailyData *dataMax = [[JDNDailyData alloc] init];
-            dataMax.day =  dataMin.day;
-            dataMax.hourOfDay = @"13:00";
-            dataMax.temperature = dataMax.apparentTemperature =
-            [forecastDay valueForKey:@"maxTemp"];
-            dataMax.forecast = dataMin.forecast;
-            dataMax.forecastImage = dataMin.forecastImage;
+            dataMax.day             = dataMin.day;
+            dataMax.hourOfDay       = @"13:00";
+            dataMax.temperature     = dataMax.apparentTemperature = [forecastDay valueForKey:@"maxTemp"];
+            dataMax.forecast        = dataMin.forecast;
+            dataMax.forecastImage   = dataMin.forecastImage;
             
             [datas addObject:dataMin];
             [datas addObject:dataMax];
