@@ -38,11 +38,7 @@
 
 -(void)searchPlaceByText:(NSString*)textToSearch includeWorld:(BOOL)includeWorld withCompletion:(ArrayDataCallBack)completion {
 
-    NSMutableString *temp = [[NSMutableString alloc] initWithString:textToSearch];
-    [temp replaceOccurrencesOfString:@"'" withString:@"&#039;" options:NSLiteralSearch range:NSMakeRange(0, [textToSearch length])];
-    [temp replaceOccurrencesOfString:@" " withString:@"%20" options:NSLiteralSearch range:NSMakeRange(0, [textToSearch length])];
-    
-    NSString *text = [temp copy];
+    NSString *text = [textToSearch stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet alphanumericCharacterSet]];
     
     self.callback = completion;
     self.receivedData = [[NSMutableData alloc] init];

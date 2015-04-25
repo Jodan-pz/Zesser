@@ -42,7 +42,7 @@
         self.decoded = NO;
         
         //request permissions
-        [self performSelector:@selector(searchComplete:) withObject:NO afterDelay:60];
+        [self performSelector:@selector(searchComplete:) withObject:NO afterDelay:10];
         [self.locationManager startUpdatingLocation];
     }
 }
