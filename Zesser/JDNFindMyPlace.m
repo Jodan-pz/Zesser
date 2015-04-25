@@ -55,7 +55,7 @@
     /* Save the new location to an instance variable */
     self.lastUpdatedLocation = [locations lastObject];
     /* Refuse updates more than a minute old */
-    if (abs([self.lastUpdatedLocation.timestamp timeIntervalSinceNow]) > 60.0) {
+    if (fabs([self.lastUpdatedLocation.timestamp timeIntervalSinceNow]) > 60.0) {
         return;
     }
     
