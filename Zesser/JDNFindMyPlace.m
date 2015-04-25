@@ -36,8 +36,13 @@
             [self.delegate findMyPlaceDidFoundCurrentLocation:nil];
             return;
         }
+        
+        [self.locationManager requestAlwaysAuthorization];
+        
         self.decoded = NO;
-        [self performSelector:@selector(searchComplete:) withObject:NO afterDelay:10];
+        
+        //request permissions
+        [self performSelector:@selector(searchComplete:) withObject:NO afterDelay:60];
         [self.locationManager startUpdatingLocation];
     }
 }
