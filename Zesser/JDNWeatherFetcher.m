@@ -186,9 +186,21 @@
         return evaluatedObject != nil &&  [evaluatedObject class] != [NSNull class] ;
     }]] ;
     
-    NSArray *temperatures = [PerformHTMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],
+    NSArray *rainAndTemperatures = [PerformHTMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],
                                                    @"//table/tr/td[@class='previsioniRow']/strong" )
                              valueForKey:@"nodeContent"];
+    
+    
+    NSMutableArray *temperatures = [NSMutableArray array];
+    NSMutableArray *rain = [NSMutableArray array];
+    
+    for (int i=0; i<rainAndTemperatures.count; i++) {
+        if ( i%2 != 0 ){
+            [temperatures addObject: [rainAndTemperatures objectAtIndex:i ]];
+        }else{
+            [rain addObject: [rainAndTemperatures objectAtIndex:i ]];
+        }
+    }
     
     NSArray *forecastAndWindImage = [[PerformHTMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],
                                                             @"//table/tr/td[@class='previsioniRow']/img" )
