@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="aYY-Eg-Bpw">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="aYY-Eg-Bpw">
     <dependencies>
-        <deployment defaultVersion="1792" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <scenes>
-        <!--Cities Table View Controller - Zesser-->
+        <!--Zesser-->
         <scene sceneID="9bP-X0-37t">
             <objects>
                 <tableViewController id="L8l-KH-tDu" customClass="JDNCitiesTableViewController" sceneMemberID="viewController">
@@ -66,7 +66,7 @@
             </objects>
             <point key="canvasLocation" x="-2600" y="-593"/>
         </scene>
-        <!--City Search Table View Controller - Cerca località-->
+        <!--Cerca località-->
         <scene sceneID="U8R-oU-ZXy">
             <objects>
                 <tableViewController id="S2F-20-GIH" customClass="JDNCitySearchTableViewController" sceneMemberID="viewController">
@@ -124,7 +124,7 @@
             </objects>
             <point key="canvasLocation" x="-2008" y="-164"/>
         </scene>
-        <!--New City View Controller - Aggiungi-->
+        <!--Aggiungi-->
         <scene sceneID="vqr-74-Vxr">
             <objects>
                 <viewController id="MFE-ne-Vn9" customClass="JDNNewCityViewController" sceneMemberID="viewController">
@@ -227,10 +227,10 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="nwK-P3-D4b">
-                                            <rect key="frame" x="268" y="8" width="32" height="32"/>
+                                            <rect key="frame" x="240" y="11" width="32" height="32"/>
                                         </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="tgC-Cd-dkH">
-                                            <rect key="frame" x="215" y="8" width="32" height="32"/>
+                                            <rect key="frame" x="201" y="11" width="32" height="32"/>
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="12.00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZSd-zi-fag">
                                             <rect key="frame" x="20" y="8" width="69" height="32"/>
@@ -239,13 +239,13 @@
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="22°" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Aoa-wB-zsm">
-                                            <rect key="frame" x="89" y="8" width="54" height="32"/>
+                                            <rect key="frame" x="90" y="8" width="50" height="32"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(22°)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WeY-AN-Hrb">
-                                            <rect key="frame" x="153" y="8" width="54" height="32"/>
+                                            <rect key="frame" x="148" y="8" width="50" height="32"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -262,17 +262,21 @@
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="nR4-1n-pCn">
+                                            <rect key="frame" x="280" y="11" width="32" height="32"/>
+                                        </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.2067175258" green="0.42630244760000002" blue="0.68295338110000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="apparentTemperature" destination="WeY-AN-Hrb" id="6kU-q3-yYL"/>
                                     <outlet property="forecast" destination="DDm-g6-5g4" id="Csy-qp-y6I"/>
-                                    <outlet property="forecastImage" destination="nwK-P3-D4b" id="Wuz-oU-MPY"/>
+                                    <outlet property="forecastImage" destination="nR4-1n-pCn" id="iQ7-Mi-tli"/>
                                     <outlet property="hourOfDay" destination="ZSd-zi-fag" id="rvY-Ir-E1x"/>
+                                    <outlet property="rainShowers" destination="tgC-Cd-dkH" id="sMC-dJ-R6K"/>
                                     <outlet property="temperature" destination="Aoa-wB-zsm" id="h33-Y1-HPh"/>
                                     <outlet property="wind" destination="p9Z-xT-UaM" id="Q1b-c4-rly"/>
-                                    <outlet property="windImage" destination="tgC-Cd-dkH" id="OGl-oE-LbM"/>
+                                    <outlet property="windImage" destination="nwK-P3-D4b" id="zSA-Uw-PmB"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

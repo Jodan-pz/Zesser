@@ -55,6 +55,7 @@ static JDNSharedImages *sharedImages_;
 
 -(void)updateImageForView:(UIImageView*)aView andImage:(UIImage*)image{
     aView.image = nil;
+    aView.backgroundColor = [UIColor clearColor];
     [aView setNeedsLayout];
     aView.alpha = 0;
     aView.image = image;

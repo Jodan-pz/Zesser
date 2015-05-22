@@ -34,6 +34,49 @@
     self.forecast.text = dailyData.forecast;
     self.forecast.textColor = [UIColor colorWithRed:0.828 green:0.757 blue:0.941 alpha:1.000];
     self.wind.text = dailyData.wind;
+    
+    if ( dailyData.percentageRainfall ) {
+        if ([dailyData.percentageRainfall isEqualToString:@"-"]) {
+            [[JDNSharedImages sharedImages] updateImageForView:self.rainShowers
+                                                      andImage:nil];
+
+            return;
+        }
+        
+        UIImage *imgPerc =[JDNWeatherCell drawText:dailyData.percentageRainfall
+                                           inImage:[UIImage imageNamed:@"raindrop.png"]];
+        
+        [[JDNSharedImages sharedImages] updateImageForView:self.rainShowers
+                                                  andImage:imgPerc];
+    }
+    
+}
+
++(UIImage*) drawText:(NSString*) text
+             inImage:(UIImage*)  image {
+    
+    UIImage *myImage = image;
+    UIGraphicsBeginImageContext(myImage.size);
+    [myImage drawInRect:CGRectMake(0,0,myImage.size.width,myImage.size.height)];
+    UITextView *myText = [[UITextView alloc] init];
+    myText.font = [UIFont fontWithName:@"TrebuchetMS-Bold" size:10.0f];
+    myText.text = text;
+    
+    CGSize maximumLabelSize = CGSizeMake(myImage.size.width,myImage.size.height);
+    CGSize expectedLabelSize = [myText.text sizeWithFont:myText.font
+                                       constrainedToSize:maximumLabelSize
+                                           lineBreakMode:NSLineBreakByWordWrapping];
+    
+    myText.frame = CGRectMake((myImage.size.width / 2) - (expectedLabelSize.width / 2),
+                              (myImage.size.height / 2) - (expectedLabelSize.height / 3),
+                              myImage.size.width,
+                              myImage.size.height);
+    
+    [[UIColor blueColor] set];
+    [myText.text drawInRect:myText.frame withFont:myText.font];
+    UIImage *myNewImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return myNewImage;
 }
 
 @end

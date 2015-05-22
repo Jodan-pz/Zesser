@@ -137,8 +137,14 @@
         self.sumWeatherView.temperature.text = @"-";
     }
     
-    NSNumber *minTemp = [dailyData valueForKeyPath:@"@min.apparentTemperature.integerValue"];
-    NSNumber *maxTemp = [dailyData valueForKeyPath:@"@max.apparentTemperature.integerValue"];
+    NSArray *todayData = [dailyData filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(JDNDailyData *data, NSDictionary *bindings) {
+        return data.isToday;
+    }]];
+    
+    if ( todayData.count == 0) todayData = dailyData;
+    
+    NSNumber *minTemp = [todayData valueForKeyPath:@"@min.apparentTemperature.integerValue"];
+    NSNumber *maxTemp = [todayData valueForKeyPath:@"@max.apparentTemperature.integerValue"];
     
     self.sumWeatherView.minTemperature.text = [NSString stringWithFormat:@"%@°", minTemp];
     self.sumWeatherView.maxTemperature.text = [NSString stringWithFormat:@"%@°", maxTemp];

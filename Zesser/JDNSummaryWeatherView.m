@@ -15,7 +15,7 @@
     self = [super initWithFrame:frame];
 
     if (self) {
-        self.forecast = [[UILabel alloc] initWithFrame:CGRectMake(0, 4, frame.size.width, 19)];
+        self.forecast = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, frame.size.width, 19)];
         self.forecast.font = [UIFont systemFontOfSize:9.0];
         self.forecast.textColor = [UIColor colorWithRed:0.878 green:0.673 blue:0.926 alpha:1.000];
         

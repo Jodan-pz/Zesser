@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *forecastImage;
 @property (weak, nonatomic) IBOutlet UILabel *forecast;
 @property (weak, nonatomic) IBOutlet UILabel *wind;
+@property (weak, nonatomic) IBOutlet UIImageView *rainShowers;
 
 -(void)setupCellWithDailyData:(JDNDailyData*)dailyData;
 

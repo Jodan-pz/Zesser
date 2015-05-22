@@ -231,6 +231,7 @@
         JDNDailyData *data = datas[i];
         data.temperature = temperatures[i];
         data.apparentTemperature = appTemp[i];
+        data.percentageRainfall = rain[i];
     }
     return datas;
 }

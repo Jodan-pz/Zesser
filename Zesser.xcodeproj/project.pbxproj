@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		143104501B0FA57D00A2ED0B /* raindrop.png in Resources */ = {isa = PBXBuildFile; fileRef = 1431044F1B0FA57D00A2ED0B /* raindrop.png */; };
 		14349CBA176D9F8100F1FF28 /* JDNPlace.m in Sources */ = {isa = PBXBuildFile; fileRef = 14349CB9176D9F8100F1FF28 /* JDNPlace.m */; };
 		143AAC1117632820002C3D31 /* NSArray+LinqExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 143AAC0F17632820002C3D31 /* NSArray+LinqExtensions.m */; };
 		143AAC1217632820002C3D31 /* NSDictionary+LinqExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 143AAC1017632820002C3D31 /* NSDictionary+LinqExtensions.m */; };
@@ -48,6 +49,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1431044F1B0FA57D00A2ED0B /* raindrop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = raindrop.png; path = ../../../../../Downloads/raindrop.png; sourceTree = "<group>"; };
 		14349CB8176D9F8100F1FF28 /* JDNPlace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNPlace.h; sourceTree = "<group>"; };
 		14349CB9176D9F8100F1FF28 /* JDNPlace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNPlace.m; sourceTree = "<group>"; };
 		143AAC0D17632820002C3D31 /* NSArray+LinqExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+LinqExtensions.h"; path = "Zesser/NSArray+LinqExtensions.h"; sourceTree = "<group>"; };
@@ -298,6 +300,7 @@
 		CBD7107C1761D2CE00ACA525 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1431044F1B0FA57D00A2ED0B /* raindrop.png */,
 				CB26ACAC1761C57100070F8C /* Zesser.png */,
 				CB1F4E90176734C400ACD371 /* pin_28.png */,
 				CBD7107D1761D2DB00ACA525 /* info_64.png */,
@@ -364,6 +367,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				143104501B0FA57D00A2ED0B /* raindrop.png in Resources */,
 				CB9AB21A1766254600A74503 /* ZesserStoryboard.storyboard in Resources */,
 				CB615ED11754DF46004C1BA4 /* Default.png in Resources */,
 				CB615ED31754DF46004C1BA4 /* Default@2x.png in Resources */,

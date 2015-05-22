@@ -16,6 +16,7 @@
 @property (strong,nonatomic)            NSString *windImage;
 @property (strong,nonatomic)            NSString *temperature;
 @property (strong,nonatomic)            NSString *apparentTemperature;
+@property (strong,nonatomic)            NSString *percentageRainfall;
 @property (strong,nonatomic)            NSString *day;
 @property (strong,nonatomic)            NSString *hourOfDay;
 @property (strong,readonly,nonatomic)   NSString *shortDescription;

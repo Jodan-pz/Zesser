@@ -13,6 +13,7 @@
 #define KEY_WIND            @"KEY_WIND"
 #define KEY_WIND_IMAGE      @"KEY_WIND_IMAGE"
 #define KEY_TEMP            @"KEY_TEMP"
+#define KEY_PERC_RAINFALL   @"KEY_PERC_RAINFALL"
 #define KEY_APPTEMP         @"KEY_APPTEMP"
 #define KEY_DAY             @"KEY_DAY"
 #define KEY_DAYHOUR         @"KEY_DAYHOUR"
@@ -25,6 +26,7 @@
     [aCoder encodeObject:self.wind                  forKey:KEY_WIND];
     [aCoder encodeObject:self.windImage             forKey:KEY_WIND_IMAGE];
     [aCoder encodeObject:self.temperature           forKey:KEY_TEMP];
+    [aCoder encodeObject:self.percentageRainfall    forKey:KEY_PERC_RAINFALL];
     [aCoder encodeObject:self.apparentTemperature   forKey:KEY_APPTEMP];
     [aCoder encodeObject:self.day                   forKey:KEY_DAY];
     [aCoder encodeObject:self.hourOfDay             forKey:KEY_DAYHOUR];
@@ -36,6 +38,7 @@
     self.wind                   = [aDecoder decodeObjectForKey:KEY_WIND];
     self.windImage              = [aDecoder decodeObjectForKey:KEY_WIND_IMAGE];
     self.temperature            = [aDecoder decodeObjectForKey:KEY_TEMP];
+    self.percentageRainfall     = [aDecoder decodeObjectForKey:KEY_PERC_RAINFALL];
     self.apparentTemperature    = [aDecoder decodeObjectForKey:KEY_APPTEMP];
     self.day                    = [aDecoder decodeObjectForKey:KEY_DAY];
     self.hourOfDay              = [aDecoder decodeObjectForKey:KEY_DAYHOUR];

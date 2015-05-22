@@ -12,6 +12,7 @@
 @interface JDNSharedImages : NSObject
 
 -(void)setImageView:(UIImageView*)aView withUrl:(NSURL*)url;
+-(void)updateImageForView:(UIImageView*)aView andImage:(UIImage*)image;
 
 + (JDNSharedImages*)sharedImages;
 
