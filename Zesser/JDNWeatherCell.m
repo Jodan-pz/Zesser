@@ -43,7 +43,7 @@
             return;
         }
         
-        UIImage *imgPerc =[JDNWeatherCell drawText:dailyData.percentageRainfall
+        UIImage *imgPerc = [self drawText:dailyData.percentageRainfall
                                            inImage:[UIImage imageNamed:@"raindrop.png"]];
         
         [[JDNSharedImages sharedImages] updateImageForView:self.rainShowers
@@ -52,28 +52,48 @@
     
 }
 
-+(UIImage*) drawText:(NSString*) text
+-(CGSize)frameForText:(NSString*)text sizeWithFont:(UIFont*)font constrainedToSize:(CGSize)size lineBreakMode:(NSLineBreakMode)lineBreakMode  {
+    
+    NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
+    paragraphStyle.lineBreakMode = lineBreakMode;
+    
+    NSDictionary * attributes = @{NSFontAttributeName:font,
+                                  NSParagraphStyleAttributeName:paragraphStyle
+                                  };
+    
+    
+    CGRect textRect = [text boundingRectWithSize:size
+                                         options:NSStringDrawingUsesLineFragmentOrigin
+                                      attributes:attributes
+                                         context:nil];
+    return textRect.size;
+}
+
+-(UIImage*) drawText:(NSString*) text
              inImage:(UIImage*)  image {
     
-    UIImage *myImage = image;
-    UIGraphicsBeginImageContext(myImage.size);
-    [myImage drawInRect:CGRectMake(0,0,myImage.size.width,myImage.size.height)];
+    UIGraphicsBeginImageContext(image.size);
+    [image drawInRect:CGRectMake(0,0,image.size.width,image.size.height)];
+    
     UITextView *myText = [[UITextView alloc] init];
     myText.font = [UIFont fontWithName:@"TrebuchetMS-Bold" size:10.0f];
     myText.text = text;
     
-    CGSize maximumLabelSize = CGSizeMake(myImage.size.width,myImage.size.height);
-    CGSize expectedLabelSize = [myText.text sizeWithFont:myText.font
-                                       constrainedToSize:maximumLabelSize
-                                           lineBreakMode:NSLineBreakByWordWrapping];
+    NSDictionary *textAttributes = @{NSFontAttributeName: myText.font,
+                                     NSForegroundColorAttributeName:[UIColor blueColor]};
     
-    myText.frame = CGRectMake((myImage.size.width / 2) - (expectedLabelSize.width / 2),
-                              (myImage.size.height / 2) - (expectedLabelSize.height / 3),
-                              myImage.size.width,
-                              myImage.size.height);
+    CGSize maximumLabelSize = CGSizeMake(image.size.width,image.size.height);
+    CGSize expectedLabelSize = [self frameForText:myText.text
+                                     sizeWithFont:myText.font
+                                constrainedToSize:maximumLabelSize
+                                    lineBreakMode:NSLineBreakByWordWrapping];
     
-    [[UIColor blueColor] set];
-    [myText.text drawInRect:myText.frame withFont:myText.font];
+    myText.frame = CGRectMake((image.size.width / 2) - (expectedLabelSize.width / 2),
+                              (image.size.height / 2) - (expectedLabelSize.height / 3),
+                              image.size.width,
+                              image.size.height);
+    
+    [myText.text drawInRect:myText.frame withAttributes:textAttributes];
     UIImage *myNewImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return myNewImage;
