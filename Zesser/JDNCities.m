@@ -65,9 +65,12 @@ static JDNCities *sharedCities_;
 }
 
 -(void)removeDynamicCities{
-    JDNCity *first = self.cities[0];
+    JDNCity *first = nil;
+    if( self.cities.count > 0){
+        first =  self.cities[0];
+    }
     [self.mcities removeAllObjects];
-    if ( first.isFixed ){
+    if ( first && first.isFixed ){
         [self.mcities setValue:first forKey:first.key];
     }
 }

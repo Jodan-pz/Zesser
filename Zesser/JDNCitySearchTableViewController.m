@@ -10,6 +10,7 @@
 #import "JDNCitySearcher.h"
 #import "JDNCity.h"
 #import "JDNNewCityViewController.h"
+#import "JDNCityUrlSearcher.h"
 
 #define NAVIGATION_TINT_COLOR    [UIColor colorWithRed:0.075 green:0.000 blue:0.615 alpha:1.000]
 
@@ -174,7 +175,18 @@
 
 -(void)didAddedNewCity:(JDNCity *)newCity sender:(UIViewController *)sender{
     if ( self.delegate && newCity ){
-        [self.delegate didAddedNewCity:newCity sender:self];
+        
+        if ( [JDNClientHelper stringIsNilOrEmpty: newCity.url] ){
+            JDNCityUrlSearcher *urlSearch = [JDNCityUrlSearcher new];
+            [urlSearch searchCityUrlByText:newCity.name withCompletion:^(NSString *data) {
+                newCity.url = data;
+                [self.delegate didAddedNewCity:newCity sender:self];
+            }];
+        }else{
+            [self.delegate didAddedNewCity:newCity sender:self];
+        }
+        
+        
     }else{
         [sender.navigationController popViewControllerAnimated:YES];
     }

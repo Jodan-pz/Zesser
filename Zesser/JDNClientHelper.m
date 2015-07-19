@@ -74,6 +74,12 @@
     }
 }
 
++(BOOL)stringIsNilOrEmpty:(NSString*)aString {
+    if (!aString)
+        return YES;
+    return [aString isEqualToString:@""];
+}
+
 +(void)showMessage:(NSString*) message withTitle: (NSString*) title {
     UIAlertView *av = [[UIAlertView alloc] initWithTitle:title
                                                  message:message

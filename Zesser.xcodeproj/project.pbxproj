@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		143104501B0FA57D00A2ED0B /* raindrop.png in Resources */ = {isa = PBXBuildFile; fileRef = 1431044F1B0FA57D00A2ED0B /* raindrop.png */; };
 		14349CBA176D9F8100F1FF28 /* JDNPlace.m in Sources */ = {isa = PBXBuildFile; fileRef = 14349CB9176D9F8100F1FF28 /* JDNPlace.m */; };
 		143AAC1117632820002C3D31 /* NSArray+LinqExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 143AAC0F17632820002C3D31 /* NSArray+LinqExtensions.m */; };
 		143AAC1217632820002C3D31 /* NSDictionary+LinqExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 143AAC1017632820002C3D31 /* NSDictionary+LinqExtensions.m */; };
@@ -36,6 +35,8 @@
 		CB9BCC7617608DFE00996188 /* JDNCitiesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC7517608DFE00996188 /* JDNCitiesTableViewController.m */; };
 		CB9BCC7D17609FDE00996188 /* JDNWeatherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC7C17609FDE00996188 /* JDNWeatherCell.m */; };
 		CB9BCC801760B39900996188 /* JDNSharedImages.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC7F1760B39900996188 /* JDNSharedImages.m */; };
+		CBA76ED01B4AA45D00BF2AD7 /* raindrop.png in Resources */ = {isa = PBXBuildFile; fileRef = CBA76ECF1B4AA45D00BF2AD7 /* raindrop.png */; };
+		CBA76ED21B4AAE8900BF2AD7 /* JDNCityUrlSearcher.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA76ED11B4AAE8900BF2AD7 /* JDNCityUrlSearcher.m */; };
 		CBCAF3331769FE9B00B0C9FB /* JDNSummaryWeatherView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCAF32F1769FE9B00B0C9FB /* JDNSummaryWeatherView.m */; };
 		CBCAF3341769FE9B00B0C9FB /* JDNCurrentWeatherView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCAF3311769FE9B00B0C9FB /* JDNCurrentWeatherView.m */; };
 		CBCEED891772E8900086BC9F /* JDNWorldCitySearcher.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCEED881772E8900086BC9F /* JDNWorldCitySearcher.m */; };
@@ -49,7 +50,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1431044F1B0FA57D00A2ED0B /* raindrop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = raindrop.png; path = ../../../../../Downloads/raindrop.png; sourceTree = "<group>"; };
 		14349CB8176D9F8100F1FF28 /* JDNPlace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNPlace.h; sourceTree = "<group>"; };
 		14349CB9176D9F8100F1FF28 /* JDNPlace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNPlace.m; sourceTree = "<group>"; };
 		143AAC0D17632820002C3D31 /* NSArray+LinqExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+LinqExtensions.h"; path = "Zesser/NSArray+LinqExtensions.h"; sourceTree = "<group>"; };
@@ -99,6 +99,9 @@
 		CB9BCC7C17609FDE00996188 /* JDNWeatherCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNWeatherCell.m; sourceTree = "<group>"; };
 		CB9BCC7E1760B39900996188 /* JDNSharedImages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNSharedImages.h; sourceTree = "<group>"; };
 		CB9BCC7F1760B39900996188 /* JDNSharedImages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNSharedImages.m; sourceTree = "<group>"; };
+		CBA76ECF1B4AA45D00BF2AD7 /* raindrop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = raindrop.png; sourceTree = "<group>"; };
+		CBA76ED11B4AAE8900BF2AD7 /* JDNCityUrlSearcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNCityUrlSearcher.m; sourceTree = "<group>"; };
+		CBA76ED31B4AAEB300BF2AD7 /* JDNCityUrlSearcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JDNCityUrlSearcher.h; sourceTree = "<group>"; };
 		CBCAF32F1769FE9B00B0C9FB /* JDNSummaryWeatherView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNSummaryWeatherView.m; sourceTree = "<group>"; };
 		CBCAF3301769FE9B00B0C9FB /* JDNSummaryWeatherView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNSummaryWeatherView.h; sourceTree = "<group>"; };
 		CBCAF3311769FE9B00B0C9FB /* JDNCurrentWeatherView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNCurrentWeatherView.m; sourceTree = "<group>"; };
@@ -282,6 +285,8 @@
 				143AAC1417632E5D002C3D31 /* JDNCitySearcher.m */,
 				CBCEED871772E86B0086BC9F /* JDNWorldCitySearcher.h */,
 				CBCEED881772E8900086BC9F /* JDNWorldCitySearcher.m */,
+				CBA76ED31B4AAEB300BF2AD7 /* JDNCityUrlSearcher.h */,
+				CBA76ED11B4AAE8900BF2AD7 /* JDNCityUrlSearcher.m */,
 			);
 			name = City;
 			sourceTree = "<group>";
@@ -300,7 +305,7 @@
 		CBD7107C1761D2CE00ACA525 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				1431044F1B0FA57D00A2ED0B /* raindrop.png */,
+				CBA76ECF1B4AA45D00BF2AD7 /* raindrop.png */,
 				CB26ACAC1761C57100070F8C /* Zesser.png */,
 				CB1F4E90176734C400ACD371 /* pin_28.png */,
 				CBD7107D1761D2DB00ACA525 /* info_64.png */,
@@ -367,7 +372,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				143104501B0FA57D00A2ED0B /* raindrop.png in Resources */,
+				CBA76ED01B4AA45D00BF2AD7 /* raindrop.png in Resources */,
 				CB9AB21A1766254600A74503 /* ZesserStoryboard.storyboard in Resources */,
 				CB615ED11754DF46004C1BA4 /* Default.png in Resources */,
 				CB615ED31754DF46004C1BA4 /* Default@2x.png in Resources */,
@@ -404,6 +409,7 @@
 				143AAC1117632820002C3D31 /* NSArray+LinqExtensions.m in Sources */,
 				143AAC1217632820002C3D31 /* NSDictionary+LinqExtensions.m in Sources */,
 				143AAC1517632E5D002C3D31 /* JDNCitySearcher.m in Sources */,
+				CBA76ED21B4AAE8900BF2AD7 /* JDNCityUrlSearcher.m in Sources */,
 				CBE3290B1765CCA800526BC3 /* JDNCitySearchTableViewController.m in Sources */,
 				CB1F4E841767113B00ACD371 /* JDNFindMyPlace.m in Sources */,
 				CBCAF3331769FE9B00B0C9FB /* JDNSummaryWeatherView.m in Sources */,

@@ -62,7 +62,7 @@
     self.okButton.enabled = NO;
     NSString *a = [self.cityName.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *b = [self.url.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    self.okButton.enabled = a.length && b.length;
+    self.okButton.enabled = a.length /* && b.length*/;
 }
 
 - (IBAction)cityEditingChanged:(id)sender {

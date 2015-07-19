@@ -17,7 +17,7 @@
 +(void)unescapeMutableString:(NSMutableString*)string;
 +(void)configureTemperatureLayoutForLabel:(UILabel*)aView byValue:(NSInteger)value;
 +(void)showBezelMessage:(NSString*) message viewController:(UIViewController*)viewController;
-
++(BOOL)stringIsNilOrEmpty:(NSString*)aString;
 +(void)showMessage:(NSString*) message withTitle: (NSString*) title;
 +(void)showYesNo:(NSString*) message withTag:(NSInteger)tag delegate:(id)delegate;
 +(void)showInfo:(NSString*) message;

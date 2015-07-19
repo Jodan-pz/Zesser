@@ -25,7 +25,7 @@
 @implementation JDNCitySearcher
 
 #define BASE_URL          @"http://www.meteoam.it/"
-#define SRCH_URL BASE_URL @"/sites/all/block/ricerca_localita/request.php"
+#define SRCH_URL BASE_URL @"/ricerca_localita/autocomplete/"
 
 - (id)init
 {
@@ -46,21 +46,18 @@
     self.includeWorld = includeWorld;
     self.placeToFind = textToSearch;
     
-    NSData              *postData   = [[@"param=" stringByAppendingString: text ] dataUsingEncoding:NSUTF8StringEncoding];
-    NSString            *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
-
+    NSString *searchUrl = [SRCH_URL stringByAppendingString:text];
+    
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]
- 							 initWithURL: [NSURL URLWithString: SRCH_URL]
+ 							 initWithURL: [NSURL URLWithString: searchUrl]
  							 cachePolicy: NSURLRequestReloadIgnoringLocalCacheData
  							 timeoutInterval: 10
  							 ];
     
-    [request setHTTPMethod:@"POST"];
-    [request setValue:@"text"             forHTTPHeaderField:@"Data-Type"];
-    [request setValue:postLength          forHTTPHeaderField:@"Content-Length"];
- 
+    [request setHTTPMethod:@"GET"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"json"             forHTTPHeaderField:@"Data-Type"];
     request.cachePolicy = NSURLRequestReloadIgnoringLocalAndRemoteCacheData;
-    request.HTTPBody = postData;
     
     NSURLConnection *connection = [[NSURLConnection alloc]
  								   initWithRequest:request
@@ -85,10 +82,17 @@
 }
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection{
-    self.receivedString = [[NSString alloc] initWithData:self.receivedData
-                                                encoding:NSUTF8StringEncoding];
-
-    NSMutableArray *ret =  [NSMutableArray arrayWithArray:[self collectData]];
+    NSError         *err;
+    NSDictionary    *parseResult  = [NSJSONSerialization
+                                     JSONObjectWithData:self.receivedData
+                                     options:NSJSONReadingMutableContainers
+                                     error:&err];
+    if (err){
+        // avoid error messages of wrong json result parsing (maybe too fast...)
+        return;
+    }
+    
+    NSMutableArray *ret =  [NSMutableArray arrayWithArray:[self collectData:parseResult]];
     
     if (self.includeWorld){
         [self.worldCitySearcher searchPlaceByText:self.placeToFind withCompletion:^(NSArray *data) {
@@ -108,39 +112,16 @@
     }
 }
 
-- (NSArray*)collectData {
+- (NSArray*)collectData:(NSDictionary*)jsonData {
     NSMutableArray *datas = [NSMutableArray array];
-    NSMutableString *xmlData = [[NSMutableString alloc] initWithString:@"<root>"];
-    [xmlData appendString:self.receivedString];
-    [JDNClientHelper unescapeMutableString:xmlData];
-
-    // fix single quote error for href tag
-    xmlData = [[[xmlData stringByReplacingOccurrencesOfString:@"href='" withString:@"href=\""] stringByReplacingOccurrencesOfString:@"'>" withString:@"\">" ] mutableCopy];
-    
-    [xmlData appendString:@"</root>"];
-    
-    NSArray *urls = [[PerformXMLXPathQuery([xmlData dataUsingEncoding:NSUTF8StringEncoding],
-                                           @"/root/a[@class='link-localita']" )
-                      valueForKey:@"nodeAttributeArray"]
-                     valueForKey:@"nodeContent"];
-    
-    if ( urls.count == 0 ){
-        return nil;
-    }
-    
-    NSArray *names = [PerformXMLXPathQuery([xmlData dataUsingEncoding:NSUTF8StringEncoding],@"/root/a/div[@class='localita']" ) valueForKey:@"nodeContent"];
-    
-    for (NSUInteger i=0; i < urls.count; i++) {
+    NSArray *keys = jsonData.allKeys;
+    for (NSUInteger i=0; i < keys.count; i++){
         JDNCity *data = [[JDNCity alloc] init];
-        NSString *fullURL = [urls[i]lastObject];
-        NSRange range = [fullURL rangeOfString:@"/" options:NSBackwardsSearch];
-        NSString *url = [fullURL substringToIndex:range.location];
         data.isInItaly = YES;
-        data.name = names[i];
-        data.url = url;
+        data.name = [jsonData valueForKey: keys[i]];
         [datas addObject:data];
     }
-    return  datas; 
+    return  datas;
 }
 
 @end
