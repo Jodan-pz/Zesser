@@ -200,7 +200,7 @@
                            valueForKey:@"nodeChildArray"] valueForKey:@"nodeContent"];
     
     NSArray *dataSecond = [[PerformHTMLXPathQuery(pageData,
-                                                  [datePath stringByAppendingString:@"//tbody/tr/td/img"])
+                                                  [datePath stringByAppendingString:@"//tbody/tr/td/img[not(starts-with(@class,'icona'))]"])
                             valueForKey:@"nodeAttributeArray"]
                            valueForKey:@"nodeContent"];
     
@@ -225,7 +225,6 @@
         italyDailyData.temperature = dataFirst[i][4];
         italyDailyData.apparentTemperature = dataPercTemp[i];
         italyDailyData.percentageRainfall = dataFirst[i][3];
-        
         italyDailyData.forecast = dataSecond[i][1];
         italyDailyData.forecastImage = [ITA_BASE_URL stringByAppendingString:dataSecond[i][0]];
         
