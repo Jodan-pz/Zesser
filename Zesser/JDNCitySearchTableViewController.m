@@ -167,7 +167,7 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(JDNCity*)city{
     if( [segue.identifier isEqualToString:@"newCity"]){
         JDNNewCityViewController *newCityController = segue.destinationViewController;
-        newCityController.showUrl = NO;
+        newCityController.showUrl = YES;
         newCityController.city = city;
         newCityController.delegate = self;
     }
@@ -175,7 +175,9 @@
 
 -(void)didAddedNewCity:(JDNCity *)newCity sender:(UIViewController *)sender{
     if ( self.delegate && newCity ){
+        [self.delegate didAddedNewCity:newCity sender:self];
         
+        /*
         if ( [JDNClientHelper stringIsNilOrEmpty: newCity.url] ){
             JDNCityUrlSearcher *urlSearch = [JDNCityUrlSearcher new];
             [urlSearch searchCityUrlByText:newCity.name withCompletion:^(NSString *data) {
@@ -184,8 +186,7 @@
             }];
         }else{
             [self.delegate didAddedNewCity:newCity sender:self];
-        }
-        
+        }*/
         
     }else{
         [sender.navigationController popViewControllerAnimated:YES];
