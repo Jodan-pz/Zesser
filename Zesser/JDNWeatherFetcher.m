@@ -168,71 +168,86 @@
     return datas;
 }
 
+-(NSString*) formatItalyDate: (NSString*)ddMMyyyy{
+    NSDateFormatter *format         =   [[NSDateFormatter alloc] init];
+    [format setDateFormat:@"dd/MM/yyyy"];
+    NSDate      *currentDate                =   [format dateFromString:ddMMyyyy];
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay fromDate:currentDate];
+    format.dateFormat=@"EEEE";
+    NSString * dayString = [[format stringFromDate:currentDate] capitalizedString];
+    NSString *fmtDate = [@"" stringByAppendingFormat:@"%@, %i", dayString , [components day]];
+    return fmtDate;
+}
+
+-(NSArray*)collectItalyDataByDate: (NSString*)date {
+    NSData *pageData = [self.receivedString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSString *datePath = [[@"//div[@id='previsioni']//div[@id='"
+                           stringByAppendingString:date ]
+                          stringByAppendingString:@"']"];
+    /*
+    NSArray *divPrevisioni = PerformHTMLXPathQuery(pageData,
+                                                   @"//div[@id='previsioni']");
+    */
+    
+    NSString *dataDate = [PerformHTMLXPathQuery(pageData,
+                                                [datePath stringByAppendingString: @"//thead/tr/th[1]"]) valueForKey:@"nodeContent"] [0];
+
+    NSString *currentDate = [self formatItalyDate:dataDate];
+    
+    NSArray *dataFirst = [[PerformHTMLXPathQuery(pageData,
+                                                 [datePath stringByAppendingString:@"//tbody/tr"])
+                           valueForKey:@"nodeChildArray"] valueForKey:@"nodeContent"];
+    
+    NSArray *dataSecond = [[PerformHTMLXPathQuery(pageData,
+                                                  [datePath stringByAppendingString:@"//tbody/tr/td/img"])
+                            valueForKey:@"nodeAttributeArray"]
+                           valueForKey:@"nodeContent"];
+    
+    NSArray *dataPercTemp = [PerformHTMLXPathQuery(pageData,
+                                                   [datePath stringByAppendingString:@"//tbody/tr/td/span[@class='temperatura-percepita']"]) valueForKey:@"nodeContent"];
+    // add dot after 'vento' + '.png' !
+    // from css: sites/all/themes/meteoam/css/img-stile/vento-w.png
+    NSArray *dataWindImage = [[PerformHTMLXPathQuery(pageData,
+                                                     [datePath stringByAppendingString:@"//tbody/tr/td/span[starts-with(@class,'vento')]"]) valueForKey:@"nodeAttributeArray"] valueForKey:@"nodeContent"];
+    
+    NSArray *dataWindDesc = [[PerformHTMLXPathQuery(pageData,
+                                                    [datePath stringByAppendingString:@"//tbody/tr/td/span[starts-with(@class,'vento')]/span"])
+                              valueForKey:@"nodeAttributeArray"]
+                             valueForKey:@"nodeContent"] ;
+    
+    NSMutableArray *ret = [NSMutableArray arrayWithCapacity:dataFirst.count];
+    
+    for (int i=0; i < dataFirst.count; i++) {
+        JDNDailyData *italyDailyData = [[JDNDailyData alloc] init];
+        italyDailyData.day = currentDate;
+        italyDailyData.hourOfDay = dataFirst[i][0];
+        italyDailyData.temperature = dataFirst[i][4];
+        italyDailyData.apparentTemperature = dataPercTemp[i];
+        italyDailyData.percentageRainfall = dataFirst[i][3];
+        
+        italyDailyData.forecast = dataSecond[i][1];
+        italyDailyData.forecastImage = [ITA_BASE_URL stringByAppendingString:dataSecond[i][0]];
+        
+        italyDailyData.wind = dataWindDesc[i][1];
+        /*
+        NSString *windImage = @"vento-";
+        
+         italyDailyData.windImage = [ITA_BASE_URL stringByAppendingString: forecastAndWindImage[i][0]];
+        */
+        
+        
+        [ret addObject:italyDailyData];
+    }
+    
+    return  ret;
+}
+
 - (NSArray*)collectData {
-    NSMutableString *xmlData = [[NSMutableString alloc] initWithString:@"<table id=\""];
-    NSRange tab = [self.receivedString rangeOfString:@"previsioniOverlTable"];
-    [xmlData appendString:[self.receivedString substringFromIndex:tab.location ]];
-    NSRange tabEnd = [xmlData rangeOfString:@"</table>"];
-    
-    NSString *finalXml = [xmlData substringToIndex:tabEnd.location + tabEnd.length ];
-    finalXml = [JDNClientHelper unescapeString:finalXml];
-    // fix bad table column headers in source
-    finalXml = [finalXml stringByReplacingOccurrencesOfString:@"</th>" withString:@"</td>"];
-    finalXml = [finalXml stringByReplacingOccurrencesOfString:@"<BR>" withString:@" "];
-    
-    NSArray *daysHoursWind = [[PerformHTMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],
-                                                     @"//table/tr/td[@class='previsioniRow']" )
-                               valueForKey:@"nodeContent"] filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSString *evaluatedObject, NSDictionary *bindings) {
-        return evaluatedObject != nil &&  [evaluatedObject class] != [NSNull class] ;
-    }]] ;
-    
-    NSArray *rainAndTemperatures = [PerformHTMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],
-                                                   @"//table/tr/td[@class='previsioniRow']/strong" )
-                             valueForKey:@"nodeContent"];
-    
-    
-    NSMutableArray *temperatures = [NSMutableArray array];
-    NSMutableArray *rain = [NSMutableArray array];
-    
-    for (int i=0; i<rainAndTemperatures.count; i++) {
-        if ( i%2 != 0 ){
-            [temperatures addObject: [rainAndTemperatures objectAtIndex:i ]];
-        }else{
-            [rain addObject: [rainAndTemperatures objectAtIndex:i ]];
-        }
-    }
-    
-    NSArray *forecastAndWindImage = [[PerformHTMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],
-                                                            @"//table/tr/td[@class='previsioniRow']/img" )
-                                      valueForKey:@"nodeAttributeArray"] valueForKey:@"nodeContent"];
-    
-    NSArray *appTemp = [PerformHTMLXPathQuery([finalXml dataUsingEncoding:NSUTF8StringEncoding],
-                                              @"//table/tr/td[@class='previsioniRow']/div" )
-                        valueForKey:@"nodeContent"];
-    
     NSMutableArray *datas = [NSMutableArray arrayWithCapacity:5];
-    
-    for (NSUInteger i = 0; i < daysHoursWind.count; i+=3) {
-        JDNDailyData *data = [[JDNDailyData alloc] init];
-        data.day = daysHoursWind[i];
-        data.hourOfDay = daysHoursWind[i+1];
-        data.wind = daysHoursWind[i+2];
-        [datas addObject:data];
-    }
-    
-    for (NSUInteger a=0, i=0; i< forecastAndWindImage.count; a++, i+=2){
-        JDNDailyData *data = datas[a];
-        data.forecast = forecastAndWindImage[i][1];
-        data.forecastImage = [ITA_BASE_URL stringByAppendingString:forecastAndWindImage[i][0]];
-        data.windImage = [ITA_BASE_URL stringByAppendingString: forecastAndWindImage[i+1][0]];
-    }
-    
-    for (NSUInteger i=0; i < temperatures.count; i++) {
-        JDNDailyData *data = datas[i];
-        data.temperature = temperatures[i];
-        data.apparentTemperature = appTemp[i];
-        data.percentageRainfall = rain[i];
-    }
+    [datas addObjectsFromArray: [self collectItalyDataByDate:@"oggi"]];
+    [datas addObjectsFromArray: [self collectItalyDataByDate:@"domani"]];
+    [datas addObjectsFromArray: [self collectItalyDataByDate:@"tregiorni"]];
     return datas;
 }
 
