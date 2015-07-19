@@ -230,12 +230,12 @@
         italyDailyData.forecastImage = [ITA_BASE_URL stringByAppendingString:dataSecond[i][0]];
         
         italyDailyData.wind = dataWindDesc[i][1];
-        /*
-        NSString *windImage = @"vento-";
         
-         italyDailyData.windImage = [ITA_BASE_URL stringByAppendingString: forecastAndWindImage[i][0]];
-        */
+        NSString *windImage = dataWindImage[i][0];
         
+        NSString *temp = [windImage stringByReplacingOccurrencesOfString:@"vento"  withString:@""];
+        
+        italyDailyData.windImage = [ITA_BASE_URL stringByAppendingFormat:@"sites/all/themes/meteoam/css/img-stile/vento-%@.png", temp ];
         
         [ret addObject:italyDailyData];
     }
