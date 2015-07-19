@@ -100,7 +100,7 @@
                        }
                        place.locality = loc;
 
-                       NSLog(@"Place: (%@) - %@", place, placemark);
+                       NSLog(@"Place: (%@)", place);
                        
                        [self.delegate findMyPlaceDidFoundCurrentLocation:place];
                    }];
