@@ -14,7 +14,6 @@
 
 @interface JDNWeatherFetcher()<NSURLConnectionDataDelegate>
 
-@property (strong,nonatomic) NSString           *receivedString;
 @property (strong,nonatomic) NSMutableData      *receivedData;
 @property (strong,nonatomic) ArrayDataCallBack  callback;
 @property (nonatomic)        JDNCity            *city;
@@ -38,7 +37,6 @@
 -(void)fetchDailyDataForCity:(JDNCity *)city withCompletion:(ArrayDataCallBack)callback{
     self.callback = callback;
     self.receivedData = [[NSMutableData alloc] init];
-    self.receivedString = @"";
     self.city = city;
     
     NSURL *url = nil;
@@ -81,14 +79,6 @@
     NSArray *data = nil;
     @try{
         if ( self.city.isInItaly ){
-            self.receivedString = [[NSString alloc] initWithData:self.receivedData
-                                                        encoding:NSUTF8StringEncoding];
-            
-            if ( !self.receivedString ){
-                self.receivedString = [[NSString alloc] initWithData:self.receivedData
-                                                            encoding:NSASCIIStringEncoding];
-            }
-            
             data = [self collectData];
         }else{
             data = [self collectWorldData];
@@ -180,7 +170,7 @@
 }
 
 -(NSArray*)collectItalyDataByDate: (NSString*)date {
-    NSData *pageData = [self.receivedString dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *pageData = self.receivedData; // ] dataUsingEncoding:NSUTF8StringEncoding];
     
     NSString *datePath = [[@"//div[@id='previsioni']//div[@id='"
                            stringByAppendingString:date ]
@@ -227,14 +217,13 @@
         italyDailyData.percentageRainfall = dataFirst[i][3];
         italyDailyData.forecast = dataSecond[i][1];
         italyDailyData.forecastImage = [ITA_BASE_URL stringByAppendingString:dataSecond[i][0]];
-        
         italyDailyData.wind = dataWindDesc[i][1];
         
         NSString *windImage = dataWindImage[i][0];
-        
         NSString *temp = [windImage stringByReplacingOccurrencesOfString:@"vento"  withString:@""];
-        
-        italyDailyData.windImage = [ITA_BASE_URL stringByAppendingFormat:@"sites/all/themes/meteoam/css/img-stile/vento-%@.png", temp ];
+        italyDailyData.windImage = [ITA_BASE_URL
+                                    stringByAppendingFormat:
+                                    @"sites/all/themes/meteoam/css/img-stile/vento-%@.png", temp ];
         
         [ret addObject:italyDailyData];
     }
