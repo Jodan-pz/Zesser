@@ -35,6 +35,12 @@
 
 
 -(void)fetchDailyDataForCity:(JDNCity *)city withCompletion:(ArrayDataCallBack)callback{
+    
+    if ( [JDNClientHelper stringIsNilOrEmpty:city.url]){
+        if ( callback != nil ) callback(nil);
+        return;
+    }
+    
     self.callback = callback;
     self.receivedData = [[NSMutableData alloc] init];
     self.city = city;
