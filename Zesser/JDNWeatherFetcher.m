@@ -94,8 +94,8 @@
 -(NSArray*)collectWorldData{
     
     NSMutableArray *datas = [NSMutableArray arrayWithCapacity:5];
-    NSError         *err;
-    NSDictionary    *parseResult  = [NSJSONSerialization
+    NSError        *err;
+    NSDictionary   *parseResult  = [NSJSONSerialization
                                      JSONObjectWithData:self.receivedData
                                      options:NSJSONReadingMutableContainers
                                      error:&err];
@@ -159,13 +159,17 @@
 }
 
 -(NSString*) formatItalyDate: (NSString*)ddMMyyyy{
-    NSDateFormatter *format         =   [[NSDateFormatter alloc] init];
+    NSDateFormatter *format         = [[NSDateFormatter alloc] init];
     [format setDateFormat:@"dd/MM/yyyy"];
-    NSDate      *currentDate                =   [format dateFromString:ddMMyyyy];
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay fromDate:currentDate];
+    NSDate      *currentDate        = [format dateFromString:ddMMyyyy];
+    NSDateComponents *components    = [[NSCalendar currentCalendar]
+                                       components:NSCalendarUnitDay
+                                       fromDate:currentDate];
     format.dateFormat=@"EEEE";
-    NSString * dayString = [[format stringFromDate:currentDate] capitalizedString];
-    NSString *fmtDate = [@"" stringByAppendingFormat:@"%@, %li", dayString , (long)[components day]];
+    NSString *dayString             = [[format stringFromDate:currentDate] capitalizedString];
+    NSString *fmtDate               = [@"" stringByAppendingFormat:@"%@, %li",
+                                       dayString ,
+                                       (long)[components day]];
     return fmtDate;
 }
 
