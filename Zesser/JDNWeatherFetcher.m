@@ -165,7 +165,7 @@
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay fromDate:currentDate];
     format.dateFormat=@"EEEE";
     NSString * dayString = [[format stringFromDate:currentDate] capitalizedString];
-    NSString *fmtDate = [@"" stringByAppendingFormat:@"%@, %i", dayString , [components day]];
+    NSString *fmtDate = [@"" stringByAppendingFormat:@"%@, %li", dayString , (long)[components day]];
     return fmtDate;
 }
 
