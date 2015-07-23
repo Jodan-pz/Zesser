@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *temperature;
 @property (weak, nonatomic) IBOutlet UILabel *apparentTemperature;
 @property (weak, nonatomic) IBOutlet UIImageView *windImage;
+@property (weak, nonatomic) IBOutlet UILabel *windSpeed;
 @property (weak, nonatomic) IBOutlet UIImageView *forecastImage;
 @property (weak, nonatomic) IBOutlet UILabel *forecast;
 @property (weak, nonatomic) IBOutlet UILabel *wind;

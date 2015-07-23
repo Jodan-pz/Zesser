@@ -29,7 +29,12 @@
         self.apparentTemperature.text = @"-";
     }
     
+    self.windImage.layer.zPosition = 1;
+    self.windSpeed.text = dailyData.windSpeed;
+    self.windSpeed.layer.cornerRadius = 8.0;
+    
     [[JDNSharedImages sharedImages] setImageView:self.windImage withUrl:[NSURL URLWithString:dailyData.windImage]];
+    
     [[JDNSharedImages sharedImages] setImageView:self.forecastImage withUrl:[NSURL URLWithString:dailyData.forecastImage]];
     self.forecast.text = dailyData.forecast;
     self.forecast.textColor = [UIColor colorWithRed:0.828 green:0.757 blue:0.941 alpha:1.000];

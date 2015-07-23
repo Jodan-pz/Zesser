@@ -216,6 +216,9 @@
                               valueForKey:@"nodeAttributeArray"]
                              valueForKey:@"nodeContent"] ;
     
+    NSArray *dataWindSpeed = [PerformHTMLXPathQuery(pageData,
+                                                    [datePath stringByAppendingString:@"//tbody/tr/td/span[starts-with(@class,'vento')]/span"]) valueForKey:@"nodeContent"];
+    
     NSMutableArray *ret = [NSMutableArray arrayWithCapacity:dataFirst.count];
     
     for (int i=0; i < dataFirst.count; i++) {
@@ -241,7 +244,7 @@
         italyDailyData.windImage = [ITA_BASE_URL
                                     stringByAppendingFormat:
                                     @"sites/all/themes/meteoam/css/img-stile/vento-%@.png", windImageDirection ];
-        
+        italyDailyData.windSpeed = dataWindSpeed[i];
         [ret addObject:italyDailyData];
     }
     

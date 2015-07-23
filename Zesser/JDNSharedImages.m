@@ -34,13 +34,16 @@ static JDNSharedImages *sharedImages_;
 }
 
 -(void)setImageView:(UIImageView *)aView withUrl:(NSURL *)url{
-    UIImage *cachedImage = [self.images valueForKey:url.description];
+    UIImage *cachedImage = nil; //[self.images valueForKey:url.description];
     if (!cachedImage){
         dispatch_async( dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT , 0 ) , ^ {
-            NSData * data = [[NSData alloc] initWithContentsOfURL: url];
-            if ( data == nil )
-                return;
-            dispatch_async(dispatch_get_main_queue(), ^{
+            NSData *data = [[NSData alloc] initWithContentsOfURL: url];
+            dispatch_async(dispatch_get_main_queue(), ^{                
+                if ( data == nil ){
+                    [self updateImageForView:aView andImage:nil];
+                    return;
+                }
+                
                 UIImage *image = [UIImage imageWithData:data];
                 [self updateImageForView:aView andImage:image];
                 [self.images setValue:image forKey:url.description];
@@ -57,6 +60,7 @@ static JDNSharedImages *sharedImages_;
     aView.image = nil;
     aView.backgroundColor = [UIColor clearColor];
     [aView setNeedsLayout];
+    if ( image == nil ) return;
     aView.alpha = 0;
     aView.image = image;
     [UIView animateWithDuration:.5 animations:^{

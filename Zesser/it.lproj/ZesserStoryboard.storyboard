@@ -226,10 +226,10 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="76"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="nwK-P3-D4b">
-                                            <rect key="frame" x="240" y="11" width="32" height="32"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="nwK-P3-D4b" userLabel="Wind Speed Image">
+                                            <rect key="frame" x="260" y="31" width="9" height="9"/>
                                         </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="tgC-Cd-dkH">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="tgC-Cd-dkH" userLabel="Rainfalls Image">
                                             <rect key="frame" x="201" y="11" width="32" height="32"/>
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="12.00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZSd-zi-fag">
@@ -262,9 +262,16 @@
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="nR4-1n-pCn">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="nR4-1n-pCn" userLabel="Forecast Image">
                                             <rect key="frame" x="280" y="11" width="32" height="32"/>
                                         </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="12" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1gW-rW-vmM" userLabel="Wind Speed Text">
+                                            <rect key="frame" x="241" y="11" width="31" height="32"/>
+                                            <color key="backgroundColor" red="0.99510655079999999" green="1" blue="0.97931678020000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                            <color key="textColor" red="0.26848842779999998" green="0.59021376749999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.2067175258" green="0.42630244760000002" blue="0.68295338110000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -277,6 +284,7 @@
                                     <outlet property="temperature" destination="Aoa-wB-zsm" id="h33-Y1-HPh"/>
                                     <outlet property="wind" destination="p9Z-xT-UaM" id="Q1b-c4-rly"/>
                                     <outlet property="windImage" destination="nwK-P3-D4b" id="zSA-Uw-PmB"/>
+                                    <outlet property="windSpeed" destination="1gW-rW-vmM" id="XN2-pc-RcN"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
