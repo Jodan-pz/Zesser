@@ -240,11 +240,14 @@
         italyDailyData.wind = dataWindDesc[i][1];
         
         NSString *windImage = dataWindImage[i][0];
-        NSString *windImageDirection = [[windImage stringByReplacingOccurrencesOfString:@"vento"  withString:@""] lowercaseString];
-        italyDailyData.windImage = [ITA_BASE_URL
-                                    stringByAppendingFormat:
-                                    @"sites/all/themes/meteoam/css/img-stile/vento-%@.png", windImageDirection ];
-        italyDailyData.windSpeed = dataWindSpeed[i];
+        if ([windImage isEqualToString:@"ventoVariabile"] || [windImage isEqualToString:@"calmaDiVento"]){
+            windImage = @"";
+        }else{
+            NSString *windImageDirection = [[windImage stringByReplacingOccurrencesOfString:@"vento"  withString:@""] lowercaseString];
+            if (![windImageDirection isEqualToString:@"variabile"])
+                windImage = windImageDirection;
+        }
+        italyDailyData.windSpeed = [dataWindSpeed[i] stringByAppendingFormat:@" %@", windImage ];
         [ret addObject:italyDailyData];
     }
     

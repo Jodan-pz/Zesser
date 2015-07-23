@@ -29,11 +29,17 @@
         self.apparentTemperature.text = @"-";
     }
     
-    self.windImage.layer.zPosition = 1;
-    self.windSpeed.text = dailyData.windSpeed;
-    self.windSpeed.layer.cornerRadius = 8.0;
-    
-    [[JDNSharedImages sharedImages] setImageView:self.windImage withUrl:[NSURL URLWithString:dailyData.windImage]];
+    if ( [JDNClientHelper stringIsNilOrEmpty:dailyData.windSpeed]){
+        self.windSpeed.text = @"";
+        self.windSpeed.alpha = 0;
+        [[JDNSharedImages sharedImages] updateImageForView:self.windImage andImage:nil];
+    }else{
+        self.windSpeed.alpha = 1;
+        self.windImage.layer.zPosition = 1;
+        self.windSpeed.text = dailyData.windSpeed;
+        self.windSpeed.layer.cornerRadius = 8.0;
+        [[JDNSharedImages sharedImages] setImageView:self.windImage withUrl:[NSURL URLWithString:dailyData.windImage]];
+    }
     
     [[JDNSharedImages sharedImages] setImageView:self.forecastImage withUrl:[NSURL URLWithString:dailyData.forecastImage]];
     self.forecast.text = dailyData.forecast;
