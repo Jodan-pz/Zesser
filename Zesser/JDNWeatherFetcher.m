@@ -224,7 +224,8 @@
         italyDailyData.hourOfDay = dataFirst[i][0];
         italyDailyData.temperature = dataFirst[i][4];
         italyDailyData.apparentTemperature = dataPercTemp[i];
-        italyDailyData.percentageRainfall = dataFirst[i][3];
+        
+        italyDailyData.percentageRainfall =  [dataFirst[i][3] stringByReplacingOccurrencesOfString:@"%" withString:@""];
         italyDailyData.forecast = dataSecond[i][1];
         italyDailyData.forecastImage = [ITA_BASE_URL stringByAppendingString:dataSecond[i][0]];
         italyDailyData.wind = dataWindDesc[i][1];

@@ -60,9 +60,9 @@
 
 +(void)configureTemperatureLayoutForLabel:(UILabel*)aView byValue:(NSInteger)value{
     if ( value > 38 ){
-        aView.textColor = [UIColor colorWithRed:0.986 green:0.000 blue:0.029 alpha:1.000];
+        aView.textColor = [UIColor colorWithRed:1.000 green:0.391 blue:0.972 alpha:1.000];
     }else if ( value > 32 ){
-        aView.textColor = [UIColor orangeColor];
+        aView.textColor = [UIColor colorWithRed:1.000 green:0.651 blue:0.000 alpha:1.000];
     }else if ( value > 26 ){
         aView.textColor = [UIColor yellowColor];
     }else if( value > 22 ){
