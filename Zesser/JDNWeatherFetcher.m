@@ -227,14 +227,20 @@
         
         italyDailyData.percentageRainfall =  [dataFirst[i][3] stringByReplacingOccurrencesOfString:@"%" withString:@""];
         italyDailyData.forecast = dataSecond[i][1];
-        italyDailyData.forecastImage = [ITA_BASE_URL stringByAppendingString:dataSecond[i][0]];
+        
+        NSString *forecastImage = dataSecond[i][0];
+        if ( [forecastImage characterAtIndex:0] == '/'){
+            forecastImage = [forecastImage substringFromIndex:1]; // skip first if slash!
+        }
+        
+        italyDailyData.forecastImage = [ITA_BASE_URL stringByAppendingString:forecastImage];
         italyDailyData.wind = dataWindDesc[i][1];
         
         NSString *windImage = dataWindImage[i][0];
-        NSString *temp = [windImage stringByReplacingOccurrencesOfString:@"vento"  withString:@""];
+        NSString *windImageDirection = [[windImage stringByReplacingOccurrencesOfString:@"vento"  withString:@""] lowercaseString];
         italyDailyData.windImage = [ITA_BASE_URL
                                     stringByAppendingFormat:
-                                    @"sites/all/themes/meteoam/css/img-stile/vento-%@.png", temp ];
+                                    @"sites/all/themes/meteoam/css/img-stile/vento-%@.png", windImageDirection ];
         
         [ret addObject:italyDailyData];
     }
