@@ -163,8 +163,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    NSLog(@"%@", indexPath);
-    
     static NSString *CellIdentifier = @"Cell";
     
     JDNCity *city = self.reorderingRows[indexPath.row];

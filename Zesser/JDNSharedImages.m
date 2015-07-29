@@ -67,7 +67,6 @@ static JDNSharedImages *sharedImages_;
         });
     }else{
         if ( aView.image != cachedImage ){
-            NSLog(@"FROM CACHE: %@" , url.description);
             [self updateImageForView:aView andImage:cachedImage];
         }
     }
