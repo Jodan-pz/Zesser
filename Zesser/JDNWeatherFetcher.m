@@ -236,7 +236,9 @@
             forecastImage = [forecastImage substringFromIndex:1]; // skip first if slash!
         }
         
-        italyDailyData.forecastImage = [ITA_BASE_URL stringByAppendingString:forecastImage];
+        NSString *a = [NSString stringWithFormat:@"http://web.archive.org/web/20150703005656/%@", [ITA_BASE_URL stringByAppendingString:forecastImage] ];
+        
+        italyDailyData.forecastImage = a; //[ITA_BASE_URL stringByAppendingString:forecastImage];
         italyDailyData.wind = dataWindDesc[i][1];
         
         NSString *windImage = dataWindImage[i][0];

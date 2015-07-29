@@ -265,11 +265,18 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="nR4-1n-pCn" userLabel="Forecast Image">
                                             <rect key="frame" x="280" y="11" width="32" height="32"/>
                                         </imageView>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="12" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1gW-rW-vmM" userLabel="Wind Speed Text">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1gW-rW-vmM" userLabel="Wind Speed Text">
                                             <rect key="frame" x="241" y="11" width="31" height="32"/>
                                             <color key="backgroundColor" red="0.99510655079999999" green="1" blue="0.97931678020000001" alpha="1" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                            <color key="textColor" red="0.26848842779999998" green="0.59021376749999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <attributedString key="attributedText">
+                                                <fragment content="12 ne">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.26848842779999998" green="0.59021376749999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <font key="NSFont" size="12" name="HelveticaNeue"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                     </subviews>

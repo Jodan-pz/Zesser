@@ -11,6 +11,7 @@
 
 @interface JDNSharedImages()
 @property (strong, nonatomic) NSMutableDictionary *images;
+@property (strong, nonatomic) NSString            *path;
 @end
 
 @implementation JDNSharedImages
@@ -29,11 +30,25 @@ static JDNSharedImages *sharedImages_;
     self = [super init];
     if ( self ){
         self.images = [NSMutableDictionary dictionary];
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        self.path = [documentsDirectory stringByAppendingPathComponent:@"img-dat.plist"];
     }
     return self;
 }
 
+-(void)store{
+    [NSKeyedArchiver archiveRootObject:self.images toFile:self.path];
+}
+
+-(void)retrieve{
+    if ( [[NSFileManager new] fileExistsAtPath:self.path]){
+        self.images = [NSKeyedUnarchiver unarchiveObjectWithFile:self.path];
+    }
+}
+
 -(void)setImageView:(UIImageView *)aView withUrl:(NSURL *)url{
+    
     if ( url == nil ) {
         [self updateImageForView:aView andImage:nil];
         return;
@@ -43,14 +58,8 @@ static JDNSharedImages *sharedImages_;
     if ( !cachedImage ) {
         dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0), ^ {
             NSError *nserror = nil;
-            
-            [NSThread sleepForTimeInterval:1.0f];
-            
             NSData *data = [[NSData alloc] initWithContentsOfURL: url  options:NSDataReadingUncached error:&nserror];
-
             if (nserror) NSLog(@"%@", nserror.description);
-            
-            //NSLog(@"%@ (@%ui)" , url.description, data.length);
             UIImage *image  = nil;
             if ( data == nil ) image = nil; else image = [UIImage imageWithData:data];
             [self.images setValue:image forKey:url.description];
@@ -58,7 +67,7 @@ static JDNSharedImages *sharedImages_;
         });
     }else{
         if ( aView.image != cachedImage ){
-            NSLog(@"FROM CACHE: %@ (%lui)" , url.description, sizeof(cachedImage));
+            NSLog(@"FROM CACHE: %@" , url.description);
             [self updateImageForView:aView andImage:cachedImage];
         }
     }
@@ -68,11 +77,11 @@ static JDNSharedImages *sharedImages_;
     dispatch_async(dispatch_get_main_queue(), ^{
         aView.image = nil;
         aView.backgroundColor = [UIColor clearColor];
-        [aView setNeedsLayout];
-        [aView setNeedsDisplay];
-        if ( image == nil ) return;
         aView.alpha = 0;
         aView.image = image;
+        [aView setNeedsLayout];
+        
+        if ( image == nil ) return;
         [UIView animateWithDuration:.5 animations:^{
             aView.alpha = 1;
         }];

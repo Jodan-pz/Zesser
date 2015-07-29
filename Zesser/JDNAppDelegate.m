@@ -7,12 +7,15 @@
 //
 
 #import "JDNAppDelegate.h"
+#import "JDNSharedImages.h"
 
 @implementation JDNAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    [[JDNSharedImages sharedImages] retrieve];
+    
     return YES;
 }
 							
@@ -40,6 +43,8 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
+    [[JDNSharedImages sharedImages] store];
+    
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 

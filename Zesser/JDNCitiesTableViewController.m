@@ -117,7 +117,7 @@
     }
 }
 
--(void)configureCandEditButton{
+-(void)configureCanEditButton{
     NSArray *cities = [[JDNCities sharedCities] cities];
     if ( cities.count < 1 || ( cities.count == 1 && ((JDNCity*)cities[0]).isFixed ) ){
         self.navigationItem.leftBarButtonItem = nil;
@@ -142,6 +142,8 @@
     self.navigationItem.rightBarButtonItem = self.addCityButton;
     
     // first refresh data...
+    [self.refreshControl setAccessibilityIdentifier:@"boot"];
+    
     [self refreshData:self.refreshControl];
 }
 
@@ -150,7 +152,7 @@
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 
     self.navigationController.navigationBar.tintColor = NAVIGATION_TINT_COLOR;
-    [self configureCandEditButton];
+    [self configureCanEditButton];
 }
 
 #pragma mark - Table view data source
@@ -160,6 +162,9 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NSLog(@"%@", indexPath);
+    
     static NSString *CellIdentifier = @"Cell";
     
     JDNCity *city = self.reorderingRows[indexPath.row];
@@ -278,7 +283,7 @@
         self.refreshControl = self.citiesRefreshControl;
         self.navigationItem.rightBarButtonItem = self.addCityButton;
         self.navigationItem.leftBarButtonItem = self.editCitiesBarButtonItem;
-        [self configureCandEditButton];
+        [self configureCanEditButton];
     }
     else {
         [self.tableView setEditing:YES animated:YES];
@@ -342,7 +347,12 @@
         // update data source
         self.reorderingRows = [[[JDNCities sharedCities] cities] mutableCopy];
         
-        [self.tableView reloadData];
+        if ([self.refreshControl.accessibilityIdentifier  isEqualToString:@"boot"]) {
+            // if booting (first time) no need to reload! (avoid flickering)
+            [self.refreshControl setAccessibilityIdentifier:nil];
+        }else{
+            [self.tableView reloadData];
+        }
         
         self.isRefreshingData = NO;
         self.editCitiesBarButtonItem.enabled = self.addCityButton.enabled = YES;
