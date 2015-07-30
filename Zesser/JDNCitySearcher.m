@@ -113,6 +113,7 @@
 }
 
 - (NSArray*)collectData:(NSDictionary*)jsonData {
+    if (jsonData.count == 0) return nil;
     NSMutableArray *datas = [NSMutableArray array];
     NSArray *keys = jsonData.allKeys;
     for (NSUInteger i=0; i < keys.count; i++){

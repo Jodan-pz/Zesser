@@ -9,6 +9,7 @@
 #import "JDNNewCityViewController.h"
 #import "JDNCity.h"
 #import "JDNCities.h"
+#import "JDNCityUrlSearcher.h"
 
 @interface JDNNewCityViewController ()<UITextFieldDelegate>
 
@@ -95,12 +96,21 @@
     [self checkIfCanAddNewCity];
     if ( !self.showUrl ) [self hideUrl];
     if ( self.city ){
-        
         self.cityName.text = [self currentCityName];
         self.url.text = self.city.url;
         [self checkIfCanAddNewCity];
     }
     [self.cityName becomeFirstResponder];
+    
+    /*
+    if ( !self.city.url && self.city.isInItaly){
+        NSLog(@"Searching url...");
+        [[JDNCityUrlSearcher new] searchCityUrlByText:self.city.name withCompletion:^(NSString *data) {
+            NSLog(@"Found: %@", data);
+            self.url.text = self.city.url = data;
+            [self checkIfCanAddNewCity];
+        }];
+    }*/
 }
 
 @end
