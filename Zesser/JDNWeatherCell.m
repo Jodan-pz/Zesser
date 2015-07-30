@@ -37,7 +37,7 @@
         self.windSpeed.alpha = 1;
         self.windImage.layer.zPosition = 1;
         self.windSpeed.text = dailyData.windSpeed;
-        self.windSpeed.layer.cornerRadius = 8.0;
+        self.windSpeed.layer.cornerRadius = 12.0;
         [[JDNSharedImages sharedImages] setImageView:self.windImage withUrl:[NSURL URLWithString:dailyData.windImage]];
     }
     

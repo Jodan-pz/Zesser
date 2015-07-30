@@ -18,7 +18,7 @@
                         <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="2" indentationWidth="100" shouldIndentWhileEditing="NO" reuseIdentifier="Cell" rowHeight="82" id="7CY-mQ-s1J" customClass="JDNSimpleWeatherCell">
-                                <rect key="frame" x="0.0" y="22" width="320" height="82"/>
+                                <rect key="frame" x="0.0" y="86" width="320" height="82"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7CY-mQ-s1J" id="MHA-Fg-pYj">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="82"/>
@@ -224,7 +224,7 @@
                         <color key="separatorColor" red="0.6338234157" green="0.75786300689999997" blue="0.8901367188" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="77" id="n6m-6r-Ve2" customClass="JDNWeatherCell">
-                                <rect key="frame" x="0.0" y="22" width="320" height="77"/>
+                                <rect key="frame" x="0.0" y="86" width="320" height="77"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="n6m-6r-Ve2" id="xHG-Wf-Oz5">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="76"/>

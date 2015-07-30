@@ -245,11 +245,10 @@
         if ([windImage isEqualToString:@"ventoVariabile"] || [windImage isEqualToString:@"calmaDiVento"]){
             windImage = @"";
         }else{
-            NSString *windImageDirection = [[windImage stringByReplacingOccurrencesOfString:@"vento"  withString:@""] lowercaseString];
-            if (![windImageDirection isEqualToString:@"variabile"])
+            NSString *windImageDirection = [windImage stringByReplacingOccurrencesOfString:@"vento"  withString:@""];
                 windImage = windImageDirection;
         }
-        italyDailyData.windSpeed = [dataWindSpeed[i] stringByAppendingFormat:@" %@", windImage ];
+        italyDailyData.windSpeed = [dataWindSpeed[i] stringByAppendingFormat:@"\n%@", windImage ];
         [ret addObject:italyDailyData];
     }
     
