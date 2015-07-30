@@ -212,61 +212,61 @@
         <scene sceneID="123-Wn-uL5">
             <objects>
                 <tableViewController id="ccC-Tc-vuL" customClass="JDNWeatherTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="77" sectionHeaderHeight="22" sectionFooterHeight="22" id="RJP-Fl-E35">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="82" sectionHeaderHeight="22" sectionFooterHeight="22" id="RJP-Fl-E35">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.2067175258" green="0.42630244760000002" blue="0.68295338110000003" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="separatorColor" red="0.6338234157" green="0.75786300689999997" blue="0.8901367188" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="sectionIndexTrackingBackgroundColor" red="0.16862745583057404" green="0.40784317255020142" blue="0.69019609689712524" alpha="1" colorSpace="deviceRGB"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="77" id="n6m-6r-Ve2" customClass="JDNWeatherCell">
-                                <rect key="frame" x="0.0" y="86" width="320" height="77"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="82" id="n6m-6r-Ve2" customClass="JDNWeatherCell">
+                                <rect key="frame" x="0.0" y="86" width="320" height="82"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="n6m-6r-Ve2" id="1AV-YJ-bZP">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="76"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="81"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="nwK-P3-D4b" userLabel="Wind Speed Image">
-                                            <rect key="frame" x="260" y="31" width="9" height="9"/>
+                                            <rect key="frame" x="260" y="33" width="9" height="9"/>
                                         </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="tgC-Cd-dkH" userLabel="Rainfalls Image">
-                                            <rect key="frame" x="201" y="11" width="32" height="32"/>
+                                            <rect key="frame" x="201" y="12" width="32" height="32"/>
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="12.00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZSd-zi-fag">
-                                            <rect key="frame" x="20" y="8" width="69" height="32"/>
+                                            <rect key="frame" x="20" y="9" width="69" height="32"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="22°" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Aoa-wB-zsm">
-                                            <rect key="frame" x="90" y="8" width="50" height="32"/>
+                                            <rect key="frame" x="90" y="9" width="50" height="32"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(22°)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WeY-AN-Hrb">
-                                            <rect key="frame" x="148" y="8" width="50" height="32"/>
+                                            <rect key="frame" x="148" y="9" width="50" height="32"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Sereno" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DDm-g6-5g4">
-                                            <rect key="frame" x="20" y="38" width="280" height="21"/>
+                                            <rect key="frame" x="20" y="42" width="280" height="21"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Vento: a dx as s" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="p9Z-xT-UaM">
-                                            <rect key="frame" x="20" y="55" width="280" height="21"/>
+                                            <rect key="frame" x="20" y="60" width="280" height="21"/>
                                             <fontDescription key="fontDescription" type="italicSystem" pointSize="10"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="nR4-1n-pCn" userLabel="Forecast Image">
-                                            <rect key="frame" x="280" y="11" width="32" height="32"/>
+                                            <rect key="frame" x="280" y="12" width="32" height="32"/>
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1gW-rW-vmM" userLabel="Wind Speed Text">
-                                            <rect key="frame" x="241" y="11" width="31" height="32"/>
+                                            <rect key="frame" x="241" y="12" width="31" height="32"/>
                                             <color key="backgroundColor" red="0.99510655079999999" green="1" blue="0.97931678020000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <attributedString key="attributedText">
                                                 <fragment content="23  sw">
