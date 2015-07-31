@@ -12,6 +12,7 @@
 		143AAC1217632820002C3D31 /* NSDictionary+LinqExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 143AAC1017632820002C3D31 /* NSDictionary+LinqExtensions.m */; };
 		143AAC1517632E5D002C3D31 /* JDNCitySearcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 143AAC1417632E5D002C3D31 /* JDNCitySearcher.m */; };
 		143C766A1766398100918ED0 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 143C76691766398100918ED0 /* CoreLocation.framework */; };
+		146B70581B6C14BC00B514EA /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 146B70571B6C14BC00B514EA /* Settings.bundle */; };
 		CB0D0AE91B6B9A7400F14B91 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB0D0AE81B6B9A7400F14B91 /* Images.xcassets */; };
 		CB12347D175F79EA006F890E /* JDNWeatherTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB12347C175F79EA006F890E /* JDNWeatherTableViewController.m */; };
 		CB123481175F7DB3006F890E /* JDNWeatherFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = CB123480175F7DB3006F890E /* JDNWeatherFetcher.m */; };
@@ -37,7 +38,7 @@
 		CB9BCC7D17609FDE00996188 /* JDNWeatherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC7C17609FDE00996188 /* JDNWeatherCell.m */; };
 		CB9BCC801760B39900996188 /* JDNSharedImages.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BCC7F1760B39900996188 /* JDNSharedImages.m */; };
 		CBA76ED01B4AA45D00BF2AD7 /* raindrop.png in Resources */ = {isa = PBXBuildFile; fileRef = CBA76ECF1B4AA45D00BF2AD7 /* raindrop.png */; };
-		CBA76ED21B4AAE8900BF2AD7 /* JDNCityUrlSearcher.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA76ED11B4AAE8900BF2AD7 /* JDNCityUrlSearcher.m */; };
+		CBA76ED21B4AAE8900BF2AD7 /* JDNItalyCityUrlSearcher.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA76ED11B4AAE8900BF2AD7 /* JDNItalyCityUrlSearcher.m */; };
 		CBCAF3331769FE9B00B0C9FB /* JDNSummaryWeatherView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCAF32F1769FE9B00B0C9FB /* JDNSummaryWeatherView.m */; };
 		CBCAF3341769FE9B00B0C9FB /* JDNCurrentWeatherView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCAF3311769FE9B00B0C9FB /* JDNCurrentWeatherView.m */; };
 		CBCEED891772E8900086BC9F /* JDNWorldCitySearcher.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCEED881772E8900086BC9F /* JDNWorldCitySearcher.m */; };
@@ -60,6 +61,7 @@
 		143AAC1317632E5D002C3D31 /* JDNCitySearcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNCitySearcher.h; sourceTree = "<group>"; };
 		143AAC1417632E5D002C3D31 /* JDNCitySearcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNCitySearcher.m; sourceTree = "<group>"; };
 		143C76691766398100918ED0 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		146B70571B6C14BC00B514EA /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		CB0D0AE81B6B9A7400F14B91 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CB12347B175F79EA006F890E /* JDNWeatherTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNWeatherTableViewController.h; sourceTree = "<group>"; };
 		CB12347C175F79EA006F890E /* JDNWeatherTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNWeatherTableViewController.m; sourceTree = "<group>"; };
@@ -102,8 +104,8 @@
 		CB9BCC7E1760B39900996188 /* JDNSharedImages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNSharedImages.h; sourceTree = "<group>"; };
 		CB9BCC7F1760B39900996188 /* JDNSharedImages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNSharedImages.m; sourceTree = "<group>"; };
 		CBA76ECF1B4AA45D00BF2AD7 /* raindrop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = raindrop.png; sourceTree = "<group>"; };
-		CBA76ED11B4AAE8900BF2AD7 /* JDNCityUrlSearcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNCityUrlSearcher.m; sourceTree = "<group>"; };
-		CBA76ED31B4AAEB300BF2AD7 /* JDNCityUrlSearcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JDNCityUrlSearcher.h; sourceTree = "<group>"; };
+		CBA76ED11B4AAE8900BF2AD7 /* JDNItalyCityUrlSearcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNItalyCityUrlSearcher.m; sourceTree = "<group>"; };
+		CBA76ED31B4AAEB300BF2AD7 /* JDNItalyCityUrlSearcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JDNItalyCityUrlSearcher.h; sourceTree = "<group>"; };
 		CBCAF32F1769FE9B00B0C9FB /* JDNSummaryWeatherView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNSummaryWeatherView.m; sourceTree = "<group>"; };
 		CBCAF3301769FE9B00B0C9FB /* JDNSummaryWeatherView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNSummaryWeatherView.h; sourceTree = "<group>"; };
 		CBCAF3311769FE9B00B0C9FB /* JDNCurrentWeatherView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNCurrentWeatherView.m; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 		CB615EB21754DF46004C1BA4 = {
 			isa = PBXGroup;
 			children = (
+				146B70571B6C14BC00B514EA /* Settings.bundle */,
 				CB615EC41754DF46004C1BA4 /* Zesser */,
 				CB615EBD1754DF46004C1BA4 /* Frameworks */,
 				CB615EBC1754DF46004C1BA4 /* Products */,
@@ -288,8 +291,8 @@
 				143AAC1417632E5D002C3D31 /* JDNCitySearcher.m */,
 				CBCEED871772E86B0086BC9F /* JDNWorldCitySearcher.h */,
 				CBCEED881772E8900086BC9F /* JDNWorldCitySearcher.m */,
-				CBA76ED31B4AAEB300BF2AD7 /* JDNCityUrlSearcher.h */,
-				CBA76ED11B4AAE8900BF2AD7 /* JDNCityUrlSearcher.m */,
+				CBA76ED31B4AAEB300BF2AD7 /* JDNItalyCityUrlSearcher.h */,
+				CBA76ED11B4AAE8900BF2AD7 /* JDNItalyCityUrlSearcher.m */,
 			);
 			name = City;
 			sourceTree = "<group>";
@@ -384,6 +387,7 @@
 				CB26ACAD1761C57100070F8C /* Zesser.png in Resources */,
 				CBD7107E1761D2DB00ACA525 /* info_64.png in Resources */,
 				CB9455BF17661D3B00BB85B1 /* InfoPlist.strings in Resources */,
+				146B70581B6C14BC00B514EA /* Settings.bundle in Resources */,
 				CB1F4E91176734C400ACD371 /* pin_28.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -413,7 +417,7 @@
 				143AAC1117632820002C3D31 /* NSArray+LinqExtensions.m in Sources */,
 				143AAC1217632820002C3D31 /* NSDictionary+LinqExtensions.m in Sources */,
 				143AAC1517632E5D002C3D31 /* JDNCitySearcher.m in Sources */,
-				CBA76ED21B4AAE8900BF2AD7 /* JDNCityUrlSearcher.m in Sources */,
+				CBA76ED21B4AAE8900BF2AD7 /* JDNItalyCityUrlSearcher.m in Sources */,
 				CBE3290B1765CCA800526BC3 /* JDNCitySearchTableViewController.m in Sources */,
 				CB1F4E841767113B00ACD371 /* JDNFindMyPlace.m in Sources */,
 				CBCAF3331769FE9B00B0C9FB /* JDNSummaryWeatherView.m in Sources */,

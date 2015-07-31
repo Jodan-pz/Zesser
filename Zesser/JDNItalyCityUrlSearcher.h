@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface JDNCityUrlSearcher : NSObject
+@interface JDNItalyCityUrlSearcher : NSObject
 
 -(void)searchCityUrlByText:(NSString*)textToSearch withCompletion:(StringDataCallBack)completion;
 

@@ -22,6 +22,7 @@
 #import "JDNFindMyPlace.h"
 #import "JDNCitySearcher.h"
 #import "JDNPlace.h"
+#import "JDNItalyCityUrlSearcher.h"
 
 #define NAVIGATION_TINT_COLOR    [UIColor colorWithRed:0.075 green:0.000 blue:0.615 alpha:1.000]
 
@@ -383,22 +384,37 @@
                 firstFound = [data firstOrNil];
                 
                 if ( firstFound && [self isValidCityName:placeToFind withFullName:firstFound.name] ){
-                    [firstFound setFixed];
-                    [[JDNCities sharedCities] updateOrAddByOldCity:oldFixedCity andNewCity:firstFound];
-                    [[JDNCities sharedCities] write];
+                    [self setMyPlace:firstFound replacingOldFixedCity:oldFixedCity];
+                }else{
+                    self.refreshControl.accessibilityIdentifier = nil;
+                    [self finalizeRefreshAction];
                 }
-                self.refreshControl.accessibilityIdentifier = nil;
-                [self finalizeRefreshAction];
                 
             }];
         }else{
-            [firstFound setFixed];
-            [[JDNCities sharedCities] updateOrAddByOldCity:oldFixedCity andNewCity:firstFound];
-            [[JDNCities sharedCities] write];
-            self.refreshControl.accessibilityIdentifier = nil;
-            [self finalizeRefreshAction];
+            [self setMyPlace:firstFound replacingOldFixedCity:oldFixedCity];
         }
     }];
+}
+
+-(void) setMyPlace:(JDNCity *) city replacingOldFixedCity:(JDNCity*)oldFixedCity{
+    [city setFixed];
+    [[JDNCities sharedCities] updateOrAddByOldCity:oldFixedCity andNewCity:city];
+    [[JDNCities sharedCities] write];
+    
+    // try to fetch city url if italy (txxx glg!!!)
+    if ( city.isInItaly ){
+        JDNItalyCityUrlSearcher *urlSearch = [JDNItalyCityUrlSearcher new];
+        [urlSearch searchCityUrlByText:city.name
+                        withCompletion:^(NSString *data) {
+                            if (data) city.url = data;
+                            self.refreshControl.accessibilityIdentifier = nil;
+                            [self finalizeRefreshAction];
+                        }];
+    }else{
+        self.refreshControl.accessibilityIdentifier = nil;
+        [self finalizeRefreshAction];
+    }
 }
 
 -(BOOL) isValidCityName:(NSString*)name withFullName:(NSString*)fullName{

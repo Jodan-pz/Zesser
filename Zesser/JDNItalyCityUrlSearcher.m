@@ -6,15 +6,15 @@
 //  Copyright (c) 2015 Daniele Giove. All rights reserved.
 //
 
-#import "JDNCityUrlSearcher.h"
+#import "JDNItalyCityUrlSearcher.h"
 
-@interface JDNCityUrlSearcher()<NSURLConnectionDataDelegate>
+@interface JDNItalyCityUrlSearcher()<NSURLConnectionDataDelegate>
 @property (strong,nonatomic) NSMutableData          *receivedData;
 @property (strong,nonatomic) StringDataCallBack      callback;
 @end
 
 
-@implementation JDNCityUrlSearcher
+@implementation JDNItalyCityUrlSearcher
 
 #define SRCH_URL          @"http://ajax.googleapis.com/ajax/services/search/web?v=1.0&q="
 

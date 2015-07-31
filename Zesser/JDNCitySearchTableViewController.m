@@ -10,7 +10,6 @@
 #import "JDNCitySearcher.h"
 #import "JDNCity.h"
 #import "JDNNewCityViewController.h"
-#import "JDNCityUrlSearcher.h"
 
 #define NAVIGATION_TINT_COLOR    [UIColor colorWithRed:0.075 green:0.000 blue:0.615 alpha:1.000]
 
@@ -167,7 +166,8 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(JDNCity*)city{
     if( [segue.identifier isEqualToString:@"newCity"]){
         JDNNewCityViewController *newCityController = segue.destinationViewController;
-        newCityController.showUrl = NO;
+        newCityController.showUrl = NO || [[NSUserDefaults standardUserDefaults] boolForKey:@"canEditURL"];
+        
         newCityController.city = city;
         newCityController.delegate = self;
     }
