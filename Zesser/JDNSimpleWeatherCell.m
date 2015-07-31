@@ -125,6 +125,10 @@
     self.curWeatherView.temperature.text = [NSString stringWithFormat:@"%@°", nowData.apparentTemperature];
     [[JDNSharedImages sharedImages] setImageView:self.curWeatherView.forecastImage
                                          withUrl:[NSURL URLWithString:nowData.forecastImage]];
+    if ( !city.isInItaly){
+        self.curWeatherView.forecastImage.layer.cornerRadius = 5.0;
+        self.curWeatherView.forecastImage.clipsToBounds = YES;
+    }
     [JDNClientHelper configureTemperatureLayoutForLabel:self.curWeatherView.temperature
                                                 byValue:nowData.apparentTemperature.integerValue];
     

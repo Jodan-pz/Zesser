@@ -179,6 +179,12 @@
     if ( cell == nil){
         cell = [[JDNWeatherCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
     }
+    
+    if ( !self.city.isInItaly){
+        cell.forecastImage.layer.cornerRadius = 5.0;
+        cell.forecastImage.clipsToBounds = YES;
+    }
+    
     JDNDailyData *dailyData = [self.data valueForKey: self.sections[indexPath.section]][indexPath.row];
     [cell setupCellWithDailyData:dailyData];
     return cell;
