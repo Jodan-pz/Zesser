@@ -9,33 +9,38 @@
 #import "JDNCityUrlSearcher.h"
 
 @interface JDNCityUrlSearcher()<NSURLConnectionDataDelegate>
+@property (strong,nonatomic) NSMutableData          *receivedData;
 @property (strong,nonatomic) StringDataCallBack      callback;
 @end
 
 
 @implementation JDNCityUrlSearcher
 
-#define POST_URL          @"http://www.meteoam.it/node/675"
+#define SRCH_URL          @"http://ajax.googleapis.com/ajax/services/search/web?v=1.0&q="
 
 -(void)searchCityUrlByText:(NSString *)textToSearch withCompletion:(StringDataCallBack)completion{
+    if ( !completion ) return;
+    
     self.callback = completion;
     
-    NSData              *postData   = [[@"ricerca_localita=" stringByAppendingString: textToSearch ] dataUsingEncoding:NSUTF8StringEncoding];
-    NSString            *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
+    NSString *text = [textToSearch stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet alphanumericCharacterSet]];
+    
+    self.callback = completion;
+    self.receivedData = [[NSMutableData alloc] init];
+    
+    NSString *searchUrl = [SRCH_URL stringByAppendingFormat:@"meteoam%%20%@",text];
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]
-                                    initWithURL: [NSURL URLWithString: POST_URL]
+                                    initWithURL: [NSURL URLWithString: searchUrl]
                                     cachePolicy: NSURLRequestReloadIgnoringLocalCacheData
                                     timeoutInterval: 10
                                     ];
     
-    [request setHTTPMethod:@"POST"];
-    [request setValue:@"text"             forHTTPHeaderField:@"Data-Type"];
-    [request setValue:postLength          forHTTPHeaderField:@"Content-Length"];
-    
+    [request setHTTPMethod:@"GET"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"json"             forHTTPHeaderField:@"Data-Type"];
     request.cachePolicy = NSURLRequestReloadIgnoringLocalAndRemoteCacheData;
-    request.HTTPBody = postData;
-
+    
     NSURLConnection *connection = [[NSURLConnection alloc]
                                    initWithRequest:request
                                    delegate:self
@@ -44,7 +49,6 @@
         NSLog(@"connection failed :(");
         if ( completion ) completion( nil );
     }
-
 }
 
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
@@ -53,9 +57,33 @@
 }
 
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
-    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*) response;
-    NSString *location = [[httpResponse allHeaderFields ] valueForKey:@"Location"];
-    if ( self.callback ) self.callback( location );
+    self.receivedData.length = 0;
+}
+-(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data{
+    [self.receivedData appendData:data];
 }
 
+-(void)connectionDidFinishLoading:(NSURLConnection *)connection{
+    NSError         *err;
+    NSDictionary    *parseResult  = [NSJSONSerialization
+                                     JSONObjectWithData:self.receivedData
+                                     options:NSJSONReadingMutableContainers
+                                     error:&err];
+    
+    NSArray *urls = [parseResult[@"responseData"][@"results"] valueForKey:@"url"];
+    NSArray *found = [urls filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSString *evaluatedObject, NSDictionary *bindings) {
+        return [evaluatedObject rangeOfString:@"www.meteoam.it/ta/previsione/"].location != NSNotFound;
+    }]];
+    if ( found.count ) {
+        NSString *purl = [found firstObject];
+        NSRange idx = [purl rangeOfString:@"/ta"];
+        if ( idx.location != NSNotFound){
+            purl = [purl substringFromIndex:idx.location +1];
+        }
+        self.callback( purl );
+    }else{
+        self.callback( nil );
+    }
+    
+}
 @end

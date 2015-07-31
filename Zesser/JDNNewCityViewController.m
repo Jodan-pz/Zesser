@@ -51,8 +51,18 @@
         city.url = self.url.text;
         city.isInItaly = self.city.isInItaly;
         if  ([[JDNCities sharedCities] addCity:city] ){
-            [self.delegate didAddedNewCity:city
-                                    sender:self];
+            if ( city.isInItaly){
+                JDNCityUrlSearcher *urlSearch = [JDNCityUrlSearcher new];
+                [urlSearch searchCityUrlByText:city.name
+                                withCompletion:^(NSString *data) {
+                    city.url = data;
+                    [self.delegate didAddedNewCity:city
+                                            sender:self];
+                }];}
+            else{
+                [self.delegate didAddedNewCity:city
+                                        sender:self];
+            }
         }else{
             [JDNClientHelper showWarning:@"Il nome è già presente!"];
         }

@@ -13,7 +13,6 @@
 
 @interface JDNCitySearcher()<NSURLConnectionDataDelegate>
 
-@property (strong,nonatomic) NSString               *receivedString;
 @property (strong,nonatomic) NSMutableData          *receivedData;
 @property (strong,nonatomic) ArrayDataCallBack      callback;
 @property (strong,nonatomic) JDNWorldCitySearcher   *worldCitySearcher;
@@ -42,7 +41,6 @@
     
     self.callback = completion;
     self.receivedData = [[NSMutableData alloc] init];
-    self.receivedString = @"";
     self.includeWorld = includeWorld;
     self.placeToFind = textToSearch;
     

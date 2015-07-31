@@ -167,7 +167,7 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(JDNCity*)city{
     if( [segue.identifier isEqualToString:@"newCity"]){
         JDNNewCityViewController *newCityController = segue.destinationViewController;
-        newCityController.showUrl = city.isInItaly ? YES : NO;
+        newCityController.showUrl = NO;
         newCityController.city = city;
         newCityController.delegate = self;
     }
