@@ -54,9 +54,6 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
-    
-    NSLog(@"ACC %f" , self.lastUpdatedLocation.horizontalAccuracy);
-    
     /* Save the new location to an instance variable */
     self.lastUpdatedLocation = [locations lastObject];
     /* Refuse updates more than a minute old */
@@ -74,7 +71,6 @@
 
 
 -(void)searchComplete:(BOOL)fast {
-    NSLog(@"FINISHED! %@", fast?@"Y":@"N");
     [self.locationManager stopUpdatingLocation];
     // decode once a search-loop
     if ( self.decoded ) return;
@@ -99,9 +95,7 @@
                            loc = @"Pozzo D'Adda";
                        }
                        place.locality = loc;
-
                        NSLog(@"Place: (%@)", place);
-                       
                        [self.delegate findMyPlaceDidFoundCurrentLocation:place];
                    }];
 }

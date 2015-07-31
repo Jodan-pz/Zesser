@@ -387,6 +387,7 @@
                     [[JDNCities sharedCities] updateOrAddByOldCity:oldFixedCity andNewCity:firstFound];
                     [[JDNCities sharedCities] write];
                 }
+                self.refreshControl.accessibilityIdentifier = nil;
                 [self finalizeRefreshAction];
                 
             }];
@@ -394,6 +395,7 @@
             [firstFound setFixed];
             [[JDNCities sharedCities] updateOrAddByOldCity:oldFixedCity andNewCity:firstFound];
             [[JDNCities sharedCities] write];
+            self.refreshControl.accessibilityIdentifier = nil;
             [self finalizeRefreshAction];
         }
     }];

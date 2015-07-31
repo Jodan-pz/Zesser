@@ -246,9 +246,9 @@
             windImage = @"";
         }else{
             NSString *windImageDirection = [windImage stringByReplacingOccurrencesOfString:@"vento"  withString:@""];
-                windImage = windImageDirection;
+                windImage = [@"\n" stringByAppendingString:windImageDirection];
         }
-        italyDailyData.windSpeed = [dataWindSpeed[i] stringByAppendingFormat:@"\n%@", windImage ];
+        italyDailyData.windSpeed = [dataWindSpeed[i] stringByAppendingString:windImage];
         [ret addObject:italyDailyData];
     }
     

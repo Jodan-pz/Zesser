@@ -12,6 +12,7 @@
 		143AAC1217632820002C3D31 /* NSDictionary+LinqExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 143AAC1017632820002C3D31 /* NSDictionary+LinqExtensions.m */; };
 		143AAC1517632E5D002C3D31 /* JDNCitySearcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 143AAC1417632E5D002C3D31 /* JDNCitySearcher.m */; };
 		143C766A1766398100918ED0 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 143C76691766398100918ED0 /* CoreLocation.framework */; };
+		CB0D0AE91B6B9A7400F14B91 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB0D0AE81B6B9A7400F14B91 /* Images.xcassets */; };
 		CB12347D175F79EA006F890E /* JDNWeatherTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB12347C175F79EA006F890E /* JDNWeatherTableViewController.m */; };
 		CB123481175F7DB3006F890E /* JDNWeatherFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = CB123480175F7DB3006F890E /* JDNWeatherFetcher.m */; };
 		CB123484175F7DEF006F890E /* JDNDailyData.m in Sources */ = {isa = PBXBuildFile; fileRef = CB123483175F7DEF006F890E /* JDNDailyData.m */; };
@@ -59,6 +60,7 @@
 		143AAC1317632E5D002C3D31 /* JDNCitySearcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNCitySearcher.h; sourceTree = "<group>"; };
 		143AAC1417632E5D002C3D31 /* JDNCitySearcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNCitySearcher.m; sourceTree = "<group>"; };
 		143C76691766398100918ED0 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		CB0D0AE81B6B9A7400F14B91 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CB12347B175F79EA006F890E /* JDNWeatherTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNWeatherTableViewController.h; sourceTree = "<group>"; };
 		CB12347C175F79EA006F890E /* JDNWeatherTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNWeatherTableViewController.m; sourceTree = "<group>"; };
 		CB12347F175F7DB3006F890E /* JDNWeatherFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNWeatherFetcher.h; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 				14349CB8176D9F8100F1FF28 /* JDNPlace.h */,
 				14349CB9176D9F8100F1FF28 /* JDNPlace.m */,
 				CBD7107C1761D2CE00ACA525 /* Resources */,
+				CB0D0AE81B6B9A7400F14B91 /* Images.xcassets */,
 				CB615EC51754DF46004C1BA4 /* Supporting Files */,
 			);
 			path = Zesser;
@@ -373,6 +376,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CBA76ED01B4AA45D00BF2AD7 /* raindrop.png in Resources */,
+				CB0D0AE91B6B9A7400F14B91 /* Images.xcassets in Resources */,
 				CB9AB21A1766254600A74503 /* ZesserStoryboard.storyboard in Resources */,
 				CB615ED11754DF46004C1BA4 /* Default.png in Resources */,
 				CB615ED31754DF46004C1BA4 /* Default@2x.png in Resources */,
@@ -503,6 +507,8 @@
 		CB615EDF1754DF47004C1BA4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -520,6 +526,8 @@
 		CB615EE01754DF47004C1BA4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

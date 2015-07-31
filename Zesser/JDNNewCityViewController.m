@@ -101,16 +101,6 @@
         [self checkIfCanAddNewCity];
     }
     [self.cityName becomeFirstResponder];
-    
-    /*
-    if ( !self.city.url && self.city.isInItaly){
-        NSLog(@"Searching url...");
-        [[JDNCityUrlSearcher new] searchCityUrlByText:self.city.name withCompletion:^(NSString *data) {
-            NSLog(@"Found: %@", data);
-            self.url.text = self.city.url = data;
-            [self checkIfCanAddNewCity];
-        }];
-    }*/
 }
 
 @end
