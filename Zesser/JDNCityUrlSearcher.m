@@ -28,7 +28,7 @@
     self.callback = completion;
     self.receivedData = [[NSMutableData alloc] init];
     
-    NSString *searchUrl = [SRCH_URL stringByAppendingFormat:@"meteoam%%20%@",text];
+    NSString *searchUrl = [SRCH_URL stringByAppendingFormat:@"ammeteo.it%%20%@",text];
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]
                                     initWithURL: [NSURL URLWithString: searchUrl]

@@ -18,6 +18,7 @@
 @implementation JDNNewCityViewController
 
 -(void)hideUrl{
+    return;
     self.url.alpha = 0;
     self.urlLabel.alpha = 0;
     self.cityName.returnKeyType = UIReturnKeyDone;
@@ -51,18 +52,8 @@
         city.url = self.url.text;
         city.isInItaly = self.city.isInItaly;
         if  ([[JDNCities sharedCities] addCity:city] ){
-            if ( city.isInItaly){
-                JDNCityUrlSearcher *urlSearch = [JDNCityUrlSearcher new];
-                [urlSearch searchCityUrlByText:city.name
-                                withCompletion:^(NSString *data) {
-                    city.url = data;
-                    [self.delegate didAddedNewCity:city
-                                            sender:self];
-                }];}
-            else{
-                [self.delegate didAddedNewCity:city
-                                        sender:self];
-            }
+            [self.delegate didAddedNewCity:city
+                                    sender:self];
         }else{
             [JDNClientHelper showWarning:@"Il nome è già presente!"];
         }
@@ -111,6 +102,16 @@
         [self checkIfCanAddNewCity];
     }
     [self.cityName becomeFirstResponder];
+    
+    // try to fetch city url if italy (txxx glg!!!)
+    if ( self.city.isInItaly){
+        JDNCityUrlSearcher *urlSearch = [JDNCityUrlSearcher new];
+        [urlSearch searchCityUrlByText:self.city.name
+                        withCompletion:^(NSString *data) {
+                            self.url.text = self.city.url = data;
+                            [self checkIfCanAddNewCity];
+                        }];
+    }
 }
 
 @end
