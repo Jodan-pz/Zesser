@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @class JDNCity;
+@protocol JDNWeatherDataDelegate;
 
 @interface JDNWeatherTableViewController : UITableViewController
 
+@property (weak,nonatomic)   id<JDNWeatherDataDelegate> delegate;
 @property (strong,nonatomic) JDNCity *city;
 @property (strong,nonatomic) NSArray *currentDailyData;
 

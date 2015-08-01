@@ -12,6 +12,7 @@
 #import "JDNCity.h"
 #import "JDNWeatherCell.h"
 #import "NSArray+LinqExtensions.h"
+#import "JDNWeatherDataDelegate.h"
 
 #define SECTION_BACKGROUND_COLOR [UIColor colorWithRed:0.081 green:0.259 blue:0.504 alpha:1.000]
 #define SECTION_FOREGROUND_COLOR [UIColor colorWithRed:0.120 green:0.778 blue:0.769 alpha:1.000]
@@ -65,6 +66,7 @@
                     [[NSKeyedArchiver archivedDataWithRootObject:data] writeToFile:cachedData atomically:YES];
                     [self createSectionsWithData:data];
                     [self.tableView reloadData];
+                    [self.delegate weatherDataChangedForCity:self.city];
                     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
                     [formatter setDateFormat:@"d MMMM yyyy, HH:mm:ss"];
                     NSString *lastUpdated = [NSString stringWithFormat:@"Aggiornato al %@",

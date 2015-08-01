@@ -62,6 +62,7 @@
 		143AAC1417632E5D002C3D31 /* JDNCitySearcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNCitySearcher.m; sourceTree = "<group>"; };
 		143C76691766398100918ED0 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		146B70571B6C14BC00B514EA /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		1470C1521B6D20EF005DEDF2 /* JDNWeatherDataDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JDNWeatherDataDelegate.h; sourceTree = "<group>"; };
 		CB0D0AE81B6B9A7400F14B91 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CB12347B175F79EA006F890E /* JDNWeatherTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNWeatherTableViewController.h; sourceTree = "<group>"; };
 		CB12347C175F79EA006F890E /* JDNWeatherTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNWeatherTableViewController.m; sourceTree = "<group>"; };
@@ -238,6 +239,7 @@
 				CB12347E175F7B84006F890E /* Controllers */,
 				CB123485175F7E50006F890E /* Weather */,
 				CBE3290C1765D84E00526BC3 /* JDNAddCityDelegate.h */,
+				1470C1521B6D20EF005DEDF2 /* JDNWeatherDataDelegate.h */,
 				CB9BCC5B175F850400996188 /* JDNCommon.h */,
 				CB9BCC7E1760B39900996188 /* JDNSharedImages.h */,
 				CB9BCC7F1760B39900996188 /* JDNSharedImages.m */,

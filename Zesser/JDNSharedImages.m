@@ -48,7 +48,6 @@ static JDNSharedImages *sharedImages_;
 }
 
 -(void)setImageView:(UIImageView *)aView withUrl:(NSURL *)url{
-    
     if ( url == nil ) {
         [self updateImageForView:aView andImage:nil];
         return;

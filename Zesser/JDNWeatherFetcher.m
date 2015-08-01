@@ -82,23 +82,26 @@
 }
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection{
-    NSArray *data = nil;
-    @try{
-        if ( self.city.isInItaly ){
-            data = [self collectData];
-        }else{
-            data = [self collectWorldData];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSArray *data = nil;
+        @try{
+            if ( self.city.isInItaly ){
+                data = [self collectData];
+            }else{
+                data = [self collectWorldData];
+            }
+            
+        }@catch (NSException *ne) {
+            [JDNClientHelper showError:ne.description];
+        }@finally{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.callback( data );
+            });
         }
-        
-    }@catch (NSException *ne) {
-        [JDNClientHelper showError:ne.description];
-    }@finally{
-        self.callback( data );
-    }
+    });
 }
 
 -(NSArray*)collectWorldData{
-    
     NSMutableArray *datas = [NSMutableArray arrayWithCapacity:5];
     NSError        *err;
     NSDictionary   *parseResult  = [NSJSONSerialization

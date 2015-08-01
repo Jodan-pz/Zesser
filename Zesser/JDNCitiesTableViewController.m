@@ -23,10 +23,11 @@
 #import "JDNCitySearcher.h"
 #import "JDNPlace.h"
 #import "JDNItalyCityUrlSearcher.h"
+#import "JDNWeatherDataDelegate.h"
 
 #define NAVIGATION_TINT_COLOR    [UIColor colorWithRed:0.075 green:0.000 blue:0.615 alpha:1.000]
 
-@interface JDNCitiesTableViewController ()<JDNAddCityDelegate, JDNFindMyPlaceDelegate>
+@interface JDNCitiesTableViewController ()<JDNAddCityDelegate, JDNFindMyPlaceDelegate, JDNWeatherDataDelegate>
 
 @property (strong, nonatomic) UIBarButtonItem       *addCityButton;
 @property (strong, nonatomic) UIRefreshControl      *citiesRefreshControl;
@@ -38,6 +39,7 @@
 @property (strong, nonatomic) NSMutableDictionary   *currentDailyData;
 @property (strong, nonatomic) NSMutableArray        *reorderingRows;
 @property (atomic)            BOOL                  isRefreshingData;
+@property (strong, nonatomic) JDNCity               *cityToReload;
 
 @end
 
@@ -143,7 +145,7 @@
     self.navigationItem.rightBarButtonItem = self.addCityButton;
     
     // first refresh data...
-    [self.refreshControl setAccessibilityIdentifier:@"boot"];
+    [self.refreshControl setAccessibilityIdentifier:@"doNotReload"];
     
     [self refreshData:self.refreshControl];
 }
@@ -154,6 +156,18 @@
 
     self.navigationController.navigationBar.tintColor = NAVIGATION_TINT_COLOR;
     [self configureCanEditButton];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    if ( self.cityToReload ){
+        NSUInteger cityIndex = [self.reorderingRows indexOfObject:self.cityToReload];
+        JDNSimpleWeatherCell *cityCell = (JDNSimpleWeatherCell*) [self.tableView cellForRowAtIndexPath: [NSIndexPath indexPathForRow:cityIndex inSection:0]];
+        // remove from cache for reload!
+        [self.currentDailyData removeObjectForKey:self.cityToReload.name];
+        [self updateWeatherDataForCity:self.cityToReload inCell:cityCell];
+        self.cityToReload = nil;
+    }
+    
 }
 
 #pragma mark - Table view data source
@@ -302,6 +316,7 @@
             weatherController.city =  self.reorderingRows[indexPath.row];
         }
         weatherController.currentDailyData = self.currentDailyData[weatherController.city.name];
+        weatherController.delegate = self;
     } else if ( [segue.identifier isEqualToString:@"searchCity"]){
         UINavigationController *searchCityController = segue.destinationViewController;
         ((JDNCitySearchTableViewController*) searchCityController.topViewController).delegate = self;
@@ -315,6 +330,11 @@
             [self.tableView reloadData];
         }
     }];
+}
+
+-(void)weatherDataChangedForCity:(JDNCity *)city{
+    // reload city row...
+    self.cityToReload = city;
 }
 
 -(void)refreshData:(UIRefreshControl *)refresh {
@@ -346,8 +366,7 @@
         // update data source
         self.reorderingRows = [[[JDNCities sharedCities] cities] mutableCopy];
         
-        if ([self.refreshControl.accessibilityIdentifier  isEqualToString:@"boot"]) {
-            // if booting (first time) no need to reload! (avoid flickering)
+        if ([self.refreshControl.accessibilityIdentifier  isEqualToString:@"doNotReload"]) {
             [self.refreshControl setAccessibilityIdentifier:nil];
         }else{
             [self.tableView reloadData];
@@ -356,6 +375,16 @@
         self.isRefreshingData = NO;
         self.editCitiesBarButtonItem.enabled = self.addCityButton.enabled = YES;
     });
+}
+
+-(JDNCity*)matchExactCityName:(NSString*)name inArray:(NSArray*)data{
+    
+    NSArray *matches = [data filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(JDNCity *city, NSDictionary *bindings) {
+        return [self isValidCityName:name withFullName:city.name];
+    }]];
+    
+    return [matches firstObject];
+ //   || ![self isValidCityName:placeToFind withFullName:firstFound.name]
 }
 
 -(void)findMyPlaceDidFoundCurrentLocation:(JDNPlace *)place{
@@ -374,16 +403,18 @@
     __block JDNCity  *firstFound;
     
     [self.citySearcher searchPlaceByText:placeToFind includeWorld:NO withCompletion:^(NSArray *data) {
-        firstFound = [data firstOrNil];
         
-        if (!firstFound || ![self isValidCityName:placeToFind withFullName:firstFound.name]) {
+        // match exact name
+        firstFound = [self matchExactCityName:placeToFind inArray:data];
+        
+        if (!firstFound) {
         
             placeToFind = place.subAreaLocality;
             
             [self.citySearcher searchPlaceByText:placeToFind includeWorld:NO withCompletion:^(NSArray *data) {
                 firstFound = [data firstOrNil];
                 
-                if ( firstFound && [self isValidCityName:placeToFind withFullName:firstFound.name] ){
+                if ( firstFound ){
                     [self setMyPlace:firstFound replacingOldFixedCity:oldFixedCity];
                 }else{
                     self.refreshControl.accessibilityIdentifier = nil;
