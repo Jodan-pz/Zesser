@@ -24,7 +24,7 @@
 
 // grab from -> http://wwis.meteoam.it/it/sitemap.html
 
-#define COUNTRIES_URL      @"http://wwis.meteoam.it/it/json/Country_it.xml"
+#define COUNTRIES_URL      @"http://wwis.meteoam.it/it/json/Country_it.json"
 #define BASE_URL           @"it/json/"
 
 static JDNWorldCitySearcher *sharedWorldCitySearcher_;
@@ -148,7 +148,7 @@ static JDNWorldCitySearcher *sharedWorldCitySearcher_;
                 NSString *cityName = [city valueForKey:@"cityName"];
                 NSNumber *cityId = [city valueForKey:@"cityId"];
                 JDNCity *data = [[JDNCity alloc] init];
-                NSString *url = [BASE_URL stringByAppendingFormat:@"%@_it.xml", cityId];
+                NSString *url = [BASE_URL stringByAppendingFormat:@"%@_it.json", cityId];
                 data.name = cityName;
                 data.url = url;
                 data.isInItaly = NO;

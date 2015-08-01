@@ -49,7 +49,7 @@
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]
                                     initWithURL:url
-                                    cachePolicy: NSURLRequestReloadIgnoringLocalCacheData
+                                    cachePolicy: NSURLRequestReloadIgnoringCacheData
                                     timeoutInterval: 10
                                     ];
     
@@ -60,7 +60,6 @@
         url = [NSURL URLWithString: [WLD_BASE_URL stringByAppendingString:city.url]];
         [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
         [request setValue:@"json"             forHTTPHeaderField:@"Data-Type"];
-        request.cachePolicy = NSURLRequestReloadIgnoringLocalAndRemoteCacheData;
     }
     
     [request setURL:url];
@@ -74,9 +73,14 @@
  	}
 }
 
+-(NSCachedURLResponse *)connection:(NSURLConnection *)connection willCacheResponse:(NSCachedURLResponse *)cachedResponse{
+    return nil;
+}
+
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
     self.receivedData.length = 0;
 }
+
 -(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data{
     [self.receivedData appendData:data];
 }
@@ -139,6 +143,7 @@
             dataMin.hourOfDay    = @"01:00";
             dataMin.temperature  = dataMin.apparentTemperature = [forecastDay valueForKey:@"minTemp"];
             dataMin.forecast     = [forecastDay valueForKey:@"weather"];
+
             NSNumber *iconNumber = [forecastDay valueForKey:@"weatherIcon"];
             
             NSString *iconUriFragment = iconNumber.stringValue;
@@ -156,7 +161,7 @@
             dataMax.temperature     = dataMax.apparentTemperature = [forecastDay valueForKey:@"maxTemp"];
             dataMax.forecast        = dataMin.forecast;
             dataMax.forecastImage   = dataMin.forecastImage;
-            
+
             [datas addObject:dataMin];
             [datas addObject:dataMax];
         }
