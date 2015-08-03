@@ -392,7 +392,6 @@
 }
 
 -(JDNCity*)matchExactCityName:(NSString*)name inArray:(NSArray*)data{
-    
     NSArray *matches = [data filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(JDNCity *city, NSDictionary *bindings) {
         return [self isValidCityName:name withFullName:city.name];
     }]];
