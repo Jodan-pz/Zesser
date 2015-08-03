@@ -36,18 +36,11 @@
     }];
 }
 
--(NSString*)cachedDataFileName{
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *cachedData = [documentsDirectory stringByAppendingPathComponent: [self.city.name stringByAppendingString:@"_lres.dat"]];
-    return cachedData;
-}
-
 -(void)refreshData:(UIRefreshControl *)refresh {
     self.sections = nil;
     self.data = nil;
     
-    NSString *cachedData = [self cachedDataFileName];
+    NSString *cachedData = [JDNClientHelper cachedDataFileNameForCity:self.city];
     
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc]
                                         initWithString:@"Aggiornamento dati..."
@@ -129,8 +122,6 @@
     if ( self.currentDailyData ){
         if ( self.city ){
             self.title = self.city.name;
-            NSString *cachedData = [self cachedDataFileName];
-            [[NSKeyedArchiver archivedDataWithRootObject:self.currentDailyData] writeToFile:cachedData atomically:YES];
             [self createSectionsWithData:self.currentDailyData];
         }
     }else{

@@ -8,11 +8,20 @@
 
 #import "JDNClientHelper.h"
 #import <QuartzCore/QuartzCore.h>
+#import "JDNCity.h"
 
 #define VIEW_BKG_GRADIENT_FROM   [UIColor colorWithRed:0.075 green:0.000 blue:0.615 alpha:1.000]
 #define VIEW_BKG_GRADIENT_TO     [UIColor colorWithRed:0.703 green:0.000 blue:0.930 alpha:1.000]
 
 @implementation JDNClientHelper
+
++(NSString*)cachedDataFileNameForCity:(JDNCity*)city{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *cachedData = [documentsDirectory stringByAppendingPathComponent:
+                            [city.name stringByAppendingString:@"_lres.dat"]];
+    return cachedData;
+}
 
 //Blue gradient background
 + (CAGradientLayer*) blueGradient {

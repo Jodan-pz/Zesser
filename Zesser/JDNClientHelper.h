@@ -9,8 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 
+@class JDNCity;
+
 @interface JDNClientHelper : NSObject
 
++(NSString*)cachedDataFileNameForCity:(JDNCity*)city;
 + (CAGradientLayer*) blueGradient;
 +(NSString*)capitalizeFirstCharOfString:(NSString*)aString;
 +(NSString*)unescapeString:(NSString*)string;
