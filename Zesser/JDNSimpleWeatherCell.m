@@ -121,6 +121,8 @@
         nowData = dailyData[idx];
     }
     
+    if (!nowData) return;
+    
     // current view
     self.curWeatherView.temperature.text = [NSString stringWithFormat:@"%@°", nowData.apparentTemperature];
     [[JDNSharedImages sharedImages] setImageView:self.curWeatherView.forecastImage
