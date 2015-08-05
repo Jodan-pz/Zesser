@@ -181,7 +181,7 @@
                                        fromDate:currentDate];
     format.dateFormat=@"EEEE";
     NSString *dayString             = [[format stringFromDate:currentDate] capitalizedString];
-    NSString *fmtDate               = [@"" stringByAppendingFormat:@"%@, %li",
+    NSString *fmtDate               = [NSString stringWithFormat:@"%@, %li",
                                        dayString ,
                                        (long)[components day]];
     return fmtDate;
