@@ -84,8 +84,8 @@
     self.citiesRefreshControl.tintColor = REFRESH_TINT_COLOR;
     
     [self.citiesRefreshControl addTarget:self
-                              action:@selector(refreshData:)
-                    forControlEvents:UIControlEventValueChanged];
+                                  action:@selector(refreshData:)
+                        forControlEvents:UIControlEventValueChanged];
     
     self.addCityButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
                                                                        target:self
@@ -153,7 +153,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
-
+    
     self.navigationController.navigationBar.tintColor = NAVIGATION_TINT_COLOR;
     [self configureCanEditButton];
 }
@@ -167,7 +167,6 @@
         [self updateWeatherDataForCity:self.cityToReload inCell:cityCell];
         self.cityToReload = nil;
     }
-    
 }
 
 #pragma mark - Table view data source
@@ -212,31 +211,44 @@
 -(void)updateWeatherDataForCity: (JDNCity*)city inCell: (JDNSimpleWeatherCell*)cell {
     // check current daily (speedup)
     NSArray *data = [self.currentDailyData valueForKey:city.name];
-    if(data){
+    if( data ){
         [cell setupCellForCity:city withDailyData: data];
         return;
     }
-    
-    JDNWeatherFetcher *weatherFetcher =  [[JDNWeatherFetcher alloc] init];
+
+    // avoid check availability if fast (5secs) reloading...
     if( self.lastAvailableCheck &&
-        ((int)[[NSDate date] timeIntervalSinceDate:self.lastAvailableCheck] % 60) < 5 ){
-        [cell startLoadingData];
-        [weatherFetcher fetchDailyDataForCity:city withCompletion:^(NSArray *data) {
-            [cell setupCellForCity:city withDailyData: data];
-            [self.currentDailyData setValue:data forKey:city.name];
-        }];
+       ((int)[[NSDate date] timeIntervalSinceDate:self.lastAvailableCheck] % 60) < 5 ){
+        [self fetchDailyDataForCity:city inCell:cell];
     }else{
-        [weatherFetcher isAvailable:^(BOOL available) {
+        [[JDNWeatherFetcher new] isAvailable:^(BOOL available) {
             if ( available ){
                 self.lastAvailableCheck = [NSDate date];
-                [cell startLoadingData];
-                [weatherFetcher fetchDailyDataForCity:city withCompletion:^(NSArray *data) {
-                    [cell setupCellForCity:city withDailyData: data];
+                [self fetchDailyDataForCity:city inCell:cell];
+            }else{
+                // use cached data, if any...
+                NSString *cachedData = [JDNClientHelper cachedDataFileNameForCity:city];
+                if ( [[NSFileManager defaultManager] fileExistsAtPath:cachedData] ){
+                    NSArray *data =  [NSKeyedUnarchiver unarchiveObjectWithFile:cachedData];
+                    [cell setupCellForCity:city withDailyData:data];
                     [self.currentDailyData setValue:data forKey:city.name];
-                }];
+                }
             }
         }];
     }
+}
+
+-(void)fetchDailyDataForCity:(JDNCity*)city
+                      inCell:(JDNSimpleWeatherCell*)cell{
+    NSString *cachedData = [JDNClientHelper cachedDataFileNameForCity:city];
+    
+    JDNWeatherFetcher *weatherFetcher =  [[JDNWeatherFetcher alloc] init];
+    [cell startLoadingData];
+    [weatherFetcher fetchDailyDataForCity:city withCompletion:^(NSArray *data) {
+        [[NSKeyedArchiver archivedDataWithRootObject:data] writeToFile:cachedData atomically:YES];
+        [cell setupCellForCity:city withDailyData: data];
+        [self.currentDailyData setValue:data forKey:city.name];
+    }];
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -366,7 +378,7 @@
         // update data source
         self.reorderingRows = [[[JDNCities sharedCities] cities] mutableCopy];
         
-        if ([self.refreshControl.accessibilityIdentifier  isEqualToString:@"doNotReload"]) {
+        if ([self.refreshControl.accessibilityIdentifier isEqualToString:@"doNotReload"]) {
             [self.refreshControl setAccessibilityIdentifier:nil];
         }else{
             [self.tableView reloadData];
@@ -378,13 +390,12 @@
 }
 
 -(JDNCity*)matchExactCityName:(NSString*)name inArray:(NSArray*)data{
-    
     NSArray *matches = [data filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(JDNCity *city, NSDictionary *bindings) {
         return [self isValidCityName:name withFullName:city.name];
     }]];
     
     return [matches firstObject];
- //   || ![self isValidCityName:placeToFind withFullName:firstFound.name]
+    //   || ![self isValidCityName:placeToFind withFullName:firstFound.name]
 }
 
 -(void)findMyPlaceDidFoundCurrentLocation:(JDNPlace *)place{
@@ -392,7 +403,7 @@
         [self finalizeRefreshAction];
         return;
     }
-
+    
     if ( !self.citySearcher ){
         self.citySearcher = [[JDNCitySearcher alloc] init];
     }
@@ -408,7 +419,7 @@
         firstFound = [self matchExactCityName:placeToFind inArray:data];
         
         if (!firstFound) {
-        
+            
             placeToFind = place.subAreaLocality;
             
             [self.citySearcher searchPlaceByText:placeToFind includeWorld:NO withCompletion:^(NSArray *data) {

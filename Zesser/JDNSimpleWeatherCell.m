@@ -104,7 +104,7 @@
 -(void)setupCellForCity:(JDNCity*)city withDailyData:(NSArray*)dailyData{
     [[self loadingView] stopAnimating];
     if ( !dailyData || !dailyData.count ) return;
-    
+
     JDNDailyData *nowData = nil;
     
     if ( city.isInItaly ){
@@ -117,9 +117,11 @@
             }
             return NO;
         }];
-        if ( idx == NSNotFound) return;
+        if ( idx == NSNotFound ) return;
         nowData = dailyData[idx];
     }
+    
+    if (!nowData) return;
     
     // current view
     self.curWeatherView.temperature.text = [NSString stringWithFormat:@"%@°", nowData.apparentTemperature];
