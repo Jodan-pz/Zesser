@@ -23,7 +23,7 @@
     
     self.callback = completion;
     
-    NSString *text = [textToSearch stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet alphanumericCharacterSet]];
+    NSString *text = [textToSearch stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     self.callback = completion;
     self.receivedData = [[NSMutableData alloc] init];
