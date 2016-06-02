@@ -11,34 +11,32 @@
 @interface JDNItalyCityUrlSearcher()<NSURLConnectionDataDelegate>
 @property (strong,nonatomic) NSMutableData          *receivedData;
 @property (strong,nonatomic) StringDataCallBack      callback;
+@property (strong,nonatomic) NSString               *originalSearch;
 @end
 
 
 @implementation JDNItalyCityUrlSearcher
 
-#define SRCH_URL          @"http://ajax.googleapis.com/ajax/services/search/web?v=1.0&q="
+#define SRCH_URL          @"https://www.bing.com/search?q="
 
 -(void)searchCityUrlByText:(NSString *)textToSearch withCompletion:(StringDataCallBack)completion{
     if ( !completion ) return;
     
-    self.callback = completion;
-    
-    NSString *text = [textToSearch stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
+    self.originalSearch = textToSearch;
     self.callback = completion;
     self.receivedData = [[NSMutableData alloc] init];
     
-    NSString *searchUrl = [SRCH_URL stringByAppendingFormat:@"ammeteo.it%%20%@",text];
+    NSString *fullSearchUrl = [SRCH_URL stringByAppendingFormat:@"ammeteo.it %@ /ta/previsione/",textToSearch];
+    NSString *escapedUrl = [fullSearchUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]
-                                    initWithURL: [NSURL URLWithString: searchUrl]
+                                    initWithURL: [NSURL URLWithString: escapedUrl]
                                     cachePolicy: NSURLRequestReloadIgnoringLocalCacheData
                                     timeoutInterval: 10
                                     ];
     
     [request setHTTPMethod:@"GET"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [request setValue:@"json"             forHTTPHeaderField:@"Data-Type"];
+    [request setValue:@"text/html" forHTTPHeaderField:@"Accept"];
     request.cachePolicy = NSURLRequestReloadIgnoringLocalAndRemoteCacheData;
     
     NSURLConnection *connection = [[NSURLConnection alloc]
@@ -63,27 +61,60 @@
     [self.receivedData appendData:data];
 }
 
--(void)connectionDidFinishLoading:(NSURLConnection *)connection{
-    NSError         *err;
-    NSDictionary    *parseResult  = [NSJSONSerialization
-                                     JSONObjectWithData:self.receivedData
-                                     options:NSJSONReadingMutableContainers
-                                     error:&err];
+- (NSArray*)searchIn: (NSString*)source containingText: (NSString *)text {
+    NSMutableArray *ret = [NSMutableArray array];
     
-    NSArray *urls = [parseResult[@"responseData"][@"results"] valueForKey:@"url"];
-    NSArray *found = [urls filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSString *evaluatedObject, NSDictionary *bindings) {
-        return [evaluatedObject rangeOfString:@"www.meteoam.it/ta/previsione/"].location != NSNotFound;
-    }]];
-    if ( found.count ) {
-        NSString *purl = [found firstObject];
-        NSRange idx = [purl rangeOfString:@"/ta"];
-        if ( idx.location != NSNotFound){
-            purl = [purl substringFromIndex:idx.location +1];
+    // search all containing href="www.meteoam.it/ta/previsione"
+    NSRange idxStart;
+    
+    while ( (idxStart = [source rangeOfString:@"http://www.meteoam.it/ta/previsione/"]).location != NSNotFound  ){
+        NSRange idxEnd = [[source substringFromIndex:idxStart.location] rangeOfString:@"\""];
+        if ( idxEnd.location != NSNotFound){
+            NSString *found = [source substringWithRange:
+                               NSMakeRange(idxStart.location,idxEnd.location)];
+            [ret addObject: found];
+            
+            source = [source substringFromIndex: idxStart.location + idxEnd.location + 1];
+        }else{
+            break;
+            NSLog(@"Error closing match");
         }
-        self.callback( purl );
+    }
+    NSString *cleanSearch = self.originalSearch;
+    
+    NSRange toRemoveStart = [cleanSearch rangeOfString:@"("];
+    if ( toRemoveStart.location != NSNotFound){
+        cleanSearch = [cleanSearch substringToIndex:toRemoveStart.location-1];
+    }
+    
+    cleanSearch = [[[cleanSearch stringByReplacingOccurrencesOfString:@" " withString:@"_"] stringByReplacingOccurrencesOfString:@"'" withString:@"_"]
+                             stringByReplacingOccurrencesOfString:@"__" withString:@"_"];
+
+    cleanSearch = [cleanSearch stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    [ret filterUsingPredicate:
+     [NSPredicate predicateWithBlock:^BOOL(id  _Nonnull evaluatedObject,
+                                           NSDictionary<NSString *,id> * _Nullable bindings)
+      {return [[evaluatedObject lowercaseString] hasSuffix: [cleanSearch lowercaseString] ];}
+      ]];
+    
+    return ret;
+}
+
+-(void)connectionDidFinishLoading:(NSURLConnection *)connection{
+    NSString *resultHtml = [[NSString  alloc]
+                            initWithData: self.receivedData
+                            encoding:NSUTF8StringEncoding ];
+    NSArray *founds = [self searchIn:resultHtml containingText:self.originalSearch];
+    if ( founds.count ) {
+        NSString *url = [founds firstObject];
+        NSRange idx = [url rangeOfString:@"/ta"];
+        if ( idx.location != NSNotFound){
+            url = [url substringFromIndex:idx.location +1];
+        }
+        self.callback( url );
     }else{
         self.callback( nil );
     }
-    
 }
 @end
