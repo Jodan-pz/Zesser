@@ -148,7 +148,7 @@ static JDNWorldCitySearcher *sharedWorldCitySearcher_;
                 NSString *cityName = [city valueForKey:@"cityName"];
                 NSNumber *cityId = [city valueForKey:@"cityId"];
                 JDNCity *data = [[JDNCity alloc] init];
-                NSString *url = [BASE_URL stringByAppendingFormat:@"%@_it.json", cityId];
+                NSString *url = [BASE_URL stringByAppendingFormat:@"%@_it.xml", cityId]; // this file is always json but for some reason sometimes the json file (.json) request fails.
                 data.name = cityName;
                 data.url = url;
                 data.isInItaly = NO;
