@@ -32,7 +32,7 @@
 -(void)startSearchingCurrentLocation{
     if ( self.delegate ) {
         if ( ! [CLLocationManager locationServicesEnabled]  ||
-            ([CLLocationManager authorizationStatus] && [CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized ) ) {
+            ([CLLocationManager authorizationStatus] && [CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorizedAlways ) ) {
             [self.delegate findMyPlaceDidFoundCurrentLocation:nil];
             return;
         }
@@ -41,8 +41,7 @@
         
         self.decoded = NO;
         
-        //request permissions
-        [self performSelector:@selector(searchComplete:) withObject:NO afterDelay:10];
+        [self performSelector:@selector(searchComplete) withObject:nil afterDelay:10];
         [self.locationManager startUpdatingLocation];
     }
 }
@@ -65,12 +64,12 @@
     if (self.lastUpdatedLocation.horizontalAccuracy < 1000) {
         [NSObject cancelPreviousPerformRequestsWithTarget:self];
         /* And fire it manually instead */
-        [self searchComplete:YES];
+        [self searchComplete];
     }
 }
 
 
--(void)searchComplete:(BOOL)fast {
+-(void)searchComplete {
     [self.locationManager stopUpdatingLocation];
     // decode once a search-loop
     if ( self.decoded ) return;
