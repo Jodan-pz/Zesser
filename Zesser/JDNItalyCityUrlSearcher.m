@@ -76,8 +76,8 @@
             
             source = [source substringFromIndex: idxStart.location + idxEnd.location + 1];
         }else{
-            break;
             NSLog(@"Error closing match");
+            break;            
         }
     }
     NSString *cleanSearch = self.originalSearch;

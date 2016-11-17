@@ -52,7 +52,7 @@
     NSRange idx = [self.day rangeOfString:@","];
     if (idx.location == NSNotFound) return NO; // unable to evaluate
     NSInteger today = [[ self.day substringFromIndex:idx.location+1] integerValue];
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit fromDate:[NSDate date]];
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay fromDate:[NSDate date]];
     return [components day] == today;
 }
 
