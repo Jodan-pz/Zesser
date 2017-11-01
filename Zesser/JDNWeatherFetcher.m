@@ -148,12 +148,14 @@
             
             NSString *iconUriFragment = iconNumber.stringValue;
             iconUriFragment = [iconUriFragment substringWithRange:NSMakeRange(0, iconUriFragment.length-2)];
-            if ( iconUriFragment.length == 1 ) {
-             iconUriFragment = [@"0" stringByAppendingString:iconUriFragment];
+            /*if ( iconUriFragment.length == 1 ) {
+                iconUriFragment = [@"0" stringByAppendingString:iconUriFragment];
+            }*/
+            if ( iconNumber.intValue % 100 == 2 ){
+                iconUriFragment = [iconUriFragment stringByAppendingString:@"a"];
             }
-            
             dataMin.forecastImage = [WLD_BASE_URL
-                                     stringByAppendingFormat:@"images/wxicon/pic%@.png", iconUriFragment];
+                                     stringByAppendingFormat:@"images/%@.png", iconUriFragment];
             
             JDNDailyData *dataMax = [[JDNDailyData alloc] init];
             dataMax.day             = dataMin.day;
