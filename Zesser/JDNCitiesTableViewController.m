@@ -159,6 +159,7 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
     if ( self.cityToReload ){
         NSUInteger cityIndex = [self.reorderingRows indexOfObject:self.cityToReload];
         JDNSimpleWeatherCell *cityCell = (JDNSimpleWeatherCell*) [self.tableView cellForRowAtIndexPath: [NSIndexPath indexPathForRow:cityIndex inSection:0]];
