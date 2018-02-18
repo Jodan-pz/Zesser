@@ -43,7 +43,6 @@
 -(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data{
     self.callback(YES);
     [connection cancel];
-    connection = nil;
 }
 
 @end
