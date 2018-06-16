@@ -236,8 +236,12 @@
         italyDailyData.day = currentDate;
         italyDailyData.hourOfDay = dataFirst[i][0];
         italyDailyData.temperature = dataFirst[i][4];
-        italyDailyData.apparentTemperature = dataPercTemp[i];
         
+        if (dataPercTemp.count > 0)
+            italyDailyData.apparentTemperature = dataPercTemp[i];
+        else
+            italyDailyData.apparentTemperature = italyDailyData.temperature;
+
         italyDailyData.percentageRainfall =  [dataFirst[i][3] stringByReplacingOccurrencesOfString:@"%" withString:@""];
         italyDailyData.forecast = dataSecond[i][1];
         

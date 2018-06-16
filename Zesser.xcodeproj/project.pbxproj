@@ -63,6 +63,7 @@
 		143C76691766398100918ED0 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		146B70571B6C14BC00B514EA /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		1470C1521B6D20EF005DEDF2 /* JDNWeatherDataDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JDNWeatherDataDelegate.h; sourceTree = "<group>"; };
+		1499530920D4E437000C83E8 /* Test.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = Test.gpx; path = ../../../../Downloads/Test.gpx; sourceTree = "<group>"; };
 		CB0D0AE81B6B9A7400F14B91 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CB12347B175F79EA006F890E /* JDNWeatherTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDNWeatherTableViewController.h; sourceTree = "<group>"; };
 		CB12347C175F79EA006F890E /* JDNWeatherTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDNWeatherTableViewController.m; sourceTree = "<group>"; };
@@ -78,7 +79,7 @@
 		CB615EBE1754DF46004C1BA4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CB615EC01754DF46004C1BA4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CB615EC21754DF46004C1BA4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		CB615EC61754DF46004C1BA4 /* Zesser-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Zesser-Info.plist"; sourceTree = "<group>"; };
+		CB615EC61754DF46004C1BA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB615ECA1754DF46004C1BA4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CB615ECC1754DF46004C1BA4 /* Zesser-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Zesser-Prefix.pch"; sourceTree = "<group>"; };
 		CB615ECD1754DF46004C1BA4 /* JDNAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JDNAppDelegate.h; sourceTree = "<group>"; };
@@ -203,6 +204,7 @@
 		CB615EB21754DF46004C1BA4 = {
 			isa = PBXGroup;
 			children = (
+				1499530920D4E437000C83E8 /* Test.gpx */,
 				146B70571B6C14BC00B514EA /* Settings.bundle */,
 				CB615EC41754DF46004C1BA4 /* Zesser */,
 				CB615EBD1754DF46004C1BA4 /* Frameworks */,
@@ -263,7 +265,7 @@
 			children = (
 				CB615ECE1754DF46004C1BA4 /* JDNAppDelegate.m */,
 				CB615ECD1754DF46004C1BA4 /* JDNAppDelegate.h */,
-				CB615EC61754DF46004C1BA4 /* Zesser-Info.plist */,
+				CB615EC61754DF46004C1BA4 /* Info.plist */,
 				CB615ECA1754DF46004C1BA4 /* main.m */,
 				CB615ECC1754DF46004C1BA4 /* Zesser-Prefix.pch */,
 				CB615ED01754DF46004C1BA4 /* Default.png */,
@@ -545,7 +547,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Zesser/Zesser-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
-				INFOPLIST_FILE = "Zesser/Zesser-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Zesser/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pioneerinvestments.Zesser;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -567,7 +569,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Zesser/Zesser-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
-				INFOPLIST_FILE = "Zesser/Zesser-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Zesser/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pioneerinvestments.Zesser;
 				PRODUCT_NAME = "$(TARGET_NAME)";
