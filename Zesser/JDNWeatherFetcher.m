@@ -189,8 +189,16 @@
     return fmtDate;
 }
 
+-(NSData*)uncommentTempFromData {
+    NSString *asString =  [[NSString alloc] initWithData:self.receivedData encoding:NSUTF8StringEncoding];
+    NSString *newStr = [asString stringByReplacingOccurrencesOfString:@"<!-- <td><span class=\"temperatura-percepita\""
+                                                         withString:@"<td><span class=\"temperatura-percepita\""];
+
+    return [newStr dataUsingEncoding:NSUTF8StringEncoding];
+}
+
 -(NSArray*)collectItalyDataByDate: (NSString*)date {
-    NSData *pageData = self.receivedData; // ] dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *pageData = [self uncommentTempFromData];
     
     NSString *datePath = [[@"//div[@id='previsioni']//div[@id='"
                            stringByAppendingString:date ]
